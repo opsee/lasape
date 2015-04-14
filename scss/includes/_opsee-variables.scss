@@ -1,9 +1,27 @@
+//== Fonts
+//
 $font-family-sans-serif:  'Gotham SSm A','Gotham SSm B',sans-serif;
 $font-family-serif:       'Sentinel SSm A', 'Sentinel SSm B';
 $font-family-monospace:   'InconsolataMedium', monospace;
 $headings-font-family:    'Tungsten Rounded A', 'Tungsten Rounded B', sans-serif;
 $headings-font-weight:    500;
+$font-size-base:          16px;
 $btn-font-weight:         500;
-
 //THIS IS NOT A BOOTSTRAP VARIABLE
 $body-font-weight:        300;
+
+//== Colors
+//
+$body-bg:               #424242;
+$text-color:            #FFF;
+$brand-primary:         #738ffe;
+$brand-success:         #2baf2b;
+$brand-info:            #afbfff;
+$brand-warning:         #ffa726;
+$brand-danger:          #e84e40;
+
+//== Radii
+//
+$border-radius-base:        0;
+$border-radius-large:       0;
+$border-radius-small:       0;
