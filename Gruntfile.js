@@ -182,15 +182,12 @@ module.exports = function(grunt) {
           cssDir:'public/css/src',
           sassDir:'scss',
           imagesDir:'public/img',
-          // httpImagesPath:'../../img',
           fontsPath:'fonts',
           require:['breakpoint','sass-css-importer', 'compass-flexbox'],
           httpPath:'',
           relativeAssets:true,
-          raw: "sass_options = {:sourcemap => true}\n",
           noLineComments:true,
           outputStyle:'compact'
-          //raw:' --sourcemap\n'
         }
       }
     },

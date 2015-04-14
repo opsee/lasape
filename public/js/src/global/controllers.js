@@ -77,7 +77,7 @@ function config ($stateProvider, $urlRouterProvider) {
     .state('home', {
       url:'/',
       controller:'HomeController',
-      templateUrl:'public/js/src/global/views/home.html',
+      templateUrl:'/public/js/src/global/views/home.html',
     })
     .state('pre-welcome', {
       parent: 'app',

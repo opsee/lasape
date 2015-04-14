@@ -45,37 +45,37 @@ angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', Onboar
 function config ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('onboard', {
       url:'/',
-      templateUrl:'public/js/src/onboard/views/index.html',
+      templateUrl:'/public/js/src/onboard/views/index.html',
       controller:'OnboardCtrl'
     })
     .state('onboard.start', {
       url:'start',
       parent:'onboard',
-      templateUrl:'public/js/src/onboard/views/start.html',
+      templateUrl:'/public/js/src/onboard/views/start.html',
       controller:'OnboardStartCtrl'
     })
     .state('onboard.check', {
       url:'check',
       parent:'onboard',
-      templateUrl:'public/js/src/onboard/views/check.html',
+      templateUrl:'/public/js/src/onboard/views/check.html',
       controller:'OnboardCheckCtrl'
     })
     .state('onboard.tutorial', {
       url:'tutorial',
       parent:'onboard',
-      templateUrl:'public/js/src/onboard/views/tutorial.html',
+      templateUrl:'/public/js/src/onboard/views/tutorial.html',
       controller:'OnboardTutorialCtrl'
     })
     .state('onboard.password', {
       url:'password',
       parent:'onboard',
-      templateUrl:'public/js/src/onboard/views/password.html',
+      templateUrl:'/public/js/src/onboard/views/password.html',
       controller:'OnboardPasswordCtrl'
     })
     .state('onboard.team', {
       url:'team',
       parent:'onboard',
-      templateUrl:'public/js/src/onboard/views/team.html',
+      templateUrl:'/public/js/src/onboard/views/team.html',
       controller:'OnboardTeamCtrl'
     })
   }

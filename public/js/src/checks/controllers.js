@@ -2,7 +2,8 @@
 
 angular.module('opsee.checks.controllers', ['opsee.checks.services']);
 
-function ChecksCtrl($scope){
+function ChecksCtrl($scope, $state){
+  $state.go('checks.home');
 }
 angular.module('opsee.checks.controllers').controller('ChecksCtrl', ChecksCtrl);
 
@@ -12,14 +13,14 @@ angular.module('opsee.checks.controllers').controller('ChecksHomeCtrl', ChecksHo
 
 function config ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('checks', {
-      // url:'checks',
-      templateUrl:'public/js/src/checks/views/index.html',
+      url:'/checks',
+      templateUrl:'/public/js/src/checks/views/index.html',
       controller:'ChecksCtrl'
     })
     .state('checks.home', {
-      url:'checks',
+      // url:'/start',
       parent:'checks',
-      templateUrl:'public/js/src/checks/views/start.html',
+      templateUrl:'/public/js/src/checks/views/start.html',
       controller:'ChecksHomeCtrl'
     })
   }
