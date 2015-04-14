@@ -44,8 +44,7 @@ angular.module('opsee.global', ['opsee.global.controllers', 'opsee.global.direct
  * }
  * ```
  */
-angular.module('ngPageTitle', ['ngRoute'])
-.provider('$pageTitle', function() {
+ function $pageTitle(){
   var defaultTitle, base = '', suffix = '';
 
   this.setBase = function(value){
@@ -70,7 +69,7 @@ angular.module('ngPageTitle', ['ngRoute'])
    *  - $pageTitle.get()
    *  - $pageTitle.set(value)
    */
-  function PageTitleService($rootScope, $window, $routeParams) {
+  function PageTitleService($rootScope, $window, $routeParams, $state) {
     var _currentTitle;
 
     /**
@@ -101,14 +100,14 @@ angular.module('ngPageTitle', ['ngRoute'])
     }
 
     // Bind to angular route system.
-    $rootScope.$on('$routeChangeSuccess', function(event, route) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams) {
       var _pageTitle;
-      if (route && angular.isDefined(route.$$route)) {
-        if(typeof route.$$route.pageTitle == 'function'){
-          _pageTitle = route.$$route.pageTitle($routeParams);
+      if(toState && angular.isDefined(toState.name)){
+        if(typeof toState.title == 'function'){
+          _pageTitle = toState.title();
         }else{
-          _pageTitle = route.$$route.pageTitle || null;
-        }
+          _pageTitle = toState.title || null;
+        }  
       }
       _set(_pageTitle);
     });
@@ -120,4 +119,5 @@ angular.module('ngPageTitle', ['ngRoute'])
   }
 
   this.$get = ['$rootScope', '$window', '$routeParams', PageTitleService];
-});
+}
+angular.module('ngPageTitle', ['ngRoute']).provider('$pageTitle', $pageTitle);

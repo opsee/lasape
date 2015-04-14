@@ -52,31 +52,36 @@ function config ($stateProvider, $urlRouterProvider) {
       url:'start',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/start.html',
-      controller:'OnboardStartCtrl'
+      controller:'OnboardStartCtrl',
+      title:'Start'
     })
     .state('onboard.check', {
       url:'check',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/check.html',
-      controller:'OnboardCheckCtrl'
+      controller:'OnboardCheckCtrl',
+      title:'Checks'
     })
     .state('onboard.tutorial', {
       url:'tutorial',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/tutorial.html',
-      controller:'OnboardTutorialCtrl'
+      controller:'OnboardTutorialCtrl',
+      title:'Tutorial'
     })
     .state('onboard.password', {
       url:'password',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/password.html',
-      controller:'OnboardPasswordCtrl'
+      controller:'OnboardPasswordCtrl',
+      title:'Set Your Password'
     })
     .state('onboard.team', {
       url:'team',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/team.html',
-      controller:'OnboardTeamCtrl'
+      controller:'OnboardTeamCtrl',
+      title:'Create Your Team'
     })
   }
 angular.module('opsee').config(config);
