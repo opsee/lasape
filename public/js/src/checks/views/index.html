@@ -4,16 +4,23 @@
       <h1 class="">Checks</h1>
     </div>
     <div class="col-xs-12">
-      <input type="search" ng-model="search" placeholder="Search"/>
+      <input type="search" ng-model="search" placeholder="Search" class="form-control"/>
     </div>
     <div class="col-xs-12">
-      <li ng-repeat="check in checks">
-        {{check.name}}
-        <a ui-sref="singleCheck({id:check.id})">
-          <h3>{{check.name}}</h3>
-          <h4>{{check.info}}</h4>
-        </a>
-      </li>
+      <ul class="list-unstyled">
+        <li ng-repeat="check in checks" class="media">
+          <div class="media-left">
+            <div class="media-object">100%</div>
+          </div>
+          <div class="media-body">
+            {{check.name}}
+            <a ui-sref="singleCheck({id:check.id})" class="media-heading">
+              <h3>{{check.name}}</h3>
+              <h4>{{check.info}}</h4>
+            </a>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

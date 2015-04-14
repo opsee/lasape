@@ -24,6 +24,64 @@ function User($resource, $rootScope, _, USER_DEFAULTS, ENDPOINTS){
 }
 angular.module('opsee.user.services').factory('User', User);
 
+
+function UserService($q, $resource, $rootScope, User, ENDPOINTS){
+  return{
+    set:function(USER){
+      $rootScope.user = new User(USER).setDefaults().setPrefs();
+    },
+    edit:function(user,options) {
+      var deferred = $q.defer();
+      //used for editing users and creating new ones
+      saved = options && options.isEditing ? User.update(user) : User.save(user);
+      saved.$promise.then(function(res){
+        deferred.resolve(res);
+      }, function(err){
+        deferred.reject(err);
+      })
+      return deferred.promise;
+    },
+    create:function(user){
+      if(user && user.bio.name){
+        var _user = {
+          name:user.bio.name,
+          email:user.account.email
+        }
+        var path = $resource(ENDPOINTS.api+'/signups');
+        saved = path.save(_user);
+        return saved.$promise;
+      }else{
+        return $q.reject();
+      }
+    },
+    login:function(user){
+      var deferred = $q.defer();
+      var path = $resource('/api/users/session', {}, {});
+      saved = path.save(user);
+      saved.$promise.then(function(res){
+        deferred.resolve(res);
+      }, function(err){
+        deferred.reject(err);
+      });
+     return deferred.promise;
+    },
+    logout:function(user){
+     var deferred = $q.defer();
+      var path = $resource('/api/logout', {}, {});
+      logout = path.get(user);
+      logout.$promise.then(function(res){
+        $rootScope.user = new User().setDefaults().setPrefs();
+        deferred.resolve(res);
+      }, function(err){
+        deferred.reject(err);
+      }) 
+     return deferred.promise;
+    }
+  }
+}
+angular.module('opsee.user.services').service('UserService', UserService);
+
+
 var userDefaults = {
   account:{
     email:null

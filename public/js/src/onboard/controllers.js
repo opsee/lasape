@@ -3,7 +3,6 @@
 angular.module('opsee.onboard.controllers', ['opsee.onboard.services']);
 
 function OnboardCtrl($scope,$state){
-  // $state.go('onboard.start');
   $scope.user = {
     bio:{
       name:null
@@ -15,9 +14,14 @@ function OnboardCtrl($scope,$state){
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
-function OnboardStartCtrl($scope,$state){
+function OnboardStartCtrl($scope,$state,UserService){
   $scope.submit = function(){
-    $state.go('onboard.check');
+    UserService.create($scope.user).then(function(res){
+      console.log(res);
+      $state.go('onboard.check');
+    }, function(err){
+      console.log(err);
+    });
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardStartCtrl', OnboardStartCtrl);

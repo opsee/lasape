@@ -27,7 +27,7 @@ SingleCheckCtrl.resolve = {
     return {
       name:'My great check2',
       info:'Fun info here2.',
-      id:'feee'
+      id:$stateParams.id || 'TESTID'
     }
   }
 }
@@ -40,7 +40,7 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'ChecksCtrl'
     })
     .state('singleCheck', {
-      url:'/check/:checkId',
+      url:'/check/:id',
       templateUrl:'/public/js/src/checks/views/single.html',
       controller:'SingleCheckCtrl',
       resolve:SingleCheckCtrl.resolve
