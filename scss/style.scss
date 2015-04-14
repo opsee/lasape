@@ -1,0 +1,242 @@
+@import "compass";
+@import "compass/css3/deprecated-support";
+@import "breakpoint";
+// @import "flexbox";
+@import "mixins";
+@import "fonts";
+@import "angular";
+@import 'ngActivityIndicator';
+// @import 'CSS:../public/lib/nvd3/nv.d3';
+@import 'includes/opsee-variables';
+@import 'includes/bootstrap';
+@import 'includes/bootstrap-material';
+@import 'includes/typography';
+@import 'includes/inputs';
+
+img{
+  max-width:100%;
+  height:auto;
+}
+
+body{
+  font-family:$sans-serif;
+  font-size:15px;
+  min-height:100vh;
+  @include display-flex();
+  @include flex-direction(column);
+  text-rendering: optimizeLegibility;
+  -webkit-font-variant-ligatures: common-ligatures; /* for iOS and Safari 6 */
+  font-variant-ligatures: common-ligatures; /* for up-to-date browsers, including IE10 and Opera 21 */
+  -moz-font-feature-settings: "kern=1"; /* pre-Firefox 14+ */
+  -webkit-font-feature-settings: "kern";
+  -moz-font-feature-settings: "kern"; /* Firefox 14+ */
+  font-feature-settings: "kern"; /* standard */
+  font-kerning: normal; /* Safari 7+, Firefox 24+, Chrome 33(?)+, Opera 21+*/
+  > .ai-indicator{
+    position: fixed;
+    top:49%;
+    left:49%;
+  }
+}
+
+svg:not(:root) {
+  overflow: visible;
+}
+
+a{
+  // color:black;
+}
+
+[data-ng-view]{
+  padding-top:1.5em;
+}
+#top{
+  flex:1;
+}
+
+#{headings(all)}{
+  font-weight:500;
+  margin:0 0 .5em 0;
+  &.text-hide{
+    @extend .text-hide;
+  }
+}
+
+h1, .h1{
+  margin:0 0 0.3em 0;
+  font-size:1.6em;
+  border:0;
+}
+h2, .h2{
+  margin:0 0 0.3em 0;
+  font-size:1.4em;
+  border:0;
+}
+h3, .h3{
+  margin:0 0 0.6em 0;
+  font-size:1.2em;
+  padding: 0.5em 0em;
+}
+h4, .h4{
+  margin:0 0 0.3em 0;
+  font-size:1em;
+  border:0;
+}
+h5, .h5{
+  margin:0 0 0.3em 0;
+  border:0;
+}
+
+.text-white{
+  color:white !important;
+}
+
+
+.display-flex{
+  @include display-flex;
+}
+.display-flex-sm{
+  @include breakpoint($screen-sm){
+    @include display-flex;
+  }
+}
+.vertical-align{
+  @include display-flex;
+  @include align-items(center);
+}
+.vertical-align-sm{
+  @include breakpoint($screen-sm){
+    @include display-flex;
+    @include align-items(center);   
+  }
+}
+.flex-1{
+  @include flex(1);
+}
+.flex-column{
+  @include flex-direction(column);
+}
+.flex-wrap{
+  @include flex-wrap(wrap);
+}
+.justify-content-between{
+  @include justify-content(space-between);
+}
+
+.padding{
+  padding:1rem;
+}
+.padding-sm{
+  padding:.3rem;
+}
+.padding-tb{
+  padding-top:1rem;
+  padding-bottom:1rem;
+}
+.padding-tb-md{
+  padding-top:2rem;
+  padding-bottom:2rem;
+}
+.padding-none{
+  padding:0;
+}
+
+ul,ol{
+  padding-left:1.2em;
+  &.line-between{
+    > li{
+      &:after{
+        content:'|';
+        display: inline-block;
+        margin:0 0 0 .5em;
+      }
+      &:last-child{
+        &:after{
+          content:none;
+        }
+      }
+    }
+  }
+}
+
+hr{
+  clear: both;
+  float: left;
+  width:100%;
+  + *{
+    clear: both;
+  }
+}
+
+.period-after{
+  &:after{
+    content:'.';
+    display: inline-block;
+    position: relative;
+    left:-.1em;
+  }
+}
+
+.break-word{
+  word-break:break-word;
+}
+.no-wrap{
+  white-space:nowrap;
+}
+
+.css-two-col{
+  @include breakpoint(600px){
+    @include column-count(2);
+    > *{
+      display: inline-block;
+      width:100%;
+    }
+  }
+}
+
+
+.form-control{
+  font-size:16px;
+}
+
+.input-group{
+  margin-bottom:1em;
+}
+
+.modal{
+  @include transition(background 300ms);
+  &.in{
+    background:rgba(0,0,0,.5);
+    @include transition(none);
+  }
+  .modal-lg{
+    width:90%;
+    max-width:1000px;
+  }
+  .img-modal{
+    img{
+      width:100%;
+      height:auto;
+    }
+  }
+}
+
+table{
+  tr:first-of-type{
+    td{
+      border:0;
+    }
+  }
+}
+
+.list-group-item{
+  padding:6px 9px;
+}
+.panel-group{
+  margin-bottom:8px;
+}
+
+@import "pieces/header";
+@import "pieces/navbar";
+@import "pieces/footer";
+@import "forms";

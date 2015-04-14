@@ -1,0 +1,14 @@
+<div ng-controller="FooterController">
+<nav class="navbar navbar-black navbar-sm" role="navigation">
+      <div class="container-fluid">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-repeat="link in navbarEntries" ng-if="!link.hide || (user.hasPermission('superAdmin'))">
+              <a href="{{link.link}}">{{link.title}}</a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+</div><!-- HeaderController -->

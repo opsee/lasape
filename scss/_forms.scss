@@ -1,0 +1,41 @@
+input{
+  &.ng-invalid.ng-touched{
+    border-color:$brand-danger;
+    background: $brand-danger;
+    color: white;
+    &:focus{
+      @extend .form-control;
+    }
+  }
+}
+
+.st-sort-ascent{
+  &:before{
+    content: '\25B2';
+  }
+}
+.st-sort-descent{
+  &:before{
+    content: '\25BC';
+  }
+}
+
+.table{
+  > tbody{
+    > tr {
+      > td{
+        border:2px solid white;
+      }
+    }
+  }
+}
+
+.table-striped{
+  > tbody{
+    > tr{
+      &:nth-child(odd){
+        background-color:$gray-lighter;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "releases":[
+    {
+      "year":2014,
+      "title":"fall",
+      "numberOfLooks":12,
+    },
+    {
+      "year":2014,
+      "title":"spring",
+      "numberOfLooks":11,
+    },
+    {
+      "year":2013,
+      "title":"fall",
+      "numberOfLooks":9,
+    }
+  ]
+}

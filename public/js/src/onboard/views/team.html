@@ -1,0 +1,14 @@
+<div>
+  <h2>Create your team</h2>
+  <form name="teamForm" ng-submit="submit()">
+    <md-input-container>
+      <label>Team name</label>
+      <input ng-model="user.team.name" type="text" ng-minlength="4" class="form-control floating-label" ng-required="true"/>
+    </md-input-container>
+    <md-input-container>
+      <label>Team Domain</label>
+      <input ng-model="user.team.domain" type="text" ng-minlength="2" class="form-control floating-label" ng-required="true"/>
+    </md-input-container>
+    <button class="btn btn-primary" type="submit" ng-disabled="teamForm.$invalid">Next</button>
+  </form>
+</div>

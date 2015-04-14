@@ -1,0 +1,13 @@
+.text-gray{
+  color:$gray !important;
+  &:visited,&:hover{
+    color:$gray !important;
+  }
+}
+
+.text-gray-darkest{
+  color:$gray-darkest !important;
+  &:visited,&:hover{
+    color:$gray-darkest !important;
+  }
+}

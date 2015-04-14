@@ -1,0 +1,28 @@
+.navbar-sm{
+  font-size:.9em;
+  min-height:40px !important;
+  .nav > li > a {
+    padding-top:10px !important;
+    padding-bottom:10px !important;
+  }
+}
+
+.nav{
+  a{
+    @include transition(color 250ms);
+  }
+  > li > a{
+    &:hover,&:focus{
+      background:none;
+      color:$brand-primary;
+    }   
+  }
+  .open > a{
+    background:none;
+    color:$brand-primary;
+    &:hover,&:focus{
+      background:none;
+      color:$brand-primary;
+    }
+  }
+}

@@ -1,0 +1,113 @@
+// Material Theme 0.0.1
+// -----------------------------------------------------
+
+@import "../public/lib/bootstrap-material-design/sass/_variables.scss";
+@import "../public/lib/bootstrap-material-design/sass/_mixins.scss";
+@import "../public/lib/bootstrap-material-design/sass/_shadows.scss";
+@import "../public/lib/bootstrap-material-design/sass/_icons-material-design.scss";
+
+body {
+    background-color: #EEEEEE;
+    &.inverse {
+        background: #333333;
+        &, .form-control {
+            color: $darkbg-text;
+        }
+    }
+}
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+// Well and Jumbotrons
+@import "../public/lib/bootstrap-material-design/sass/_welljumbo.scss";
+
+// Buttons
+@import "../public/lib/bootstrap-material-design/sass/_buttons.scss";
+
+// Checkboxes
+@import "../public/lib/bootstrap-material-design/sass/_checkboxes.scss";
+
+// Radios
+@import "../public/lib/bootstrap-material-design/sass/_radios.scss";
+
+// Text inputs
+@import "../public/lib/bootstrap-material-design/sass/_inputs.scss";
+
+legend {
+    border-bottom: 0;
+}
+
+.modal-content {
+    @extend .shadow-z-2;
+    border-radius: 0;
+    border: 0;
+    .modal-header {
+        border-bottom: 0;
+    }
+    .modal-footer {
+        border-top: 0;
+        .btn+.btn {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+// Lists
+@import "../public/lib/bootstrap-material-design/sass/_lists.scss";
+
+// Navbar
+@import "../public/lib/bootstrap-material-design/sass/_navbar.scss";
+
+.dropdown-menu {
+    border: 0;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    .divider {
+        background-color: rgba(229, 229, 229, 0.12);
+    }
+    li {
+        overflow: hidden;
+        position: relative;
+        a:hover {
+            background: rgba(0,0,0,0.08);
+        }
+    }
+}
+
+// Alerts
+@import "../public/lib/bootstrap-material-design/sass/_alerts.scss";
+
+// Progress bar
+@import "../public/lib/bootstrap-material-design/sass/_progress.scss";
+
+// Panels
+@import "../public/lib/bootstrap-material-design/sass/_cards.scss";
+
+// Typography
+.text-warning {
+    color: $btn-warning;
+}
+.text-primary {
+    color: $btn-primary;
+}
+.text-danger {
+    color: $btn-danger;
+}
+.text-success {
+    color: $btn-success;
+}
+.text-info {
+    color: $btn-info;
+}
+
+@import "../public/lib/bootstrap-material-design/sass/_tabs.scss";
+
+@import "../public/lib/bootstrap-material-design/sass/_popups.scss";
+
+@import "../public/lib/bootstrap-material-design/sass/_icons.scss";
+
+
+// External plugins
+@import "../public/lib/bootstrap-material-design/sass/_plugin-snackbarjs.scss";
+@import "../public/lib/bootstrap-material-design/sass/_plugin-nouislider.scss";

@@ -1,0 +1,32 @@
+.navbar{
+  border-radius:0;
+}
+#header{
+  position: relative;
+  margin-bottom:1.5em;
+  padding-top:10px;
+  .icon-nav{
+  font-size:1.1em;
+    a{
+    }
+  }
+}
+.navbar-black{
+  background:white;
+  margin:0;
+  a{
+    color:black;
+  }
+  .icon-bar{
+    background:black;
+  }
+}
+
+.navbar-brand{
+  // background:image-url('logo.png') no-repeat 50% 50%;
+  // background:red;
+  // background-size:100% auto;
+  // margin: 5px 20px;
+  // width: 110px;
+  // height:45px;
+}
