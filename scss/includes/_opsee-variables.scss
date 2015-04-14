@@ -1,32 +1,9 @@
-// $brand-primary:         $charting-blue;
-// $brand-success:         $charting-green;
-// $brand-warning:         $charting-violet;
-// $brand-danger:          $charting-orange;
-// $brand-info:            $charting-darkBlue;
+$font-family-sans-serif:  'Gotham SSm A','Gotham SSm B',sans-serif;
+$font-family-serif:       'Sentinel SSm A', 'Sentinel SSm B';
+$font-family-monospace:   'InconsolataMedium', monospace;
+$headings-font-family:    'Tungsten Rounded A', 'Tungsten Rounded B', sans-serif;
+$headings-font-weight:    500;
+$btn-font-weight:         500;
 
-$gray:                   #777877;
-$gray-darkest:            darken($gray, 40%);
-$gray-darker:            darken($gray, 10%);
-$gray-light:             lighten($gray, 20%);
-$gray-lighter:           lighten($gray, 45%);
-$gray-lightest: lighten($gray,50%);
-
-$grid-gutter-width:30px;
-
-$container-tablet:             ((720px + $grid-gutter-width));
-$container-sm:                 $container-tablet;
-
-// Medium screen / desktop
-$container-desktop:            ((800px + $grid-gutter-width));
-$container-md:                 $container-desktop;
-
-// Large screen / wide desktop
-$container-large-desktop:      ((1020px + $grid-gutter-width));
-$container-lg:                 $container-large-desktop;
-
-$input-color:$gray-darker;
-
-// font stacks
-$monospace:"orator-std", "Droid Sans Mono", 'Open Sans', Helvetica, Arial, sans-serif;
-$sans-serif:'Myriad Pro', 'Myriad', Arial, sans-serif;
-$headings-font-family: $sans-serif;
+//THIS IS NOT A BOOTSTRAP VARIABLE
+$body-font-weight:        300;
