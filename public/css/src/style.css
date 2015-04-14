@@ -1,8 +1,6 @@
 @font-face { font-family: 'icomoon'; src: url("/public/fonts/icomoon/fonts/icomoon.eot"); src: url("/public/fonts/icomoon/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("/public/fonts/icomoon/fonts/icomoon.ttf") format("truetype"), url("/public/fonts/icomoon/fonts/icomoon.woff") format("woff"), url("/public/fonts/icomoon/fonts/icomoon.svg#icomoon") format("svg"); font-weight: normal; font-style: normal; }
 [class^="icon-"]:before, [class*=" icon-"]:before { font-family: 'icomoon'; font-size: 16px; line-height: 1em; speak: none; font-weight: normal; font-variant: normal; text-transform: none; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-indent: 0px; color: black; }
 
-.ng-hide { display: none; }
-
 .ai-indicator, .ai-indicator *, .ai-indicator *:before, .ai-indicator *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 /* Colors */
@@ -3495,32 +3493,19 @@ legend { border-bottom: 0; }
 .text-gray-darkest { color: #111211 !important; }
 .text-gray-darkest:visited, .text-gray-darkest:hover { color: #111211 !important; }
 
-label { cursor: pointer; }
-
-img { max-width: 100%; height: auto; }
-
-body { font-family: "Myriad Pro", "Myriad", Arial, sans-serif; font-size: 15px; min-height: 100vh; display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; text-rendering: optimizeLegibility; -webkit-font-variant-ligatures: common-ligatures; /* for iOS and Safari 6 */ font-variant-ligatures: common-ligatures; /* for up-to-date browsers, including IE10 and Opera 21 */ -moz-font-feature-settings: "kern=1"; /* pre-Firefox 14+ */ -webkit-font-feature-settings: "kern"; -moz-font-feature-settings: "kern"; /* Firefox 14+ */ font-feature-settings: "kern"; /* standard */ font-kerning: normal; /* Safari 7+, Firefox 24+, Chrome 33(?)+, Opera 21+*/ }
-body > .ai-indicator { position: fixed; top: 49%; left: 49%; }
-
-svg:not(:root) { overflow: visible; }
-
-[data-ng-view] { padding-top: 1.5em; }
-
-#top { flex: 1; }
-
 h1, h2, h3, h4, h5, h6 { font-weight: 500; margin: 0 0 .5em 0; }
 
-h1, .h1 { margin: 0 0 0.3em 0; font-size: 1.6em; border: 0; }
+ul, ol { padding-left: 1.2em; }
+ul.line-between > li:after, ol.line-between > li:after { content: '|'; display: inline-block; margin: 0 0 0 .5em; }
+ul.line-between > li:last-child:after, ol.line-between > li:last-child:after { content: none; }
 
-h2, .h2 { margin: 0 0 0.3em 0; font-size: 1.4em; border: 0; }
+.break-word { word-break: break-word; }
 
-h3, .h3 { margin: 0 0 0.6em 0; font-size: 1.2em; padding: 0.5em 0em; }
+.no-wrap { white-space: nowrap; }
 
-h4, .h4 { margin: 0 0 0.3em 0; font-size: 1em; border: 0; }
+label { cursor: pointer; }
 
-h5, .h5 { margin: 0 0 0.3em 0; border: 0; }
-
-.text-white { color: white !important; }
+.ng-hide { display: none; }
 
 .display-flex { display: -webkit-flex; display: flex; }
 
@@ -3538,6 +3523,9 @@ h5, .h5 { margin: 0 0 0.3em 0; border: 0; }
 
 .justify-content-between { -webkit-justify-content: space-between; justify-content: space-between; }
 
+@media (min-width: 600px) { .css-two-col { -moz-column-count: 2; -webkit-column-count: 2; column-count: 2; }
+  .css-two-col > * { display: inline-block; width: 100%; } }
+
 .padding { padding: 1rem; }
 
 .padding-sm { padding: .3rem; }
@@ -3548,21 +3536,19 @@ h5, .h5 { margin: 0 0 0.3em 0; border: 0; }
 
 .padding-none { padding: 0; }
 
-ul, ol { padding-left: 1.2em; }
-ul.line-between > li:after, ol.line-between > li:after { content: '|'; display: inline-block; margin: 0 0 0 .5em; }
-ul.line-between > li:last-child:after, ol.line-between > li:last-child:after { content: none; }
+img { max-width: 100%; height: auto; }
+
+body { font-family: "Myriad Pro", "Myriad", Arial, sans-serif; font-size: 15px; min-height: 100vh; display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; text-rendering: optimizeLegibility; -webkit-font-variant-ligatures: common-ligatures; /* for iOS and Safari 6 */ font-variant-ligatures: common-ligatures; /* for up-to-date browsers, including IE10 and Opera 21 */ -moz-font-feature-settings: "kern=1"; /* pre-Firefox 14+ */ -webkit-font-feature-settings: "kern"; -moz-font-feature-settings: "kern"; /* Firefox 14+ */ font-feature-settings: "kern"; /* standard */ font-kerning: normal; /* Safari 7+, Firefox 24+, Chrome 33(?)+, Opera 21+*/ }
+body > .ai-indicator { position: fixed; top: 49%; left: 49%; }
+
+svg:not(:root) { overflow: visible; }
+
+[data-ng-view] { padding-top: 1.5em; }
+
+#top { flex: 1; }
 
 hr { clear: both; float: left; width: 100%; }
 hr + * { clear: both; }
-
-.period-after:after { content: '.'; display: inline-block; position: relative; left: -.1em; }
-
-.break-word { word-break: break-word; }
-
-.no-wrap { white-space: nowrap; }
-
-@media (min-width: 600px) { .css-two-col { -moz-column-count: 2; -webkit-column-count: 2; column-count: 2; }
-  .css-two-col > * { display: inline-block; width: 100%; } }
 
 .form-control, input.ng-invalid.ng-touched:focus { font-size: 16px; }
 

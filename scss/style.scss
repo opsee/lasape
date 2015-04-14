@@ -1,17 +1,15 @@
 @import "compass";
 @import "compass/css3/deprecated-support";
 @import "breakpoint";
-// @import "flexbox";
-@import "mixins";
-@import "fonts";
-@import "angular";
-@import 'ngActivityIndicator';
-// @import 'CSS:../public/lib/nvd3/nv.d3';
+@import "includes/mixins";
+@import "includes/fonts";
+@import 'includes/ngActivityIndicator';
 @import 'includes/opsee-variables';
 @import 'includes/bootstrap';
 @import 'includes/bootstrap-material';
 @import 'includes/typography';
 @import 'includes/inputs';
+@import 'includes/helpers';
 
 img{
   max-width:100%;
@@ -54,143 +52,12 @@ a{
   flex:1;
 }
 
-#{headings(all)}{
-  font-weight:500;
-  margin:0 0 .5em 0;
-  &.text-hide{
-    @extend .text-hide;
-  }
-}
-
-h1, .h1{
-  margin:0 0 0.3em 0;
-  font-size:1.6em;
-  border:0;
-}
-h2, .h2{
-  margin:0 0 0.3em 0;
-  font-size:1.4em;
-  border:0;
-}
-h3, .h3{
-  margin:0 0 0.6em 0;
-  font-size:1.2em;
-  padding: 0.5em 0em;
-}
-h4, .h4{
-  margin:0 0 0.3em 0;
-  font-size:1em;
-  border:0;
-}
-h5, .h5{
-  margin:0 0 0.3em 0;
-  border:0;
-}
-
-.text-white{
-  color:white !important;
-}
-
-
-.display-flex{
-  @include display-flex;
-}
-.display-flex-sm{
-  @include breakpoint($screen-sm){
-    @include display-flex;
-  }
-}
-.vertical-align{
-  @include display-flex;
-  @include align-items(center);
-}
-.vertical-align-sm{
-  @include breakpoint($screen-sm){
-    @include display-flex;
-    @include align-items(center);   
-  }
-}
-.flex-1{
-  @include flex(1);
-}
-.flex-column{
-  @include flex-direction(column);
-}
-.flex-wrap{
-  @include flex-wrap(wrap);
-}
-.justify-content-between{
-  @include justify-content(space-between);
-}
-
-.padding{
-  padding:1rem;
-}
-.padding-sm{
-  padding:.3rem;
-}
-.padding-tb{
-  padding-top:1rem;
-  padding-bottom:1rem;
-}
-.padding-tb-md{
-  padding-top:2rem;
-  padding-bottom:2rem;
-}
-.padding-none{
-  padding:0;
-}
-
-ul,ol{
-  padding-left:1.2em;
-  &.line-between{
-    > li{
-      &:after{
-        content:'|';
-        display: inline-block;
-        margin:0 0 0 .5em;
-      }
-      &:last-child{
-        &:after{
-          content:none;
-        }
-      }
-    }
-  }
-}
-
 hr{
   clear: both;
   float: left;
   width:100%;
   + *{
     clear: both;
-  }
-}
-
-.period-after{
-  &:after{
-    content:'.';
-    display: inline-block;
-    position: relative;
-    left:-.1em;
-  }
-}
-
-.break-word{
-  word-break:break-word;
-}
-.no-wrap{
-  white-space:nowrap;
-}
-
-.css-two-col{
-  @include breakpoint(600px){
-    @include column-count(2);
-    > *{
-      display: inline-block;
-      width:100%;
-    }
   }
 }
 
@@ -236,7 +103,5 @@ table{
   margin-bottom:8px;
 }
 
-@import "pieces/header";
-@import "pieces/navbar";
-@import "pieces/footer";
-@import "forms";
+@import "global/import";
+@import "includes/forms";
