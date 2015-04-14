@@ -1,61 +1,61 @@
-.ng-hide{
-  display: none;
-}
-.display-flex{
-  @include display-flex;
-}
-.display-flex-sm{
-  @include breakpoint($screen-sm){
-    @include display-flex;
-  }
-}
-.vertical-align{
-  @include display-flex;
-  @include align-items(center);
-}
-.vertical-align-sm{
-  @include breakpoint($screen-sm){
-    @include display-flex;
-    @include align-items(center);   
-  }
-}
-.flex-1{
-  @include flex(1);
-}
-.flex-column{
-  @include flex-direction(column);
-}
-.flex-wrap{
-  @include flex-wrap(wrap);
-}
-.justify-content-between{
-  @include justify-content(space-between);
-}
+// .ng-hide{
+//   display: none;
+// }
+// .display-flex{
+//   @include display-flex;
+// }
+// .display-flex-sm{
+//   @include breakpoint($screen-sm){
+//     @include display-flex;
+//   }
+// }
+// .vertical-align{
+//   @include display-flex;
+//   @include align-items(center);
+// }
+// .vertical-align-sm{
+//   @include breakpoint($screen-sm){
+//     @include display-flex;
+//     @include align-items(center);
+//   }
+// }
+// .flex-1{
+//   @include flex(1);
+// }
+// .flex-column{
+//   @include flex-direction(column);
+// }
+// .flex-wrap{
+//   @include flex-wrap(wrap);
+// }
+// .justify-content-between{
+//   @include justify-content(space-between);
+// }
 
-.css-two-col{
-  @include breakpoint(600px){
-    @include column-count(2);
-    > *{
-      display: inline-block;
-      width:100%;
-    }
-  }
-}
+// .css-two-col{
+//   @include breakpoint(600px){
+//     @include column-count(2);
+//     > *{
+//       display: inline-block;
+//       width:100%;
+//     }
+//   }
+// }
 
-.padding{
-  padding:1rem;
-}
-.padding-sm{
-  padding:.3rem;
-}
-.padding-tb{
-  padding-top:1rem;
-  padding-bottom:1rem;
-}
-.padding-tb-md{
-  padding-top:2rem;
-  padding-bottom:2rem;
-}
-.padding-none{
-  padding:0;
-}
+// .padding{
+//   padding:1rem;
+// }
+// .padding-sm{
+//   padding:.3rem;
+// }
+// .padding-tb{
+//   padding-top:1rem;
+//   padding-bottom:1rem;
+// }
+// .padding-tb-md{
+//   padding-top:2rem;
+//   padding-bottom:2rem;
+// }
+// .padding-none{
+//   padding:0;
+// }
