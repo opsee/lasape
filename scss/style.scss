@@ -107,7 +107,7 @@ h5, .h5{
 .vertical-align-sm{
   @include breakpoint($screen-sm){
     @include display-flex;
-    @include align-items(center);   
+    @include align-items(center);
   }
 }
 .flex-1{
