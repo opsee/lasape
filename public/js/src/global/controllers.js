@@ -7,7 +7,7 @@ function headerController($scope, Global, $location, $rootScope) {
   $scope.navbarEntries = [
     {
       title:'Checks',
-      sref:'checks.home',
+      sref:'checks',
       icon:null,
       children:[]
     },
