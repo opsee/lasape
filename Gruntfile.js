@@ -141,7 +141,7 @@ module.exports = function(grunt) {
           livereload:true
         },
         files:['_site/**/*.**'],
-        tasks:['shell:jekyll']
+        tasks:['shell:jekyll','copy']
       },
       // srcScripts:{
       //   options:{

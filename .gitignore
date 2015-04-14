@@ -13,6 +13,8 @@ modules/views/
 /public/build/
 /nbproject/private/
 bower_components/
+public/css/src/style.css.map
+public/css/src/style.css
 
 public/lib/
 rawdata/
