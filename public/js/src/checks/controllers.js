@@ -66,6 +66,9 @@ angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleC
 
 function CreateCheckCtrl($scope, $state, Check){
   $scope.check = new Check().setDefaults();
+  $scope.submit = function(){
+    console.log($scope.check);
+  }
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 

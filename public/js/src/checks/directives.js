@@ -9,7 +9,7 @@ function checkInputs(){
     scope:{
       check:'='
     },
-    controller:function($scope){
+    controller:function($scope, NotificationSettings, Intervals){
       $scope.groups = [
         {
           name:'foo'
@@ -36,6 +36,8 @@ function checkInputs(){
       $scope.http = {
         protocols:['HTTP','HTTPS','Other']
       }
+      $scope.notificationSettings = NotificationSettings;
+      $scope.intervals = Intervals;
     }//end controller
   }
 }

@@ -2,7 +2,7 @@
 
 angular.module('opsee.checks.services', []);
 
-function Check($resource, $rootScope, _, CHECK_DEFAULTS, ENDPOINTS){
+function Check($resource, $rootScope, _, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMAS){
   var Check = $resource(ENDPOINTS.api+'/check',
     {
       checkId:'@_id'
@@ -14,11 +14,27 @@ function Check($resource, $rootScope, _, CHECK_DEFAULTS, ENDPOINTS){
     _.defaults(this, CHECK_DEFAULTS);
     return this;
   }
-  // Check.prototype.hasPermission = function(string){
-  //   return this.permissions.indexOf(string) > -1;
-  // }
-  Check.prototype.hasCheck = function(){
-    return !!this.id;
+  Check.prototype.addItem = function(selection){
+    if(!selection){return false;}
+    var target;
+    try{
+      eval('var target=this.'+selection);
+    }catch(err){
+      console.log(err);
+    }
+    if(!target){return false;}
+    var length = target.length;
+    var schema;
+    try{
+      eval('schema=CHECK_SCHEMAS.'+selection);
+    }catch(err){
+      console.log(err);
+    }
+    var cond1 = length && !angular.equals(target[length-1],schema);
+    var cond2 = !length;
+    if((cond1 || cond2) && schema){
+      target.push(angular.copy(schema));
+    }
   }
   return Check;
 }
@@ -60,9 +76,30 @@ var checkDefaults = {
   name:null,
   type:null,
   http:{
-    protocol:null
-  }
+    protocol:null,
+    authentications:[],
+    headers:[]
+  },
+  notifications:[]
 }
 angular.module('opsee.checks.services').constant('CHECK_DEFAULTS', checkDefaults);
+
+var checkSchemas = {
+  http:{
+    authentications:{
+      username:null,
+      password:null
+    },
+    headers:{
+      key:null,
+      value:null
+    }
+  },
+  notifications:{
+    type:null,
+    value:null
+  }
+}
+angular.module('opsee.checks.services').constant('CHECK_SCHEMAS', checkSchemas);
 
 })();//IIFE

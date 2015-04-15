@@ -1,6 +1,25 @@
 <div>
-  <h2>Basic Info</h2>
-  <div class="row">
+  <div class="col-xs-12">
+    <h2>Basic Info</h2>
+  </div>
+  <div class="col-xs-12">
+    <div>
+      <input type="text" ng-model="check.name" class="form-control" placeholder="Check Name" ng-required="true"/>
+    </div>
+    <div>
+      <input type="text" ng-model="check.description" class="form-control" placeholder="Check Description" ng-required="true"/>
+    </div>
+  </div>
+
+  <div class="col-xs-12">
+    <h2>Check Interval</h2>
+      <div class="btn-group">
+        <label class="btn btn-success" ng-model="check.interval" btn-radio="int" uncheckable ng-repeat="int in intervals">
+          {{int.name}}
+        </label>
+    </div>
+  </div>
+
     <div class="col-xs-12">
       <div class="btn-group" dropdown is-open="status.groupOpen">
         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
@@ -28,8 +47,9 @@
           </li>
         </ul>
       </div>
+    </div>
 
-      <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
+      <div class="ng-hide col-xs-12" ng-show="check.type && check.type.name == 'HTTP'">
         <h2>HTTP Check Details</h2>
         <div class="row">
           <div class="col-xs-4">
@@ -61,10 +81,76 @@
         </div>
       </div>
 
+    <div class="col-xs-12">
       <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
         <h2>Authentication</h2>
-        <button type="button" class="btn-plus">Add Basic Auth</button>
+        <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('http.authentications')">Add Basic Auth</button>
+        <ul class="list-unstyled">
+          <li ng-repeat="auth in check.http.authentications" class="row">
+            <div class="col-xs-6">
+              <input type="text" ng-model="check.http.authentications[$index].username" class="form-control" placeholder="username" ng-required="true"/>
+            </div>
+            <div class="col-xs-6">
+              <input type="text" ng-model="check.http.authentications[$index].password" class="form-control" placeholder="password" ng-required="true"/>
+            </div>
+          </li>
+        </ul>
       </div>
+      <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
+        <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('http.headers')">Add Headers</button>
+        <ul class="list-unstyled">
+          <li ng-repeat="auth in check.http.headers" class="row">
+            <div class="col-xs-6">
+              <input type="text" ng-model="check.http.headers[$index].key" class="form-control" placeholder="Header Key" ng-required="true"/>
+            </div>
+            <div class="col-xs-6">
+              <input type="text" ng-model="check.http.headers[$index].value" class="form-control" placeholder="Header Value" ng-required="true"/>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-  </div>
-</div>
+     <div class="col-xs-12">
+      <h2>Notification</h2>
+      <div>
+        <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('notifications')">Add Notification</button>
+        <ul class="list-unstyled">
+          <li ng-repeat="notif in check.notifications" class="row">
+            <div class="col-xs-4">
+              <div class="btn-group" dropdown is-open="status['notificationSettings.types'+$index]">
+                <select class="sr-only" ng-required="true" ng-model="notif.type" ng-options="t for t in notificationSettings.types"></select>
+                <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                  {{notif.type.name || 'Type'}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="nt in notificationSettings.types">
+                    <a href="#" ng-click="notif.type = nt">
+                      {{nt.name}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xs-8">
+              <input type="text" ng-model="check.notifications[$index].value" class="form-control" placeholder="" ng-required="true"/>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
+        <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('http.headers')">Add Headers</button>
+        <ul class="list-unstyled">
+          <li ng-repeat="auth in check.http.headers" class="row">
+            <div class="col-xs-6">
+              <input type="text" ng-model="check.http.headers[$index].key" class="form-control" placeholder="Header Key" ng-required="true"/>
+            </div>
+            <div class="col-xs-6">
+              <input type="text" ng-model="check.http.headers[$index].value" class="form-control" placeholder="Header Value" ng-required="true"/>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+</div>.<!-- row -->
