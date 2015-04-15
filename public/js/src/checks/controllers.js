@@ -27,7 +27,38 @@ SingleCheckCtrl.resolve = {
     return {
       name:'My great check2',
       info:'Fun info here2.',
-      id:'feee'
+      id:$stateParams.id || 'TESTID',
+      meta:[
+        {
+          key:'State',
+          value:'Failing'
+        },
+        {
+          key:'Port',
+          value:80
+        },
+        {
+          key:'Protocol',
+          value:'HTTP'
+        }
+      ],
+      instances:[
+      {
+        status:'Failing',
+        name:'a-q8r-309fo (US-West-1)',
+        lastChecked:new Date()
+      },
+      {
+        status:'Passing',
+        name:'hr-afoijfa-309fo (US-West-2)',
+        lastChecked:new Date()
+      },
+      {
+        status:'Passing',
+        name:'aekfjoiuhfef1234-309fo (US-West-1)',
+        lastChecked:new Date()
+      }
+      ]
     }
   }
 }
@@ -40,7 +71,7 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'ChecksCtrl'
     })
     .state('singleCheck', {
-      url:'/check/:checkId',
+      url:'/check/:id',
       templateUrl:'/public/js/src/checks/views/single.html',
       controller:'SingleCheckCtrl',
       resolve:SingleCheckCtrl.resolve

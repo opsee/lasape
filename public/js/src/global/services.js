@@ -42,6 +42,7 @@ var KEYS = {
 angular.module('opsee.global.services').constant('KEYS', KEYS);
 
 var ENDPOINTS = {
+  api:'http://api-beta.opsee.co'
 }
 angular.module('opsee.global.services').constant('ENDPOINTS', ENDPOINTS);
 

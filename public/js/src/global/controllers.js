@@ -12,6 +12,12 @@ function headerController($scope, Global, $location, $rootScope) {
       children:[]
     },
     {
+      title:'Login',
+      sref:'login',
+      icon:null,
+      children:[]
+    },
+    {
       title:'Onboarding',
       sref:'onboard.start',
       icon:null,
@@ -140,19 +146,21 @@ function config ($stateProvider, $urlRouterProvider) {
           controller: 'CheckCtrl'
         }
       }
-    }).state('login', {
-      parent: 'app',
-      url: '/login',
-      data: {
-        roles: []
-      },
-      views: {
-        'content@': {
-          templateUrl: '/app/views/login.html',
-          controller: 'LoginCtrl'
-        }
-      }
-    }).state('logout', {
+    })
+    // .state('login', {
+    //   parent: 'app',
+    //   url: '/login',
+    //   data: {
+    //     roles: []
+    //   },
+    //   views: {
+    //     'content@': {
+    //       templateUrl: '/app/views/login.html',
+    //       controller: 'LoginCtrl'
+    //     }
+    //   }
+    // })
+    .state('logout', {
       parent: 'app',
       url: '/logout',
       data: {
