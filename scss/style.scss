@@ -11,6 +11,10 @@
 @import "includes/helpers";
 @import "includes/opsee-list";
 
+html {
+  font-size: $font-size-base;
+}
+
 body {
   background-color: $body-bg;
 }
