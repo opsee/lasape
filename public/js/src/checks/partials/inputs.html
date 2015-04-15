@@ -2,7 +2,7 @@
   <h2>Basic Info</h2>
   <div class="row">
     <div class="col-xs-12">
-      <div class="btn-group" dropdown is-open="status.isopen">
+      <div class="btn-group" dropdown is-open="status.groupOpen">
         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
           Group <span class="caret"></span>
         </button>
@@ -14,14 +14,23 @@
           </li>
         </ul>
       </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="btn-group" dropdown is-open="status.typeOpen">
+        <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          Check Type <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="t in types">
+            <a href="#" ng-click="selectOption('types',$index)">
+              {{t.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
       <!-- <select ng-options="g.name for g in groups track by g.name" ng-model="check.group">
         <option value="">Group</option>
       </select> -->
-    </div>
-    <div class="col-xs-12">
-      <select ng-options="t.name for t in types track by t.name" ng-model="check.type">
-        <option value="">Check Type</option>
-      </select>
     </div>
   </div>
 </div>

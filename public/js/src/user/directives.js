@@ -20,7 +20,7 @@ function userLogin(){
     templateUrl:'/public/js/src/user/partials/user-login.html',
     controller:function($scope,UserService){
       $scope.submit = function(){
-        if($scope.user){
+        if($scope.user && $scope.user.account.password){
           UserService.login($scope.user).then(function(res){
             console.log(res);
           }, function(err){

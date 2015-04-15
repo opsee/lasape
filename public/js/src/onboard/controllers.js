@@ -16,13 +16,23 @@ angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtr
 
 function OnboardStartCtrl($scope,$state,UserService){
   $scope.submit = function(){
+    $scope.state = $scope.options.inProgress;
     UserService.create($scope.user).then(function(res){
       console.log(res);
+      $scope.state = res.statusText || $scope.options.success;
       $state.go('onboard.check');
-    }, function(err){
-      console.log(err);
+    }, function(res){
+      $scope.error = res.statusText || 'There was an error processing your request.';
+      $scope.state = $scope.options.error;
     });
   }
+  $scope.options = {
+    original:'Submit',
+    inProgress:'Submitting...',
+    success:'Success!',
+    error:'Error.'
+  }
+  $scope.state = $scope.options.original;
 }
 angular.module('opsee.onboard.controllers').controller('OnboardStartCtrl', OnboardStartCtrl);
 
