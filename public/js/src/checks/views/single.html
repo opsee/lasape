@@ -1,6 +1,16 @@
 <div class="container">
   <div class="col-xs-12">
-    <h1>{{check.name}}</h1>
-    <div>{{check.id}}</div>
+    <h1>
+      <div>Check:</div>
+      <div>{{check.name}}</div>
+    </h1>
+    <div ng-repeat="meta in check.meta" class="row">
+      <div class="col-xs-4">{{meta.key}}</div>
+      <div class="col-xs-8">{{meta.value}}</div>
+    </div>
+    <hr/>
+    <div>
+    </div>
+      <!-- <div>{{check.id}}</div> -->
   </div>
 </div>

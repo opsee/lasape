@@ -42,7 +42,7 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
       return deferred.promise;
     },
     create:function(user){
-      if(user && user.bio.name){
+      if(user && user.account.email){
         var _user = {
           name:user.bio.name,
           email:user.account.email
@@ -55,15 +55,17 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
       }
     },
     login:function(user){
-      var deferred = $q.defer();
-      var path = $resource('/api/users/session', {}, {});
-      saved = path.save(user);
-      saved.$promise.then(function(res){
-        deferred.resolve(res);
-      }, function(err){
-        deferred.reject(err);
-      });
-     return deferred.promise;
+      if(user && user.account.email){
+        var _user = {
+          password:user.account.password,
+          email:user.account.email
+        }
+        var path = $resource(ENDPOINTS.api+'/authenticate/password');
+        saved = path.save(_user);
+        return saved.$promise;
+      }else{
+        return $q.reject();
+      }
     },
     logout:function(user){
      var deferred = $q.defer();
