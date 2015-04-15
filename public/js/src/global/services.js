@@ -276,5 +276,39 @@ function Principal($q, $http, $timeout) {
 }
 angular.module('opsee.global.services').service('Principal', Principal);
 
+function Intervals(){
+  return[
+    {
+      name:'5min'
+    },
+    {
+      name:'15min'
+    },
+    {
+      name:'24hr'
+    },
+    {
+      name:'7d'
+    }
+  ]
+}
+angular.module('opsee.global.services').service('Intervals', Intervals);
+
+function NotificationSettings(){
+  return{
+    types:[
+      {
+        name:'Email'
+      },
+      {
+        name:'Webhook'
+      },
+      {
+        name:'Other'
+      }
+    ]
+  }
+}
+angular.module('opsee.global.services').service('NotificationSettings', NotificationSettings);
 
 })();//IIFE
