@@ -304,7 +304,7 @@ function NotificationSettings(){
         name:'Webhook'
       },
       {
-        name:'Other'
+        name:'Slack'
       }
     ]
   }

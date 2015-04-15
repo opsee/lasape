@@ -12,6 +12,12 @@ function headerController($scope, Global, $location, $rootScope) {
       children:[]
     },
     {
+      title:'Signups',
+      sref:'signups',
+      icon:null,
+      children:[]
+    },
+    {
       title:'Login',
       sref:'login',
       icon:null,
