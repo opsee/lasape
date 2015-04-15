@@ -1,14 +1,14 @@
 .md-list {
   list-style: none;
-  padding: 0.5rem 0;
+  padding: 8px 0;
   &.md-list-two-line {
     .md-list-item {
-      padding: 1.25rem 1rem;
+      padding: 20px 16px;
     }
   }
   &.md-list-has-avatars {
     .md-list-item {
-      padding-left: 4.5rem;
+      padding-left: 72px;
     }
   }
 }
@@ -16,8 +16,8 @@
   @include box-sizing(border-box);
   // @include transition(background-color 1800ms cubic-bezier(0.23, 1, 0.32, 1));
   border-bottom: 1px solid $gray-700;
-  line-height: 1rem;
-  padding: 1rem 1rem;
+  line-height: 16px;
+  padding: 16px 16px;
   position: relative;
 }
 .md-list-link {
@@ -32,16 +32,15 @@
 }
 .md-list-avatar {
   background-color: black;
-  border-radius: 1.25rem;
+  border-radius: 20px;
   color: $body-bg;
   font-family: $headings-font-family;
-  // font-size: 0.875rem;
   font-weight: 500;
-  height: 2.5rem;
-  left: 1rem;
+  height: 40px;
+  left: 16px;
   position: absolute;
-  top: 1rem;
-  width: 2.5rem;
+  top: 16px;
+  width: 40px;
   &.running {
     background-color: $red-500;
     .avatar-inner {
@@ -58,13 +57,13 @@
 .md-list-avatar-inner {
   @include box-sizing(border-box);
   background-color: transparent;
-  border: 0.125rem solid transparent;
-  border-radius: 2rem;
-  height: 2rem;
-  left: 0.25rem;
-  line-height: 1.75rem;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  height: 32px;
+  left: 4px;
+  line-height: 28px;  //WAT?
   position: absolute;
   text-align: center;
-  top: 0.25rem;
-  width: 2rem;
+  top: 4px;
+  width: 32px;
 }
