@@ -2,6 +2,12 @@
   <form ng-submit="submit()" user-signup>
      <h2>Create your account</h2>
      <user-inputs user="user"></user-inputs>
-     <button type="submit" class="btn btn-success">Signup</button>
+     <div class="ng-hide" ng-show="error">
+       {{error}}
+     </div>
+     <button ng-disabled="state == options.inProgress" type="submit" class="btn btn-success">
+      <span>{{state}}</span>
+      <span class="ng-hide" ng-show="state == options.inProgress">A spinner</span>
+    </button>
    </form>
 </div><!-- .container -->

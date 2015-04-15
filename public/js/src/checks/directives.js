@@ -32,7 +32,11 @@ function checkInputs(){
           name:'Other'
         }
       ]
-    }
+
+      $scope.http = {
+        protocols:['HTTP','HTTPS','Other']
+      }
+    }//end controller
   }
 }
 angular.module('opsee.checks.directives').directive('checkInputs', checkInputs);

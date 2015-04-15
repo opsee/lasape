@@ -64,10 +64,8 @@ SingleCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
-function CreateCheckCtrl($scope, $state){
-  $scope.check = {
-    name:null
-  }
+function CreateCheckCtrl($scope, $state, Check){
+  $scope.check = new Check().setDefaults();
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 

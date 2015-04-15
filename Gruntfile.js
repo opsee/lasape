@@ -35,12 +35,6 @@ module.exports = function(grunt) {
           config: '_config.yml'
         }
       },
-      // serve: {                            // Another target
-      //   options: {
-      //     dest: '.jekyll',
-      //     drafts: true
-      //   }
-      // }
     },
     shell:{
       jekyll:{
@@ -96,7 +90,8 @@ module.exports = function(grunt) {
             'angular-ui-router/release/angular-ui-router',
             'angular-aria/angular-aria.min',
             'moment/moment',
-            'angular-moment/angular-moment.min'
+            'angular-moment/angular-moment.min',
+            'angular-cookies/angular-cookies.min'
           ])
         }
       },
@@ -149,11 +144,9 @@ module.exports = function(grunt) {
            livereload:true
          },
         files:['js/public/**/*.js'],
-        // tasks:['uglify:srcScripts']
       },
       sass:{
         files:['scss/**/*.scss'],
-        // tasks:['compass', 'autoprefixer']
         tasks:['compass']
       },
       css:{
@@ -162,20 +155,12 @@ module.exports = function(grunt) {
         },
         files:['public/css/**/*.css']
       },
-      // cssmin:{
-      //   tasks:['cssmin:minify'],
-      //   files:['css/src/*.css']
-      // },
       pages:{
         options:{
           livereload:true
         },
         files:['public/**/*.html']
       }
-      // require:{
-      //   files:['js/src/*.js'],
-      //   tasks:['requirejs']
-      // }
     },
     compass:{
       dist:{
@@ -198,7 +183,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-jekyll');

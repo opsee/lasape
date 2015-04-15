@@ -2,26 +2,69 @@
   <h2>Basic Info</h2>
   <div class="row">
     <div class="col-xs-12">
-      <div class="btn-group" dropdown is-open="status.isopen">
+      <div class="btn-group" dropdown is-open="status.groupOpen">
         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-          Group <span class="caret"></span>
+          {{check.group.name || 'Group'}} <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="g in groups">
-            <a href="#" ng-click="selectOption('groups',$index)">
+            <a href="#" ng-click="check.group = g">
               {{g.name}}
             </a>
           </li>
         </ul>
       </div>
-      <!-- <select ng-options="g.name for g in groups track by g.name" ng-model="check.group">
-        <option value="">Group</option>
-      </select> -->
     </div>
     <div class="col-xs-12">
-      <select ng-options="t.name for t in types track by t.name" ng-model="check.type">
-        <option value="">Check Type</option>
-      </select>
-    </div>
+      <div class="btn-group" dropdown is-open="status.typeOpen">
+        <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          {{check.type.name || 'Check Type'}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="t in types">
+            <a href="#" ng-click="check.type = t">
+              {{t.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
+        <h2>HTTP Check Details</h2>
+        <div class="row">
+          <div class="col-xs-4">
+            <label for="port">Port</label>
+          </div>
+          <div class="col-xs-8">
+            <input type="text" ng-model="check.http.port" class="form-control"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-4">
+            <label for="port">Protocol</label>
+          </div>
+          <div class="col-xs-8">
+            <div class="btn-group" dropdown is-open="status.httpProtocolsOpen">
+              <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                {{check.http.protocol || 'Protocol'}} <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li ng-repeat="p in http.protocols">
+                  <a href="#" ng-click="check.http.protocol = p">
+                  <!-- <a href="#" ng-click="selectOption('types',$index)"> -->
+                    {{p}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
+        <h2>Authentication</h2>
+        <button type="button" class="btn-plus">Add Basic Auth</button>
+      </div>
+
   </div>
 </div>

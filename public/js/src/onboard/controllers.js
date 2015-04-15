@@ -16,19 +16,29 @@ angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtr
 
 function OnboardStartCtrl($scope,$state,UserService){
   $scope.submit = function(){
+    $scope.state = $scope.options.inProgress;
     UserService.create($scope.user).then(function(res){
       console.log(res);
-      $state.go('onboard.check');
-    }, function(err){
-      console.log(err);
+      $scope.state = res.statusText || $scope.options.success;
+      $state.go('onboard.email');
+    }, function(res){
+      $scope.error = res.statusText || 'There was an error processing your request.';
+      $scope.state = $scope.options.error;
     });
   }
+  $scope.options = {
+    original:'Submit',
+    inProgress:'Submitting...',
+    success:'Success!',
+    error:'Error.'
+  }
+  $scope.state = $scope.options.original;
 }
 angular.module('opsee.onboard.controllers').controller('OnboardStartCtrl', OnboardStartCtrl);
 
-function OnboardCheckCtrl($scope){
+function OnboardEmailCtrl($scope){
 }
-angular.module('opsee.onboard.controllers').controller('OnboardCheckCtrl', OnboardCheckCtrl);
+angular.module('opsee.onboard.controllers').controller('OnboardEmailCtrl', OnboardEmailCtrl);
 
 function OnboardTutorialCtrl($scope){
 }
@@ -59,12 +69,12 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'OnboardStartCtrl',
       title:'Start'
     })
-    .state('onboard.check', {
-      url:'check',
+    .state('onboard.email', {
+      url:'email',
       parent:'onboard',
-      templateUrl:'/public/js/src/onboard/views/check.html',
-      controller:'OnboardCheckCtrl',
-      title:'Checks'
+      templateUrl:'/public/js/src/onboard/views/email.html',
+      controller:'OnboardEmailCtrl',
+      title:'Email'
     })
     .state('onboard.tutorial', {
       url:'tutorial',
