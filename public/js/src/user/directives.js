@@ -5,7 +5,7 @@ angular.module('opsee.user.directives', []);
 function userInputs(){
   return {
     restrict:'EA',
-    templateUrl:'/public/js/src/user/partials/user-inputs.html',
+    templateUrl:'/public/js/src/user/partials/inputs.html',
     scope:{
       user:'=',
       login:'='

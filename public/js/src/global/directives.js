@@ -5,7 +5,6 @@ angular.module('opsee.global.directives', []);
 function statefulBtn(){
   return {
     restrict:'EA',
-    template:'<button style="color:black;font-size:25px;padding:.3em;" ng-click="click()" ng-disabled="state == options.inProgress">{{state.text}}<span class="ng-hide" ng-show="state == options.inProgress" style="font-size:9px;">A spinner</span></button>',
     scope:{
       value:'=',
       send:'='
@@ -38,6 +37,20 @@ function statefulBtn(){
   }
 }
 angular.module('opsee.global.directives').directive('statefulBtn', statefulBtn);
+
+function preventDefaultA(){
+  return {
+    restrict: 'E',
+    link: function(scope, elem, attrs) {
+      if(attrs.ngClick || attrs.href === '' || attrs.href === '#'){
+        elem.on('click', function(e){
+            e.preventDefault();
+        });
+      }
+    }
+ };
+}
+angular.module('opsee.global.directives').directive('preventDefaultA', preventDefaultA);
 
 
 })();//IIFE
