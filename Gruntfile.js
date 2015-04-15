@@ -169,7 +169,7 @@ module.exports = function(grunt) {
       pages:{
         options:{
           livereload:true
-        },        
+        },
         files:['public/**/*.html']
       }
       // require:{
