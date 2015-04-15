@@ -1,29 +1,24 @@
-<div>
-  <div class="container">
-    <div class="col-xs-12 col-md-4 col-md-offset-4">
+<div class="container">
+  <div class="md-toolbar md-tall">
+    <div class="md-toolbar-tools">
       <h1 class="">Checks</h1>
     </div>
-    <div class="col-xs-12">
-      <input type="search" ng-model="search" placeholder="Search" class="form-control"/>
-    </div>
-    <div class="col-xs-12">
-      <a ui-sref="checkCreate" class="btn btn-primary pull-right">Create New Check</a>
-    </div>
-    <div class="col-xs-12">
-      <ul class="list-unstyled">
-        <li ng-repeat="check in checks" class="media">
-          <div class="media-left">
-            <div class="media-object">100%</div>
-          </div>
-          <div class="media-body">
-            {{check.name}}
-            <a ui-sref="checkSingle({id:check.id})" class="media-heading">
-              <h3>{{check.name}}</h3>
-              <h4>{{check.info}}</h4>
-            </a>
-          </div>
-        </li>
-      </ul>
-    </div>
+  </div>
+  <div class="col-xs-12">
+    <input type="search" ng-model="search" placeholder="Search" class="form-control"/>
+  </div>
+  <div class="col-xs-12">
+    <a ui-sref="checkCreate" class="btn btn-primary pull-right">Create New Check</a>
+  </div>
+  <div class="col-xs-12">
+    <ul class="md-list md-list-two-line md-list-has-avatars">
+      <li ng-repeat="check in checks" class="md-list-item">
+        <a ui-sref="checkSingle({id:check.id})" class="md-list-link">
+          <div class="md-list-line">{{check.name}}</div>
+          <div class="md-list-line">{{check.info}}</div>
+          <div class="md-list-avatar">10%</div>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
