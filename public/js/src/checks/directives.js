@@ -7,37 +7,25 @@ function checkInputs(){
     restrict:'EA',
     templateUrl:'/public/js/src/checks/partials/inputs.html',
     scope:{
-      check:'='
+      check:'=',
+      checkStep:'=?'
     },
-    controller:function($scope, NotificationSettings, Intervals){
+    controller:function($scope, NotificationSettings, Intervals, Verbs, Protocols){
       $scope.groups = [
         {
-          name:'foo'
+          name:'US Group 1'
         },
         {
-          name:'fa'
+          name:'Europe Group 2'
         },
         {
-          name:'fe'
+          name:'US Group 2'
         }
       ],
-      $scope.types = [
-        {
-          name:'HTTP'
-        },
-        {
-          name:'MySQL'
-        },
-        {
-          name:'Other'
-        }
-      ]
-
-      $scope.http = {
-        protocols:['HTTP','HTTPS','Other']
-      }
+      $scope.protocols = Protocols;
       $scope.notificationSettings = NotificationSettings;
       $scope.intervals = Intervals;
+      $scope.verbs = Verbs;
     }//end controller
   }
 }

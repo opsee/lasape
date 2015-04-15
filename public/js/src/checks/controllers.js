@@ -69,6 +69,7 @@ function CreateCheckCtrl($scope, $state, Check){
   $scope.submit = function(){
     console.log($scope.check);
   }
+  $scope.checkStep = 1;
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 

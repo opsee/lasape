@@ -311,4 +311,41 @@ function NotificationSettings(){
 }
 angular.module('opsee.global.services').service('NotificationSettings', NotificationSettings);
 
+function Verbs(){
+  return[
+    {
+      name:'GET'
+    },
+    {
+      name:'POST'
+    },
+    {
+      name:'PUT'
+    },
+    {
+      name:'DELETE'
+    },
+    {
+      name:'PATCH'
+    }
+  ]
+}
+angular.module('opsee.global.services').service('Verbs', Verbs);
+
+
+function Protocols(){
+  return[
+    {
+      name:'HTTP'
+    },
+    {
+      name:'MySQL'
+    },
+    {
+      name:'Other'
+    }
+  ]
+}
+angular.module('opsee.global.services').service('Protocols', Protocols);
+
 })();//IIFE
