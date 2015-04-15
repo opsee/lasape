@@ -1,6 +1,86 @@
+html {
+  font-size: 62.5%;
+  line-height: 1.4;
+}
 body {
   color: $text-color;
+  font-size: 1.6rem;
   font-weight: $body-font-weight;
+}
+
+$display-4-font-size-base: 11.20rem;
+$display-3-font-size-base: 5.600rem;
+$display-2-font-size-base: 4.500rem;
+$display-1-font-size-base: 3.400rem;
+$headline-font-size-base:  2.400rem;
+$title-font-size-base:     2.000rem;
+$subhead-font-size-base:   1.600rem;
+
+$body-font-size-base:      1.400rem;
+$caption-font-size-base:   1.200rem;
+
+/************
+ * Headings
+ ************/
+.md-display-4 {
+  font-size: $display-4-font-size-base;
+  font-weight: 300;
+  letter-spacing: -0.010em;
+  line-height: $display-4-font-size-base;
+}
+.md-display-3 {
+  font-size: $display-3-font-size-base;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: $display-3-font-size-base;
+}
+.md-display-2 {
+  font-size: $display-2-font-size-base;
+  font-weight: 400;
+  line-height: 6.4rem;
+}
+.md-display-1 {
+  font-size: $display-1-font-size-base;
+  font-weight: 400;
+  line-height: 4rem;
+}
+.md-headline {
+  font-size: $headline-font-size-base;
+  font-weight: 400;
+  line-height: 3.2rem;
+}
+.md-title {
+  font-size: $title-font-size-base;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+.md-subhead {
+  font-size: $subhead-font-size-base;
+  font-weight: 400;
+  letter-spacing: 0.010em;
+  line-height: 2.4rem;
+}
+/************
+ * Body Copy
+ ************/
+.md-body-1 {
+  font-size: $body-font-size-base;
+  font-weight: 400;
+  letter-spacing: 0.010em;
+  line-height: 2rem;
+}
+.md-body-2 {
+  font-size: $body-font-size-base;
+  font-weight: 500;
+  letter-spacing: 0.010em;
+  line-height: 2.4rem;
+}
+.md-caption {
+  font-size: $caption-font-size-base;
+  letter-spacing: 0.020em;
+}
+.md-button {
+  letter-spacing: 0.010em;
 }
 
 // .text-gray{
