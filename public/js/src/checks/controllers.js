@@ -64,17 +64,30 @@ SingleCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
+function CreateCheckCtrl($scope, $state){
+  $scope.check = {
+    name:null
+  }
+}
+angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
+
 function config ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('checks', {
       url:'/checks',
       templateUrl:'/public/js/src/checks/views/index.html',
       controller:'ChecksCtrl'
     })
-    .state('singleCheck', {
+    .state('checkSingle', {
       url:'/check/:id',
       templateUrl:'/public/js/src/checks/views/single.html',
       controller:'SingleCheckCtrl',
       resolve:SingleCheckCtrl.resolve
+    })
+    .state('checkCreate', {
+      url:'/check-create/',
+      templateUrl:'/public/js/src/checks/views/create.html',
+      controller:'CreateCheckCtrl',
+      // resolve:SingleCheckCtrl.resolve
     })
   }
 angular.module('opsee').config(config);

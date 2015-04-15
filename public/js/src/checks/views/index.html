@@ -7,6 +7,9 @@
       <input type="search" ng-model="search" placeholder="Search" class="form-control"/>
     </div>
     <div class="col-xs-12">
+      <a ui-sref="checkCreate" class="btn btn-primary pull-right">Create New Check</a>
+    </div>
+    <div class="col-xs-12">
       <ul class="list-unstyled">
         <li ng-repeat="check in checks" class="media">
           <div class="media-left">
@@ -14,7 +17,7 @@
           </div>
           <div class="media-body">
             {{check.name}}
-            <a ui-sref="singleCheck({id:check.id})" class="media-heading">
+            <a ui-sref="checkSingle({id:check.id})" class="media-heading">
               <h3>{{check.name}}</h3>
               <h4>{{check.info}}</h4>
             </a>
