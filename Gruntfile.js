@@ -94,7 +94,9 @@ module.exports = function(grunt) {
             'angular-material/angular-material.min',
             'angular-animate/angular-animate.min',
             'angular-ui-router/release/angular-ui-router',
-            'angular-aria/angular-aria.min'
+            'angular-aria/angular-aria.min',
+            'moment/moment',
+            'angular-moment/angular-moment.min'
           ])
         }
       },
@@ -133,8 +135,7 @@ module.exports = function(grunt) {
     watch:{
       grunt:{
         files:['Gruntfile.js'],
-        tasks:[]
-        // tasks:['uglify:deps']
+        tasks:['uglify:deps']
       },
       j:{
         options:{
@@ -143,13 +144,13 @@ module.exports = function(grunt) {
         files:['_site/**/*.**'],
         tasks:['shell:jekyll','copy']
       },
-      // srcScripts:{
-      //   options:{
-      //      livereload:true
-      //    },
-      //   files:['js/src/*.js'],
-      //   tasks:['uglify:srcScripts']
-      // },
+      srcScripts:{
+        options:{
+           livereload:true
+         },
+        files:['js/public/**/*.js'],
+        // tasks:['uglify:srcScripts']
+      },
       sass:{
         files:['scss/**/*.scss'],
         // tasks:['compass', 'autoprefixer']
