@@ -6,19 +6,21 @@ $font-family-monospace:   'InconsolataMedium', monospace;
 $headings-font-family:    'Tungsten Rounded A', 'Tungsten Rounded B', sans-serif;
 $headings-font-weight:    500;
 $font-size-base:          16px;
-$btn-font-weight:         500;
-//THIS IS NOT A BOOTSTRAP VARIABLE
 $body-font-weight:        300;
+$body-font-weight-bold:   700;
+$body-font-weight-med:    500;
+$btn-font-weight:         $body-font-weight-med;
 
 //== Colors
 //
-$body-bg:               #424242;
-$text-color:            #FFF;
-$brand-primary:         #738ffe;
-$brand-success:         #2baf2b;
-$brand-info:            #afbfff;
-$brand-warning:         #ffa726;
-$brand-danger:          #e84e40;
+$body-bg:               #303030;
+$text-color:            rgba(white, 0.85);
+$text-color-secondary:  rgba(white, 0.54);
+$brand-primary:         #738ffe; //$blue-400
+$brand-success:         #2baf2b; //$green-400
+$brand-info:            #afbfff; //$blue-200
+$brand-warning:         #ffa726; //$orange-400
+$brand-danger:          #e84e40; //$red-400
 
 //== Radii
 //
