@@ -11,10 +11,7 @@
 @import "includes/helpers";
 @import "includes/md-list";
 @import "includes/md-subheader";
-
-html {
-  font-size: $font-size-base;
-}
+@import "includes/md-tabs";
 
 body {
   background-color: $body-bg;

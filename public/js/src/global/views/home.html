@@ -1,23 +1,58 @@
 <div class="container">
-  <h2 class="md-subheader md-subheader-has-avatars">
-    <span class="md-subheader-content">Unmonitored (3)</span>
-  </h2>
-  <ul class="md-list md-list-two-line md-list-has-avatars">
-    <li class="md-list-item">
-      <div class="md-list-line">Test</div>
-      <div class="md-list-line">Test</div>
-      <div class="md-list-avatar"></div>
-    </li>
-    <li class="md-list-item">
-      <div class="md-list-line">Test</div>
-      <div class="md-list-line">Test</div>
-      <div class="md-list-avatar"></div>
-    </li>
-    <li class="md-list-item">
-      <div class="md-list-line">Test</div>
-      <div class="md-list-line">Test</div>
-      <div class="md-list-avatar"></div>
-    </li>
-  </ul>
+  <tabset>
+    <tab heading="Instances">
+      <h2 class="md-subheader md-subheader-has-avatars">
+        <span class="md-subheader-content">Unmonitored (3)</span>
+      </h2>
+      <ul class="md-list md-list-two-line md-list-has-avatars">
+        <li class="md-list-item">
+          <div class="md-list-line">Test</div>
+          <div class="md-list-line">Test</div>
+          <div class="md-list-avatar"></div>
+        </li>
+        <li class="md-list-item">
+          <div class="md-list-line">Test</div>
+          <div class="md-list-line">Test</div>
+          <div class="md-list-avatar"></div>
+        </li>
+        <li class="md-list-item">
+          <div class="md-list-line">Test</div>
+          <div class="md-list-line">Test</div>
+          <div class="md-list-avatar"></div>
+        </li>
+      </ul>
 
+      <h2 class="md-subheader md-subheader-has-avatars">
+        <span class="md-subheader-content">Unmonitored (3)</span>
+      </h2>
+      <ul class="md-list md-list-two-line md-list-has-avatars">
+        <li class="md-list-item">
+          <div class="md-list-line">Test</div>
+          <div class="md-list-line">Test</div>
+          <div class="md-list-avatar"></div>
+        </li>
+        <li class="md-list-item">
+          <div class="md-list-line">Test</div>
+          <div class="md-list-line">Test</div>
+          <div class="md-list-avatar"></div>
+        </li>
+        <li class="md-list-item">
+          <div class="md-list-line">Test</div>
+          <div class="md-list-line">Test</div>
+          <div class="md-list-avatar"></div>
+        </li>
+      </ul>
+    </tab>
+    <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+      {{tab.content}}
+    </tab>
+    <tab>
+      <tab-heading>Groups</tab-heading>
+      <p>I've got an HTML heading, and a select callback. Pretty cool!</p>
+    </tab>
+    <tab>
+      <tab-heading>Locations</tab-heading>
+      <p>I've got an HTML heading, and a select callback. Pretty cool!</p>
+    </tab>
+  </tabset>
 </div><!-- .container -->
