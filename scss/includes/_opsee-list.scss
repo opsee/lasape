@@ -1,0 +1,78 @@
+.opsee-list {
+  list-style: none;
+  padding: 0.5rem 0;
+  &.two-line {
+    li {
+      padding: 1.25rem 1rem;
+    }
+  }
+  &.has-avatars {
+    li {
+      padding-left: 4.5rem;
+    }
+  }
+  a {
+    color: inherit;
+    display: block;
+  }
+  li {
+    @include box-sizing(border-box);
+    // @include transition(background-color 1800ms cubic-bezier(0.23, 1, 0.32, 1));
+    border-bottom: 1px solid $gray-700;
+    line-height: 1rem;
+    padding: 1rem 1rem;
+    position: relative;
+  }
+  svg {
+    height: 2.5rem;
+    position: absolute;
+    width: 2.5rem;
+  }
+  #loader {
+    fill: transparent;
+  }
+  .avatar {
+    background-color: black;
+    border-radius: 1.25rem;
+    color: $body-bg;
+    font-family: $headings-font-family;
+    // font-size: 0.875rem;
+    font-weight: 500;
+    height: 2.5rem;
+    left: 1rem;
+    position: absolute;
+    top: 1rem;
+    width: 2.5rem;
+    &.running {
+      background-color: $red-500;
+      .avatar-inner {
+        background-color: $green-300;
+        border-color: $body-bg;
+      }
+      #loader {
+        fill: $green-300;
+      }
+    }
+    &.stopped { background-color: $red-500;}
+    &.unmonitored { background-color: $yellow-800;}
+  }
+  .avatar-inner {
+    @include box-sizing(border-box);
+    background-color: transparent;
+    border: 0.125rem solid transparent;
+    border-radius: 2rem;
+    height: 2rem;
+    left: 0.25rem;
+    line-height: 1.75rem;
+    position: absolute;
+    text-align: center;
+    top: 0.25rem;
+    width: 2rem;
+  }
+  .line {
+    display: block;
+    &.two {
+      color: $gray-400;
+    }
+  }
+}

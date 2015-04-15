@@ -1,6 +1,8 @@
-
-
-
+@mixin box-sizing($boxmodel) {
+  -webkit-box-sizing: $boxmodel;
+     -moz-box-sizing: $boxmodel;
+          box-sizing: $boxmodel;
+}
 
 // @mixin triangle($direction, $color, $size) {
 //         @if $direction == "left" {

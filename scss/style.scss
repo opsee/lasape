@@ -3,12 +3,13 @@
 @import "breakpoint";
 @import "includes/mixins";
 @import "includes/fonts";
-@import 'includes/ngActivityIndicator';
-@import 'includes/opsee-variables';
-@import 'includes/bootstrap';
-@import 'includes/typography';
-@import 'includes/inputs';
-@import 'includes/helpers';
+@import "includes/ngActivityIndicator";
+@import "includes/opsee-variables";
+@import "includes/bootstrap";
+@import "includes/typography";
+@import "includes/inputs";
+@import "includes/helpers";
+@import "includes/opsee-list";
 
 body {
   background-color: $body-bg;
@@ -64,9 +65,9 @@ body {
 //   }
 // }
 
-.form-control{
-  font-size:16px;
-}
+// .form-control{
+//   font-size:16px;
+// }
 
 // .input-group{
 //   margin-bottom:1em;
