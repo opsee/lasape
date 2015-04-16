@@ -1,7 +1,7 @@
 <div>
   <div class="col-xs-12">
     <h2>Assertions</h2>
-    <h3>Create an assertion</h3>
+    <h3>Create Assertions</h3>
       <ul class="list-unstyled">
         <li ng-repeat="assertion in check.assertions" class="row" ng-init="assertionIndex = $index">
           <div class="btn-group" dropdown is-open="status['assertionType'+$index]">
@@ -32,11 +32,16 @@
               </li>
             </ul>
           </div>
-          <div ng-if="!assertion.type || assertion.type.name != 'Status Code'">
+          <div ng-if="assertion.type.name == 'Response Body'">
             <input type="text" ng-model="assertion.value" placeholder="Value" class="form-control" ng-required="true"/>
           </div>
-          <div class="btn-group" dropdown is-open="status['assertionCode'+$index]" ng-if="assertion.type && assertion.type.name == 'Status Code'">
-            <select class="sr-only" ng-required="true" ng-model="check.assertions[$index].value" ng-options="c.code for c in codes"></select>
+          <div ng-if="assertion.type.name == 'Response Header'">
+            <input type="text" ng-model="assertion.value.name" typeahead="h as h[0] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control" placeholder="Name">
+            <input type="text" ng-model="assertion.value.value" typeahead="h as h[1] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control" placeholder="Value">
+          </div>
+          <input type="text" ng-model="assertion.value" typeahead="c as c.code for c in codes | filter:$viewValue" class="form-control" placeholder="Name" ng-required="true">
+          <!-- <div class="btn-group" dropdown is-open="status['assertionCode'+$index]" ng-if="assertion.type && assertion.type.name == 'Status Code'">
+            <select class="sr-only" ng-required="true" ng-model="assertion.value" ng-options="c.code for c in codes"></select>
             <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
               <span ng-if="assertion.value">{{assertion.value.code}} - {{assertion.value.phrase}}</span>
               <span ng-if="!assertion.value">Code</span>
@@ -49,12 +54,43 @@
                 </a>
               </li>
             </ul>
-          </div>
+          </div> -->
           <buttton type="button" class="btn btn-default btn-sm" ng-click="check.removeItem('assertions',assertionIndex)" ng-hide="assertionIndex === 0">Remove Assertion</buttton>
+          <span ng-if="assertion.value">Assertion Passing: {{assertionPassing(assertionIndex)}}</span>
         </li>
     </ul>
     <div>
       <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('assertions')">Add Another Assertion</button>
+    </div>
+    <div class="container" ng-if="checkResponse">
+      <h3>Response</h3>
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-6"><h4>Status Code</h4></div>
+          <div class="col-xs-6">{{checkResponse.status}} - {{checkResponse.statusText}}</div>
+        </div>
+        <div class="row" ng-repeat="h in checkResponse.responseHeaders">
+          <div class="col-xs-6"><h4>{{h[0]}}</h4></div>
+          <div class="col-xs-6">{{h[1]}}</div>
+        </div>
+      </div>
+      <h3>Body</h3>
+      <div style="overflow:auto;">
+        <code>
+          <pre>
+            {{checkResponse.data | json}}
+          </pre>
+        </code>
+      </div>
+    </div>
+    <div class="container">
+      <h3>Request</h3>
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-6"><h4>URL</h4></div>
+          <div class="col-xs-6">{{checkResponse.config.url}}</div>
+        </div>
+      </div>
     </div>
     <div>
       <button type="button" class="btn btn-primary" ng-disabled="checkStep2Form.$invalid">Actions &amp; Settings ></button>

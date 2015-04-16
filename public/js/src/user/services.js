@@ -91,10 +91,8 @@ var userDefaults = {
   bio:{
     name:null
   },
-  team:{
-    name:null,
-    domain:null
-  }
+  teams:[
+  ]
 }
 angular.module('opsee.user.services').constant('USER_DEFAULTS', userDefaults);
 
