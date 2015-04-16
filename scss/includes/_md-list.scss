@@ -20,9 +20,11 @@
   padding: 16px 16px;
   position: relative;
 }
-.md-list-link {
+.md-list-link,
+.md-list-link:hover {
   color: inherit;
   display: block;
+  text-decoration: none;
 }
 .md-list-line {
   display: block;
@@ -31,7 +33,7 @@
   }
 }
 .md-list-avatar {
-  background-color: black;
+  background-color: $green-300;
   border-radius: 20px;
   color: $body-bg;
   font-family: $headings-font-family;
