@@ -91,8 +91,7 @@ module.exports = function(grunt) {
             'angular-aria/angular-aria.min',
             'moment/moment',
             'angular-moment/angular-moment.min',
-            'angular-cookies/angular-cookies.min',
-            'angular-toArrayFilter/toArrayFilter'
+            'angular-cookies/angular-cookies.min'
           ])
         }
       },
