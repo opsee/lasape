@@ -2,25 +2,38 @@
 
 angular.module('opsee.global.services', []);
 
-function Global($rootScope, $log, $q) {
+function Global($rootScope, $log, $q, $modal) {
   return {
-    confirm:function(msg){
-      var deferred = $q.defer();
+    confirm:function(msg,noConfirm){
+      if(noConfirm){
+        return $q.resolve();
+      }
       if(!msg){
         $log.warn('No msg');
-        deferred.reject();
+        return $q.reject('No msg');
       }
-      //provide warning here
-      //go ahead and do it for now
-      if(window.confirm(msg)){
-        deferred.resolve();
-      }
-      return deferred.promise;
+      var modalInstance = $modal.open({
+        templateUrl:'/public/js/src/global/partials/confirm.html',
+        size:'sm',
+        resolve:{
+          msg:function(){return msg;}
+        },
+        controller:function($scope, $modalInstance, msg){
+          $scope.msg = msg;
+          $scope.ok = function(){
+            $modalInstance.close();
+          }
+          $scope.cancel = function(){
+            $modalInstance.dismiss('cancel');
+          }
+        }
+      });
+      return modalInstance.result;
     }
   }
 };
 
-angular.module('opsee.global.services').factory('Global',Global);
+angular.module('opsee.global.services').service('Global',Global);
 
 //lodash/underscore
 function _($window){

@@ -1,0 +1,63 @@
+<div>
+  <div class="col-xs-12">
+    <h2>Assertions</h2>
+    <h3>Create an assertion</h3>
+      <ul class="list-unstyled">
+        <li ng-repeat="assertion in check.assertions" class="row" ng-init="assertionIndex = $index">
+          <div class="btn-group" dropdown is-open="status['assertionType'+$index]">
+            <select class="sr-only" ng-required="true" ng-model="check.assertions[$index].type" ng-options="r for r in assertionTypes"></select>
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              {{assertion.type.name || 'Type'}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="type in assertionTypes">
+                <a href="#" ng-click="changeAssertionType(type,assertionIndex)">
+                  {{type.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group" dropdown is-open="status['assertionRelationship'+$index]">
+            <select class="sr-only" ng-required="true" ng-model="assertion.relationship" ng-options="r for r in relationships"></select>
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              {{assertion.relationship.name || 'Relationship'}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="relationship in relationships">
+                <a href="#" ng-click="assertion.relationship = relationship">
+                  {{relationship.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div ng-if="!assertion.type || assertion.type.name != 'Status Code'">
+            <input type="text" ng-model="assertion.value" placeholder="Value" class="form-control" ng-required="true"/>
+          </div>
+          <div class="btn-group" dropdown is-open="status['assertionCode'+$index]" ng-if="assertion.type && assertion.type.name == 'Status Code'">
+            <select class="sr-only" ng-required="true" ng-model="check.assertions[$index].value" ng-options="c.code for c in codes"></select>
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              <span ng-if="assertion.value">{{assertion.value.code}} - {{assertion.value.phrase}}</span>
+              <span ng-if="!assertion.value">Code</span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="code in codes">
+                <a href="#" ng-click="assertion.value = code">
+                  {{code.code}} - {{code.phrase}}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <buttton type="button" class="btn btn-default btn-sm" ng-click="check.removeItem('assertions',assertionIndex)" ng-hide="assertionIndex === 0">Remove Assertion</buttton>
+        </li>
+    </ul>
+    <div>
+      <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('assertions')">Add Another Assertion</button>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary" ng-disabled="checkStep2Form.$invalid">Actions &amp; Settings ></button>
+    </div>
+  </div><!-- .col-xs-12 -->
+</div>

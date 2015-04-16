@@ -18,6 +18,7 @@ function Check($resource, $rootScope, _, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMA
     if(!selection){return false;}
     var target;
     try{
+      //eval here allows us to write simple strings in html
       eval('var target=this.'+selection);
     }catch(err){
       console.log(err);
@@ -26,6 +27,7 @@ function Check($resource, $rootScope, _, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMA
     var length = target.length;
     var schema;
     try{
+      //eval here allows us to write simple strings in html
       eval('schema=CHECK_SCHEMAS.'+selection);
     }catch(err){
       console.log(err);
@@ -35,6 +37,20 @@ function Check($resource, $rootScope, _, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMA
     if((cond1 || cond2) && schema){
       target.push(angular.copy(schema));
     }
+  }
+  Check.prototype.removeItem = function(selection, $index){
+    if(!selection || $index == undefined){return false;}
+    var target;
+    try{
+      //eval here allows us to write simple strings in html
+      eval('var target=this.'+selection);
+    }catch(err){
+      console.log(err);
+    }
+    if(!target){return false;}
+    $rootScope.global.confirm('Remove this item?').then(function(){
+      target.splice($index,1);
+    });
   }
   return Check;
 }
@@ -74,7 +90,9 @@ angular.module('opsee.checks.services').service('CheckService', CheckService);
 
 var checkDefaults = {
   name:null,
+  message:null,
   type:null,
+  interval:null,
   http:{
     protocol:null,
     authentications:[],

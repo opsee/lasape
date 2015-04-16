@@ -77,7 +77,8 @@ function config ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('checks', {
       url:'/checks',
       templateUrl:'/public/js/src/checks/views/index.html',
-      controller:'ChecksCtrl'
+      controller:'ChecksCtrl',
+      title:'Checks'
     })
     .state('checkSingle', {
       url:'/check/:id',
@@ -89,6 +90,7 @@ function config ($stateProvider, $urlRouterProvider) {
       url:'/check-create/',
       templateUrl:'/public/js/src/checks/views/create.html',
       controller:'CreateCheckCtrl',
+      title:'Create New Check'
       // resolve:SingleCheckCtrl.resolve
     })
   }

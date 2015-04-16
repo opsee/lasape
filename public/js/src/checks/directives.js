@@ -28,10 +28,23 @@ function checkInputs(){
       $scope.verbs = Verbs;
       $scope.relationships = Relationships;
       $scope.assertionTypes = AssertionTypes;
+
+      //kick these off, 1 is required
       $scope.check.addItem('assertions');
+      $scope.check.addItem('notifications');
       StatusCodes().then(function(res){
         $scope.codes = res;
-      })
+      });
+      $scope.changeAssertionType = function(type,$index){
+        $scope.check.assertions[$index].type = type;
+        $scope.check.assertions[$index].value = null;
+      }
+      $scope.sendTestNotification = function(){
+        console.log($scope.check);
+      }
+      $scope.finishCreate = function(){
+        console.log($scope.check);
+      }
     }//end controller
   }
 }

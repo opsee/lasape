@@ -1,0 +1,79 @@
+<div class="row">
+ <div class="col-xs-12">
+      <h2>Actions &amp; Settings</h2>
+    </div>
+    <div class="col-xs-12">
+      <h3>Check Information</h3>
+      <div>
+        <input type="text" ng-model="check.name" class="form-control" placeholder="Check Name" ng-required="true"/>
+      </div>
+      <div>
+        <textarea ng-model="check.message" class="form-control" placeholder="Message" ng-required="true"></textarea>
+      </div>
+      <div>
+        <em><small>This will appear in the notification to help recipients.</small></em>
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <h3>Check Interval</h3>
+        <div class="btn-group">
+          <select class="sr-only" ng-required="true" ng-model="check.interval" ng-options="i for i in intervals"></select>
+          <label class="btn btn-success" ng-model="check.interval" btn-radio="int" uncheckable ng-repeat="int in intervals">
+            {{int.name}}
+          </label>
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <!-- <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
+        <h2>Authentication</h2>
+        <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('http.authentications')">Add Basic Auth</button>
+        <ul class="list-unstyled">
+          <li ng-repeat="auth in check.http.authentications" class="row">
+            <div class="col-xs-6">
+              <input type="text" ng-model="check.http.authentications[$index].username" class="form-control" placeholder="username" ng-required="true"/>
+            </div>
+            <div class="col-xs-6">
+              <input type="text" ng-model="check.http.authentications[$index].password" class="form-control" placeholder="password" ng-required="true"/>
+            </div>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+
+     <div class="col-xs-12">
+      <h3>Notification Channels</h3>
+      <div>
+        <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('notifications')">Add Notification</button>
+        <ul class="list-unstyled">
+          <li ng-repeat="notif in check.notifications" class="row">
+            <div class="col-xs-4">
+              <div class="btn-group" dropdown is-open="status['notificationSettings.types'+$index]">
+                <select class="sr-only" ng-required="true" ng-model="notif.type" ng-options="t for t in notificationSettings.types"></select>
+                <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                  {{notif.type.name || 'Type'}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="nt in notificationSettings.types">
+                    <a href="#" ng-click="notif.type = nt">
+                      {{nt.name}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xs-8">
+              <input type="text" ng-model="check.notifications[$index].value" class="form-control" placeholder="" ng-required="true"/>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-link pull-right" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send test notification</button>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-primary pull-right" ng-disabled="checkStep3Form.$invalid">Finish</button>
+    </div>
+</div>
