@@ -1,0 +1,74 @@
+<div>
+  <div class="col-xs-12">
+      <div class="btn-group" dropdown is-open="status.groupOpen">
+        <select class="sr-only" ng-required="true" ng-model="check.group" ng-options="g for g in groups"></select>
+        <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          {{check.group.name || 'Group'}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="g in groups">
+            <a href="#" ng-click="check.group = g">
+              {{g.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="btn-group" dropdown is-open="status.typeOpen">
+        <select class="sr-only" ng-required="true" ng-model="check.protocol" ng-options="p for p in protocols"></select>
+        <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          {{check.protocol.name || 'Protocol'}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="p in protocols">
+            <a href="#" ng-click="check.protocol = p">
+              {{p.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="row">
+        <!-- <div class="col-xs-4">
+          <label for="port">Port</label>
+        </div> -->
+        <div class="col-xs-12">
+          <input type="text" ng-model="check.http.port" class="form-control" placeholder="Port (e.g. 80)" ng-required="true"/>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="btn-group" dropdown is-open="status.requestTypeOpen">
+        <select class="sr-only" ng-required="true" ng-model="check.verb" ng-options="v for v in verbs"></select>
+        <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          {{check.verb.name || 'Verb'}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="v in verbs">
+            <a href="#" ng-click="check.verb = v">
+              {{v.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <input type="text" ng-model="check.url" class="form-control" placeholder="URL (e.g. '/')" ng-required="true"/>
+    </div>
+    <div class="col-xs-12">
+      <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('http.headers')">Add Headers</button>
+      <ul class="list-unstyled">
+        <li ng-repeat="auth in check.http.headers" class="row">
+          <div class="col-xs-6">
+            <input type="text" ng-model="check.http.headers[$index].key" class="form-control" placeholder="Header Key" ng-required="true"/>
+          </div>
+          <div class="col-xs-6">
+            <input type="text" ng-model="check.http.headers[$index].value" class="form-control" placeholder="Header Value" ng-required="true"/>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-disabled="checkStep1Form.$invalid">Test ></button>
+  </div>
