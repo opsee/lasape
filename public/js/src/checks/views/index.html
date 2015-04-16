@@ -2,7 +2,9 @@
   <div class="md-toolbar md-tall">
     <div class="md-toolbar-tools">
       <h1 class="">Checks</h1>
-      <a ui-sref="checkCreate" class="md-button md-fab md-fab-bottom-right-toolbar md-success">+</a>
+      <a ui-sref="checkCreate" class="btn btn-success btn-fab btn-fab-bottom-right-toolbar">
+        <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
+      </a>
     </div>
   </div>
   <!-- <div class="col-xs-12">
@@ -15,7 +17,7 @@
           <div class="md-list-line">{{check.name}}</div>
           <div class="md-list-line">{{check.info}}</div>
           <div class="md-list-avatar">
-            <div class="md-list-avatar-inner">100%</div>
+            <div class="md-list-avatar-inner">100</div>
           </div>
         </a>
       </li>
