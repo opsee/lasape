@@ -1,4 +1,4 @@
-<div>
+<div class="row">
   <div class="col-xs-12">
       <div class="btn-group" dropdown is-open="status.groupOpen">
         <select class="sr-only" ng-required="true" ng-model="check.group" ng-options="g for g in groups"></select>
@@ -59,7 +59,7 @@
     </div>
     <div class="col-xs-12">
       <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('http.headers')">Add Headers</button>
-      <ul class="list-unstyled">
+      <ul class="list-unstyled row">
         <li ng-repeat="auth in check.http.headers" class="row">
           <div class="col-xs-6">
             <input type="text" ng-model="check.http.headers[$index].key" class="form-control" placeholder="Header Key" ng-required="true"/>
@@ -70,5 +70,7 @@
         </li>
       </ul>
     </div>
-    <button type="submit" class="btn btn-primary" ng-disabled="checkStep1Form.$invalid">Test ></button>
+    <div class="col-xs-12">
+      <button type="submit" class="btn btn-primary" ng-disabled="checkStep1Form.$invalid">Test ></button>
+    </div>
   </div>
