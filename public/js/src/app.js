@@ -1,6 +1,6 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngPageTitle', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','angularMoment','angular-toArrayFilter'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngPageTitle', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','angularMoment'])
 
   angular.module('opsee').config(function($analyticsProvider, $pageTitleProvider){
     $pageTitleProvider.setSuffix(' - Opsee');
