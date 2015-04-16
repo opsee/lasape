@@ -18,11 +18,13 @@ function userLogin(){
   return {
     restrict:'EA',
     templateUrl:'/public/js/src/user/partials/user-login.html',
-    controller:function($scope,UserService){
+    controller:function($scope,$cookies,UserService){
       $scope.submit = function(){
         if($scope.user && $scope.user.account.password){
           UserService.login($scope.user).then(function(res){
-            console.log(res);
+            if(res.token){
+              $cookies.authToken = res.token;
+            }
           }, function(err){
             console.log(err);
           })

@@ -1,6 +1,6 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngPageTitle', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','angularMoment'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngPageTitle', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','angularMoment','angular-toArrayFilter'])
 
   angular.module('opsee').config(function($analyticsProvider, $pageTitleProvider){
     $pageTitleProvider.setSuffix(' - Opsee');
@@ -77,7 +77,7 @@
   });
 
   function opseeInterceptor($routeProvider, $locationProvider, $httpProvider, $provide, $stateProvider) {
-    $provide.factory('myHttpInterceptor', function($q, $state, $cookies) {
+    $provide.factory('opseeInterceptor', function($q, $cookies, $injector) {
       return {
         request:function(config){
           config.headers = config.headers || {};
@@ -87,22 +87,22 @@
           return config;
         },
         response: function(res) {
-          if(res.status.match('400|401|403')){
+          if([400,401,403].indexOf(res.status) >-1){
             return $q.reject(res);
           }
           return res || $q.when(res);
         },
-
-       responseError: function(res) {
-          if(res.status.match('500')){
-          }else if(res.status.match('404')){
-            $stateProvider.go('404');
+         responseError: function(res) {
+          if([500].indexOf(res.status) > -1){
+          }else if([404].indexOf(res.status) > -1){
+            $injector.get('$state').go('404');
           }
             return $q.reject(res);
           }
         };
       }
     )
+    $httpProvider.interceptors.push('opseeInterceptor');
   }
   angular.module('opsee').config(opseeInterceptor);
 

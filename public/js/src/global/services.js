@@ -406,10 +406,10 @@ function AssertionTypes(){
       name:'Status Code'
     },
     {
-      name:'Header'
+      name:'Response Header'
     },
     {
-      name:'Body'
+      name:'Response Body'
     },
   ]
 }

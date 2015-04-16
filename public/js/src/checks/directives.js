@@ -10,7 +10,7 @@ function checkInputs(){
       check:'=',
       checkStep:'=?'
     },
-    controller:function($scope, NotificationSettings, Intervals, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes){
+    controller:function($scope, $http, _, NotificationSettings, Intervals, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes){
       $scope.groups = [
         {
           name:'US Group 1'
@@ -35,9 +35,32 @@ function checkInputs(){
       StatusCodes().then(function(res){
         $scope.codes = res;
       });
+
+      function genCheckResponse(res){
+        $scope.checkResponse = res;
+        $scope.checkResponse.responseHeaders = _.pairs(res.headers());
+        console.log($scope.checkResponse);
+      }
+      $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
+        genCheckResponse(res);
+      }, function(res){
+        genCheckResponse(res);
+      })
+
       $scope.changeAssertionType = function(type,$index){
         $scope.check.assertions[$index].type = type;
         $scope.check.assertions[$index].value = null;
+      }
+      $scope.assertionPassing = function($index){
+        var assertion = $scope.check.assertions[$index];
+        if($scope.checkResponse && assertion && assertion.value){
+          if(assertion.type.name == 'Status Code'){
+            if(assertion.value.code && parseInt(assertion.value.code) == $scope.checkResponse.status){
+              return true;
+            }
+          }
+        }
+        return false;
       }
       $scope.sendTestNotification = function(){
         console.log($scope.check);

@@ -23,7 +23,6 @@ function SingleCheckCtrl($scope, $state, $stateParams, singleCheck){
 }
 SingleCheckCtrl.resolve = {
   singleCheck:function($stateParams){
-    console.log($stateParams);
     return {
       name:'My great check2',
       info:'Fun info here2.',
