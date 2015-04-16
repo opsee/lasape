@@ -10,7 +10,7 @@ function checkInputs(){
       check:'=',
       checkStep:'=?'
     },
-    controller:function($scope, NotificationSettings, Intervals, Verbs, Protocols){
+    controller:function($scope, NotificationSettings, Intervals, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes){
       $scope.groups = [
         {
           name:'US Group 1'
@@ -26,6 +26,12 @@ function checkInputs(){
       $scope.notificationSettings = NotificationSettings;
       $scope.intervals = Intervals;
       $scope.verbs = Verbs;
+      $scope.relationships = Relationships;
+      $scope.assertionTypes = AssertionTypes;
+      $scope.check.addItem('assertions');
+      StatusCodes().then(function(res){
+        $scope.codes = res;
+      })
     }//end controller
   }
 }

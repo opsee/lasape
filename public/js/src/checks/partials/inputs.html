@@ -72,31 +72,89 @@
         </li>
       </ul>
     </div>
-    <button type="button" class="btn btn-primary" ng-disabled="checkStep1Form.$invalid">Test ></button>
+    <button type="button" class="btn btn-primary" ng-click="checkStep = 2" ng-disabled="checkStep1Form.$invalid">Test ></button>
   </form><!-- #check-step-1 -->
 
-    <div id="check-step-2" class="ng-hide" ng-show="checkStep && checkStep === 2">
+  <div id="check-step-2" class="ng-hide" ng-show="checkStep && checkStep === 2">
+    <div class="col-xs-12">
+    <h2>Assertions</h2>
+    <h3>Create an assertion</h3>
+      <ul class="list-unstyled">
+        <li ng-repeat="assertion in check.assertions" class="row">
+          <div class="btn-group" dropdown is-open="status['assertionType'+$index]">
+            <select class="sr-only" ng-required="true" ng-model="check.assertions[$index].type" ng-options="r for r in assertionTypes"></select>
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              {{assertion.type.name || 'Type'}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="type in assertionTypes">
+                <a href="#" ng-click="assertion.type = type">
+                  {{type.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group" dropdown is-open="status['assertionRelationship'+$index]">
+            <select class="sr-only" ng-required="true" ng-model="assertion.relationship" ng-options="r for r in relationships"></select>
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              {{assertion.relationship.name || 'Relationship'}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="relationship in relationships">
+                <a href="#" ng-click="assertion.relationship = relationship">
+                  {{relationship.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div ng-if="!assertion.type || assertion.type.name != 'Status Code'">
+            <input type="text" ng-model="assertion.value" placeholder="Value" class="form-control"/>
+          </div>
+          <div class="btn-group" dropdown is-open="status['assertionCode'+$index]" ng-if="assertion.type && assertion.type.name == 'Status Code'">
+            <select class="sr-only" ng-required="true" ng-model="check.assertions[$index].value" ng-options="c.code for c in codes"></select>
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              <span ng-if="assertion.value">{{assertion.value.code}} - {{assertion.value.phrase}}</span>
+              <span ng-if="!assertion.value">Code</span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="code in codes">
+                <a href="#" ng-click="assertion.value = code">
+                  {{code.code}} - {{code.phrase}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('assertions')">Add Another Assertion</button>
+    </div>
+  </div>
 
-  <div class="col-xs-12">
-    <h2>Basic Info</h2>
-  </div>
-  <div class="col-xs-12">
-    <div>
-      <input type="text" ng-model="check.name" class="form-control" placeholder="Check Name" ng-required="true"/>
+  <div id="check-step-3" class="ng-hide" ng-show="checkStep && checkStep === 3">
+    <div class="col-xs-12">
+      <h2>Basic Info</h2>
     </div>
-    <div>
-      <input type="text" ng-model="check.description" class="form-control" placeholder="Check Description" ng-required="true"/>
+    <div class="col-xs-12">
+      <div>
+        <input type="text" ng-model="check.name" class="form-control" placeholder="Check Name" ng-required="true"/>
+      </div>
+      <div>
+        <input type="text" ng-model="check.description" class="form-control" placeholder="Check Description" ng-required="true"/>
+      </div>
     </div>
-  </div>
 
-  <div class="col-xs-12">
-    <h2>Check Interval</h2>
-      <div class="btn-group">
-        <label class="btn btn-success" ng-model="check.interval" btn-radio="int" uncheckable ng-repeat="int in intervals">
-          {{int.name}}
-        </label>
+    <div class="col-xs-12">
+      <h2>Check Interval</h2>
+        <div class="btn-group">
+          <label class="btn btn-success" ng-model="check.interval" btn-radio="int" uncheckable ng-repeat="int in intervals">
+            {{int.name}}
+          </label>
+      </div>
     </div>
-  </div>
 
     <div class="col-xs-12">
       <!-- <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
@@ -138,19 +196,6 @@
             </div>
             <div class="col-xs-8">
               <input type="text" ng-model="check.notifications[$index].value" class="form-control" placeholder="" ng-required="true"/>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
-        <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('http.headers')">Add Headers</button>
-        <ul class="list-unstyled">
-          <li ng-repeat="auth in check.http.headers" class="row">
-            <div class="col-xs-6">
-              <input type="text" ng-model="check.http.headers[$index].key" class="form-control" placeholder="Header Key" ng-required="true"/>
-            </div>
-            <div class="col-xs-6">
-              <input type="text" ng-model="check.http.headers[$index].value" class="form-control" placeholder="Header Value" ng-required="true"/>
             </div>
           </li>
         </ul>

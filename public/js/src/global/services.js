@@ -348,4 +348,58 @@ function Protocols(){
 }
 angular.module('opsee.global.services').service('Protocols', Protocols);
 
+function StatusCodes($q, $http, _){
+  return function(){
+    var deferred = $q.defer();
+    $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
+      var array = _.chain(res.data).reject(function(n){
+        return n.phrase.match(/\*\*/);
+      }).sortBy(function(n){
+        return n.code;
+      }).value();
+      deferred.resolve(array);
+    }, function(res){
+      deferred.reject(res);
+    });
+    return deferred.promise;
+  }
+}
+angular.module('opsee.global.services').service('StatusCodes', StatusCodes);
+
+function Relationships(){
+  return[
+    {
+      name:'Equal To'
+    },
+    {
+      name:'Not Equal To'
+    },
+    {
+      name:'Greater Than'
+    },
+    {
+      name:'Less Than'
+    },
+    {
+      name:'Contains'
+    }
+  ]
+}
+angular.module('opsee.global.services').service('Relationships', Relationships);
+
+function AssertionTypes(){
+  return[
+    {
+      name:'Status Code'
+    },
+    {
+      name:'Header'
+    },
+    {
+      name:'Body'
+    },
+  ]
+}
+angular.module('opsee.global.services').service('AssertionTypes', AssertionTypes);
+
 })();//IIFE

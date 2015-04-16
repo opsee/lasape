@@ -80,7 +80,8 @@ var checkDefaults = {
     authentications:[],
     headers:[]
   },
-  notifications:[]
+  notifications:[],
+  assertions:[]
 }
 angular.module('opsee.checks.services').constant('CHECK_DEFAULTS', checkDefaults);
 
@@ -97,6 +98,11 @@ var checkSchemas = {
   },
   notifications:{
     type:null,
+    value:null
+  },
+  assertions:{
+    code:null,
+    relationship:null,
     value:null
   }
 }
