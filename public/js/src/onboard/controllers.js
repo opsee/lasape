@@ -20,7 +20,7 @@ function OnboardStartCtrl($scope,$state,UserService){
     UserService.create($scope.user).then(function(res){
       console.log(res);
       $scope.state = res.statusText || $scope.options.success;
-      $state.go('onboard.email');
+      $state.go('onboard.email',{email:$scope.user.account.email});
     }, function(res){
       $scope.error = res.statusText || 'There was an error processing your request.';
       $scope.state = $scope.options.error;
@@ -36,7 +36,8 @@ function OnboardStartCtrl($scope,$state,UserService){
 }
 angular.module('opsee.onboard.controllers').controller('OnboardStartCtrl', OnboardStartCtrl);
 
-function OnboardEmailCtrl($scope){
+function OnboardEmailCtrl($scope,$stateParams){
+  $scope.user.account.email = $scope.user.account.email || $stateParams.email;
 }
 angular.module('opsee.onboard.controllers').controller('OnboardEmailCtrl', OnboardEmailCtrl);
 
@@ -70,7 +71,7 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'Start'
     })
     .state('onboard.email', {
-      url:'email',
+      url:'email?email',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/email.html',
       controller:'OnboardEmailCtrl',
