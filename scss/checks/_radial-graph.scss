@@ -1,0 +1,36 @@
+.avatar {
+    background-color: black;
+    border-radius: 1.25rem;
+    color:gray;
+    // font-size: 0.875rem;
+    font-weight: 500;
+    height: 2.5rem;
+    left: 1rem;
+    position: absolute;
+    top: 1rem;
+    width: 2.5rem;
+    &.running {
+      background-color:red;
+      .avatar-inner {
+        background-color:green;
+        // border-color:$gray-bg;
+      }
+      #loader {
+        fill:green;
+      }
+    }
+    &.stopped { background-color:red;}
+    &.unmonitored { background-color:yellow;}
+  }
+  .avatar-inner {
+    background-color: transparent;
+    border: 0.125rem solid transparent;
+    border-radius: 2rem;
+    height: 2rem;
+    left: 0.25rem;
+    line-height: 1.75rem;
+    position: absolute;
+    text-align: center;
+    top: 0.25rem;
+    width: 2rem;
+  }

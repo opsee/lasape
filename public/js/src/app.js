@@ -42,27 +42,6 @@
      $rootScope.$on('event:auth-forbidden', function(){
       alert('You do not have permission for that action. Contact the administrator for access.');
      })
-
-
-// opseeServices.factory('AuthInterceptor', ['$q', '$cookies',
-//   function($q, $cookies) {
-//     return {
-//       request: function(config) {
-//         config.headers = config.headers || {};
-//         if ($cookies.authToken) {
-//           config.headers.Authorization = 'HMAC ' + $cookies.authToken;
-//         }
-//         return config;
-//       },
-//       responseError: function(rejection) {
-//         if (rejection != null && rejection.status === 401) {
-//           //delete $cookies.authToken;
-//         }
-//         return $q.reject(rejection);
-//       }
-//     };
-//   }]);
-
   });
 
   // Setting HTML5 Location Mode
@@ -82,7 +61,7 @@
         request:function(config){
           config.headers = config.headers || {};
           if ($cookies.authToken) {
-            config.headers.Authorization = 'HMAC ' + $cookies.authToken;
+            config.headers.Authorization = $cookies.authToken;
           }
           return config;
         },
