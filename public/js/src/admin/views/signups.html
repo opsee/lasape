@@ -6,6 +6,7 @@
         <h2>{{::signup.name}}</h2>
         <h3>{{::signup.email}} - ID:{{::signup.id}}</h3>
         Created: {{::signup.created_at | date:'mediumDate'}}
+        <button type="button" class="btn btn-primary" ng-click="activateSignup(signup.email)">Activate User</button>
       </li>
     </ul>
   </div>

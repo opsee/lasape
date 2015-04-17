@@ -54,6 +54,18 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
         return $q.reject();
       }
     },
+    claim:function(user){
+      if(user && user.account.email && user.token){
+        var _user = {
+          email:user.account.email
+        }
+        var path = $resource(ENDPOINTS.api+'/signups/send-activation?email=');
+        saved = path.save(_user);
+        return saved.$promise;
+      }else{
+        return $q.reject();
+      }
+    },
     login:function(user){
       if(user && user.account.email){
         var _user = {

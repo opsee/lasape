@@ -8,18 +8,36 @@ $graphWidth:40px;
     position: absolute;
     height: $graphWidth;
     width: $graphWidth;
-    &.running {
+    &.running{
       background-color:$red-500;
-      .radial-graph-inner {
-        background-color:$green-300;
-        // border-color:$gray-bg;
+      .radial-graph-inner{
+        background:$green-300;
+        &.failing{
+          background:$red-500;
+        }
       }
       .loader {
         fill:$green-300;
       }
     }
-    &.stopped { background-color:$red-500;}
-    &.unmonitored { background-color:yellow;}
+    &.stopped{
+      background-color:$gray-700;
+      .radial-graph-inner{
+        background-color:$gray-700;
+      }
+      .loader{
+        fill:$gray-700;
+      }
+    }
+    &.unmonitored{
+      background-color:$yellow-800;
+      .radial-graph-inner{
+        background-color:$yellow-800;
+      }
+      .loader{
+        fill:$yellow-800;
+      }
+    }
     svg{
       width: $graphWidth;
       height: $graphWidth;
@@ -30,7 +48,7 @@ $graphWidth:40px;
     $innerWidth:$graphWidth - 4px;
     background-color: transparent;
     border-radius:100%;
-    border:2px solid $body-bg;
+    border:3px solid $body-bg;
     height: $innerWidth;
     width: $innerWidth;
     left:50%;
