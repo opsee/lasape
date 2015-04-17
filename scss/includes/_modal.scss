@@ -1,4 +1,20 @@
-//change to whatever, just needed to see white text
-.modal-content{
-  background:gray;
+.modal-content {
+  @extend .md-shadow-bottom-z-2;
+  border: none;
+}
+.modal[size="notify"] {
+  &.fade .modal-dialog { @include translate(0, 100px) }
+  &.in .modal-dialog { @include translate(0, 0) }
+  .modal-dialog {
+    bottom: 32px;
+    margin: 0 0 0 0;
+    position: absolute;
+    right: 32px;
+  }
+}
+
+@include breakpoint($screen-sm) {
+  .modal-content {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  }
 }

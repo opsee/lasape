@@ -1,26 +1,32 @@
-<div class="container">
+<div>
   <div class="md-toolbar md-tall">
-    <div class="md-toolbar-tools">
-      <h1 class="">Checks</h1>
-      <a ui-sref="checkCreate" class="btn btn-success btn-fab btn-fab-bottom-right-toolbar">
-        <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
-      </a>
+    <div class="container">
+      <div class="md-toolbar-tools">
+        <div class="col-xs-12">
+          <h1 class="">Checks</h1>
+        </div>
+      </div>
     </div>
+    <a ui-sref="checkCreate" class="btn btn-success btn-fab btn-fab-bottom-right-toolbar">
+      <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
+    </a>
   </div>
   <!-- <div class="col-xs-12">
     <input type="search" ng-model="search" placeholder="Search" class="form-control"/>
   </div> -->
-  <div class="col-xs-12">
-    <ul class="md-list md-list-two-line md-list-has-avatars">
-      <li ng-repeat="check in checks" class="md-list-item">
-        <a ui-sref="checkSingle({id:check.id})" class="md-list-link">
-          <div class="md-list-line">{{check.name}}</div>
-          <div class="md-list-line">{{check.info}}</div>
-          <div class="md-list-avatar">
-            <div class="md-list-avatar-inner">100</div>
-          </div>
-        </a>
-      </li>
-    </ul>
+  <div class="container">
+    <div class="col-xs-12">
+      <ul class="md-list md-list-two-line md-list-has-avatars">
+        <li ng-repeat="check in checks" class="md-list-item">
+          <a ui-sref="checkSingle({id:check.id})" class="md-list-link">
+            <div class="md-list-line">{{check.name}}</div>
+            <div class="md-list-line">{{check.info}}</div>
+            <div class="md-list-avatar">
+              <div class="md-list-avatar-inner">100</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

@@ -29,6 +29,28 @@ function Global($rootScope, $log, $q, $modal) {
         }
       });
       return modalInstance.result;
+    },
+    notify:function(msg){
+      if(!msg){
+        $log.warn('No msg');
+        return $q.reject('No msg');
+      }
+      var modalInstance = $modal.open({
+        templateUrl:'/public/js/src/global/partials/notify.html',
+        size:'notify',
+        backdrop:false,
+        resolve:{
+          msg:function(){return msg;}
+        },
+        controller:function($scope, $modalInstance, $timeout, msg){
+          $scope.msg = msg;
+          $timeout($modalInstance.close, 5000);
+          // $scope.ok = function(){
+          //   $modalInstance.close();
+          // }
+        }
+      });
+      return modalInstance.result;
     }
   }
 };

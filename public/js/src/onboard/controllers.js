@@ -14,23 +14,21 @@ function OnboardCtrl($scope,$state){
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
-function OnboardStartCtrl($scope,$state,UserService){
+function OnboardStartCtrl($scope,$state,UserService,Global){
   $scope.submit = function(){
     $scope.state = $scope.options.inProgress;
     UserService.create($scope.user).then(function(res){
-      console.log(res);
-      $scope.state = res.statusText || $scope.options.success;
       $state.go('onboard.email');
     }, function(res){
-      $scope.error = res.statusText || 'There was an error processing your request.';
+      $scope.error = res.data.error || 'There was an error processing your request.';
       $scope.state = $scope.options.error;
+      Global.notify($scope.error);
     });
   }
   $scope.options = {
-    original:'Submit',
-    inProgress:'Submitting...',
-    success:'Success!',
-    error:'Error.'
+    original:'Create Account',
+    inProgress:'Creating your account...',
+    error:'Create Account'
   }
   $scope.state = $scope.options.original;
 }
