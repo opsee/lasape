@@ -1,3 +1,103 @@
+.form-group {
+  border: none;
+  position: relative;
+  > label {
+    @include opacity(0);
+    @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+    // .transition-transform-opacity(@transition_transform);
+    @include transform(translate(-32px,0));
+    color: $text-color-secondary;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: $body-font-weight;
+    margin-top: 0.4rem;
+    visibility: hidden;
+    + input {padding-top: 0.8rem;}
+  }
+  > input {
+    &[type='text'], &[type='email'], &[type='password'] {
+      @include box-shadow(none);
+      @include placeholder($text-color-secondary);
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid $gray-700;
+      color: $text-color;
+      padding-left: 0;
+    }
+    &:hover {
+      border-bottom-color: $gray-400;
+      & ~ .input-icon {
+        fill: $gray-400;
+      }
+    }
+    &:focus, &:active, &.has-content, &.error {
+      @include placeholder(transparent);
+      ~ label {
+        @include opacity(100);
+        @include transform(translate(0,0));
+        visibility: visible;
+      }
+    }
+    &:focus, &:active {
+      @include box-shadow(0 1px 0 $brand-info);
+      border-bottom-color: $brand-info;
+      ~ label {color: $brand-info;}
+      ~ .input-icon { fill: $brand-info; }
+    }
+    &.ng-invalid {
+
+      &:not(.ng-pristine),&.ng-invalid-pattern{
+        @include box-shadow(0 1px 0 $brand-danger);
+        border-bottom-color: $brand-danger;
+        ~ label {
+          @include opacity(100);
+          @include transform(translate(0,0));
+          visibility: visible;
+          color: $brand-danger;
+        }
+        ~ .input-icon { fill: $brand-danger; }
+        ~ .input-error-text {
+          @include opacity(100);
+          // .translate(0;0);
+          @include transform(translate(0,0));
+          visibility: visible;
+        }
+      }
+    }
+    &.ng-valid.ng-touched {
+      ~ label {
+        @include opacity(100);
+        @include transform(translate(0,0));
+        visibility: visible;
+        color: $text-color-secondary;
+      }
+    }
+    &.has-icon {
+      text-indent: 32px;
+    }
+  }
+}
+.input-error-text {
+  @include opacity(0);
+  @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  // .transition-transform-opacity(@transition_transform 100ms);
+  @include transform(translate(32px,0));
+  color: $brand-danger;
+  display: inline-block;
+  font-weight: $body-font-weight-bold;
+  visibility: hidden;
+}
+.input-icon {
+  @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);
+  fill: $text-color-secondary;
+  height: 20px;
+  left: 0;
+  margin-top: 6px;
+  position: absolute;
+  top: 0;
+  width: 20px;
+}
+
 // input{
 //   &.ng-invalid.ng-touched{
 //     border-color:$brand-danger;

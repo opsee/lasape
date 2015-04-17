@@ -21,6 +21,7 @@ $button-fab-mini-line-height: 4.00rem !default;
 }
 
 .btn {
+  border: none;
   border-radius: $border-radius-large;
   text-transform: uppercase;
   transition: box-shadow $swift-ease-out-duration $swift-ease-out-timing-function,
@@ -33,6 +34,12 @@ $button-fab-mini-line-height: 4.00rem !default;
 }
 .btn-block {
   display: block;
+}
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+  @include opacity(100);
+  background-color: $gray-800;
+  color: $text-color-secondary;
+  cursor: not-allowed;
 }
 .btn-fab {
   @include fab-position(bottom-right, auto, ($button-fab-width - $button-fab-padding)/2, ($button-fab-height - $button-fab-padding)/2, auto);
