@@ -39,6 +39,9 @@ module.exports = function(grunt) {
     shell:{
       jekyll:{
         command:'jekyll build --source _site --destination dist --config _config.yml'
+      },
+      bower:{
+        command:'bower install'
       }
     },
     connect: {
@@ -194,7 +197,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
 
   // Default task(s).
-  grunt.registerTask('default', ['connect', 'watch']);
+  grunt.registerTask('default', ['shell:bower','compass','build','connect', 'watch']);
   grunt.registerTask('build', ['uglify','shell:jekyll','copy']);
 
 };
