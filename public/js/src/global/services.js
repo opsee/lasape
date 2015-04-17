@@ -45,7 +45,9 @@ function regex(){
   return{
     float:/^[-+]?[0-9]*\.?[0-9]+$/,
     integer:/^\d+$/,
-    commaNumber:/[1-9](?:\d{0,2})(?:,\d{3})*(?:\.\d*[1-9])?|0?\.\d*[1-9]|0/
+    commaNumber:/[1-9](?:\d{0,2})(?:,\d{3})*(?:\.\d*[1-9])?|0?\.\d*[1-9]|0/,
+    email:/^\S+@\S+\.\S+$/,
+    general:/.*/
   }
 }
 angular.module('opsee.global.services').service('Regex', regex);
@@ -278,7 +280,7 @@ function Principal($q, $http, $timeout) {
       // for the sake of the demo, we'll attempt to read the identity from localStorage. the example above might be a way if you use cookies or need to retrieve the latest identity from an api
       // i put it in a timeout to illustrate deferred resolution
       var self = this;
-      
+
       _identity = angular.fromJson(localStorage.getItem("opsee.identity"));
       self.authenticate(_identity);
       deferred.resolve(_identity);

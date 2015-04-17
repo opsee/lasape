@@ -9,6 +9,9 @@ function userInputs(){
     scope:{
       user:'=',
       login:'='
+    },
+    controller:function($scope,$rootScope){
+      $scope.regex = $rootScope.regex;
     }
   }
 }

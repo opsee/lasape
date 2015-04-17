@@ -1,13 +1,17 @@
 <div class="container">
-  <form ng-submit="submit()" user-signup>
-     <h2>Create your account</h2>
-     <user-inputs user="user"></user-inputs>
-     <div class="ng-hide" ng-show="error">
-       {{error}}
-     </div>
-     <button ng-disabled="state == options.inProgress" type="submit" class="btn btn-success">
-      <span>{{state}}</span>
-      <span class="ng-hide" ng-show="state == options.inProgress">A spinner</span>
-    </button>
+  <form name="signupForm" ng-submit="submit()" user-signup novalidate>
+    <h2>Create your account</h2>
+
+    <user-inputs user="user"></user-inputs>
+
+    <div class="ng-hide" ng-show="error">
+      {{error}}
+    </div>
+    <div class="form-group">
+      <button ng-disabled="state == options.inProgress || signupForm.$invalid" type="submit" class="btn btn-success btn-raised btn-block">
+        <span>{{state}}</span>
+        <span class="ng-hide" ng-show="state == options.inProgress">A spinner</span>
+      </button>
+    </div>
    </form>
 </div><!-- .container -->
