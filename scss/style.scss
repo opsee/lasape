@@ -23,6 +23,18 @@ body {
   background-color: $body-bg;
 }
 
+.logo-header {
+  display: block;
+  margin: 0 auto;
+  width: 33%;
+}
+@include breakpoint($screen-sm) {
+  .logo-header {
+    width: 25%;
+  }
+}
+
+
 // img{
 //   max-width:100%;
 //   height:auto;

@@ -7,6 +7,10 @@ body {
   font-size: 1.6rem;
   font-weight: $body-font-weight;
 }
+pre {
+  background-color: $gray-900;
+  padding: 8px;
+}
 
 $display-4-font-size-base: 11.20rem;
 $display-3-font-size-base: 5.600rem;

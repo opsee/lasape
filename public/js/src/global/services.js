@@ -44,7 +44,7 @@ function Global($rootScope, $log, $q, $modal) {
         },
         controller:function($scope, $modalInstance, $timeout, msg){
           $scope.msg = msg;
-          $timeout($modalInstance.close, 5000);
+          $timeout($modalInstance.close, 6000);
           // $scope.ok = function(){
           //   $modalInstance.close();
           // }
