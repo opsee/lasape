@@ -47,9 +47,6 @@ function checkInputs(){
         }else if(type.match('html')){
           $scope.checkResponse.language = 'html';
         }
-
-        console.log(type);
-        console.log($scope.checkResponse);
       }
       $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
       // $http.get('/public/js/src/user/partials/inputs.html').then(function(res){
@@ -105,6 +102,7 @@ function radialGraph(){
       } else {
         percentage = Math.round($scope.status.health);
       }
+      $scope.bool = $scope.status.health < 50 ? 'failing' : 'passing';
       $scope.width = 40;
       var α = (percentage/100)*360;
       var π = Math.PI;

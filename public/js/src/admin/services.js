@@ -13,6 +13,14 @@ function AdminService($q, $resource, $rootScope, $http, ENDPOINTS){
       });
       return deferred.promise;
     },
+    activateSignup:function(email){
+      if(email){
+        var path = $resource(ENDPOINTS.api+'/signups/send-activation?email='+email);
+        return path.save({email:email}).$promise;
+      }else{
+        return $q.reject();
+      }
+    },
     login:function(admin){
       if(admin && admin.account.email){
         var _admin = {

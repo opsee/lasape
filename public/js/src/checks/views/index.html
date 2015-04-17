@@ -20,7 +20,7 @@
         <a ui-sref="checkSingle({id:check.id})" class="md-list-link">
           <div class="md-list-line">{{check.name}}</div>
           <div class="md-list-line">{{check.info}}</div>
-          <div class="md-list-avatar" radial-graph>
+          <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'running'}">
             <div class="md-list-avatar-inner">100</div>
           </div>
         </a>
