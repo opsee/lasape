@@ -5,20 +5,10 @@
         <span class="md-subheader-content">Unmonitored (3)</span>
       </h2>
       <ul class="md-list md-list-two-line md-list-has-avatars">
-        <li class="md-list-item">
+        <li class="md-list-item" ng-repeat="n in [1,2,3,4]">
           <div class="md-list-line">Test</div>
           <div class="md-list-line">Test</div>
-          <div class="md-list-avatar"></div>
-        </li>
-        <li class="md-list-item">
-          <div class="md-list-line">Test</div>
-          <div class="md-list-line">Test</div>
-          <div class="md-list-avatar"></div>
-        </li>
-        <li class="md-list-item">
-          <div class="md-list-line">Test</div>
-          <div class="md-list-line">Test</div>
-          <div class="md-list-avatar"></div>
+          <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'running'}"></div>
         </li>
       </ul>
 
@@ -26,20 +16,10 @@
         <span class="md-subheader-content">Unmonitored (3)</span>
       </h2>
       <ul class="md-list md-list-two-line md-list-has-avatars">
-        <li class="md-list-item">
+        <li class="md-list-item" ng-repeat="n in [1,2,3,4]">
           <div class="md-list-line">Test</div>
           <div class="md-list-line">Test</div>
-          <div class="md-list-avatar"></div>
-        </li>
-        <li class="md-list-item">
-          <div class="md-list-line">Test</div>
-          <div class="md-list-line">Test</div>
-          <div class="md-list-avatar"></div>
-        </li>
-        <li class="md-list-item">
-          <div class="md-list-line">Test</div>
-          <div class="md-list-line">Test</div>
-          <div class="md-list-avatar"></div>
+          <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'running'}"></div>
         </li>
       </ul>
     </tab>

@@ -38,7 +38,7 @@ function Check($resource, $rootScope, _, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMA
       target.push(angular.copy(schema));
     }
   }
-  Check.prototype.removeItem = function(selection, $index){
+  Check.prototype.removeItem = function(selection, $index, msg){
     if(!selection || $index == undefined){return false;}
     var target;
     try{
@@ -48,7 +48,8 @@ function Check($resource, $rootScope, _, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMA
       console.log(err);
     }
     if(!target){return false;}
-    $rootScope.global.confirm('Remove this item?').then(function(){
+    var msg = msg || 'Remove this item?';
+    $rootScope.global.confirm(msg).then(function(){
       target.splice($index,1);
     });
   }

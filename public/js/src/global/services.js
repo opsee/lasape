@@ -14,7 +14,7 @@ function Global($rootScope, $log, $q, $modal) {
       }
       var modalInstance = $modal.open({
         templateUrl:'/public/js/src/global/partials/confirm.html',
-        size:'sm',
+        size:'notify',
         resolve:{
           msg:function(){return msg;}
         },
@@ -101,26 +101,6 @@ opseeServices.factory('Login', function() {
       }
     };
   });
-
-// opseeServices.factory('AuthInterceptor', ['$q', '$cookies',
-//   function($q, $cookies) {
-//     return {
-//       request: function(config) {
-//         config.headers = config.headers || {};
-//         if ($cookies.authToken) {
-//           config.headers.Authorization = 'HMAC ' + $cookies.authToken;
-//         }
-//         return config;
-//       },
-//       responseError: function(rejection) {
-//         if (rejection != null && rejection.status === 401) {
-//           //delete $cookies.authToken;
-//         }
-//         return $q.reject(rejection);
-//       }
-//     };
-//   }]);
-
 
 function Credentials(ENDPOINTS, $resource) {
   return $resource(ENDPOINTS.api + '/environments/:envId/credentials');

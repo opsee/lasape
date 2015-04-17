@@ -5,7 +5,13 @@ angular.module('opsee.admin.services', []);
 function AdminService($q, $resource, $rootScope, $http, ENDPOINTS){
   return{
     signups:function(){
-      return $http.get(ENDPOINTS.api+'/signups');
+      var deferred = $q.defer();
+      $http.get(ENDPOINTS.api+'/signups').then(function(res){
+        deferred.resolve(res.data);
+      }, function(res){
+        deferred.reject(res);
+      });
+      return deferred.promise;
     },
     login:function(admin){
       if(admin && admin.account.email){
