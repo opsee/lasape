@@ -1,9 +1,9 @@
 <div>
 
-   <form id="check-step-1" name="checkStep1Form" class="ng-hide" ng-show="checkStep && checkStep == 1" ng-include="'/public/js/src/checks/partials/check-step-1.html'" ng-submit="checkStep = 2"></form>
+   <form check-step-1 name="checkStep1Form" class="ng-hide" ng-show="!checkStep || checkStep == 1" ng-submit="forward(2)"></form>
 
-   <form name="checkStep2Form" id="check-step-2" class="ng-hide" ng-show="checkStep && checkStep === 2" ng-include="'/public/js/src/checks/partials/check-step-2.html'" ng-submit="checkStep = 3"></form>
+   <form check-step-2 name="checkStep2Form" class="ng-hide" ng-show="!checkStep || checkStep == 2" ng-submit="forward(3)"></form>
 
-   <form name="checkStep3Form" id="check-step-3" class="ng-hide" ng-show="checkStep && checkStep === 3" ng-include="'/public/js/src/checks/partials/check-step-3.html'" ng-submit="finishCreate()"></form>
+   <form check-step-3 name="checkStep3Form" class="ng-hide" ng-show="!checkStep || checkStep == 3" ng-submit="finishCreate()"></form>
 
 </div>.<!-- row -->

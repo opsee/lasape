@@ -18,8 +18,8 @@ function ChecksCtrl($scope, $state){
 }
 angular.module('opsee.checks.controllers').controller('ChecksCtrl', ChecksCtrl);
 
-function SingleCheckCtrl($scope, $state, $stateParams, singleCheck){
-  $scope.check = singleCheck;
+function SingleCheckCtrl($scope, $state, $stateParams, Check, singleCheck){
+  $scope.check = new Check(singleCheck).setDefaults();
 }
 SingleCheckCtrl.resolve = {
   singleCheck:function($stateParams){
@@ -63,12 +63,58 @@ SingleCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
+function EditCheckCtrl($scope, $state, $stateParams, singleCheck,Check){
+  $scope.check = new Check(singleCheck).setDefaults();
+}
+EditCheckCtrl.resolve = {
+  singleCheck:function($stateParams){
+    return {
+      name:'My great check2',
+      info:'Fun info here2.',
+      id:$stateParams.id || 'TESTID',
+      meta:[
+        {
+          key:'State',
+          value:'Failing'
+        },
+        {
+          key:'Port',
+          value:80
+        },
+        {
+          key:'Protocol',
+          value:'HTTP'
+        }
+      ],
+      instances:[
+      {
+        status:'Failing',
+        name:'a-q8r-309fo (US-West-1)',
+        lastChecked:new Date()
+      },
+      {
+        status:'Passing',
+        name:'hr-afoijfa-309fo (US-West-2)',
+        lastChecked:new Date()
+      },
+      {
+        status:'Passing',
+        name:'aekfjoiuhfef1234-309fo (US-West-1)',
+        lastChecked:new Date()
+      }
+      ]
+    }
+  }
+}
+angular.module('opsee.checks.controllers').controller('EditCheckCtrl', EditCheckCtrl);
+
 function CreateCheckCtrl($scope, $state, Check){
   $scope.check = new Check().setDefaults();
   $scope.submit = function(){
     console.log($scope.check);
   }
   $scope.checkStep = 1;
+  $scope.dropdownStatus = {};
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 
@@ -84,6 +130,12 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/checks/views/single.html',
       controller:'SingleCheckCtrl',
       resolve:SingleCheckCtrl.resolve
+    })
+    .state('checkEdit', {
+      url:'/check/:id/edit',
+      templateUrl:'/public/js/src/checks/views/edit.html',
+      controller:'EditCheckCtrl',
+      resolve:EditCheckCtrl.resolve
     })
     .state('checkCreate', {
       url:'/check-create',

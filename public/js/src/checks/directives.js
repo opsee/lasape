@@ -75,10 +75,32 @@ function checkInputs(){
       $scope.finishCreate = function(){
         console.log($scope.check);
       }
+      $scope.forward = function($index){
+        console.log($index);
+        $scope.checkStep = $index;
+      }
     }//end controller
   }
 }
 angular.module('opsee.checks.directives').directive('checkInputs', checkInputs);
+
+function checkStep1(){
+  return {
+    restrict:'EA',
+    templateUrl:'/public/js/src/checks/partials/check-step-1.html',
+    transclude:true
+  }
+}
+angular.module('opsee.checks.directives').directive('checkStep1', checkStep1);
+
+function checkStep2(){
+  return {
+    restrict:'EA',
+    templateUrl:'/public/js/src/checks/partials/check-step-1.html',
+    transclude:true
+  }
+}
+angular.module('opsee.checks.directives').directive('checkStep2', checkStep2);
 
 
 function radialGraph(){
