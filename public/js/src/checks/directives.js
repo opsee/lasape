@@ -53,7 +53,7 @@ function checkInputs(){
       }
       $scope.changeAssertionRelationship = function(relationship,assertion){
         assertion.relationship = relationship;
-        if(relationship.name.match('Is Empty|Is Not Empty') && assertion.type.name != 'Response Header'){
+        if(relationship.name.match('Is Empty|Is Not Empty') && assertion.type && assertion.type.name != 'Response Header'){
          assertion.value = '';
         }
       }

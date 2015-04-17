@@ -129,7 +129,6 @@ angular.module('opsee.checks.services').constant('CHECK_SCHEMAS', checkSchemas);
 function AssertionTest(){
   var internals = {
     'Equal To':function(response,test){
-      console.log(response,test);
       return angular.equals(response,test);
     },
     'Not Equal To':function(response,test){

@@ -18,7 +18,7 @@
               </li>
             </ul>
           </div>
-          <div class="btn-group" dropdown is-open="status['assertionRelationship'+$index]">
+          <div class="btn-group" dropdown is-open="status['assertionRelationship'+$index]" ng-if="assertion.type.name">
             <select class="sr-only" ng-required="true" ng-model="assertion.relationship" ng-options="r for r in relationships"></select>
             <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
               {{assertion.relationship.name || 'Relationship'}}
