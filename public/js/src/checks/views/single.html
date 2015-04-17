@@ -4,6 +4,7 @@
       <div>Check:</div>
       <div>{{::check.name}}</div>
     </h1>
+    <a ui-sref="checkEdit({id:check.id})" class="btn btn-primary">Edit Check</a>
     <div ng-repeat="meta in check.meta" class="row">
       <div class="col-xs-4">{{meta.key}}</div>
       <div class="col-xs-8">{{meta.value}}</div>

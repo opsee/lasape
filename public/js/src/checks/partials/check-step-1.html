@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-      <div class="btn-group" dropdown is-open="status.groupOpen">
+      <div class="btn-group" dropdown>
         <select class="sr-only" ng-required="true" ng-model="check.group" ng-options="g for g in groups"></select>
         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
           {{check.group.name || 'Group'}} <span class="caret"></span>
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="col-xs-12">
-      <div class="btn-group" dropdown is-open="status.typeOpen">
+      <div class="btn-group" dropdown>
         <select class="sr-only" ng-required="true" ng-model="check.protocol" ng-options="p for p in protocols"></select>
         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
           {{check.protocol.name || 'Protocol'}} <span class="caret"></span>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="col-xs-12">
-      <div class="btn-group" dropdown is-open="status.requestTypeOpen">
+      <div class="btn-group" dropdown>
         <select class="sr-only" ng-required="true" ng-model="check.verb" ng-options="v for v in verbs"></select>
         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
           {{check.verb.name || 'Verb/Method'}} <span class="caret"></span>
