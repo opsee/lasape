@@ -84,55 +84,42 @@ function checkInputs(){
 angular.module('opsee.checks.directives').directive('checkInputs', checkInputs);
 
 
-// var PieAvatar = React.createClass({
-//   getInitialState: function() {
-//     return {
-//       instance_state: 'running',
-//       health: 100
-//     }
-//   },
-//   componentDidMount: function() {
-//     var percentage;
-//     if (this.state.health >= 100) {
-//       percentage = 99.9;
-//     } else if (this.state.health < 0) {
-//       percentage = 0;
-//     } else {
-//       percentage = Math.round(this.state.health);
-//     }
-//     var loader = document.getElementById('loader');
-//     var w = 40;
-//     var α = (percentage/100)*360;
-//     var π = Math.PI;
-//     // α %= 360;
-//     var r = ( α * π / 180 );
-//     var x = Math.sin( r ) * (w/2);
-//     var y = Math.cos( r ) * - (w/2);
-//     var mid = ( α > 180 ) ? 1 : 0;
-//     var path = 'M 0 0 v -' + (w/2) + ' A ' + (w/2) + ' ' + (w/2) + ' 1 ' + mid + ' 1 ' +  x  + ' ' +  y  + ' z';
-//     loader.setAttribute( 'd', path );
-//   },
-//   render: function() {
-//     var txt;
-//     if (this.state.instance_state == 'running') {
-//       txt = Math.round(this.state.health) + '%';
-//     } else {
-//       txt = '';
-//     }
-//     return (
-//       <div>
-//         <div className={'avatar' + ' ' + this.state.instance_state}>
-//           <svg>
-//             <path id="loader" transform="translate(20, 20)"/>
-//           </svg>
-//           <div className='avatar_inner'>{txt}</div>
-//         </div>
-//         <div className='pie_slice'></div>
-//       </div>
-//     );
-//   }
-// });
-
-// React.render(<PieAvatar/>, document.getElementById('pie_avatar'));
+function radialGraph(){
+  return {
+    restrict:'EA',
+    replace:true,
+    templateUrl:'/public/js/src/checks/partials/radial-graph.html',
+    scope:{
+      status:'='
+    },
+    controller:function($scope){
+      $scope.text = '';
+      if ($scope.status.state == 'running') {
+        $scope.text = Math.round($scope.status.health);
+      }
+      var percentage;
+      if ($scope.status.health >= 100) {
+        percentage = 99.9;
+      } else if ($scope.status.health < 0) {
+        percentage = 0;
+      } else {
+        percentage = Math.round($scope.status.health);
+      }
+      $scope.width = 40;
+      var α = (percentage/100)*360;
+      var π = Math.PI;
+      var r = ( α * π / 180 );
+      var x = Math.sin( r ) * ($scope.width/2);
+      var y = Math.cos( r ) * - ($scope.width/2);
+      var mid = ( α > 180 ) ? 1 : 0;
+      $scope.path = 'M 0 0 v -' + ($scope.width/2) + ' A ' + ($scope.width/2) + ' ' + ($scope.width/2) + ' 1 ' + mid + ' 1 ' +  x  + ' ' +  y  + ' z';
+    },
+    link:function($scope,$elem,$attr){
+      var loader = $elem[0].querySelector('.loader');
+      angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',$scope.path);
+    }
+  }
+}
+angular.module('opsee.checks.directives').directive('radialGraph', radialGraph);
 
 })();//IIFE

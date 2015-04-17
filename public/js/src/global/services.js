@@ -14,7 +14,7 @@ function Global($rootScope, $log, $q, $modal) {
       }
       var modalInstance = $modal.open({
         templateUrl:'/public/js/src/global/partials/confirm.html',
-        size:'sm',
+        size:'notify',
         resolve:{
           msg:function(){return msg;}
         },

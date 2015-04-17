@@ -1,36 +1,43 @@
-.avatar {
+$graphWidth:40px;
+.radial-graph{
     background-color: black;
-    border-radius: 1.25rem;
-    color:gray;
+    border-radius:100%;
+    color:$body-bg;
     // font-size: 0.875rem;
     font-weight: 500;
-    height: 2.5rem;
-    left: 1rem;
     position: absolute;
-    top: 1rem;
-    width: 2.5rem;
+    height: $graphWidth;
+    width: $graphWidth;
     &.running {
-      background-color:red;
-      .avatar-inner {
-        background-color:green;
+      background-color:$red-500;
+      .radial-graph-inner {
+        background-color:$green-300;
         // border-color:$gray-bg;
       }
-      #loader {
-        fill:green;
+      .loader {
+        fill:$green-300;
       }
     }
-    &.stopped { background-color:red;}
+    &.stopped { background-color:$red-500;}
     &.unmonitored { background-color:yellow;}
+    svg{
+      width: $graphWidth;
+      height: $graphWidth;
+      overflow:hidden;
+    }
   }
-  .avatar-inner {
+  .radial-graph-inner {
+    $innerWidth:$graphWidth - 4px;
     background-color: transparent;
-    border: 0.125rem solid transparent;
-    border-radius: 2rem;
-    height: 2rem;
-    left: 0.25rem;
-    line-height: 1.75rem;
+    border-radius:100%;
+    border:2px solid $body-bg;
+    height: $innerWidth;
+    width: $innerWidth;
+    left:50%;
+    top:50%;
+    margin-top:-($innerWidth / 2);
+    margin-left:-($innerWidth / 2);
+    line-height: $innerWidth - 6px;
     position: absolute;
     text-align: center;
-    top: 0.25rem;
-    width: 2rem;
   }
