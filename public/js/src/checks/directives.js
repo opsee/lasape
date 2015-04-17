@@ -10,7 +10,7 @@ function checkInputs(){
       check:'=',
       checkStep:'=?'
     },
-    controller:function($scope, $http, _, NotificationSettings, Intervals, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes){
+    controller:function($scope, $http, _, NotificationSettings, Intervals, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes, AssertionTest){
       $scope.groups = [
         {
           name:'US Group 1'
@@ -51,16 +51,14 @@ function checkInputs(){
         $scope.check.assertions[$index].type = type;
         $scope.check.assertions[$index].value = null;
       }
-      $scope.assertionPassing = function($index){
-        var assertion = $scope.check.assertions[$index];
-        if($scope.checkResponse && assertion && assertion.value){
-          if(assertion.type.name == 'Status Code'){
-            if(assertion.value.code && parseInt(assertion.value.code) == $scope.checkResponse.status){
-              return true;
-            }
-          }
+      $scope.changeAssertionRelationship = function(relationship,assertion){
+        assertion.relationship = relationship;
+        if(relationship.name.match('Is Empty|Is Not Empty') && assertion.type.name != 'Response Header'){
+         assertion.value = '';
         }
-        return false;
+      }
+      $scope.assertionPassing = function($index){
+        return AssertionTest($scope.check.assertions[$index],$scope.checkResponse);
       }
       $scope.sendTestNotification = function(){
         console.log($scope.check);

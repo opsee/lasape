@@ -86,7 +86,7 @@ function config ($stateProvider, $urlRouterProvider) {
       resolve:SingleCheckCtrl.resolve
     })
     .state('checkCreate', {
-      url:'/check-create/',
+      url:'/check-create',
       templateUrl:'/public/js/src/checks/views/create.html',
       controller:'CreateCheckCtrl',
       title:'Create New Check'

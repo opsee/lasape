@@ -26,37 +26,26 @@
             </button>
             <ul class="dropdown-menu">
               <li ng-repeat="relationship in relationships">
-                <a href="#" ng-click="assertion.relationship = relationship">
+                <a href="#" ng-click="changeAssertionRelationship(relationship,assertion)">
                   {{relationship.name}}
                 </a>
               </li>
             </ul>
           </div>
-          <div ng-if="assertion.type.name == 'Response Body'">
-            <input type="text" ng-model="assertion.value" placeholder="Value" class="form-control" ng-required="true"/>
+          <div ng-if="assertion.relationship.name && assertion.type.name == 'Response Body'">
+            <input type="text" ng-model="assertion.value" placeholder="Value" class="form-control" ng-required="true" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')"/>
+            <span ng-if="assertion.value !== null">Assertion Passing: {{assertionPassing(assertionIndex)}}</span>
           </div>
-          <div ng-if="assertion.type.name == 'Response Header'">
+          <div ng-if="assertion.relationship.name && assertion.type.name == 'Response Header'">
             <input type="text" ng-model="assertion.value.name" typeahead="h as h[0] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control" placeholder="Name">
-            <input type="text" ng-model="assertion.value.value" typeahead="h as h[1] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control" placeholder="Value">
+            <input type="text" ng-model="assertion.value.value" typeahead="h as h[1] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control" placeholder="Value" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')">
+            <span ng-if="assertion.value.name && assertion.value !== null">Assertion Passing: {{assertionPassing(assertionIndex)}}</span>
           </div>
-          <input type="text" ng-model="assertion.value" typeahead="c as c.code for c in codes | filter:$viewValue" class="form-control" placeholder="Name" ng-required="true">
-          <!-- <div class="btn-group" dropdown is-open="status['assertionCode'+$index]" ng-if="assertion.type && assertion.type.name == 'Status Code'">
-            <select class="sr-only" ng-required="true" ng-model="assertion.value" ng-options="c.code for c in codes"></select>
-            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-              <span ng-if="assertion.value">{{assertion.value.code}} - {{assertion.value.phrase}}</span>
-              <span ng-if="!assertion.value">Code</span>
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li ng-repeat="code in codes">
-                <a href="#" ng-click="assertion.value = code">
-                  {{code.code}} - {{code.phrase}}
-                </a>
-              </li>
-            </ul>
-          </div> -->
+          <div ng-if="assertion.relationship.name && assertion.type.name == 'Status Code'">
+            <input type="text" ng-model="assertion.value" typeahead="c.code as c.code for c in codes | filter:$viewValue" class="form-control" placeholder="Code" ng-required="true">
+            <span ng-if="assertion.value !== null">Assertion Passing: {{assertionPassing(assertionIndex)}}</span>
+          </div>
           <buttton type="button" class="btn btn-default btn-sm" ng-click="check.removeItem('assertions',assertionIndex)" ng-hide="assertionIndex === 0">Remove Assertion</buttton>
-          <span ng-if="assertion.value">Assertion Passing: {{assertionPassing(assertionIndex)}}</span>
         </li>
     </ul>
     <div>

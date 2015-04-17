@@ -388,13 +388,22 @@ function Relationships(){
       name:'Not Equal To'
     },
     {
-      name:'Greater Than'
+      name:'Is Empty'
     },
     {
-      name:'Less Than'
+      name:'Is Not Empty'
     },
+    // {
+    //   name:'Greater Than'
+    // },
+    // {
+    //   name:'Less Than'
+    // },
     {
       name:'Contains'
+    },
+    {
+      name:'RegExp'
     }
   ]
 }
