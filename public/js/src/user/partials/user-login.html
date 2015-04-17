@@ -1,6 +1,6 @@
-<form ng-submit="submit()">
+<form name="loginForm" ng-submit="submit()">
   <user-inputs login="true" user="user"></user-inputs>
   <div>
-    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+    <button ng-disabled="state == options.inProgress || loginForm.$invalid" type="submit" class="btn btn-success btn-block">Log In</button>
   </div>
 </form>
