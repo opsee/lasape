@@ -31,9 +31,6 @@
     </div>
     <div class="col-xs-12">
       <div class="row">
-        <!-- <div class="col-xs-4">
-          <label for="port">Port</label>
-        </div> -->
         <div class="col-xs-12">
           <input type="text" ng-model="check.http.port" class="form-control" placeholder="Port (e.g. 80)" ng-required="true"/>
         </div>
@@ -43,7 +40,7 @@
       <div class="btn-group" dropdown is-open="status.requestTypeOpen">
         <select class="sr-only" ng-required="true" ng-model="check.verb" ng-options="v for v in verbs"></select>
         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-          {{check.verb.name || 'Verb'}} <span class="caret"></span>
+          {{check.verb.name || 'Verb/Method'}} <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="v in verbs">

@@ -10,7 +10,7 @@ function checkInputs(){
       check:'=',
       checkStep:'=?'
     },
-    controller:function($scope, $http, _, NotificationSettings, Intervals, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes, AssertionTest){
+    controller:function($scope, $http, $filter, _, NotificationSettings, Intervals, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes, AssertionTest){
       $scope.groups = [
         {
           name:'US Group 1'
@@ -39,9 +39,21 @@ function checkInputs(){
       function genCheckResponse(res){
         $scope.checkResponse = res;
         $scope.checkResponse.responseHeaders = _.pairs(res.headers());
+        $scope.checkResponse.dataString = typeof $scope.checkResponse.data == 'object' ? $filter('json')($scope.checkResponse.data) : $scope.checkResponse.data;
+        $scope.checkResponse.language = null;
+        var type = res.headers()['content-type'];
+        if(type.match('css')){
+          $scope.checkResponse.language = 'css';
+        }else if(type.match('html')){
+          $scope.checkResponse.language = 'html';
+        }
+
+        console.log(type);
         console.log($scope.checkResponse);
       }
       $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
+      // $http.get('/public/js/src/user/partials/inputs.html').then(function(res){
+      // $http.get('/public/css/src/style.css').then(function(res){
         genCheckResponse(res);
       }, function(res){
         genCheckResponse(res);
