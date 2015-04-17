@@ -8,39 +8,39 @@ function headerController($scope, Global, $location, $rootScope) {
     {
       title:'Checks',
       sref:'checks',
-      icon:null,
-      children:[]
-    },
-    {
-      title:'Signups',
-      sref:'signups',
-      icon:null,
       children:[]
     },
     {
       title:'Login',
       sref:'login',
-      icon:null,
       children:[]
     },
     {
       title:'Onboarding',
-      sref:'onboard.start',
-      icon:null,
-      children:[]
+      children:[
+        {
+          title:'Start',
+          sref:'onboard.start',
+        },
+        {
+          title:'Tutorial',
+          sref:'onboard.tutorial',
+        },
+        {
+          title:'Password',
+          sref:'onboard.password',
+        },
+      ]
     },
     {
-      title:'Tutorial',
-      sref:'onboard.tutorial',
-      icon:null,
-      children:[]
-    },
-    {
-      title:'Password',
-      sref:'onboard.password',
-      icon:null,
-      children:[]
-    },
+      title:'Admin',
+      children:[
+        {
+          title:'Signups',
+          sref:'signups',
+        },
+      ]
+    }
   ];
   $scope.isActive = function ($index) {
     if($scope.navbarEntries[$index].link == $location.path()){

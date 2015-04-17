@@ -13,7 +13,7 @@
           <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}" style="padding-top:6px;">
             <ul class="nav navbar-nav icon-nav">
               <li ng-repeat="link in navbarEntries" dropdown>
-                <a href="#" ng-click="$state.go(link.sref)" ng-class="{'active':isActive($index)}" class="dropdown-toggle" ng-if="link.children.length">{{::link.title}}&nbsp;<span class="caret"></span></a>
+                <a href="#" ng-class="{'active':isActive($index)}" class="dropdown-toggle" ng-if="link.children.length" dropdown-toggle>{{::link.title}}&nbsp;<span class="caret"></span></a>
                 <a href="#" ng-click="$state.go(link.sref)" ng-if="!link.children.length" ng-class="{'active':isActive($index)}">{{::link.title}}</a>
                 <!-- <span class="dropdown-toggle">
                     <span class="caret"></span>
