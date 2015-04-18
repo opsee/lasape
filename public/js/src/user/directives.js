@@ -6,6 +6,7 @@ function userInputs(){
   return {
     restrict:'EA',
     templateUrl:'/public/js/src/user/partials/inputs.html',
+    transclude: true,
     scope:{
       user:'=',
       login:'='
@@ -22,14 +23,24 @@ function userLogin(){
     restrict:'EA',
     templateUrl:'/public/js/src/user/partials/user-login.html',
     controller:function($scope,$cookies,UserService){
+      $scope.options = {
+        original:'Create Account',
+        inProgress:'Creating your account...',
+        error:'Create Account'
+      }
+      $scope.state = $scope.options.original;
       $scope.submit = function(){
         if($scope.user && $scope.user.account.password){
           UserService.login($scope.user).then(function(res){
             if(res.token){
               $cookies.authToken = res.token;
             }
+            $scope.state = res.statusText || $scope.options.success;
           }, function(err){
             console.log(err);
+            $scope.error = res.data.error || 'There was an error processing your request.';
+            $scope.state = $scope.options.error;
+            Global.notify($scope.error);
           })
         }
       }
