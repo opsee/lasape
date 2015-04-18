@@ -18,7 +18,7 @@ function AdminService($q, $resource, $rootScope, $http, ENDPOINTS){
         var path = $resource(ENDPOINTS.api+'/signups/send-activation?email='+email);
         return path.save({email:email}).$promise;
       }else{
-        return $q.reject();
+        return $q.reject({error:'No email specified.'});
       }
     },
     login:function(admin){

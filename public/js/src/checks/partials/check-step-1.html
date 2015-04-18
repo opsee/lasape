@@ -68,6 +68,9 @@
       </ul>
     </div>
     <div class="col-xs-12">
-      <button type="submit" class="btn btn-primary" ng-disabled="checkStep1Form.$invalid">Test ></button>
+      <button type="submit" class="btn btn-primary pull-right" ng-disabled="checkStep1Form.$invalid">
+        <span ng-if="creating">Test ></span>
+        <span ng-if="!creating">Save</span>
+      </button>
     </div>
   </div>

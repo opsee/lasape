@@ -2,9 +2,16 @@
 
 angular.module('opsee.admin.controllers', []);
 
-function SignupsCtrl($scope,signups,AdminService){
+function SignupsCtrl($scope,signups,AdminService, Global){
   $scope.signups = signups;
-  $scope.activateSignup = AdminService.activateSignup;
+  $scope.activateSignup = function(email){
+    AdminService.activateSignup(email).then(function(){
+      Global.notify('User activated.');
+    }, function(res){
+      var msg = res.data && res.data.error ? res.data.error : 'Something went wrong.';
+      Global.notify(msg);
+    })
+  }
 }
 SignupsCtrl.resolve = {
   signups:function(AdminService){

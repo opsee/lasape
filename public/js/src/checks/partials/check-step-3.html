@@ -74,6 +74,9 @@
       <button type="button" class="btn btn-link pull-right" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send test notification</button>
     </div>
     <div>
-      <button type="submit" class="btn btn-primary pull-right" ng-disabled="checkStep3Form.$invalid">Finish</button>
+      <button type="submit" class="btn btn-primary pull-right" ng-disabled="checkStep1Form.$invalid">
+        <span ng-if="creating">Finish ></span>
+        <span ng-if="!creating">Save</span>
+      </button>
     </div>
 </div>

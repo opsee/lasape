@@ -103,7 +103,10 @@
       </tab>
     </tabset>
     <div>
-      <button type="button" class="btn btn-primary" ng-disabled="checkStep2Form.$invalid">Actions &amp; Settings ></button>
+      <button type="submit" class="btn btn-primary pull-right" ng-disabled="checkStep1Form.$invalid">
+        <span ng-if="creating">Actions &amp; Settings ></span>
+        <span ng-if="!creating">Save</span>
+      </button>
     </div>
   </div><!-- .col-xs-12 -->
 </div>

@@ -11,6 +11,7 @@ function checkInputs(){
       checkStep:'=?'
     },
     controller:function($scope, $http, $filter, _, NotificationSettings, Intervals, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes, AssertionTest){
+      $scope.creating = !!$scope.checkStep;
       $scope.groups = [
         {
           name:'US Group 1'
@@ -30,8 +31,10 @@ function checkInputs(){
       $scope.assertionTypes = AssertionTypes;
 
       //kick these off, 1 is required
-      $scope.check.addItem('assertions');
-      $scope.check.addItem('notifications');
+      if($scope.creating){
+        $scope.check.addItem('assertions');
+        $scope.check.addItem('notifications');
+      }
       StatusCodes().then(function(res){
         $scope.codes = res;
       });
@@ -75,9 +78,18 @@ function checkInputs(){
       $scope.finishCreate = function(){
         console.log($scope.check);
       }
-      $scope.forward = function($index){
-        console.log($index);
-        $scope.checkStep = $index;
+      $scope.forward = function(num){
+        //just editing, not creating
+        if(!$scope.checkStep){
+          return console.log('edit',$scope.check);
+        }
+        if(num < 4){
+          //continue to next step
+          $scope.checkStep = num;
+        }else{
+          //create this mofo
+          console.log('create',$scope.check);
+        }
       }
     }//end controller
   }
@@ -96,11 +108,20 @@ angular.module('opsee.checks.directives').directive('checkStep1', checkStep1);
 function checkStep2(){
   return {
     restrict:'EA',
-    templateUrl:'/public/js/src/checks/partials/check-step-1.html',
+    templateUrl:'/public/js/src/checks/partials/check-step-2.html',
     transclude:true
   }
 }
 angular.module('opsee.checks.directives').directive('checkStep2', checkStep2);
+
+function checkStep3(){
+  return {
+    restrict:'EA',
+    templateUrl:'/public/js/src/checks/partials/check-step-3.html',
+    transclude:true
+  }
+}
+angular.module('opsee.checks.directives').directive('checkStep3', checkStep3);
 
 
 function radialGraph(){
