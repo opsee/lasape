@@ -1,3 +1,19 @@
-<div>
-The Opsee bastion instance
+<div class="container">
+  <div class="tutorial col-xs-12 col-md-10 col-lg-8">
+    <div class="step-container" ng-repeat="step in tutorialSteps track by $index" ng-class="{active: $index==activeTutorialStep, previous: $index==activeTutorialStep - 1}">
+      <img class="step-image" src="{{step.img}}" alt="{{step.img_alt}}">
+
+      <div class="step_title">
+        <h2>{{ step.title }}</h2>
+        <p>{{step.desc}}</p>
+
+        <a class="btn btn-success btn-block" ng-click="nextTutorialStep()" ng-hide="activeTutorialStep == tutorialSteps.length-1">Next<svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></a>
+        <a class="btn btn-success btn-block" ng-href="/app/#/welcome-aws" ng-show="activeTutorialStep == tutorialSteps.length-1">Finish<svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg></a>
+
+        <div class="step_counter">
+          <div ng-repeat="step in tutorialSteps" ng-class="{active: $index==activeTutorialStep}" class="step_bullet"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

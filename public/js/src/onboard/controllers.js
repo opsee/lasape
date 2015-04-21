@@ -42,6 +42,37 @@ function OnboardEmailCtrl($scope,$stateParams){
 angular.module('opsee.onboard.controllers').controller('OnboardEmailCtrl', OnboardEmailCtrl);
 
 function OnboardTutorialCtrl($scope){
+  $scope.activeTutorialStep = 0;
+
+  $scope.nextTutorialStep = function() {
+    if (this.activeTutorialStep < this.tutorialSteps.length-1) {
+      this.activeTutorialStep++;
+    }
+  }
+  $scope.prevTutorialStep = function() {
+    if (this.activeTutorialStep > 0) {
+      this.activeTutorialStep--;
+    }
+  }
+  $scope.tutorialSteps =
+    [{
+      title: "The Opsee bastion host",
+      img: "/public/img/tut-01.svg",
+      img_alt: "valid",
+      desc: "Checks get run from the bastion host, which is deployed into your VPC.  The bastion is the middleman between you and Opsee, protecting your AWS creds and user data from ever leaving your control."
+    },
+    {
+      title: "We scan your environment",
+      img: "/public/img/tut-02.svg",
+      img_alt: "valid",
+      desc: "Once it's up and running, the bastion software will scan AWS for the services you have running."
+    },
+    {
+      title: "Create health checks easily",
+      img: "/public/img/tut-03.svg",
+      img_alt: "valid",
+      desc: "Lastly, we’ll help you set up some health checks. Just tell us which groups to monitor, what protocol to talk, and the details about what's to be considered a healthy response.  We'll take care of everything else."
+    }];
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorialCtrl', OnboardTutorialCtrl);
 
