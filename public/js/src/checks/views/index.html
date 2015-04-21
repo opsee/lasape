@@ -8,13 +8,16 @@
       </div>
     </div>
     <a ui-sref="checkCreate" class="btn btn-success btn-fab btn-fab-bottom-right-toolbar">
-      <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
+      <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
     </a>
   </div>
   <!-- <div class="col-xs-12">
     <input type="search" ng-model="search" placeholder="Search" class="form-control"/>
   </div> -->
   <div class="col-xs-12">
+    <h2 class="md-subheader md-subheader-has-avatars">
+      <span class="md-subheader-content">All Checks</span>
+    </h2>
     <ul class="md-list md-list-two-line md-list-has-avatars">
       <li ng-repeat="check in checks" class="md-list-item">
         <a ui-sref="checkSingle({id:check.id})" class="md-list-link">
