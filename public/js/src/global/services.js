@@ -38,13 +38,14 @@ function Global($rootScope, $log, $q, $modal) {
       var modalInstance = $modal.open({
         templateUrl:'/public/js/src/global/partials/notify.html',
         size:'notify',
-        backdrop:false,
+        // backdrop:false,
+        backdropClass:'notify',
         resolve:{
           msg:function(){return msg;}
         },
         controller:function($scope, $modalInstance, $timeout, msg){
           $scope.msg = msg;
-          $timeout($modalInstance.close, 6000);
+          $timeout($modalInstance.close, 5000);
           // $scope.ok = function(){
           //   $modalInstance.close();
           // }
@@ -52,6 +53,14 @@ function Global($rootScope, $log, $q, $modal) {
       });
       return modalInstance.result;
     }
+    // notify:function(msg){
+    //   var deferred = $q.defer();
+    //   if(!msg){
+    //     $log.warn('No msg');
+    //     deferred.reject('No msg');
+    //   }
+    //   return deferred.promise;
+    // }
   }
 };
 

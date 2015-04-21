@@ -43,37 +43,39 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
     },
     create:function(user){
       if(user && user.account.email){
-        var _user = {
+        var data = {
           name:user.bio.name,
           email:user.account.email
         }
         var path = $resource(ENDPOINTS.api+'/signups');
-        saved = path.save(_user);
+        saved = path.save(data);
         return saved.$promise;
       }else{
         return $q.reject();
       }
     },
     claim:function(user){
-      if(user && user.account.email && user.token){
-        var _user = {
-          email:user.account.email
+      if(user && user.account.password && user.token){
+        var data = {
+          password:user.account.password,
+          customer_id:user.token
         }
-        var path = $resource(ENDPOINTS.api+'/signups/send-activation?email=');
-        saved = path.save(_user);
-        return saved.$promise;
+        //test
+        user.customer_id = 'UUpa7FMQ2PzoIISRTct56';
+        var path = $resource(ENDPOINTS.api+'/activations/'+data.customer_id+'/activate');
+        return path.save(data).$promise;
       }else{
-        return $q.reject();
+        return $q.reject({data:{error:'Bad credentials.'}});
       }
     },
     login:function(user){
       if(user && user.account.email){
-        var _user = {
+        var data = {
           password:user.account.password,
           email:user.account.email
         }
         var path = $resource(ENDPOINTS.api+'/authenticate/password');
-        saved = path.save(_user);
+        saved = path.save(data);
         return saved.$promise;
       }else{
         return $q.reject();
@@ -98,7 +100,8 @@ angular.module('opsee.user.services').service('UserService', UserService);
 
 var userDefaults = {
   account:{
-    email:null
+    email:null,
+    password:null
   },
   bio:{
     name:null
