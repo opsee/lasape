@@ -16,14 +16,23 @@
   </div> -->
   <div class="col-xs-12">
     <ul class="md-list md-list-two-line md-list-has-avatars">
-      <li ng-repeat="check in checks" class="md-list-item">
-        <a ui-sref="checkSingle({id:check.id})" class="md-list-link">
-          <div class="md-list-line">{{check.name}}</div>
-          <div class="md-list-line">{{check.info}}</div>
-          <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'running'}">
-            <div class="md-list-avatar-inner">100</div>
+      <li ng-repeat="check in checks">
+        <div class="row">
+          <div class="col-xs-10">
+            <div class="md-list-item">
+              <a ui-sref="checkSingle({id:check.id})" class="md-list-link">
+                <div class="md-list-line">{{check.name}}</div>
+                <div class="md-list-line">{{check.info}}</div>
+                <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'running'}">
+                  <div class="md-list-avatar-inner">100</div>
+                </div>
+              </a>
+            </div>
           </div>
-        </a>
+          <div class="col-xs-2">
+            <button type="button" class="btn btn-default btn-menu pull-right" ng-click="check.menu()">Menu</button>
+          </div>
+        </div>
       </li>
     </ul>
   </div>

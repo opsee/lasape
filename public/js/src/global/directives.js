@@ -52,5 +52,16 @@ function preventDefaultA(){
 }
 angular.module('opsee.global.directives').directive('preventDefaultA', preventDefaultA);
 
+function contextMenu(){
+  return {
+    restrict:'EA',
+    templateUrl:'/public/js/src/global/partials/context-menu.html',
+    controller:function($scope){
+      console.log($scope);
+    }
+  }
+}
+angular.module('opsee.global.directives').directive('contextMenu', contextMenu);
+
 
 })();//IIFE

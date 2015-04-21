@@ -52,6 +52,10 @@ function Global($rootScope, $log, $q, $modal) {
         }
       });
       return modalInstance.result;
+    },//notify
+    contextMenu:function($parent){
+      console.log($parent);
+      $rootScope.contextMenu = $parent.contextMenu();
     }
     // notify:function(msg){
     //   var deferred = $q.defer();

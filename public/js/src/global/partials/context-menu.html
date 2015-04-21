@@ -1,0 +1,6 @@
+<div>
+  context menu
+  <div ng-repeat="action in contextMenu.actions">
+    <button class="btn btn-default" ng-click="action.run()">{{action.title}}</button>
+  </div>
+</div>

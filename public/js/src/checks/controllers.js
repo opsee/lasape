@@ -2,7 +2,7 @@
 
 angular.module('opsee.checks.controllers', ['opsee.checks.services']);
 
-function ChecksCtrl($scope, $state){
+function ChecksCtrl($scope, $state, Check){
   $scope.checks = [
   {
     name:'My great check',
@@ -15,7 +15,10 @@ function ChecksCtrl($scope, $state){
     id:'feee'
   },
   ]
-}
+  $scope.checks.forEach(function(c,i){
+    $scope.checks[i] = new Check(c);
+  });
+}//ChecksCtrl
 angular.module('opsee.checks.controllers').controller('ChecksCtrl', ChecksCtrl);
 
 function SingleCheckCtrl($scope, $state, $stateParams, Check, singleCheck){
