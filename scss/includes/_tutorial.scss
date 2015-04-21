@@ -1,95 +1,82 @@
 .tutorial {
   position: relative;
-  .step-container {
-    @include opacity(0);
-    @include transform(translate(100%,0));
-    left: 0;
-    position: absolute;
-    top: 0;
-    visibility: hidden;
-    width: 90%;
-    &.active {
+}
+.step-container {
+  @include transition(visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  overflow-x: hidden;
+  left: 0;
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  width: 100%;
+  &.active {
+    visibility: visible;
+    .step-image {
       @include opacity(100);
       @include transform(translate(0,0));
       visibility: visible;
     }
-    &.previous {
+    .step-title {
+      @include opacity(100);
+      visibility: visible;
+    }
+  }
+  &.previous {
+    .step-image {
       @include opacity(0);
       @include transform(translate(-100%,0));
     }
   }
-  .step-image {
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-  }
-  // .step_image {
-  //   @include opacity(0);
-  //   // .transition-transform-opacity(@transition_transform_long);
-  //   @include transform(translate(75%,0));
-  //   display: block;
-  //   visibility: hidden;
-  //   width: 90%;
-  //   &.active {
-  //     @include opacity(100);
-  //     @include transform(translate(0,0));
-  //     visibility: visible;
-  //   }
-  //   &.previous {
-  //     @include opacity(0);
-  //     @include transform(translate(-100%,0));
-  //   }
-  // }
-  .step_title {
-    // .transition(@transition_fade);
-    background-color: $gray-900;
-    padding: 16px 16px 32px 16px;
-  }
-  .step_counter {
-    // .user-select(none);
-    bottom: 0;
-    height: 48px;
-    left: 50%;
-    margin-left: -25%;
-    position: fixed;
-    text-align: center;
-    width: 50%;
-  }
-  .step_bullet {
-    @include box-sizing(border-box);
-    // .transition(background-color 400ms cubic-bezier(0.23, 1, 0.32, 1));
-    border: 3px solid white;
-    border-radius: 8px;
-    background-color: transparent;
-    content: "";
-    display: inline-block;
-    height: 16px;
-    margin: 16px 8px 16px 0;
-    width: 16px;
-    &.active {
-      background-color: white;
-    }
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-  h2, p {
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-  }
-  h2 {
-    text-align: center;
-  }
-
-  // MQ MEDIUM
-  @include breakpoint($screen-md) {
-    .step-image {
-      max-width: 1000px;
-    }
-    // h2, p {
-    //   width: 60%;
-    // }
-  }
-
 }
+.step-image {
+  @include opacity(0);
+  @include transform(translate(100%,0));
+  @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function,
+                      opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                      visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  visibility: hidden;
+}
+.step-title {
+  @include opacity(0);
+  @include transition(opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                      visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  background-color: $gray-900;
+  margin-top: 32px;
+  padding: 16px 0;
+  visibility: hidden;
+}
+.step-counter {
+  // .user-select(none);
+  height: 48px;
+  margin: 16px auto 0 auto;
+  text-align: center;
+  width: 50%;
+}
+.step-bullet {
+  @include box-sizing(border-box);
+  @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
+  border: 3px solid white;
+  border-radius: 8px;
+  background-color: transparent;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  margin: 16px 8px 16px 0;
+  width: 16px;
+  &.active {
+    background-color: white;
+  }
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+// // MQ MEDIUM
+// @include breakpoint($screen-sm) {
+//   .step-image {
+//     width: 75%;
+//   }
+// }

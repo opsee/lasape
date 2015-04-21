@@ -45,13 +45,13 @@ function OnboardTutorialCtrl($scope){
   $scope.activeTutorialStep = 0;
 
   $scope.nextTutorialStep = function() {
-    if (this.activeTutorialStep < this.tutorialSteps.length-1) {
-      this.activeTutorialStep++;
+    if ($scope.activeTutorialStep < $scope.tutorialSteps.length-1) {
+      $scope.activeTutorialStep++;
     }
   }
   $scope.prevTutorialStep = function() {
-    if (this.activeTutorialStep > 0) {
-      this.activeTutorialStep--;
+    if ($scope.activeTutorialStep > 0) {
+      $scope.activeTutorialStep--;
     }
   }
   $scope.tutorialSteps =
