@@ -74,6 +74,11 @@ module.exports = function(grunt) {
     },
     uglify:{
       deps:{
+        // options:{
+        //   uglify:false,
+        //   beautify:true,
+        //   mangle:false
+        // },
         files:{
           'public/js/dist/deps.min.js':addLib([
             'angular/angular.min',

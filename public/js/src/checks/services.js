@@ -2,7 +2,7 @@
 
 angular.module('opsee.checks.services', []);
 
-function Check($resource, $rootScope, _, Global, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMAS){
+function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMAS){
   var Check = $resource(ENDPOINTS.api+'/check',
     {
       checkId:'@_id'
@@ -10,45 +10,58 @@ function Check($resource, $rootScope, _, Global, CHECK_DEFAULTS, ENDPOINTS, CHEC
     {
       update:{method:'PUT'}
     });
+    Check.prototype.actions = [
+      {
+        title:'Silence Check',
+        // run:function(){
+        //   console.log('Silence Check');
+        // },
+        childrenActive:false,
+        run:function(){
+          this.childrenActive = true;
+        },
+        actions:[
+          {
+            title:'1 minute',
+            run:function(){
+              console.log('1 minute');
+              var deferred = $q.defer();
+              deferred.resolve();
+              return deferred.promise;
+            }
+          },
+          {
+            title:'10 minutes',
+            run:function(){
+              console.log('10 minutes');
+              var deferred = $q.defer();
+              deferred.resolve();
+              return deferred.promise;
+            }
+          }
+        ]
+      },
+      {
+        title:'Delete Check',
+        run:function(){
+          var deferred = $q.defer();
+          Global.confirm('Delete this check?').then(function(){
+            Global.notify('Deleted check.');
+          });
+          deferred.resolve();
+          return deferred.promise;
+        }
+      }
+    ]
   Check.prototype.setDefaults = function(){
     _.defaults(this, CHECK_DEFAULTS);
     return this;
   }
-  Check.prototype.contextMenu = function(){
-    var self = this;
-    return {
-      actions:[
-        {
-          title:'Silence Check',
-          run:function(){
-            console.log(self.contextMenu().actions);
-          },
-          actions:[
-            {
-              title:'1 minute',
-              run:function(){
-                console.log('1 minute');
-              }
-            },
-            {
-              title:'10 minutes',
-              run:function(){
-                console.log('10 minutes');
-              }
-            }
-          ]
-        },
-        {
-          title:'another',
-          run:function(){
-            console.log('foo')
-          }
-        }
-      ]
-    }
-  }
-  Check.prototype.menu = function(){
-    Global.contextMenu(this);
+  Check.prototype.menu = function(directive){
+    this.actions.forEach(function(a){
+      a.childrenActive = false;
+    });
+    Global.contextMenu(this,'/public/js/src/checks/partials/single-context-menu.html');
   }
   Check.prototype.addItem = function(selection){
     if(!selection){return false;}

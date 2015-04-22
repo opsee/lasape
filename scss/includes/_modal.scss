@@ -13,6 +13,18 @@
   }
 }
 
+.modal[size="context"] {
+  &.fade .modal-dialog { @include translate(0, 100px) }
+  &.in .modal-dialog { @include translate(0, 0) }
+  .modal-dialog {
+    bottom: 0px;
+    margin: 0 0 0 0;
+    position: absolute;
+    left:0;
+    width:100%;
+  }
+}
+
 .modal-backdrop{
   &.notify{
     background:none;

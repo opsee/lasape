@@ -1,0 +1,14 @@
+<div>
+  <div class="modal-body container">
+    <div ng-repeat="action in item.actions">
+      <div ng-hide="item.hasChildrenActive()">
+        <button class="btn btn-default" ng-click="run(action)">{{action.title}}</button>
+      </div>
+      <div class="ng-hide" ng-show="action.childrenActive">
+        <div ng-repeat="childAction in action.actions">
+          <button class="btn btn-default" ng-click="run(childAction)">{{childAction.title}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
