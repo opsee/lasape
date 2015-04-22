@@ -176,33 +176,70 @@ function radialGraph(){
     scope:{
       status:'='
     },
-    controller:function($scope){
-      $scope.text = '';
-      if ($scope.status.state == 'running') {
+    controller:function($scope, $element, $timeout){
+      // $scope.text = '';
+      $scope.text = Math.round($scope.status.health);
+      $scope.width = 40;
+      function getPath(health){
+        if (health >= 100) {
+          percentage = 99.9;
+        } else if (health < 0) {
+          percentage = 0;
+        } else {
+          percentage = Math.round(health);
+        }
+        var w = $scope.width;
+        var α = (percentage/100)*360;
+        var π = Math.PI;
+        var r = ( α * π / 180 );
+        var x = Math.sin( r ) * (w/2);
+        var y = Math.cos( r ) * - (w/2);
+        var mid = ( α > 180 ) ? 1 : 0;
+        var path = 'M 0 0 v -' + (w/2) + ' A ' + (w/2) + ' ' + (w/2) + ' 1 ' + mid + ' 1 ' +  x  + ' ' +  y  + ' z';
+        return path;
+      }
+      // if ($scope.status.state == 'running') {
+      //   $scope.path = getPath($scope.status.health);
+      // }
+
+      $scope.status.silenceRemaining = $scope.status.silenceRemaining || $scope.status.silence; 
+
+      $scope.$watch(function(){return $scope.path}, function(newVal,oldVal){
+        var loader = $element[0].querySelector('.loader');
+        angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',newVal);
+      })
+
+      function regenGraphHealth(){
+        $scope.bool = $scope.status.health < 50 ? 'failing' : 'passing';
+        $scope.path = getPath($scope.status.health);
         $scope.text = Math.round($scope.status.health);
       }
-      var percentage;
-      if ($scope.status.health >= 100) {
-        percentage = 99.9;
-      } else if ($scope.status.health < 0) {
-        percentage = 0;
-      } else {
-        percentage = Math.round($scope.status.health);
+      function regenGraphSilence(immediate){
+        if($scope.status.silenceRemaining > 0){
+          $timeout(function(){
+            $scope.path = getPath(($scope.status.silenceRemaining/$scope.status.silence)*100);
+            $scope.status.silenceRemaining = $scope.status.silenceRemaining - 1000;
+            $scope.text = Math.ceil($scope.status.silenceRemaining/1000)+'s';
+            regenGraphSilence();
+          },immediate ? 0 : 1000);
+        }else{
+          $scope.status.silence = 0;
+          regenGraphHealth();
+        }
       }
-      $scope.bool = $scope.status.health < 50 ? 'failing' : 'passing';
-      $scope.width = 40;
-      var α = (percentage/100)*360;
-      var π = Math.PI;
-      var r = ( α * π / 180 );
-      var x = Math.sin( r ) * ($scope.width/2);
-      var y = Math.cos( r ) * - ($scope.width/2);
-      var mid = ( α > 180 ) ? 1 : 0;
-      $scope.path = 'M 0 0 v -' + ($scope.width/2) + ' A ' + ($scope.width/2) + ' ' + ($scope.width/2) + ' 1 ' + mid + ' 1 ' +  x  + ' ' +  y  + ' z';
+
+      if($scope.status.silence){
+        regenGraphSilence(true);
+      }else{
+        regenGraphHealth();
+      }
+
     },
-    link:function($scope,$elem,$attr){
-      var loader = $elem[0].querySelector('.loader');
-      angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',$scope.path);
-    }
+    // link:function($scope,$elem,$attr){
+    //   var loader = $elem[0].querySelector('.loader');
+    //   $scope.
+    //   angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',$scope.path);
+    // }
   }
 }
 angular.module('opsee.checks.directives').directive('radialGraph', radialGraph);

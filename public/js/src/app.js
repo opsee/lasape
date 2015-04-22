@@ -8,12 +8,12 @@
 
   angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, User) {
 
-    $rootScope.$on('$routeChangeStart', function (event, currentRoute, previousRoute) {
+    $rootScope.$on('$stateChangeStart', function (event, currentRoute, previousRoute) {
       $activityIndicator.startAnimating();
     });
 
-    $rootScope.$on('$routeChangeSuccess', function (event, currentRoute, previousRoute) {
-      $analytics.pageTrack($location.path());
+    $rootScope.$on('$stateChangeSuccess', function (event, currentRoute, previousRoute) {
+      $analytics.pageTrack(currentRoute.url);
       $activityIndicator.stopAnimating();
     });
 
