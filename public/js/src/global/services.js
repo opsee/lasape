@@ -2,7 +2,7 @@
 
 angular.module('opsee.global.services', []);
 
-function Global($rootScope, $log, $q, $modal) {
+function Global($rootScope, $log, $q, $modal, $document, $compile, _) {
   return {
     confirm:function(msg,noConfirm){
       if(noConfirm){
@@ -14,7 +14,7 @@ function Global($rootScope, $log, $q, $modal) {
       }
       var modalInstance = $modal.open({
         templateUrl:'/public/js/src/global/partials/confirm.html',
-        size:'notify',
+        size:'sm',
         resolve:{
           msg:function(){return msg;}
         },
@@ -53,17 +53,44 @@ function Global($rootScope, $log, $q, $modal) {
       });
       return modalInstance.result;
     },//notify
-    contextMenu:function($parent){
-      console.log($parent);
-      $rootScope.contextMenu = $parent.contextMenu();
-    }
-    // notify:function(msg){
-    //   var deferred = $q.defer();
-    //   if(!msg){
-    //     $log.warn('No msg');
-    //     deferred.reject('No msg');
-    //   }
-    //   return deferred.promise;
+    contextMenu:function(parentItem,templateUrl){
+      if(!parentItem){
+        $log.warn('No parent item');
+        return $q.reject('No parent item');
+      }
+      var modalInstance = $modal.open({
+        templateUrl:templateUrl,
+        size:'context',
+        backdropClass:'notify',
+        resolve:{
+          parentItem:function(){return parentItem;}
+        },
+        controller:function($scope, $modalInstance, $timeout, parentItem){
+          $scope.item = parentItem;
+          $scope.close = function(){
+            $modalInstance.close();
+          }
+          $scope.item.hasChildrenActive = function(){
+            return _.findWhere($scope.item.actions,{childrenActive:true});
+          }
+          $scope.run = function(action){
+            var promise = action.run.call(action);
+            if(typeof promise == 'object'){
+              promise.then($scope.close,$scope.close);
+            }
+          }
+        }
+      });
+      return modalInstance.result;
+    },//notify
+    // contextMenu:function(item,directive){
+    //   var $injector = angular.injector(['ng','opsee']);
+    //   $injector.invoke(function($compile){
+    //     var dir = angular.element($document[0].createElement(directive));
+    //     var el = $compile(dir)(item);
+    //     angular.element($document[0].querySelector('#context-menu')).empty().append(el);
+    //   })
+    //   // $rootScope.contextMenu = $parent.contextMenu();
     // }
   }
 };
