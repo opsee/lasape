@@ -15,7 +15,7 @@
 .md-list-item {
   @include box-sizing(border-box);
   // @include transition(background-color 1800ms cubic-bezier(0.23, 1, 0.32, 1));
-  border-bottom: 1px solid $gray-700;
+  border-bottom: 1px solid $gray-800;
   line-height: 16px;
   padding: 16px 16px;
   position: relative;
