@@ -1,50 +1,54 @@
 <div class="container">
-  <tabset>
-    <tab heading="Instances">
-      <h2 class="md-subheader md-subheader-has-avatars">
-        <span class="md-subheader-content">Running ({{[1,2,3,4].length}})</span>
-      </h2>
-      <ul class="md-list md-list-two-line md-list-has-avatars">
-        <li class="md-list-item" ng-repeat="n in [1,2,3,4]">
-          <div class="md-list-line">Test</div>
-          <div class="md-list-line">Test</div>
-          <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'running'}"></div>
-        </li>
-      </ul>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+      <tabset>
+        <tab heading="Instances">
+          <h2 class="md-subheader md-subheader-has-avatars">
+            <span class="md-subheader-content">Running ({{[1,2,3,4].length}})</span>
+          </h2>
+          <ul class="md-list md-list-two-line md-list-has-avatars">
+            <li class="md-list-item" ng-repeat="n in [1,2,3,4]">
+              <div class="md-list-line">Test</div>
+              <div class="md-list-line">Test</div>
+              <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'running'}"></div>
+            </li>
+          </ul>
 
-      <h2 class="md-subheader md-subheader-has-avatars">
-        <span class="md-subheader-content">Unmonitored ({{[1,2,3,4].length}})</span>
-      </h2>
-      <ul class="md-list md-list-two-line md-list-has-avatars">
-        <li class="md-list-item" ng-repeat="n in [1,2,3,4]">
-          <div class="md-list-line">Test</div>
-          <div class="md-list-line">Test</div>
-          <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'unmonitored'}"></div>
-        </li>
-      </ul>
+          <h2 class="md-subheader md-subheader-has-avatars">
+            <span class="md-subheader-content">Unmonitored ({{[1,2,3,4].length}})</span>
+          </h2>
+          <ul class="md-list md-list-two-line md-list-has-avatars">
+            <li class="md-list-item" ng-repeat="n in [1,2,3,4]">
+              <div class="md-list-line">Test</div>
+              <div class="md-list-line">Test</div>
+              <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'unmonitored'}"></div>
+            </li>
+          </ul>
 
-      <h2 class="md-subheader md-subheader-has-avatars">
-        <span class="md-subheader-content">Stopped ({{[1,2,3,4].length}})</span>
-      </h2>
-      <ul class="md-list md-list-two-line md-list-has-avatars">
-        <li class="md-list-item" ng-repeat="n in [1,2,3,4]">
-          <div class="md-list-line">Test</div>
-          <div class="md-list-line">Test</div>
-          <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'stopped'}"></div>
-        </li>
-      </ul>
+          <h2 class="md-subheader md-subheader-has-avatars">
+            <span class="md-subheader-content">Stopped ({{[1,2,3,4].length}})</span>
+          </h2>
+          <ul class="md-list md-list-two-line md-list-has-avatars">
+            <li class="md-list-item" ng-repeat="n in [1,2,3,4]">
+              <div class="md-list-line">Test</div>
+              <div class="md-list-line">Test</div>
+              <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'stopped'}"></div>
+            </li>
+          </ul>
 
-    </tab>
-    <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
-      {{tab.content}}
-    </tab>
-    <tab>
-      <tab-heading>Groups</tab-heading>
-      <p>I've got an HTML heading, and a select callback. Pretty cool!</p>
-    </tab>
-    <tab>
-      <tab-heading>Locations</tab-heading>
-      <p>I've got an HTML heading, and a select callback. Pretty cool!</p>
-    </tab>
-  </tabset>
+        </tab>
+        <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+          {{tab.content}}
+        </tab>
+        <tab>
+          <tab-heading>Groups</tab-heading>
+          <p>I've got an HTML heading, and a select callback. Pretty cool!</p>
+        </tab>
+        <tab>
+          <tab-heading>Locations</tab-heading>
+          <p>I've got an HTML heading, and a select callback. Pretty cool!</p>
+        </tab>
+      </tabset>
+    </div>
+  </div>
 </div><!-- .container -->
