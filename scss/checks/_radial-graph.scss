@@ -40,6 +40,15 @@ $graphWidth:40px;
         fill:$yellow-800;
       }
     }
+    &.silenced{
+      background-color:$blue-600;
+      .radial-graph-inner{
+        background-color:$blue-600;
+      }
+      .loader{
+        fill:$blue-300;
+      }
+    }
     svg{
       width: $graphWidth;
       height: $graphWidth;

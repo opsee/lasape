@@ -38,11 +38,7 @@
   },
   "resolutions": {
     "angular": "1.3.8",
-    "angular-http-auth": "f99e8a671ce9da3cfa7596a82ab2210e329c3980",
-    "angular-bootstrap": "0.11.2",
-    "angular-google-maps": "~2.0.12",
     "lodash": "~3.2.0",
-    "jquery": "~2.1.1",
-    "angular-cookies": "1.2.0-rc.1"
+    "jquery": "~2.1.1"
   }
 }

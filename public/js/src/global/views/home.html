@@ -7,10 +7,10 @@
             <span class="md-subheader-content">Running ({{[1,2,3,4].length}})</span>
           </h2>
           <ul class="md-list md-list-two-line md-list-has-avatars">
-            <li class="md-list-item" ng-repeat="n in [1,2,3,4]">
+            <li class="md-list-item" ng-repeat="check in checks">
               <div class="md-list-line">Test</div>
               <div class="md-list-line">Test</div>
-              <div class="md-list-avatar" radial-graph status="{health:($index+1)*25,state:'running'}"></div>
+              <div class="md-list-avatar" radial-graph status="check.status"></div>
             </li>
           </ul>
 

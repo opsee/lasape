@@ -73,6 +73,29 @@ function HomeController($scope, $rootScope, _, $state){
   // if(!$rootScope.user.account.email){
   //   $state.go('onboard');
   // }
+  $scope.checks = [
+    {
+      status:{
+        health:25,
+        state:'running',
+        silence:0
+      },
+    },
+    {
+      status:{
+        health:50,
+        state:'running',
+        silence:10000
+      },
+    },
+    {
+      status:{
+        health:70,
+        state:'running',
+        silence:100000
+      },
+    },
+  ];
 }
 angular.module('opsee.global.controllers').controller('HomeController',HomeController);
 
