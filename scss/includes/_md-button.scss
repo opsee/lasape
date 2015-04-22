@@ -124,6 +124,7 @@ $button-fab-mini-line-height: 4.00rem !default;
     border-bottom-color: $gray-400;
   }
   .btn-icon {
+    fill: $text-color-secondary;
     float: right;
   }
 }
