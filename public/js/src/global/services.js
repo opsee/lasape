@@ -73,8 +73,8 @@ function Global($rootScope, $log, $q, $modal, $document, $compile, _) {
           $scope.item.hasChildrenActive = function(){
             return _.findWhere($scope.item.actions,{childrenActive:true});
           }
-          $scope.run = function(action){
-            var promise = action.run.call(action);
+          $scope.run = function(action,identity){
+            var promise = action.run.call(identity || action);
             if(typeof promise == 'object'){
               promise.then($scope.close,$scope.close);
             }

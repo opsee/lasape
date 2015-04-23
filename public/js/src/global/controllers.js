@@ -78,21 +78,50 @@ function HomeController($scope, $rootScope, _, $state){
       status:{
         health:25,
         state:'running',
-        silence:0
+        silence:{
+          startDate:new Date(Date.now()-100000).toString(),
+          length:200000
+        }
       },
     },
     {
       status:{
         health:50,
         state:'running',
-        silence:10000
+        silence:{
+          startDate:new Date(Date.now()-100000).toString(),
+          length:500000
+        }
       },
     },
     {
       status:{
         health:70,
         state:'running',
-        silence:100000
+        silence:{
+          startDate:new Date(Date.now()-10000).toString(),
+          length:20000
+        }
+      },
+    },
+    {
+      status:{
+        health:null,
+        state:'unmonitored',
+        silence:{
+          startDate:null,
+          length:null
+        }
+      },
+    },
+    {
+      status:{
+        health:null,
+        state:'stopped',
+        silence:{
+          startDate:null,
+          length:null
+        }
       },
     },
   ];

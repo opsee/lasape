@@ -3,14 +3,14 @@
 angular.module('opsee.checks.services', []);
 
 function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMAS){
-  var Check = $resource(ENDPOINTS.api+'/check',
+  var check = $resource(ENDPOINTS.api+'/check',
     {
       checkId:'@_id'
     },
     {
       update:{method:'PUT'}
     });
-    Check.prototype.actions = [
+    check.prototype.actions = [
       {
         title:'Silence Check',
         // run:function(){
@@ -24,7 +24,9 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
           {
             title:'1 minute',
             run:function(){
-              console.log('1 minute');
+              //this = parent check item
+              this.status.silence.startDate = new Date().toString();
+              this.status.silence.length = 60000;
               var deferred = $q.defer();
               deferred.resolve();
               return deferred.promise;
@@ -33,7 +35,8 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
           {
             title:'10 minutes',
             run:function(){
-              console.log('10 minutes');
+              this.status.silence.startDate = new Date().toString();
+              this.status.silence.length = 600000;
               var deferred = $q.defer();
               deferred.resolve();
               return deferred.promise;
@@ -53,17 +56,17 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
         }
       }
     ]
-  Check.prototype.setDefaults = function(){
+  check.prototype.setDefaults = function(){
     _.defaults(this, CHECK_DEFAULTS);
     return this;
   }
-  Check.prototype.menu = function(directive){
+  check.prototype.menu = function(directive){
     this.actions.forEach(function(a){
       a.childrenActive = false;
     });
     Global.contextMenu(this,'/public/js/src/checks/partials/single-context-menu.html');
   }
-  Check.prototype.addItem = function(selection){
+  check.prototype.addItem = function(selection){
     if(!selection){return false;}
     var target;
     try{
@@ -87,7 +90,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
       target.push(angular.copy(schema));
     }
   }
-  Check.prototype.removeItem = function(selection, $index, msg){
+  check.prototype.removeItem = function(selection, $index, msg){
     if(!selection || $index == undefined){return false;}
     var target;
     try{
@@ -102,7 +105,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
       target.splice($index,1);
     });
   }
-  return Check;
+  return check;
 }
 angular.module('opsee.checks.services').factory('Check', Check);
 
