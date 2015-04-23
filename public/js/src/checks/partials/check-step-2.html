@@ -1,6 +1,6 @@
 <h2>Create Assertions</h2>
-<p>Assertions define passing criteria for a check.</p>
-
+<p>Define the conditions required for this check to pass. Your response and request are shown for context.</p>
+<br />
 <div ng-repeat="assertion in check.assertions" class="row" ng-init="assertionIndex = $index">
   <div class="col-xs-12 col-sm-4">
     <div class="form-group" dropdown is-open="status['assertionType'+$index]">
@@ -17,8 +17,8 @@
       </ul>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-4">
-    <div class="form-group" dropdown is-open="status['assertionRelationship'+$index]" ng-if="assertion.type.name">
+  <div class="col-xs-12 col-sm-8">
+    <div class="form-group" dropdown is-open="status['assertionRelationship'+$index]">
       <select class="sr-only" ng-required="true" ng-model="assertion.relationship" ng-options="r for r in relationships"></select>
       <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
         {{assertion.relationship.name || 'Relationship'}} <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
@@ -32,14 +32,29 @@
       </ul>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-4">
+  <div class="col-xs-12 col-sm-12">
     <div ng-if="assertion.relationship.name && assertion.type.name == 'Response Body'">
-      <input type="text" ng-model="assertion.value" placeholder="Value" class="form-control" ng-required="true" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')"/>
+      <div class="form-group">
+        <input type="text" ng-model="assertion.value" placeholder="Value" class="form-control" ng-required="true" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')"/>
+        <label>Value</label>
+      </div>
       <span ng-if="assertion.value !== null">Assertion Passing: {{assertionPassing(assertionIndex)}}</span>
     </div>
     <div ng-if="assertion.relationship.name && assertion.type.name == 'Response Header'">
-      <input type="text" ng-model="assertion.value.name" typeahead="h as h[0] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control" placeholder="Header Key">
-      <input type="text" ng-model="assertion.value.value" typeahead="h as h[1] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control" placeholder="Header Value" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="form-group">
+            <input type="text" ng-model="assertion.value.name" typeahead="h as h[0] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control" placeholder="Key">
+            <label>Key</label>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="form-group">
+            <input type="text" ng-model="assertion.value.value" typeahead="h as h[1] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control" placeholder="Value" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')">
+            <label>Value</label>
+          </div>
+        </div>
+      </div>
       <span ng-if="assertion.value.name && assertion.value !== null">Assertion Passing: {{assertionPassing(assertionIndex)}}</span>
     </div>
     <div ng-if="assertion.relationship.name && assertion.type.name == 'Status Code'">
@@ -56,48 +71,46 @@
 <div class="form-group">
   <button type="button" class="btn btn-flat btn-primary" ng-click="check.addItem('assertions')"><svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add Another Assertion</button>
 </div>
-
-<tabset vertical="false">
-  <tab ng-if="checkResponse" active="true" heading="Response">
-    <table class="table">
-      <tr>
-        <td><strong>Status Code</strong></td>
-        <td>{{checkResponse.status}} - {{checkResponse.statusText}}</td>
-      </tr>
-      <tr ng-repeat="h in checkResponse.responseHeaders">
-        <td><strong>{{h[0]}}</strong></h4></td>
-        <td>{{h[1]}}</td>
-      </tr>
-    </table>
-
-    <h3>Body</h3>
-    <div style="overflow:auto;max-height:300px;" hljs source="checkResponse.dataString" language="{{checkResponse.language}}">
-    </div>
-  </tab>
-  <tab heading="Request">
-    <table class="table">
-      <tr>
-        <td><strong>URL</strong></td>
-        <td>{{checkResponse.config.url}}</td>
-      </tr>
-      <tr>
-        <td><strong>Method</strong></td>
-        <td>{{checkResponse.config.method}}</td>
-      </tr>
-      <tr>
-        <td colspan="2"><strong>Headers</strong></td>
-      </tr>
-      <tr ng-repeat="(key,val) in checkResponse.config.headers">
-        <td><strong>{{key}}</strong></td>
-        <td>{{val}}</td>
-      </tr>
-    </table>
-  </tab>
-</tabset>
-
+<br />
 <div class="form-group">
   <button type="submit" class="btn btn-raised btn-success btn-block" ng-disabled="checkStep1Form.$invalid">
-    <span ng-if="creating">Actions &amp; Settings ></span>
+    <span ng-if="creating">Actions &amp; Settings</span>
     <span ng-if="!creating">Save</span>
   </button>
 </div>
+<br />
+<br />
+<h3>Response Code & Headers</h3>
+<table class="table">
+  <tr>
+    <td><strong><code>Status Code</code></strong></td>
+    <td><code>{{checkResponse.status}} - {{checkResponse.statusText}}</code></td>
+  </tr>
+  <tr ng-repeat="h in checkResponse.responseHeaders">
+    <td><strong><code>{{h[0]}}</code></strong></h4></td>
+    <td><code>{{h[1]}}</code></td>
+  </tr>
+</table>
+
+<h3>Response Body</h3>
+<div style="overflow:auto;max-height:300px;" hljs source="checkResponse.dataString" language="{{checkResponse.language}}">
+</div>
+
+<h3>Request</h3>
+<table class="table">
+  <tr>
+    <td><strong><code>URL</code></strong></td>
+    <td><code>{checkResponse.config.url}}</code></td>
+  </tr>
+  <tr>
+    <td><strong><code>Verb</code></strong></td>
+    <td><code>{{checkResponse.config.method}}</code></td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong><code>Headers</code></strong></td>
+  </tr>
+  <tr ng-repeat="(key,val) in checkResponse.config.headers">
+    <td><strong><code>{{key}}</code></strong></td>
+    <td><code>{{val}}</code></td>
+  </tr>
+</table>
