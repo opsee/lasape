@@ -6,7 +6,7 @@
       </div>
       <div class="ng-hide" ng-show="action.childrenActive">
         <div ng-repeat="childAction in action.actions">
-          <button class="btn btn-default" ng-click="run(childAction)">{{childAction.title}}</button>
+          <button class="btn btn-default" ng-click="run(childAction,item)">{{childAction.title}}</button>
         </div>
       </div>
     </div>

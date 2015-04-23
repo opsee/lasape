@@ -178,8 +178,19 @@ function radialGraph(){
     },
     controller:function($scope, $element, $timeout){
       // $scope.text = '';
-      $scope.text = Math.round($scope.status.health);
+      $scope.text = $scope.status.health ? Math.round($scope.status.health) : null;
       $scope.width = 40;
+      function getSilenceRemaining(obj){
+        if(obj && obj.startDate){
+          if(Date.parse(obj.startDate)){
+            var d = Date.parse(obj.startDate);
+            var finalVal = d.valueOf()+obj.length;
+            var remaining = finalVal-Date.now();
+            return remaining;
+          }
+        }
+        return false;
+      }
       function getPath(health){
         if (health >= 100) {
           percentage = 99.9;
@@ -203,11 +214,17 @@ function radialGraph(){
       // }
 
       $scope.status.silenceRemaining = $scope.status.silenceRemaining || $scope.status.silence;
-
       $scope.$watch(function(){return $scope.path}, function(newVal,oldVal){
         var loader = $element[0].querySelector('.loader');
         angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',newVal);
-      })
+      });
+
+      $scope.$watch(function(){return $scope.status.silence.startDate}, function(newVal,oldVal){
+        //we don't need to regen of we are adding time to instantiated silence
+        if(!$scope.status.silence.remaining){
+          regenGraphSilence(true);
+        }
+      });
 
       function regenGraphHealth(){
         $scope.bool = $scope.status.health < 50 ? 'failing' : 'passing';
@@ -215,31 +232,28 @@ function radialGraph(){
         $scope.text = Math.round($scope.status.health);
       }
       function regenGraphSilence(immediate){
-        if($scope.status.silenceRemaining > 0){
+        // $scope.status.silence.remaining = $scope.status.silence.remaining > 0 ? $scope.status.silence.remaining : getSilenceRemaining($scope.status.silence);
+        $scope.status.silence.remaining = getSilenceRemaining($scope.status.silence);
+        if($scope.status.silence.remaining > 0){
           $timeout(function(){
-            $scope.path = getPath(($scope.status.silenceRemaining/$scope.status.silence)*100);
-            $scope.status.silenceRemaining = $scope.status.silenceRemaining - 1000;
-            $scope.text = Math.ceil($scope.status.silenceRemaining/1000)+'s';
+            $scope.path = getPath(($scope.status.silence.remaining/$scope.status.silence.length)*100);
+            $scope.status.silence.remaining = $scope.status.silence.remaining - 1000;
+            $scope.text = Math.ceil($scope.status.silence.remaining/1000)+'s';
             regenGraphSilence();
           },immediate ? 0 : 1000);
         }else{
-          $scope.status.silence = 0;
+          $scope.status.silence.remaining = 0;
           regenGraphHealth();
         }
       }
 
-      if($scope.status.silence){
+      if($scope.status.silence && $scope.status.silence.startDate){
         regenGraphSilence(true);
       }else{
         regenGraphHealth();
       }
 
-    },
-    // link:function($scope,$elem,$attr){
-    //   var loader = $elem[0].querySelector('.loader');
-    //   $scope.
-    //   angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',$scope.path);
-    // }
+    }
   }
 }
 angular.module('opsee.checks.directives').directive('radialGraph', radialGraph);

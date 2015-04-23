@@ -1,0 +1,82 @@
+.tutorial {
+  position: relative;
+}
+.step-container {
+  @include transition(visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  // overflow-x: hidden;
+  // left: 0;
+  // position: absolute;
+  // top: 0;
+  // visibility: hidden;
+  // width: 100%;
+  &.active {
+    visibility: visible;
+    .step-image {
+      @include opacity(100);
+      @include transform(translate(0,0));
+      visibility: visible;
+    }
+    .step-title {
+      @include opacity(100);
+      visibility: visible;
+    }
+  }
+  &.previous {
+    .step-image {
+      @include opacity(0);
+      @include transform(translate(-100%,0));
+    }
+  }
+}
+.step-image {
+  @include opacity(0);
+  @include transform(translate(100%,0));
+  @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function,
+                      opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                      visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  visibility: hidden;
+}
+.step-title {
+  @include opacity(0);
+  @include transition(opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                      visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  background-color: $gray-900;
+  margin-top: 32px;
+  padding: 16px 0;
+  visibility: hidden;
+}
+.step-counter {
+  // .user-select(none);
+  height: 48px;
+  margin: 16px auto 0 auto;
+  text-align: center;
+  width: 50%;
+}
+.step-bullet {
+  @include box-sizing(border-box);
+  @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
+  border: 3px solid white;
+  border-radius: 8px;
+  background-color: transparent;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  margin: 16px 8px 16px 0;
+  width: 16px;
+  &.active {
+    background-color: white;
+  }
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+// // MQ MEDIUM
+// @include breakpoint($screen-sm) {
+//   .step-image {
+//     width: 75%;
+//   }
+// }

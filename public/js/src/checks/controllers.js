@@ -7,12 +7,28 @@ function ChecksCtrl($scope, $state, Check){
   {
     name:'My great check',
     info:'Fun info here.',
-    id:'foo'
+    id:'foo',
+    status:{
+      health:25,
+      state:'running',
+      silence:{
+        startDate:null,
+        length:null
+      }
+    },
   },
   {
     name:'My great check2',
     info:'Fun info here2.',
-    id:'feee'
+    id:'feee',
+    status:{
+      health:50,
+      state:'running',
+      silence:{
+        startDate:null,
+        length:null
+      }
+    },
   },
   ]
   $scope.checks.forEach(function(c,i){
