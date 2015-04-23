@@ -219,7 +219,7 @@ function AssertionTest(){
           return false;
         }
       break;
-      case 'Response Header':
+      case 'Header':
         try{
           var name = typeof assertion.value.name == 'object' ? assertion.value.name[0] : assertion.value.name;
           var value = typeof assertion.value.value == 'object' ? assertion.value.value[1] : assertion.value.value;
@@ -242,7 +242,7 @@ function AssertionTest(){
           return false;
         }
       break;
-      case 'Response Body':
+      case 'Body':
       try{
         var text = assertion.value;
         var body = JSON.stringify(res.data);

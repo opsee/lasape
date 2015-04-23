@@ -32,6 +32,11 @@ $button-fab-mini-line-height: 4.00rem !default;
     @extend .md-shadow-bottom-z-1;
   }
 }
+.btn-nopad {
+  @include border-radius(0);
+  padding-left: 0;
+  padding-right: 0;
+}
 .btn-flat {
   background-color: transparent;
   &.btn-primary {
@@ -44,6 +49,12 @@ $button-fab-mini-line-height: 4.00rem !default;
     color: $brand-success;
     .btn-icon {
       fill: $brand-success;
+    }
+  }
+  &.btn-danger {
+    color: $brand-danger;
+    .btn-icon {
+      fill: $brand-danger;
     }
   }
   &:hover {

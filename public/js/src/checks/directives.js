@@ -65,7 +65,7 @@ function checkInputs(){
       }
       $scope.changeAssertionRelationship = function(relationship,assertion){
         assertion.relationship = relationship;
-        if(relationship.name.match('Is Empty|Is Not Empty') && assertion.type && assertion.type.name != 'Response Header'){
+        if(relationship.name.match('Is Empty|Is Not Empty') && assertion.type && assertion.type.name != 'Header'){
          assertion.value = '';
         }
       }
@@ -202,7 +202,7 @@ function radialGraph(){
       //   $scope.path = getPath($scope.status.health);
       // }
 
-      $scope.status.silenceRemaining = $scope.status.silenceRemaining || $scope.status.silence; 
+      $scope.status.silenceRemaining = $scope.status.silenceRemaining || $scope.status.silence;
 
       $scope.$watch(function(){return $scope.path}, function(newVal,oldVal){
         var loader = $element[0].querySelector('.loader');

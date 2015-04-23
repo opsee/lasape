@@ -1,0 +1,28 @@
+.assertion-counter {
+  @include border-radius(18px);
+  background-color: $gray-600;
+  color: $body-bg;
+  display: block;
+  font-family: $headings-font-family;
+  font-size: 24px;
+  line-height: 32px;
+  height: 32px;
+  margin: 3px auto 0 auto;
+  text-align: center;
+  width: 32px;
+}
+.assertion-validation {
+  display: block;
+  height: 36px;
+  margin: 0 auto;
+  width: 36px;
+  color: $brand-danger;
+  fill: $brand-danger;
+  &.success {
+    color: $brand-success;
+    fill: $brand-success;
+  }
+}
+.assertion-validation-icon {
+
+}
