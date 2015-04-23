@@ -120,6 +120,22 @@ $button-fab-mini-line-height: 4.00rem !default;
   width: 24px;
 }
 
+.dropdown-toggle {
+  @include border-radius(0);
+  @include transition(border-color $swift-ease-out-duration $swift-ease-out-timing-function);
+  background-color: transparent;
+  border-bottom: 1px solid $gray-800;
+  padding-left: 0;
+  text-align: left;
+  &:hover {
+    background-color: transparent;
+    border-bottom-color: $gray-400;
+  }
+  .btn-icon {
+    float: right;
+  }
+}
+
 // $button-line-height: 3.60rem !default;
 // $button-padding: 0 0.600rem !default;
 // $button-margin: 0.600rem 0.800rem !default;
