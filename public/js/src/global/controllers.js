@@ -24,7 +24,7 @@ function headerController($scope, Global, $location, $rootScope) {
         },
         {
           title:'Tutorial',
-          sref:'onboard.tutorial',
+          sref:'onboard.tutorial.1',
         },
         {
           title:'Password',
