@@ -41,40 +41,44 @@ function OnboardEmailCtrl($scope,$stateParams){
 }
 angular.module('opsee.onboard.controllers').controller('OnboardEmailCtrl', OnboardEmailCtrl);
 
-function OnboardTutorialCtrl($scope){
-  $scope.activeTutorialStep = 0;
+function OnboardTutorialCtrl($scope,$state,$stateParams,$timeout){
+  $scope.$state = $state;
+  $scope.text = {
+    btn:'Next'
+  }
+
+  function getCurrentNum(){
+    var a = $state.current.name.split('.');
+    return parseInt(a[a.length-1],10);
+  }
 
   $scope.nextTutorialStep = function() {
-    if ($scope.activeTutorialStep < $scope.tutorialSteps.length-1) {
-      $scope.activeTutorialStep++;
+    var num = getCurrentNum()+1;
+    if(num < 4){
+      $state.go('onboard.tutorial.'+num);
+    }else{
+      $state.go('home');
     }
   }
-  $scope.prevTutorialStep = function() {
-    if ($scope.activeTutorialStep > 0) {
-      $scope.activeTutorialStep--;
-    }
-  }
-  $scope.tutorialSteps =
-    [{
-      title: "The Opsee bastion host",
-      img: "/public/img/tut-01.svg",
-      img_alt: "valid",
-      desc: "Checks get run from the bastion host, which is deployed into your VPC.  The bastion is the middleman between you and Opsee, protecting your AWS creds and user data from ever leaving your control."
-    },
-    {
-      title: "We scan your environment",
-      img: "/public/img/tut-02.svg",
-      img_alt: "valid",
-      desc: "Once it's up and running, the bastion software will scan AWS for the services you have running."
-    },
-    {
-      title: "Create health checks easily",
-      img: "/public/img/tut-03.svg",
-      img_alt: "valid",
-      desc: "Lastly, we’ll help you set up some health checks. Just tell us which groups to monitor, what protocol to talk, and the details about what's to be considered a healthy response.  We'll take care of everything else."
-    }];
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorialCtrl', OnboardTutorialCtrl);
+
+function OnboardTutorial1Ctrl($scope){
+  $scope.text.btn = 'Next';
+}
+angular.module('opsee.onboard.controllers').controller('OnboardTutorial1Ctrl', OnboardTutorial1Ctrl);
+
+function OnboardTutorial2Ctrl($scope){
+  $scope.text.btn = 'Next';
+}
+angular.module('opsee.onboard.controllers').controller('OnboardTutorial2Ctrl', OnboardTutorial2Ctrl);
+
+function OnboardTutorial3Ctrl($scope){
+  $scope.text.btn = 'Finish';
+  // $scope.btnText = 'Finish';
+  // console.log($scope.btnText);
+}
+angular.module('opsee.onboard.controllers').controller('OnboardTutorial3Ctrl', OnboardTutorial3Ctrl);
 
 function OnboardPasswordCtrl($scope,$state,$stateParams,User,UserService){
   $scope.user = new User().setDefaults();
@@ -99,6 +103,7 @@ angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', Onboar
 
 
 function config ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.when('/tutorial', '/tutorial/1');
     $stateProvider.state('onboard', {
       url:'/',
       templateUrl:'/public/js/src/onboard/views/index.html',
@@ -121,9 +126,30 @@ function config ($stateProvider, $urlRouterProvider) {
     .state('onboard.tutorial', {
       url:'tutorial',
       parent:'onboard',
-      templateUrl:'/public/js/src/onboard/views/tutorial.html',
       controller:'OnboardTutorialCtrl',
-      title:'Tutorial'
+      title:'Tutorial',
+      templateUrl:'/public/js/src/onboard/views/tutorial.html',
+    })
+    .state('onboard.tutorial.1', {
+      url:'/1',
+      parent:'onboard.tutorial',
+      templateUrl:'/public/js/src/onboard/views/tutorial-1.html',
+      controller:'OnboardTutorial1Ctrl',
+      title:'Tutorial Step 1'
+    })
+    .state('onboard.tutorial.2', {
+      url:'/2',
+      parent:'onboard.tutorial',
+      templateUrl:'/public/js/src/onboard/views/tutorial-2.html',
+      controller:'OnboardTutorial2Ctrl',
+      title:'Tutorial Step 2'
+    })
+    .state('onboard.tutorial.3', {
+      url:'/3',
+      parent:'onboard.tutorial',
+      templateUrl:'/public/js/src/onboard/views/tutorial-3.html',
+      controller:'OnboardTutorial3Ctrl',
+      title:'Tutorial Step 3'
     })
     .state('onboard.password', {
       url:'password?token',

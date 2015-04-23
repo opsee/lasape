@@ -3,12 +3,12 @@
 }
 .step-container {
   @include transition(visibility $swift-ease-out-duration $swift-ease-out-timing-function);
-  overflow-x: hidden;
-  left: 0;
-  position: absolute;
-  top: 0;
-  visibility: hidden;
-  width: 100%;
+  // overflow-x: hidden;
+  // left: 0;
+  // position: absolute;
+  // top: 0;
+  // visibility: hidden;
+  // width: 100%;
   &.active {
     visibility: visible;
     .step-image {
