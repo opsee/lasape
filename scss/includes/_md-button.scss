@@ -117,13 +117,16 @@ $button-fab-mini-line-height: 4.00rem !default;
   @include transition(border-color $swift-ease-out-duration $swift-ease-out-timing-function);
   background-color: transparent;
   border-bottom: 1px solid $gray-800;
+  // font-weight: $body-font-weight;
   padding-left: 0;
   text-align: left;
+  text-transform: none;
   &:hover {
     background-color: transparent;
     border-bottom-color: $gray-400;
   }
   .btn-icon {
+    fill: $text-color-secondary;
     float: right;
   }
 }

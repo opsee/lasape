@@ -34,6 +34,13 @@ body {
   }
 }
 
+hr {
+  border-color: $gray-800;
+}
+
+.dropdown-menu > li > a {
+  font-weight: $body-font-weight;
+}
 
 // img{
 //   max-width:100%;

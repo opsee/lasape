@@ -41,6 +41,9 @@ $btn-default-color:              $text-color;
 $btn-default-bg:                 $gray-900;
 $btn-default-border:             transparent;
 
+//** Global background color for active items (e.g., navs or dropdowns).
+$component-active-bg:       $brand-primary;
+
 //== Modals
 //
 $modal-content-bg:               $gray-900;
@@ -50,6 +53,43 @@ $modal-content-bg:               $gray-900;
 $border-radius-base:        0;
 $border-radius-large:       3px;
 $border-radius-small:       0;
+
+//== Tables
+//
+// $table-cell-padding:            8px !default;
+// $table-condensed-cell-padding:  5px !default;
+// $table-bg:                      transparent !default;
+$table-bg-accent:               $gray-800;
+$table-bg-hover:                $gray-900;
+$table-bg-active:               $table-bg-hover;
+$table-border-color:            $gray-800;
+
+//== Dropdowns
+//
+//** Background for the dropdown menu.
+$dropdown-bg:                    $gray-900;
+//** Dropdown menu `border-color`.
+$dropdown-border:                transparent;
+//** Dropdown menu `border-color` **for IE8**.
+$dropdown-fallback-border:       transparent;
+//** Divider color for between dropdown items.
+$dropdown-divider-bg:            $gray-800;
+//** Dropdown link text color.
+$dropdown-link-color:            $text-color;
+//** Hover color for dropdown links.
+$dropdown-link-hover-color:      #fff;
+//** Hover background for dropdown links.
+$dropdown-link-hover-bg:         $brand-primary;
+//** Active dropdown menu item text color.
+$dropdown-link-active-color:     #fff;
+//** Active dropdown menu item background color.
+$dropdown-link-active-bg:        $brand-primary;
+//** Disabled dropdown menu item background color.
+$dropdown-link-disabled-color:   $gray-700 !default;
+//** Text color for headers within dropdown menus.
+$dropdown-header-color:          $text-color-secondary;
+//** Deprecated `$dropdown-caret-color` as of v3.1.0
+$dropdown-caret-color:           $text-color-secondary;
 
 // Z-indexes
 //--------------------------------------------
