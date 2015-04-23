@@ -136,6 +136,11 @@ $button-fab-mini-line-height: 4.00rem !default;
   }
 }
 
+.dropdown-menu {
+  @extend .md-shadow-bottom-z-1;
+  border: none;
+}
+
 // $button-line-height: 3.60rem !default;
 // $button-padding: 0 0.600rem !default;
 // $button-margin: 0.600rem 0.800rem !default;
