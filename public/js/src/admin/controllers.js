@@ -2,7 +2,7 @@
 
 angular.module('opsee.admin.controllers', []);
 
-function SignupsCtrl($scope,signups,AdminService, Global){
+function SignupsCtrl($scope,$rootScope,signups,AdminService, Global){
   $scope.signups = signups;
   $scope.activateSignup = function(email){
     AdminService.activateSignup(email).then(function(){
