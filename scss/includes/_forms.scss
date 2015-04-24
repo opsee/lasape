@@ -75,8 +75,15 @@
     &.has-icon {
       text-indent: 32px;
     }
+  }// > input
+  .input-suffix{
+    // position: absolute;
+    // top: 0;
+    // right: 0;
+    padding: 6px 12px;
+    color: $gray-400;
   }
-}
+}//.form-group
 .input-error-text {
   @include opacity(0);
   @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);

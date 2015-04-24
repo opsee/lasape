@@ -109,7 +109,8 @@ function regex(){
     integer:/^\d+$/,
     commaNumber:/[1-9](?:\d{0,2})(?:,\d{3})*(?:\.\d*[1-9])?|0?\.\d*[1-9]|0/,
     email:/^\S+@\S+\.\S+$/,
-    general:/.*/
+    general:/.*/,
+    subdomain:/^[a-z]+[a-z\d-]+$/
   }
 }
 angular.module('opsee.global.services').service('Regex', regex);

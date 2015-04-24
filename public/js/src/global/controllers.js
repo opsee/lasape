@@ -34,6 +34,10 @@ function headerController($scope, Global, $location, $rootScope) {
           title:'Tutorial',
           sref:'onboard.tutorial.1',
         },
+        {
+          title:'Create Team',
+          sref:'onboard.team',
+        },
       ]
     },
     {
