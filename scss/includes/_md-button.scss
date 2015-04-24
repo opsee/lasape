@@ -127,11 +127,13 @@ $button-fab-mini-line-height: 4.00rem !default;
   border-bottom: 1px solid $gray-800;
   padding-left: 0;
   text-align: left;
+  text-transform: none;
   &:hover {
     background-color: transparent;
     border-bottom-color: $gray-400;
   }
   .btn-icon {
+    fill: $text-color-secondary;
     float: right;
   }
 }
