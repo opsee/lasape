@@ -1,42 +1,43 @@
 <div>
   <div class="md-toolbar md-tall">
     <div class="container">
-      <div class="md-toolbar-tools">
-        <div class="col-xs-12">
-          <h1 class="">Checks</h1>
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+          <div class="md-toolbar-tools">
+            <h1 class="">Checks</h1>
+          </div>
         </div>
       </div>
     </div>
-    <a ui-sref="checkCreate" class="btn btn-success btn-fab btn-fab-bottom-right-toolbar">
-      <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
-    </a>
   </div>
   <!-- <div class="col-xs-12">
     <input type="search" ng-model="search" placeholder="Search" class="form-control"/>
   </div> -->
-  <div class="col-xs-12">
-    <h2 class="md-subheader md-subheader-has-avatars">
-      <span class="md-subheader-content">All Checks</span>
-    </h2>
-    <ul class="md-list md-list-two-line md-list-has-avatars">
-      <li ng-repeat="check in checks">
-        <div class="row">
-          <div class="col-xs-10">
-            <div class="md-list-item">
-              <a ui-sref="checkSingle({id:check.id})" class="md-list-link">
-                <div class="md-list-line">{{check.name}}</div>
-                <div class="md-list-line">{{check.info}}</div>
-                <div class="md-list-avatar" radial-graph status="check.status">
-                  <div class="md-list-avatar-inner">100</div>
-                </div>
-              </a>
-            </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+      <a ui-sref="checkCreate" class="btn btn-success btn-fab btn-fab-bottom-right-toolbar">
+        <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
+      </a>
+
+      <h2 class="md-subheader md-subheader-has-avatars">
+        <span class="md-subheader-content">All Checks</span>
+      </h2>
+      <ul class="md-list md-list-two-line md-list-has-avatars">
+        <li ng-repeat="check in checks">
+          <div class="md-list-item">
+            <button type="button" class="btn btn-iconbtn md-list-secondary-action" ng-click="check.menu()">
+              <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_more_vert" />
+            </button>
+            <a ui-sref="checkSingle({id:check.id})" class="md-list-link">
+              <div class="md-list-line">{{check.name}}</div>
+              <div class="md-list-line">{{check.info}}</div>
+              <div class="md-list-avatar" radial-graph status="check.status">
+                <div class="md-list-avatar-inner">100</div>
+              </div>
+            </a>
           </div>
-          <div class="col-xs-2">
-            <button type="button" class="btn btn-default btn-menu pull-right" ng-click="check.menu()">Menu</button>
-          </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

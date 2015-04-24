@@ -14,7 +14,7 @@
 }
 .md-list-item {
   @include box-sizing(border-box);
-  // @include transition(background-color 1800ms cubic-bezier(0.23, 1, 0.32, 1));
+  @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
   border-bottom: 1px solid $gray-800;
   line-height: 16px;
   padding: 16px 16px;
@@ -55,6 +55,12 @@
   }
   &.stopped { background-color: $red-500;}
   &.unmonitored { background-color: $yellow-800;}
+}
+.md-list-secondary-action {
+  margin-top: -24px;
+  position: absolute;
+  top: 50%;
+  right: 16px;
 }
 .md-list-avatar-inner {
   @include box-sizing(border-box);
