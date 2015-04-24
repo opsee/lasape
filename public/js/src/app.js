@@ -6,14 +6,20 @@
     $pageTitleProvider.setSuffix(' - Opsee');
   });
 
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, User) {
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $cookies, $timeout, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, User) {
 
     $rootScope.$on('$stateChangeStart', function (event, currentRoute, previousRoute) {
-      $activityIndicator.startAnimating();
+      $activityIndicator.timer = true;
+      $timeout(function(){
+        if($activityIndicator.timer){
+          $activityIndicator.startAnimating();
+        }
+      },400);
     });
 
     $rootScope.$on('$stateChangeSuccess', function (event, currentRoute, previousRoute) {
       $analytics.pageTrack(currentRoute.url);
+      $activityIndicator.timer = false;
       $activityIndicator.stopAnimating();
     });
 
@@ -34,14 +40,23 @@
 
     $pageTitle.set();
 
-     $rootScope.$on('event:auth-loginRequired', function(){
+    $rootScope.$on('notify', function(event,msg){
+      Global.notify(msg);
+    })
+
+    $rootScope.$on('setAuth', function(event,token){
+      $cookies.authToken = token || null;
+    })
+
+    $rootScope.$on('event:auth-loginRequired', function(){
       $rootScope.user.awaitingLogin = true;
       $location.path('/login');
-     })
+    })
 
-     $rootScope.$on('event:auth-forbidden', function(){
+    $rootScope.$on('event:auth-forbidden', function(){
       alert('You do not have permission for that action. Contact the administrator for access.');
-     })
+    });
+
   });
 
   // Setting HTML5 Location Mode

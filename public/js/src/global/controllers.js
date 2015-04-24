@@ -11,9 +11,17 @@ function headerController($scope, Global, $location, $rootScope) {
       children:[]
     },
     {
-      title:'Login',
-      sref:'login',
-      children:[]
+      title:'User',
+      children:[
+        {
+          title:'Login',
+          sref:'login',
+        },
+        {
+          title:'Set Password',
+          sref:'password',
+        },
+      ]
     },
     {
       title:'Onboarding',
@@ -27,8 +35,8 @@ function headerController($scope, Global, $location, $rootScope) {
           sref:'onboard.tutorial.1',
         },
         {
-          title:'Password',
-          sref:'onboard.password',
+          title:'Create Team',
+          sref:'onboard.team',
         },
       ]
     },
@@ -69,7 +77,7 @@ function footerController($scope, Global, $location) {
 
 angular.module('opsee.global.controllers').controller('FooterController', footerController);
 
-function HomeController($scope, $rootScope, _, $state){
+function HomeCtrl($scope, $rootScope, _, $state){
   // if(!$rootScope.user.account.email){
   //   $state.go('onboard');
   // }
@@ -126,7 +134,11 @@ function HomeController($scope, $rootScope, _, $state){
     },
   ];
 }
-angular.module('opsee.global.controllers').controller('HomeController',HomeController);
+angular.module('opsee.global.controllers').controller('HomeCtrl',HomeCtrl);
+
+function NotFoundCtrl($scope, $rootScope, _, $state){
+}
+angular.module('opsee.global.controllers').controller('NotFoundCtrl',NotFoundCtrl);
 
 function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
@@ -140,8 +152,13 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('home', {
       url:'/',
-      controller:'HomeController',
+      controller:'HomeCtrl',
       templateUrl:'/public/js/src/global/views/home.html',
+    })
+    .state('404', {
+      url:'/',
+      controller:'NotFoundCtrl',
+      templateUrl:'/public/js/src/global/views/404.html',
     })
     .state('pre-welcome', {
       parent: 'app',
@@ -229,7 +246,8 @@ function config ($stateProvider, $urlRouterProvider) {
           controller: 'LogoutCtrl'
         }
       }
-    }).state('restricted', {
+    })
+    .state('restricted', {
       parent: 'app',
       url: '/restricted',
       data: {
@@ -240,7 +258,8 @@ function config ($stateProvider, $urlRouterProvider) {
           templateUrl: 'restricted.html'
         }
       }
-    }).state('accessdenied', {
+    })
+    .state('accessdenied', {
       parent: 'app',
       url: '/403',
       data: {

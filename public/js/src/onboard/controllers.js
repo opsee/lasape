@@ -24,7 +24,7 @@ function OnboardStartCtrl($scope,$state,UserService,Global){
     }, function(res){
       $scope.error = res.data.error || 'There was an error processing your request.';
       $scope.state = $scope.options.error;
-      Global.notify($scope.error);
+      $rootScope.$emit('notify',$scope.error);
     });
   }
   $scope.options = {
@@ -43,59 +43,30 @@ angular.module('opsee.onboard.controllers').controller('OnboardEmailCtrl', Onboa
 
 function OnboardTutorialCtrl($scope,$state,$stateParams,$timeout){
   $scope.$state = $state;
-  $scope.text = {
-    btn:'Next'
-  }
-
-  function getCurrentNum(){
-    var a = $state.current.name.split('.');
-    return parseInt(a[a.length-1],10);
-  }
-
-  $scope.nextTutorialStep = function() {
-    var num = getCurrentNum()+1;
-    if(num < 4){
-      $state.go('onboard.tutorial.'+num);
-    }else{
-      $state.go('home');
-    }
+  $scope.btn = {
+    text:'Next',
+    link:'onboard.tutorial.2'
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorialCtrl', OnboardTutorialCtrl);
 
 function OnboardTutorial1Ctrl($scope){
-  $scope.text.btn = 'Next';
+  $scope.btn.text = 'Next';
+  $scope.btn.link = 'onboard.tutorial.2';
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorial1Ctrl', OnboardTutorial1Ctrl);
 
 function OnboardTutorial2Ctrl($scope){
-  $scope.text.btn = 'Next';
+  $scope.btn.text = 'Next';
+  $scope.btn.link = 'onboard.tutorial.3';
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorial2Ctrl', OnboardTutorial2Ctrl);
 
 function OnboardTutorial3Ctrl($scope){
-  $scope.text.btn = 'Finish';
-  // $scope.btnText = 'Finish';
-  // console.log($scope.btnText);
+  $scope.btn.text = 'Finish';
+  $scope.btn.link = 'home';
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorial3Ctrl', OnboardTutorial3Ctrl);
-
-function OnboardPasswordCtrl($scope,$state,$stateParams,User,UserService){
-  $scope.user = new User().setDefaults();
-  $scope.user.token = $stateParams.token;
-  $scope.submit = function(){
-    UserService.claim($scope.user).then(function(res){
-      console.log(res);
-      $state.go('onboard.team');
-    }, function(res){
-      console.log(res);
-      $scope.error = res.data && res.data.error || 'There was an error processing your request.';
-      // $scope.state = $scope.options.error;
-      Global.notify($scope.error);
-    })
-  }
-}
-angular.module('opsee.onboard.controllers').controller('OnboardPasswordCtrl', OnboardPasswordCtrl);
 
 function OnboardTeamCtrl($scope){
 }
@@ -150,13 +121,6 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/tutorial-3.html',
       controller:'OnboardTutorial3Ctrl',
       title:'Tutorial Step 3'
-    })
-    .state('onboard.password', {
-      url:'password?token',
-      parent:'onboard',
-      templateUrl:'/public/js/src/onboard/views/password.html',
-      controller:'OnboardPasswordCtrl',
-      title:'Set Your Password'
     })
     .state('onboard.team', {
       url:'team',
