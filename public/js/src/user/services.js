@@ -5,7 +5,7 @@ angular.module('opsee.user.services', []);
 function User($resource, $rootScope, _, USER_DEFAULTS, ENDPOINTS){
   var User = $resource(ENDPOINTS.user,
     {
-      userId:'@_id'
+      id:'@_id'
     },
     {
       update:{method:'PUT'}

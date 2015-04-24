@@ -118,8 +118,10 @@ var KEYS = {
 }
 angular.module('opsee.global.services').constant('KEYS', KEYS);
 
+var api = 'http://api-beta.opsee.co';
 var ENDPOINTS = {
-  api:'http://api-beta.opsee.co'
+  api:api,
+  user:api+'/logins/:id'
 }
 angular.module('opsee.global.services').constant('ENDPOINTS', ENDPOINTS);
 
@@ -462,7 +464,7 @@ function AssertionTypes(){
       name:'Header'
     },
     {
-      name:'Body'
+      name:'Response Body'
     },
   ]
 }

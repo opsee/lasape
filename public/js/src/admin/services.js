@@ -2,7 +2,7 @@
 
 angular.module('opsee.admin.services', []);
 
-function AdminService($q, $resource, $rootScope, $http, ENDPOINTS){
+function AdminService($q, $resource, $rootScope, $http, ENDPOINTS, User){
   return{
     signups:function(){
       var deferred = $q.defer();
@@ -20,6 +20,10 @@ function AdminService($q, $resource, $rootScope, $http, ENDPOINTS){
       }else{
         return $q.reject({error:'No email specified.'});
       }
+    },
+    singleSignup:function(id){
+      return User.get({id:id}).$promise;
+      // return $resource(ENDPOINTS.api+'/logins/'+id);
     },
     login:function(admin){
       if(admin && admin.account.email){

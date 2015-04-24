@@ -6,14 +6,20 @@
     $pageTitleProvider.setSuffix(' - Opsee');
   });
 
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, User) {
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $timeout, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, User) {
 
     $rootScope.$on('$stateChangeStart', function (event, currentRoute, previousRoute) {
-      $activityIndicator.startAnimating();
+      $activityIndicator.timer = true;
+      $timeout(function(){
+        if($activityIndicator.timer){
+          $activityIndicator.startAnimating();
+        }
+      },400);
     });
 
     $rootScope.$on('$stateChangeSuccess', function (event, currentRoute, previousRoute) {
       $analytics.pageTrack(currentRoute.url);
+      $activityIndicator.timer = false;
       $activityIndicator.stopAnimating();
     });
 

@@ -245,7 +245,7 @@ function AssertionTest(){
           return false;
         }
       break;
-      case 'Body':
+      case 'Response Body':
       try{
         var text = assertion.value;
         var body = JSON.stringify(res.data);
