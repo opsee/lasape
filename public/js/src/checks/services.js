@@ -49,7 +49,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
         run:function(){
           var deferred = $q.defer();
           Global.confirm('Delete this check?').then(function(){
-            Global.notify('Deleted check.');
+            $rootScope.$emit('notify','Deleted check.');
           });
           deferred.resolve();
           return deferred.promise;

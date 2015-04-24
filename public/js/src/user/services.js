@@ -55,15 +55,9 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
       }
     },
     claim:function(user){
-      if(user && user.account.password && user.token){
-        var data = {
-          password:user.account.password,
-          customer_id:user.token
-        }
-        //test
-        user.customer_id = 'UUpa7FMQ2PzoIISRTct56';
-        var path = $resource(ENDPOINTS.api+'/activations/'+data.customer_id+'/activate');
-        return path.save(data).$promise;
+      if(user && user.password && user.token){
+        var path = $resource(ENDPOINTS.api+'/activations/'+user.token+'/activate');
+        return path.save(user).$promise;
       }else{
         return $q.reject({data:{error:'Bad credentials.'}});
       }

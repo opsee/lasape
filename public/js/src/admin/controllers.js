@@ -6,14 +6,10 @@ function SignupsCtrl($scope,signups,AdminService, Global){
   $scope.signups = signups;
   $scope.activateSignup = function(email){
     AdminService.activateSignup(email).then(function(){
-      Global.notify('User activated.').then(function(){
-        console.log('resolved');
-      },function(){
-        console.log('rejected');
-      });
+      $rootScope.$emit('notify','User activated.');
     }, function(res){
       var msg = res.data && res.data.error ? res.data.error : 'Something went wrong.';
-      Global.notify(msg);
+      $rootScope.$emit('notify',msg);
     })
   }
 }

@@ -11,9 +11,17 @@ function headerController($scope, Global, $location, $rootScope) {
       children:[]
     },
     {
-      title:'Login',
-      sref:'login',
-      children:[]
+      title:'User',
+      children:[
+        {
+          title:'Login',
+          sref:'login',
+        },
+        {
+          title:'Set Password',
+          sref:'password',
+        },
+      ]
     },
     {
       title:'Onboarding',
@@ -25,10 +33,6 @@ function headerController($scope, Global, $location, $rootScope) {
         {
           title:'Tutorial',
           sref:'onboard.tutorial.1',
-        },
-        {
-          title:'Password',
-          sref:'onboard.password',
         },
       ]
     },

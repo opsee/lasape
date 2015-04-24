@@ -40,14 +40,18 @@
 
     $pageTitle.set();
 
-     $rootScope.$on('event:auth-loginRequired', function(){
+    $rootScope.$on('notify', function(event,msg){
+      Global.notify(msg);
+    })
+
+    $rootScope.$on('event:auth-loginRequired', function(){
       $rootScope.user.awaitingLogin = true;
       $location.path('/login');
-     })
+    })
 
-     $rootScope.$on('event:auth-forbidden', function(){
+    $rootScope.$on('event:auth-forbidden', function(){
       alert('You do not have permission for that action. Contact the administrator for access.');
-     })
+    });
   });
 
   // Setting HTML5 Location Mode

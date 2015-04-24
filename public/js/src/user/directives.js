@@ -40,7 +40,7 @@ function userLogin(){
             console.log(err);
             $scope.error = res.data.error || 'There was an error processing your request.';
             $scope.state = $scope.options.error;
-            Global.notify($scope.error);
+            $rootScope.$emit('notify',$scope.error);
           })
         }
       }
