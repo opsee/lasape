@@ -127,42 +127,6 @@ function checkSingleContextMenu(){
   return {
     restrict:'EA',
     templateUrl:'/public/js/src/checks/partials/single-context-menu.html',
-    // scope:{
-    //   status:'='
-    // },
-    controller:function($scope){
-      // $scope.foo = 'fa';
-      // $scope.actions = [
-      //   {
-      //     title:'Silence Check',
-      //     run:function(){
-      //       console.log(self.contextMenu().actions);
-      //     },
-      //     actions:[
-      //       {
-      //         title:'1 minute',
-      //         run:function(){
-      //           console.log('1 minute');
-      //         }
-      //       },
-      //       {
-      //         title:'10 minutes',
-      //         run:function(){
-      //           console.log('10 minutes');
-      //         }
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     title:'another',
-      //     run:function(){
-      //       console.log('foo')
-      //     }
-      //   }
-      // ]
-    },
-    link:function($scope,$elem,$attr){
-    }
   }
 }
 angular.module('opsee.checks.directives').directive('checkSingleContextMenu', checkSingleContextMenu);
@@ -177,7 +141,22 @@ function radialGraph(){
       status:'='
     },
     controller:function($scope, $element, $timeout){
-      // $scope.text = '';
+      $scope.getCheckTitle = function(){
+         switch($scope.status.state){
+          case 'running':
+          return $scope.status.silence.remaining ? 
+          'This check is running but currently silenced for '+$scope.text :
+          'This check is running and has a health of '+$scope.status.health+'%';
+          break;
+          case 'unmonitored':
+          return 'This check is currently unmonitored.';
+          break;
+          case 'stopped':
+          return 'This check is stopped in AWS.';
+          break;
+         }
+      }
+
       $scope.text = $scope.status.health ? Math.round($scope.status.health) : null;
       $scope.width = 40;
       function getSilenceRemaining(obj){
@@ -197,7 +176,7 @@ function radialGraph(){
         } else if (health < 0) {
           percentage = 0;
         } else {
-          percentage = Math.round(health);
+          percentage = parseInt(health,10);
         }
         var w = $scope.width;
         var α = (percentage/100)*360;
@@ -209,11 +188,7 @@ function radialGraph(){
         var path = 'M 0 0 v -' + (w/2) + ' A ' + (w/2) + ' ' + (w/2) + ' 1 ' + mid + ' 1 ' +  x  + ' ' +  y  + ' z';
         return path;
       }
-      // if ($scope.status.state == 'running') {
-      //   $scope.path = getPath($scope.status.health);
-      // }
 
-      $scope.status.silenceRemaining = $scope.status.silenceRemaining || $scope.status.silence;
       $scope.$watch(function(){return $scope.path}, function(newVal,oldVal){
         var loader = $element[0].querySelector('.loader');
         angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',newVal);
@@ -232,7 +207,6 @@ function radialGraph(){
         $scope.text = Math.round($scope.status.health);
       }
       function regenGraphSilence(immediate){
-        // $scope.status.silence.remaining = $scope.status.silence.remaining > 0 ? $scope.status.silence.remaining : getSilenceRemaining($scope.status.silence);
         $scope.status.silence.remaining = getSilenceRemaining($scope.status.silence);
         if($scope.status.silence.remaining > 0){
           $timeout(function(){

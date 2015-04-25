@@ -81,7 +81,8 @@ function config ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('login', {
       url:'/login',
       templateUrl:'/public/js/src/user/views/login.html',
-      controller:'LoginCtrl'
+      controller:'LoginCtrl',
+      title:'Login'
     })
     .state('password', {
       url:'/password?email&token',
