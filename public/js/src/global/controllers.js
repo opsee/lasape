@@ -77,22 +77,24 @@ function footerController($scope, Global, $location) {
 
 angular.module('opsee.global.controllers').controller('FooterController', footerController);
 
-function HomeCtrl($scope, $rootScope, _, $state){
+function HomeCtrl($scope, $rootScope, _, $state, Check){
   // if(!$rootScope.user.account.email){
   //   $state.go('onboard');
   // }
   $scope.checks = [
     {
+      name:'Wee a check',
       status:{
         health:25,
         state:'running',
         silence:{
-          startDate:new Date(Date.now()-100000),
-          duration:200000
+          startDate:new Date(Date.now()-60000),
+          duration:180000
         }
       },
     },
     {
+      name:'Another check',
       status:{
         health:50,
         state:'running',
@@ -103,6 +105,7 @@ function HomeCtrl($scope, $rootScope, _, $state){
       },
     },
     {
+      name:'Third check.',
       status:{
         health:70,
         state:'running',
@@ -133,6 +136,9 @@ function HomeCtrl($scope, $rootScope, _, $state){
       },
     },
   ];
+  $scope.checks.forEach(function(c,i){
+    $scope.checks[i] = new Check(c);
+  });
 }
 angular.module('opsee.global.controllers').controller('HomeCtrl',HomeCtrl);
 

@@ -70,6 +70,27 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
     _.defaults(this, CHECK_DEFAULTS);
     return this;
   }
+  check.prototype.getInfo = function(){
+    var self = this;
+    switch(self.status.state){
+      case 'running':
+      if(self.status.silence.remaining > 0){
+        self.status.silence.diff = moment(self.status.silence.startDate).fromNow();
+        self.status.silence.humanDuration = moment.duration(self.status.silence.duration).humanize();
+        return self.status.silence.humanDuration+', '+self.status.silence.diff;
+      }else{
+        return self.info;
+      }
+      break;
+      case 'unmonitored':
+      return 'This check is currently unmonitored.';
+      break;
+      case 'stopped':
+      return 'This check is stopped in AWS.';
+      break;
+     }
+    return self.info;
+  }
   check.prototype.menu = function(directive){
     this.actions.forEach(function(a){
       a.childrenActive = false;

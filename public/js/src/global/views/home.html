@@ -8,9 +8,10 @@
           </h2>
           <ul class="md-list md-list-two-line md-list-has-avatars">
             <li class="md-list-item" ng-repeat="check in checks" ng-if="check.status.state == 'running'">
-              <div class="md-list-line">Test</div>
-              <div class="md-list-line">Test</div>
-              <div class="md-list-avatar" radial-graph status="check.status"></div>
+              <div class="md-list-line">{{check.name}}</div>
+              <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Check was silenced for {{check.getInfo()}}.</div>
+              <div class="md-list-line" ng-if="!check.status.silence.remaining > 0">{{check.getInfo()}}</div>
+              <div class="md-list-avatar" radial-graph check="check"></div>
             </li>
           </ul>
 
@@ -19,9 +20,10 @@
           </h2>
           <ul class="md-list md-list-two-line md-list-has-avatars">
             <li class="md-list-item" ng-repeat="check in checks" ng-if="check.status.state == 'unmonitored'">
-              <div class="md-list-line">Test</div>
-              <div class="md-list-line">Test</div>
-              <div class="md-list-avatar" radial-graph status="check.status"></div>
+              <div class="md-list-line">{{check.name}}</div>
+              <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Check was silenced for {{check.getInfo()}}.</div>
+              <div class="md-list-line" ng-if="!check.status.silence.remaining > 0">{{check.getInfo()}}</div>
+              <div class="md-list-avatar" radial-graph check="check"></div>
             </li>
           </ul>
 
@@ -30,9 +32,10 @@
           </h2>
           <ul class="md-list md-list-two-line md-list-has-avatars">
             <li class="md-list-item" ng-repeat="check in checks" ng-if="check.status.state == 'stopped'">
-              <div class="md-list-line">Test</div>
-              <div class="md-list-line">Test</div>
-              <div class="md-list-avatar" radial-graph status="check.status"></div>
+              <div class="md-list-line">{{check.name}}</div>
+              <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Check was silenced for {{check.getInfo()}}.</div>
+              <div class="md-list-line" ng-if="!check.status.silence.remaining > 0">{{check.getInfo()}}</div>
+              <div class="md-list-avatar" radial-graph check="check"></div>
             </li>
           </ul>
           

@@ -138,16 +138,15 @@ function radialGraph(){
     replace:true,
     templateUrl:'/public/js/src/checks/partials/radial-graph.html',
     scope:{
-      status:'='
+      check:'='
     },
     controller:function($scope, $element, $timeout, $filter, moment){
+      $scope.status = $scope.check.status;
       $scope.getCheckTitle = function(){
          switch($scope.status.state){
           case 'running':
-          var diff = moment($scope.status.silence.startDate).fromNow();
-          var duration = moment.duration($scope.status.silence.duration).humanize();
           return $scope.status.silence.remaining ? 
-          'This check is running, but was silenced for '+duration+', '+diff+'.':
+          'This check is running, but was silenced for '+$scope.check.getInfo()+'.':
           'This check is running and has a health of '+$scope.status.health+'%';
           break;
           case 'unmonitored':
@@ -182,9 +181,11 @@ function radialGraph(){
           u = 's';
           t = d.as(u);
         }
-        return parseInt(t,10)+u;
+        return Math.ceil(t)+u;
+        return (t,10)+u;
       }
       function getPath(health){
+        if(!health){return false;}
         if (health >= 100) {
           percentage = 99.9;
         } else if (health < 0) {
@@ -204,8 +205,10 @@ function radialGraph(){
       }
 
       $scope.$watch(function(){return $scope.path}, function(newVal,oldVal){
-        var loader = $element[0].querySelector('.loader');
-        angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',newVal);
+        if(newVal){
+          var loader = $element[0].querySelector('.loader');
+          angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',newVal);
+        }
       });
 
       $scope.$watch(function(){return $scope.status.silence.startDate}, function(newVal,oldVal){
