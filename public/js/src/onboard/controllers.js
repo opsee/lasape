@@ -20,7 +20,7 @@ function OnboardStartCtrl($scope,$state,UserService,Global){
     UserService.create($scope.user).then(function(res){
       console.log(res);
       $scope.state = res.statusText || $scope.options.success;
-      $state.go('onboard.email',{email:$scope.user.account.email});
+      $state.go('onboard.thanks',{email:$scope.user.account.email});
     }, function(res){
       $scope.error = res.data.error || 'There was an error processing your request.';
       $scope.state = $scope.options.error;
@@ -40,6 +40,11 @@ function OnboardEmailCtrl($scope,$stateParams){
   $scope.user.account.email = $scope.user.account.email || $stateParams.email;
 }
 angular.module('opsee.onboard.controllers').controller('OnboardEmailCtrl', OnboardEmailCtrl);
+
+function OnboardThanksCtrl($scope,$stateParams){
+  $scope.user.account.email = $scope.user.account.email || $stateParams.email;
+}
+angular.module('opsee.onboard.controllers').controller('OnboardThanksCtrl', OnboardThanksCtrl);
 
 function OnboardTutorialCtrl($scope,$state,$stateParams,$timeout){
   $scope.$state = $state;
@@ -93,6 +98,13 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/email.html',
       controller:'OnboardEmailCtrl',
       title:'Email'
+    })
+    .state('onboard.thanks', {
+      url:'thanks?email',
+      parent:'onboard',
+      controller:'OnboardThanksCtrl',
+      templateUrl:'/public/js/src/onboard/views/thanks.html',
+      title:'Thank You'
     })
     .state('onboard.tutorial', {
       url:'tutorial',

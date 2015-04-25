@@ -58,7 +58,7 @@ function UserPasswordCtrl($scope,$state,$rootScope,$stateParams,User,UserService
       UserService.login($scope.user).then(function(res){
         console.log(res);
         if(res.token){
-          $rootScope.emit('setAuth',res.token);
+          $rootScope.$emit('setAuth',res.token);
           $state.go('onboard.team');
         }
       }, function(err){
