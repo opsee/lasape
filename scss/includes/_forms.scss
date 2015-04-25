@@ -14,16 +14,15 @@
     visibility: hidden;
     + input {padding-top: 0.8rem;}
   }
-  > input {
-    &[type='text'], &[type='email'], &[type='password'] {
-      @include box-shadow(none);
-      @include placeholder($text-color-secondary);
-      background-color: transparent;
-      border: none;
-      border-bottom: 1px solid $gray-800;
-      color: $text-color;
-      padding-left: 0;
-    }
+  > input[type='text'], &[type='email'], &[type='password'], textarea  {
+    @include box-shadow(none);
+    @include placeholder($text-color-secondary);
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid $gray-800;
+    color: $text-color;
+    padding-left: 0;
+
     &:hover {
       border-bottom-color: $gray-400;
       & ~ .input-icon {

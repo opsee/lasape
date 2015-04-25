@@ -3,9 +3,6 @@ $button-fab-width: 5.600rem !default;
 $button-fab-height: 5.600rem !default;
 $button-fab-line-height: 5.600rem !default;
 $button-fab-padding: 1.60rem !default;
-$button-fab-mini-width: 4.00rem !default;
-$button-fab-mini-height: 4.00rem !default;
-$button-fab-mini-line-height: 4.00rem !default;
 
 /**
  * Position a FAB button.
@@ -83,7 +80,7 @@ $button-fab-mini-line-height: 4.00rem !default;
   @include fab-position(bottom-left, auto, auto, ($button-fab-height - $button-fab-padding)/2, ($button-fab-width - $button-fab-padding)/2);
   @include fab-position(top-right, ($button-fab-height - $button-fab-padding)/2, ($button-fab-width - $button-fab-padding)/2, auto, auto);
   @include fab-position(top-left, ($button-fab-height - $button-fab-padding)/2, auto, auto, ($button-fab-width - $button-fab-padding)/2);
-  @include fab-position(bottom-right-toolbar, auto, ($button-fab-width - $button-fab-padding)/2, -$button-fab-height/2, auto);
+  @include fab-position(bottom-right-toolbar, -$button-fab-height/2, ($button-fab-width - $button-fab-padding)/2, auto, auto);
 
   z-index: $z-index-fab;
 
@@ -99,14 +96,22 @@ $button-fab-mini-line-height: 4.00rem !default;
   border-radius: 50%;
   background-clip: padding-box;
   overflow: hidden;
-
-  transition: 0.2s linear;
-  transition-property: background-color, box-shadow;
-
-  &.md-mini {
-    line-height: $button-fab-mini-line-height;
-    width: $button-fab-mini-width;
-    height: $button-fab-mini-height;
+}
+.btn-iconbtn {
+  background-color: transparent;
+  border: none;
+  line-height: 48px;
+  min-width: 0;
+  padding: 0 0;
+  width: 48px;
+  height: 48px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background-clip: padding-box;
+  overflow: hidden;
+  position: relative;
+  &:hover {
+    background-color: $gray-700;
   }
 }
 .btn-fab-icon {
@@ -127,11 +132,13 @@ $button-fab-mini-line-height: 4.00rem !default;
   border-bottom: 1px solid $gray-800;
   padding-left: 0;
   text-align: left;
+  text-transform: none;
   &:hover {
     background-color: transparent;
     border-bottom-color: $gray-400;
   }
   .btn-icon {
+    fill: $text-color-secondary;
     float: right;
   }
 }
