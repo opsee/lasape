@@ -16,7 +16,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
         // run:function(){
         //   console.log('Silence Check');
         // },
-        childrenActive:false,
+        childrenActive:true,
         run:function(){
           this.childrenActive = true;
         },
@@ -44,17 +44,17 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
           }
         ]
       },
-      {
-        title:'Delete Check',
-        run:function(){
-          var deferred = $q.defer();
-          Global.confirm('Delete this check?').then(function(){
-            $rootScope.$emit('notify','Deleted check.');
-          });
-          deferred.resolve();
-          return deferred.promise;
-        }
-      }
+      // {
+      //   title:'Delete Check',
+      //   run:function(){
+      //     var deferred = $q.defer();
+      //     Global.confirm('Delete this check?').then(function(){
+      //       $rootScope.$emit('notify','Deleted check.');
+      //     });
+      //     deferred.resolve();
+      //     return deferred.promise;
+      //   }
+      // }
     ]
   check.prototype.setDefaults = function(){
     _.defaults(this, CHECK_DEFAULTS);
