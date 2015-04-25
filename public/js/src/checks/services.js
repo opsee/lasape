@@ -2,7 +2,7 @@
 
 angular.module('opsee.checks.services', []);
 
-function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMAS){
+function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMAS, moment){
   var check = $resource(ENDPOINTS.api+'/check',
     {
       checkId:'@_id'
@@ -25,8 +25,8 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
             title:'1 minute',
             run:function(){
               //this = parent check item
-              this.status.silence.startDate = new Date().toString();
-              this.status.silence.length = 60000;
+              this.status.silence.startDate = new Date();
+              this.status.silence.duration = moment.duration(1,'m').asMilliseconds();
               var deferred = $q.defer();
               deferred.resolve();
               return deferred.promise;
@@ -35,8 +35,18 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
           {
             title:'10 minutes',
             run:function(){
-              this.status.silence.startDate = new Date().toString();
-              this.status.silence.length = 600000;
+              this.status.silence.startDate = new Date();
+              this.status.silence.duration = moment.duration(10,'m').asMilliseconds();
+              var deferred = $q.defer();
+              deferred.resolve();
+              return deferred.promise;
+            }
+          },
+          {
+            title:'1 hour',
+            run:function(){
+              this.status.silence.startDate = new Date();
+              this.status.silence.duration = moment.duration(1,'h').asMilliseconds();
               var deferred = $q.defer();
               deferred.resolve();
               return deferred.promise;

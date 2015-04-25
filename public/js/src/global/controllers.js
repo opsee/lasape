@@ -87,8 +87,8 @@ function HomeCtrl($scope, $rootScope, _, $state){
         health:25,
         state:'running',
         silence:{
-          startDate:new Date(Date.now()-100000).toString(),
-          length:200000
+          startDate:new Date(Date.now()-100000),
+          duration:200000
         }
       },
     },
@@ -97,8 +97,8 @@ function HomeCtrl($scope, $rootScope, _, $state){
         health:50,
         state:'running',
         silence:{
-          startDate:new Date(Date.now()-100000).toString(),
-          length:500000
+          startDate:new Date(Date.now()-100000),
+          duration:500000
         }
       },
     },
@@ -108,7 +108,7 @@ function HomeCtrl($scope, $rootScope, _, $state){
         state:'running',
         silence:{
           startDate:new Date(Date.now()-10000).toString(),
-          length:20000
+          duration:20000
         }
       },
     },
@@ -118,7 +118,7 @@ function HomeCtrl($scope, $rootScope, _, $state){
         state:'unmonitored',
         silence:{
           startDate:null,
-          length:null
+          duration:null
         }
       },
     },
@@ -128,7 +128,7 @@ function HomeCtrl($scope, $rootScope, _, $state){
         state:'stopped',
         silence:{
           startDate:null,
-          length:null
+          duration:null
         }
       },
     },

@@ -13,7 +13,7 @@ function ChecksCtrl($scope, $state, Check){
       state:'running',
       silence:{
         startDate:null,
-        length:null
+        duration:null
       }
     },
   },
@@ -26,7 +26,7 @@ function ChecksCtrl($scope, $state, Check){
       state:'running',
       silence:{
         startDate:null,
-        length:null
+        duration:null
       }
     },
   },

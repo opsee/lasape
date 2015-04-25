@@ -103,6 +103,12 @@ function _($window){
 }
 angular.module('opsee.global.services').service('_',_);
 
+//momentjs
+function moment($window){
+  return $window.moment;
+}
+angular.module('opsee.global.services').service('moment',moment);
+
 function regex(){
   return{
     float:/^[-+]?[0-9]*\.?[0-9]+$/,

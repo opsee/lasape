@@ -140,12 +140,14 @@ function radialGraph(){
     scope:{
       status:'='
     },
-    controller:function($scope, $element, $timeout){
+    controller:function($scope, $element, $timeout, $filter, moment){
       $scope.getCheckTitle = function(){
          switch($scope.status.state){
           case 'running':
+          var diff = moment($scope.status.silence.startDate).fromNow();
+          var duration = moment.duration($scope.status.silence.duration).humanize();
           return $scope.status.silence.remaining ? 
-          'This check is running but currently silenced for '+$scope.text :
+          'This check is running, but was silenced for '+duration+', '+diff+'.':
           'This check is running and has a health of '+$scope.status.health+'%';
           break;
           case 'unmonitored':
@@ -161,14 +163,26 @@ function radialGraph(){
       $scope.width = 40;
       function getSilenceRemaining(obj){
         if(obj && obj.startDate){
-          if(Date.parse(obj.startDate)){
-            var d = Date.parse(obj.startDate);
-            var finalVal = d.valueOf()+obj.length;
-            var remaining = finalVal-Date.now();
-            return remaining;
+          if(obj.startDate instanceof Date){
+            var finalVal = obj.startDate.valueOf()+obj.duration;
+            return finalVal-Date.now();
           }
         }
         return false;
+      }
+      function genText(millis){
+        var d = moment.duration(millis);
+        var u = 'h';
+        var t = d.as(u);
+        if(t < 1){
+          u = 'm';
+          t = d.as(u);
+        }
+        if(t < 1){
+          u = 's';
+          t = d.as(u);
+        }
+        return parseInt(t,10)+u;
       }
       function getPath(health){
         if (health >= 100) {
@@ -210,9 +224,9 @@ function radialGraph(){
         $scope.status.silence.remaining = getSilenceRemaining($scope.status.silence);
         if($scope.status.silence.remaining > 0){
           $timeout(function(){
-            $scope.path = getPath(($scope.status.silence.remaining/$scope.status.silence.length)*100);
+            $scope.path = getPath(($scope.status.silence.remaining/$scope.status.silence.duration)*100);
             $scope.status.silence.remaining = $scope.status.silence.remaining - 1000;
-            $scope.text = Math.ceil($scope.status.silence.remaining/1000)+'s';
+            $scope.text = genText($scope.status.silence.remaining);
             regenGraphSilence();
           },immediate ? 0 : 1000);
         }else{
