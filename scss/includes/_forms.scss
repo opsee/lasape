@@ -14,7 +14,7 @@
     visibility: hidden;
     + input {padding-top: 0.8rem;}
   }
-  > input[type='text'], &[type='email'], &[type='password'], textarea  {
+  > input[type='text'], > [type='email'], > [type='password'], > textarea  {
     @include box-shadow(none);
     @include placeholder($text-color-secondary);
     background-color: transparent;
