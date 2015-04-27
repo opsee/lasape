@@ -6,7 +6,9 @@ function Global($rootScope, $log, $q, $modal, $document, $compile, _) {
   return {
     confirm:function(msg,noConfirm){
       if(noConfirm){
-        return $q.resolve();
+        var deferred = $q.defer();
+        deferred.resolve()
+        return deferred.promise;
       }
       if(!msg){
         $log.warn('No msg');

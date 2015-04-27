@@ -117,9 +117,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
     }
     var cond1 = length && !angular.equals(target[length-1],schema);
     var cond2 = !length;
-    if((cond1 || cond2) && schema){
-      target.push(angular.copy(schema));
-    }
+    target.push(angular.copy(schema));
   }
   check.prototype.removeItem = function(selection, $index, msg){
     if(!selection || $index == undefined){return false;}
@@ -132,7 +130,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
     }
     if(!target){return false;}
     var msg = msg || 'Remove this item?';
-    $rootScope.global.confirm(msg).then(function(){
+    $rootScope.global.confirm(msg, true).then(function(){
       target.splice($index,1);
     });
   }

@@ -1,3 +1,6 @@
 <div class="tutorial">
   <div ui-view></div>
+  <div class="step-counter">
+    <div ng-class="{active:$state.is('onboard.tutorial.'+s)}" class="step-bullet" ng-repeat="s in [1,2,3]"></div>
+  </div>
 </div>
