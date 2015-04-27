@@ -41,15 +41,15 @@ $graphWidth:40px;
       }
     }
     &.silenced{
-      background-color:$blue-600;
+      background-color:$blue-400;
       .radial-graph-inner{
-        background-color:$blue-600;
+        background-color:$blue-400;
         &.failing{
-          background-color:$blue-600;
+          background-color:$blue-400;
         }
       }
       .loader{
-        fill:$blue-300;
+        fill:$blue-700;
       }
     }
     svg{

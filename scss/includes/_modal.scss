@@ -14,7 +14,10 @@
 }
 
 .modal[size="context"] {
-  &.fade .modal-dialog { @include translate(0, 100%) }
+  &.fade .modal-dialog {
+    @include translate(0, 100%);
+    @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function);
+  }
   &.in .modal-dialog { @include translate(0, 0) }
   @include breakpoint($screen-md){
     &.fade{

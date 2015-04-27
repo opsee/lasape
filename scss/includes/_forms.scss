@@ -3,7 +3,9 @@
   position: relative;
   > label {
     @include opacity(0);
-    @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+    @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function,
+                        opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                        visibility $swift-ease-out-duration $swift-ease-out-timing-function);
     // .transition-transform-opacity(@transition_transform);
     @include transform(translate(-32px,0));
     color: $text-color-secondary;

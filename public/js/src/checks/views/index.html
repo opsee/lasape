@@ -1,11 +1,9 @@
 <div>
   <div class="md-toolbar md-tall">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-          <div class="md-toolbar-tools">
-            <h1 class="">Checks</h1>
-          </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+        <div class="md-toolbar-tools">
+          <h1 class="">Checks</h1>
         </div>
       </div>
     </div>
@@ -25,8 +23,8 @@
       <ul class="md-list md-list-two-line md-list-has-avatars">
         <li ng-repeat="check in checks">
           <div class="md-list-item">
-            <button type="button" class="btn btn-iconbtn md-list-secondary-action" ng-click="check.menu()" title="Check Options">
-              <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_more_vert" />
+            <button type="button" class="btn btn-iconbtn md-list-secondary-action" ng-click="check.menu()" title="Silence check">
+              <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off" />
             </button>
             <a ui-sref="checkSingle({id:check.id})" class="md-list-link" title="Go to this Check">
               <div class="md-list-line">{{check.name}}</div>
