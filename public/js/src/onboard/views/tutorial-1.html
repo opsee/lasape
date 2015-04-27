@@ -1,7 +1,9 @@
-<div class="container step-container" ng-class="{active:$state.is('onboard.tutorial.1')}">
-  <div class="row">
-    <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-      <img class="step-image" src="/public/img/tut-01.svg" alt="valid">
+<div class="step-container" ng-class="{active:$state.is('onboard.tutorial.1')}">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        <img class="step-image" src="/public/img/tut-01.svg" alt="valid">
+      </div>
     </div>
   </div>
   <div class="step-title">
@@ -9,6 +11,14 @@
       <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
         <h2>The Opsee Bastion Host</h2>
         <p>Checks get run from the bastion host, which is deployed into your VPC.  The bastion is the middleman between you and Opsee, protecting your AWS creds and user data from ever leaving your control.</p>
+
+        <a class="btn btn-success btn-block" ng-hide="activeTutorialStep == tutorialSteps.length-1" href="#" ng-click="$state.go(btn.link)">
+          {{btn.text}} <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg>
+        </a>
+
+        <div class="step-counter">
+          <div ng-class="{active:$state.is('onboard.tutorial.'+s)}" class="step-bullet" ng-repeat="s in [1,2,3]"></div>
+        </div>
       </div>
     </div>
   </div>
