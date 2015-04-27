@@ -105,6 +105,12 @@
   top: 0;
   width: 20px;
 }
+.help-block {
+  color: $text-color-secondary;
+  font-family: $font-family-serif;
+  font-size: 13px;
+  font-style: italic;
+}
 
 // input{
 //   &.ng-invalid.ng-touched{

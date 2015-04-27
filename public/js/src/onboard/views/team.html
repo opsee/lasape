@@ -1,23 +1,33 @@
 <div class="container">
-  <div class="col-xs-12">
-    <h2>Create your team</h2>
-    <form name="teamForm" ng-submit="submit()">
-      <div class="form-group">
-        <input type="text" ng-model="user.team.name" placeholder="Team Name" class="form-control" ng-required="true" ng-minlength="3"/>
-        <!-- <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg> -->
-        <label>Team Name</label>
-        <span class="input-error-text small">is not valid</span>
-      </div>
-      <div><small><em>This name will appear in headings and menus to identify your team. Your company name is probably a good choice, but it doesn't need to be official or anything.</em></small></div>
-      <div class="form-group display-flex flex-wrap">
-        <input type="text" ng-model="user.team.domain" placeholder="Team Domain" class="form-control flex-75" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain"/>
-        <div class="input-suffix flex-25">.opsee.co</div>
-        <!-- <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg> -->
-        <label for="domain">Team Domain</label>
-        <div style="padding:.3em" class="input-error-text small">is not valid</div>
-      </div>
-      <div><small><em>The web address you'll use to access your team's account. Keep it short and memorable. Only lowercase letters, numbers, and dashes are allowed, and it must start with a letter.</em></small></div>
-      <button class="btn btn-primary" type="submit" ng-disabled="teamForm.$invalid">Next</button>
-    </form>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+      <h1>Create your team</h1>
+      <form name="teamForm" ng-submit="submit()">
+
+        <div class="form-group">
+          <input type="text" ng-model="user.team.name" placeholder="Team Name" class="form-control" ng-required="true" ng-minlength="3"/>
+          <!-- <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg> -->
+          <label>Team Name</label>
+          <span class="input-error-text small">is not valid</span>
+
+          <div class="help-block">This name will appear in headings and menus to identify your team. Your company name is probably a good choice, but it doesn't need to be official or anything.</div>
+        </div>
+
+        <div class="form-group display-flex flex-wrap">
+          <input style="text-align: right;" type="text" ng-model="user.team.domain" placeholder="Team Domain" class="form-control flex-75" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain"/>
+          <div style="background-color: #222;" class="input-suffix flex-25">.opsee.co</div>
+          <!-- <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg> -->
+          <label for="domain">Team Domain</label>
+          <div style="padding:.3em;" class="input-error-text small">is not valid</div>
+
+          <div class="help-block">The web address you'll use to access your team's account. Keep it short and memorable. Only lowercase letters, numbers, and dashes are allowed, and it must start with a letter.</div>
+        </div>
+
+
+        <div class="form-group">
+          <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="teamForm.$invalid">Next</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
