@@ -17,11 +17,18 @@
 @import "includes/md-toolbar";
 @import "includes/modal";
 @import "includes/tutorial";
-@import "CSS:../public/lib/highlightjs/styles/dark";
+@import "CSS:../public/lib/highlightjs/styles/monokai_sublime";
+@import "includes/hljs";
 @import "checks/module";
 
 body {
   background-color: $body-bg;
+  ::selection {
+    background: $blue-200;
+  }
+  ::-moz-selection {
+    background: $blue-200;
+  }
 }
 
 .logo-header {

@@ -1,5 +1,6 @@
 .assertion-counter {
   @include border-radius(18px);
+  @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
   background-color: $gray-600;
   color: $body-bg;
   display: block;
@@ -7,19 +8,54 @@
   font-size: 24px;
   line-height: 32px;
   height: 32px;
+  position: relative;
   margin: 3px auto 0 auto;
   text-align: center;
   width: 32px;
+  &.success {
+    background-color: $brand-success;
+  }
+  &.danger {
+    background-color: $brand-danger;
+  }
 }
 .assertion-validation {
+  @extend .md-shadow-bottom-z-1;
+  @include border-radius(50%);
+  @include opacity(0);
+  @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function,
+                      opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                      visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  @include transform(translate(0,-24px));
+  background-color: $gray-900;
   display: block;
-  height: 36px;
+  height: 18px;
   margin: 0 auto;
-  width: 36px;
+  position: absolute;
+  right: -6px;
+  top: -6px;
+  width: 18px;
   color: $brand-danger;
   fill: $brand-danger;
+  visibility: hidden;
+  &.active {
+    @include opacity(100);
+    @include transform(translate(0,0));
+    visibility: visible;
+  }
+}
+.assertion-icon {
+  fill: black;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
   &.success {
-    color: $brand-success;
     fill: $brand-success;
+  }
+  &.danger {
+    fill: $brand-danger;
   }
 }
