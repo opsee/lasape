@@ -32,9 +32,7 @@ function userLogin(){
       $scope.submit = function(){
         if($scope.user && $scope.user.account.password){
           UserService.login($scope.user).then(function(res){
-            if(res.token){
-              $rootScope.$emit('setAuth',res.token);
-            }
+            $rootScope.$emit('setUser',res);
             $scope.state = res.statusText || $scope.options.success;
           }, function(err){
             console.log(err);

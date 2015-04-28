@@ -30,7 +30,15 @@
     $rootScope.global = Global;
     $rootScope.regex = Regex;
 
-    $rootScope.user = new User().setDefaults();
+    if($cookies.user){
+      try{
+        $rootScope.user = new User(JSON.parse($cookies.user)).setDefaults();
+      }catch(err){
+        $rootScope.user = new User().setDefaults();
+      }
+    }else{
+      $rootScope.user = new User().setDefaults();
+    }
 
     // User.get().$promise.then(function(res){
     //   if(res.user){
@@ -69,7 +77,20 @@
     });
 
     $rootScope.$on('setUser', function(event,user){
-      $cookies.user = user;
+      var cache = [];
+      $cookies.user = JSON.stringify(user, function(key, value) {
+          if (typeof value === 'object' && value !== null) {
+              if (cache.indexOf(value) !== -1) {
+                  // Circular reference found, discard key
+                  return;
+              }
+              // Store value in our collection
+              cache.push(value);
+          }
+          return value;
+      });
+      cache = null; // Enable garbage collection
+      $rootScope.$broadcast('setAuth',user.token);
     })
 
     $rootScope.$on('event:auth-loginRequired', function(){

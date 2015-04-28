@@ -8,7 +8,9 @@ function User($resource, $rootScope, _, USER_DEFAULTS, ENDPOINTS){
       id:'@_id'
     },
     {
-      update:{method:'PUT'}
+      update:{
+        method:'PATCH'
+      }
     });
   User.prototype.setDefaults = function(){
     _.defaults(this, USER_DEFAULTS);
