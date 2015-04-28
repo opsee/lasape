@@ -479,4 +479,20 @@ function AssertionTypes(){
 }
 angular.module('opsee.global.services').service('AssertionTypes', AssertionTypes);
 
+function PreloadImg($q){
+  return function(path){
+    var deferred = $q.defer();
+    var newImg = new Image();
+    newImg.onload = function(){
+      deferred.resolve(path);
+    }
+    newImg.onerror = function(){
+      deferred.reject(path);
+    }
+    newImg.src = path;
+    return deferred.promise;
+  }
+}
+angular.module('opsee.global.services').service('PreloadImg', PreloadImg);
+
 })();//IIFE
