@@ -1,0 +1,86 @@
+.display-flex{
+  @include display-flex;
+}
+.display-flex-sm{
+  @include breakpoint($screen-sm){
+    @include display-flex;
+  }
+}
+.vertical-align{
+  @include display-flex;
+  @include align-items(center);
+}
+.vertical-align-sm{
+  @include breakpoint($screen-sm){
+    @include display-flex;
+    @include align-items(center);
+  }
+}
+.flex-1{
+  @include flex(1);
+}
+.flex-column{
+  @include flex-direction(column);
+}
+.flex-wrap{
+  @include flex-wrap(wrap);
+}
+.justify-content-between{
+  @include justify-content(space-between);
+}
+.flex-75{
+  @include flex(1 75%);
+}
+.flex-25{
+ @include flex(1 25%); 
+}
+
+/* Have to set height explicity on ui-view 
+to prevent collapsing during animation*/
+.ui-view-container {
+  position: relative;
+  min-height:700px;
+}
+
+[ui-view].ng-enter, [ui-view].ng-leave {
+  &.slide{
+    position: absolute;
+    left: 0;
+    right:0;
+    @include transition(all 500ms ease-in-out);
+  }
+}
+
+[ui-view].ng-enter {
+  &.slide{
+    opacity: 0;
+    @include transform(translateX(100%));
+  }
+  // &.popstate{
+  //   @include transform(translateX(-100%));
+  // }
+}
+
+[ui-view].ng-enter-active {
+  &.slide{
+    opacity: 1;
+    @include transform(translateX(0%));
+  }
+}
+
+[ui-view].ng-leave {
+  &.slide{
+    opacity: 1; 
+    @include transform(none);
+  }
+}
+
+[ui-view].ng-leave-active {
+  &.slide{
+    opacity: 0;
+    @include transform(translateX(-100%));
+  }
+  // &.popstate{
+  //   @include transform(translateX(100%));
+  // }
+}

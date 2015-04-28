@@ -55,6 +55,8 @@ function UserPasswordCtrl($scope,$state,$rootScope,$stateParams,User,UserService
     }
     UserService.claim(data).then(function(res){
       console.log(res);
+      debugger;
+      $rootScope.$emit('setUser',res.data);
       UserService.login($scope.user).then(function(res){
         console.log(res);
         if(res.token){

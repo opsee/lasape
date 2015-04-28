@@ -8,7 +8,10 @@
 
   angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $cookies, $timeout, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, authService, User) {
 
-    $rootScope.$on('$stateChangeStart', function (event, currentRoute, previousRoute) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, fromState, fromParams) {
+      if(toState.name != ('login')){
+        $rootScope.previousRoute = toState.name;
+      }
       $activityIndicator.timer = true;
       $timeout(function(){
         if($activityIndicator.timer){
@@ -17,8 +20,8 @@
       },400);
     });
 
-    $rootScope.$on('$stateChangeSuccess', function (event, currentRoute, previousRoute) {
-      $analytics.pageTrack(currentRoute.name);
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, fromState, fromParams) {
+      $analytics.pageTrack(toState.name);
       $activityIndicator.timer = false;
       $activityIndicator.stopAnimating();
     });
@@ -36,17 +39,37 @@
     //   }
     // });
 
+    $window.addEventListener('popstate', function(event){
+      event.stopPropagation();
+      event.preventDefault();
+      $rootScope.$broadcast('popstate',event);
+    });
+
+    $rootScope.$on('popstate', function(e,data){
+      $rootScope.popstate = true;
+      $timeout(function(){
+        $rootScope.popstate = false;
+      },500);
+    })
+
     $rootScope.$state = $state;
 
     $pageTitle.set();
 
     $rootScope.$on('notify', function(event,msg){
       Global.notify(msg);
-    })
+    });
 
     $rootScope.$on('setAuth', function(event,token){
       $cookies.authToken = token || null;
-      authService.loginConfirmed();
+      // authService.loginConfirmed();
+      if($rootScope.previousRoute){
+        $state.go($rootScope.previousRoute);
+      }
+    });
+
+    $rootScope.$on('setUser', function(event,user){
+      $cookies.user = user;
     })
 
     $rootScope.$on('event:auth-loginRequired', function(){
