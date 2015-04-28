@@ -41,6 +41,10 @@
  @include flex(1 25%); 
 }
 
+.bg-gray-900{
+  background-color: $gray-900;
+}
+
 // .css-two-col{
 //   @include breakpoint(600px){
 //     @include column-count(2);
