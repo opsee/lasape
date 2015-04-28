@@ -26,6 +26,12 @@
       $activityIndicator.stopAnimating();
     });
 
+    $rootScope.$on('$stateChangeError', function (event, toState, fromState, fromParams) {
+      $activityIndicator.timer = false;
+      $activityIndicator.stopAnimating();
+      $state.go('404');
+    });
+
     $rootScope.localStorage = $localStorage;
     $rootScope.global = Global;
     $rootScope.regex = Regex;
@@ -90,6 +96,7 @@
           return value;
       });
       cache = null; // Enable garbage collection
+      $rootScope.user = new User(user).setDefaults();
       $rootScope.$broadcast('setAuth',user.token);
     })
 

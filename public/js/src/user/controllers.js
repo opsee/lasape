@@ -83,8 +83,12 @@ function UserProfileCtrl($scope, $rootScope, $state, profile) {
   console.log(profile);
 }
 UserProfileCtrl.resolve = {
-  profile:function($rootScope,User){
-    return User.get({id:$rootScope.user.id}).$promise;
+  profile:function($rootScope, $q, User){
+    if($rootScope.user.hasUser()){
+      return User.get({id:$rootScope.user.id}).$promise;
+    }else{
+      return $q.reject();
+    }
   }
 }
 angular.module('opsee.user.controllers').controller('UserProfileCtrl', UserProfileCtrl);

@@ -2,7 +2,7 @@
 
 angular.module('opsee.user.services', []);
 
-function User($resource, $rootScope, _, USER_DEFAULTS, ENDPOINTS){
+function User($resource, $rootScope, _, $cookies, $state, USER_DEFAULTS, ENDPOINTS){
   var User = $resource(ENDPOINTS.user,
     {
       id:'@_id'
@@ -21,6 +21,12 @@ function User($resource, $rootScope, _, USER_DEFAULTS, ENDPOINTS){
   // }
   User.prototype.hasUser = function(){
     return !!this.id;
+  }
+  User.prototype.logout = function(){
+    delete $cookies.user;
+    delete $cookies.authToken;
+    $rootScope.user = new User().setDefaults();
+    $state.go('home');
   }
   return User;
 }
@@ -77,17 +83,10 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
         return $q.reject();
       }
     },
-    logout:function(user){
-     var deferred = $q.defer();
-      var path = $resource('/api/logout', {}, {});
-      logout = path.get(user);
-      logout.$promise.then(function(res){
-        $rootScope.user = new User().setDefaults().setPrefs();
-        deferred.resolve(res);
-      }, function(err){
-        deferred.reject(err);
-      }) 
-     return deferred.promise;
+    logout:function(user,$cookies){
+      $cookies.remove('user');
+      $cookies.remove('authToken');
+      $rootScope.user = new User().setDefaults();
     }
   }
 }
