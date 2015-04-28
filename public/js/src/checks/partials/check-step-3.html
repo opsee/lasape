@@ -1,6 +1,8 @@
-<h2>Actions &amp; Settings</h2>
 
-<h3>Check Information</h3>
+
+<div class="form-group">
+  <h2>Check Name & Message</h2>
+</div>
 <div class="form-group">
   <input type="text" ng-model="check.name" class="form-control" placeholder="Check Name" ng-required="true"/>
   <label>Check Name</label>
@@ -8,13 +10,13 @@
 <div class="form-group">
   <textarea ng-model="check.message" class="form-control" placeholder="Message" ng-required="true"></textarea>
   <label>Message</label>
-</div>
-<div>
-  <em><small>This will appear in the notification to help recipients.</small></em>
+  <div class="help-block">This will appear in the notification to help recipients.</div>
 </div>
 <br />
 
-<h3>Check Interval</h3>
+<div class="form-group">
+  <h2>Check Interval</h2>
+</div>
 <div class="form-group">
   <div class="btn-group">
     <select class="sr-only" ng-required="true" ng-model="check.interval" ng-options="i for i in intervals"></select>
@@ -40,8 +42,9 @@
   </ul>
 </div> -->
 
-<h3>Notifications</h3>
-
+<div class="form-group">
+  <h2>Notifications</h2>
+</div>
 <div ng-repeat="notif in check.notifications" class="row">
   <div class="col-xs-4">
     <div class="form-group" dropdown is-open="status['notificationSettings.types'+$index]">
@@ -72,11 +75,13 @@
 <br />
 
 <div class="form-group">
-  <button type="button" class="btn btn-flat btn-link" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send test notification</button>
-  <button type="submit" class="btn btn-primary" ng-disabled="checkStep1Form.$invalid">
-    <span ng-if="creating">Finish ></span>
+  <button type="submit" class="btn btn-raised btn-success btn-block" ng-disabled="checkStep1Form.$invalid">
+    <span ng-if="creating">Finish</span>
     <span ng-if="!creating">Save</span>
   </button>
+</div>
+<div class="form-group">
+  <button type="button" class="btn btn-flat btn-block" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send test notification</button>
 </div>
 
 <br />

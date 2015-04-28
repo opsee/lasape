@@ -63,9 +63,11 @@ $button-fab-padding: 1.60rem !default;
 }
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
   @include opacity(100);
-  background-color: $gray-800;
   color: $text-color-secondary;
   cursor: not-allowed;
+  &.btn-raised, &.btn-fab {
+    background-color: $gray-800;
+  }
 }
 .btn-icon {
   // .transition(fill 400ms cubic-bezier(0.23, 1, 0.32, 1));
