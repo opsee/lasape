@@ -22,7 +22,7 @@ function userLogin(){
   return {
     restrict:'EA',
     templateUrl:'/public/js/src/user/partials/user-login.html',
-    controller:function($scope,$rootScope,UserService){
+    controller:function($scope,$rootScope,$state,UserService,authService){
       $scope.options = {
         original:'Create Account',
         inProgress:'Creating your account...',
@@ -36,7 +36,6 @@ function userLogin(){
               $rootScope.$emit('setAuth',res.token);
             }
             $scope.state = res.statusText || $scope.options.success;
-            $rootScope.$emit('notify','Login Succeeded.');
           }, function(err){
             console.log(err);
             $scope.error = res.data.error || 'There was an error processing your request.';

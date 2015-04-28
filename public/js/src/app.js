@@ -6,7 +6,7 @@
     $pageTitleProvider.setSuffix(' - Opsee');
   });
 
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $cookies, $timeout, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, User) {
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $cookies, $timeout, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, authService, User) {
 
     $rootScope.$on('$stateChangeStart', function (event, currentRoute, previousRoute) {
       $activityIndicator.timer = true;
@@ -18,7 +18,7 @@
     });
 
     $rootScope.$on('$stateChangeSuccess', function (event, currentRoute, previousRoute) {
-      $analytics.pageTrack(currentRoute.url);
+      $analytics.pageTrack(currentRoute.name);
       $activityIndicator.timer = false;
       $activityIndicator.stopAnimating();
     });
@@ -46,6 +46,7 @@
 
     $rootScope.$on('setAuth', function(event,token){
       $cookies.authToken = token || null;
+      authService.loginConfirmed();
     })
 
     $rootScope.$on('event:auth-loginRequired', function(){
