@@ -46,13 +46,6 @@
       $rootScope.user = new User().setDefaults();
     }
 
-    // User.get().$promise.then(function(res){
-    //   if(res.user){
-    //     $rootScope.user = new User(res.user);
-    //     $rootScope.user.setDefaults();
-    //   }
-    // });
-
     $window.addEventListener('popstate', function(event){
       event.stopPropagation();
       event.preventDefault();
@@ -79,23 +72,13 @@
       // authService.loginConfirmed();
       if($rootScope.previousRoute){
         $state.go($rootScope.previousRoute);
+      }else{
+        $state.go('home');
       }
     });
 
     $rootScope.$on('setUser', function(event,user){
-      var cache = [];
-      $cookies.user = JSON.stringify(user, function(key, value) {
-          if (typeof value === 'object' && value !== null) {
-              if (cache.indexOf(value) !== -1) {
-                  // Circular reference found, discard key
-                  return;
-              }
-              // Store value in our collection
-              cache.push(value);
-          }
-          return value;
-      });
-      cache = null; // Enable garbage collection
+      $cookies.user = angular.toJson(user);
       $rootScope.user = new User(user).setDefaults();
       $rootScope.$broadcast('setAuth',user.token);
     })
