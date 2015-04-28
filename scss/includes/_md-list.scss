@@ -19,12 +19,18 @@
   line-height: 16px;
   padding: 16px 16px;
   position: relative;
+  &:active {
+    background-color: $gray-800;
+  }
 }
-.md-list-link,
-.md-list-link:hover {
+.md-list-link {
   color: inherit;
   display: block;
   text-decoration: none;
+  &:hover, &:focus {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 .md-list-line {
   display: block;
@@ -33,9 +39,9 @@
   }
 }
 .md-list-avatar {
-  background-color: $green-300;
   border-radius: 20px;
   color: $body-bg;
+  fill: $text-color;
   font-family: $headings-font-family;
   font-weight: 500;
   height: 40px;
@@ -74,4 +80,8 @@
   text-align: center;
   top: 4px;
   width: 32px;
+}
+.md-avatar-small {
+  height: 18px;
+  width: 18px;
 }

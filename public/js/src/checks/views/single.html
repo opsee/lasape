@@ -27,7 +27,7 @@
         <li ng-repeat="instance in check.instances" class="md-list-item">
           <a ui-sref="checkSingle({id:instance.id})" class="md-list-link" title="Go to this Check">
             <div class="md-list-line">{{instance.name}}</div>
-            <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Check was silenced for {{check.getInfo()}}.</div>
+            <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Silenced for {{check.getInfo()}} by [username].</div>
             <div class="md-list-line" ng-if="!check.status.silence.remaining > 0"><span am-time-ago="instance.lastChecked"></span></div>
             <div class="md-list-avatar" radial-graph check="check">
               <div class="md-list-avatar-inner">100</div>

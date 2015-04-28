@@ -12,10 +12,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
     });
     check.prototype.actions = [
       {
-        title:'Silence Check',
-        // run:function(){
-        //   console.log('Silence Check');
-        // },
+        title:'Silence for...',
         childrenActive:true,
         run:function(){
           this.childrenActive = true;
@@ -77,7 +74,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
       if(self.status.silence.remaining > 0){
         self.status.silence.diff = moment(self.status.silence.startDate).fromNow();
         self.status.silence.humanDuration = moment.duration(self.status.silence.duration).humanize();
-        return self.status.silence.humanDuration+', '+self.status.silence.diff;
+        return self.status.silence.humanDuration;
       }else{
         return self.info;
       }

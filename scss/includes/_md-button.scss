@@ -84,6 +84,7 @@ $button-fab-padding: 1.60rem !default;
   @include fab-position(top-left, ($button-fab-height - $button-fab-padding)/2, auto, auto, ($button-fab-width - $button-fab-padding)/2);
   @include fab-position(bottom-right-toolbar, -$button-fab-height/2, ($button-fab-width - $button-fab-padding)/2, auto, auto);
 
+  @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, background-color $swift-ease-out-duration $swift-ease-out-timing-function);
   z-index: $z-index-fab;
 
   border: none;
@@ -98,6 +99,9 @@ $button-fab-padding: 1.60rem !default;
   border-radius: 50%;
   background-clip: padding-box;
   overflow: hidden;
+  &:hover {
+    @include transform(scale(1.2));
+  }
 }
 .btn-iconbtn {
   background-color: transparent;
