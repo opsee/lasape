@@ -4,42 +4,6 @@
 .ng-hide{
   display: none;
 }
-.display-flex{
-  @include display-flex;
-}
-.display-flex-sm{
-  @include breakpoint($screen-sm){
-    @include display-flex;
-  }
-}
-.vertical-align{
-  @include display-flex;
-  @include align-items(center);
-}
-.vertical-align-sm{
-  @include breakpoint($screen-sm){
-    @include display-flex;
-    @include align-items(center);
-  }
-}
-.flex-1{
-  @include flex(1);
-}
-.flex-column{
-  @include flex-direction(column);
-}
-.flex-wrap{
-  @include flex-wrap(wrap);
-}
-.justify-content-between{
-  @include justify-content(space-between);
-}
-.flex-75{
-  @include flex(1 75%);
-}
-.flex-25{
- @include flex(1 25%); 
-}
 
 .bg-gray-900{
   background-color: $gray-900;
