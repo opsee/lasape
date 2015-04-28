@@ -10,7 +10,7 @@
             </button>
             <a class="navbar-brand" ui-sref="home">Environment</a>
           </div>
-          <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}" style="padding-top:6px;">
+          <div class="collapse navbar-collapse navbar-left" ng-class="{'in':!navCollapsed}" style="padding-top:6px;">
             <ul class="nav navbar-nav icon-nav">
               <li ng-repeat="link in navbarEntries" dropdown>
                 <a href="#" ng-class="{'active':isActive($index)}" class="dropdown-toggle" ng-if="link.children.length" dropdown-toggle>{{::link.title}}&nbsp;<span class="caret"></span></a>
@@ -21,6 +21,21 @@
                 <ul class="dropdown-menu" ng-if="link.children.length">
                   <li ng-repeat="child in link.children">
                     <a href="#" ng-click="$state.go(child.sref)">{{::child.title}}</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- .navbar-collapse -->
+          <div class="collapse navbar-collapse navbar-right" ng-class="{'in':!rightNavCollapsed}" style="padding-top:6px;" ng-if="user.hasUser()">
+            <ul class="nav navbar-nav icon-nav">
+              <li dropdown>
+                <a href="#" ng-class="{'active':isActive($index)}" class="dropdown-toggle" dropdown-toggle>{{user.name || user.email}}&nbsp;<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#" ui-sref="profile">Profile</a>
+                  </li>
+                  <li>
+                    <a href="#" ng-click="user.logout()">Log Out</a>
                   </li>
                 </ul>
               </li>

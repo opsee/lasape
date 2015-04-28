@@ -1,6 +1,6 @@
 (function(){
 
-angular.module('opsee.user.controllers', []);
+angular.module('opsee.user.controllers', ['opsee.user.services']);
 
 // function LoginCtrl(apiEndpoint, $scope, $http, $state, principal) {
 //   $scope.login = function(user) {
@@ -55,7 +55,6 @@ function UserPasswordCtrl($scope,$state,$rootScope,$stateParams,User,UserService
     }
     UserService.claim(data).then(function(res){
       console.log(res);
-      debugger;
       $rootScope.$emit('setUser',res.data);
       UserService.login($scope.user).then(function(res){
         console.log(res);
@@ -79,6 +78,31 @@ function UserPasswordCtrl($scope,$state,$rootScope,$stateParams,User,UserService
 }
 angular.module('opsee.user.controllers').controller('UserPasswordCtrl', UserPasswordCtrl);
 
+function UserProfileCtrl($scope, $rootScope, $state, profile) {
+  $scope.profile = profile;
+  console.log(profile);
+}
+UserProfileCtrl.resolve = {
+  profile:function($rootScope, $q, User){
+    if($rootScope.user.hasUser()){
+      return User.get({id:$rootScope.user.id}).$promise;
+    }else{
+      return $q.reject();
+    }
+  }
+}
+angular.module('opsee.user.controllers').controller('UserProfileCtrl', UserProfileCtrl);
+
+function UserProfileEditCtrl($scope, $rootScope, $state, profile) {
+  $scope.profile = profile;
+  $scope.profile.account = {
+    email:$scope.profile.email
+  }
+  console.log(profile);
+}
+angular.module('opsee.user.controllers').controller('UserProfileEditCtrl', UserProfileEditCtrl);
+
+
 function config ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('login', {
       url:'/login',
@@ -91,6 +115,20 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/user/views/password.html',
       controller:'UserPasswordCtrl',
       title:'Set Your Password'
+    })
+    .state('profile', {
+      url:'/profile',
+      templateUrl:'/public/js/src/user/views/profile.html',
+      controller:'UserProfileCtrl',
+      title:'Your Profile',
+      resolve:UserProfileCtrl.resolve
+    })
+    .state('profileEdit', {
+      url:'/profile/edit',
+      templateUrl:'/public/js/src/user/views/profile-edit.html',
+      controller:'UserProfileEditCtrl',
+      title:'Edit Your Profile',
+      resolve:UserProfileCtrl.resolve
     })
   }
 angular.module('opsee').config(config);

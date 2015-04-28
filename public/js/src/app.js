@@ -26,18 +26,25 @@
       $activityIndicator.stopAnimating();
     });
 
+    $rootScope.$on('$stateChangeError', function (event, toState, fromState, fromParams) {
+      $activityIndicator.timer = false;
+      $activityIndicator.stopAnimating();
+      $state.go('404');
+    });
+
     $rootScope.localStorage = $localStorage;
     $rootScope.global = Global;
     $rootScope.regex = Regex;
 
-    $rootScope.user = new User().setDefaults();
-
-    // User.get().$promise.then(function(res){
-    //   if(res.user){
-    //     $rootScope.user = new User(res.user);
-    //     $rootScope.user.setDefaults();
-    //   }
-    // });
+    if($cookies.user){
+      try{
+        $rootScope.user = new User(JSON.parse($cookies.user)).setDefaults();
+      }catch(err){
+        $rootScope.user = new User().setDefaults();
+      }
+    }else{
+      $rootScope.user = new User().setDefaults();
+    }
 
     $window.addEventListener('popstate', function(event){
       event.stopPropagation();
@@ -65,11 +72,15 @@
       // authService.loginConfirmed();
       if($rootScope.previousRoute){
         $state.go($rootScope.previousRoute);
+      }else{
+        $state.go('home');
       }
     });
 
     $rootScope.$on('setUser', function(event,user){
-      $cookies.user = user;
+      $cookies.user = angular.toJson(user);
+      $rootScope.user = new User(user).setDefaults();
+      $rootScope.$broadcast('setAuth',user.token);
     })
 
     $rootScope.$on('event:auth-loginRequired', function(){

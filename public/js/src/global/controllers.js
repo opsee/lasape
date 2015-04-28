@@ -51,11 +51,11 @@ function headerController($scope, Global, $location, $rootScope) {
     }
   ];
   $scope.isActive = function ($index) {
-    if($scope.navbarEntries[$index].link == $location.path()){
-      return true;
-    }
-    var c = _.pluck($scope.navbarEntries[$index].children,'link');
-    return c.indexOf($location.path()) > -1
+    // if($scope.navbarEntries[$index].link == $location.path()){
+    //   return true;
+    // }
+    // var c = _.pluck($scope.navbarEntries[$index].children,'link');
+    // return c.indexOf($location.path()) > -1
   };
   $scope.navCollapsed = true
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
