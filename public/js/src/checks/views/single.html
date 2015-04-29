@@ -1,40 +1,44 @@
 <div>
   <div class="md-toolbar md-tall">
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-        <div class="md-toolbar-tools">
-          <h1 class="">{{::check.name}}</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+          <div class="md-toolbar-tools">
+            <h1 class="">{{::check.name}}</h1>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-      <a ui-sref="checkEdit({id:check.id})" class="btn btn-primary btn-fab btn-fab-bottom-right-toolbar"><svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_edit" /></svg></a>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+        <a ui-sref="checkEdit({id:check.id})" class="btn btn-primary btn-fab btn-fab-bottom-right-toolbar"><svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_edit" /></svg></a>
 
-      <h2>Check Information</h2>
+        <h2>Check Information</h2>
 
-      <table class="table">
-        <tr ng-repeat="meta in check.meta">
-          <td><strong>{{meta.key}}</strong></td>
-          <td>{{meta.value}}</td>
-        </tr>
-      </table>
+        <table class="table">
+          <tr ng-repeat="meta in check.meta">
+            <td><strong>{{meta.key}}</strong></td>
+            <td>{{meta.value}}</td>
+          </tr>
+        </table>
 
-      <h2>Check Instances</h2>
+        <h2>Check Instances</h2>
 
-      <ul class="md-list md-list-two-line md-list-has-avatars">
-        <li ng-repeat="instance in check.instances" class="md-list-item">
-          <a ui-sref="checkSingle({id:instance.id})" class="md-list-link" title="Go to this Check">
-            <div class="md-list-line">{{instance.name}}</div>
-            <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Silenced for {{check.getInfo()}} by [username].</div>
-            <div class="md-list-line" ng-if="!check.status.silence.remaining > 0"><span am-time-ago="instance.lastChecked"></span></div>
-            <div class="md-list-avatar" radial-graph check="check">
-              <div class="md-list-avatar-inner">100</div>
-            </div>
-          </a>
-        </li>
-      </ul>
+        <ul class="md-list md-list-two-line md-list-has-avatars">
+          <li ng-repeat="instance in check.instances" class="md-list-item">
+            <a ui-sref="checkSingle({id:instance.id})" class="md-list-link" title="Go to this Check">
+              <div class="md-list-line">{{instance.name}}</div>
+              <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Silenced for {{check.getInfo()}} by [username].</div>
+              <div class="md-list-line" ng-if="!check.status.silence.remaining > 0"><span am-time-ago="instance.lastChecked"></span></div>
+              <div class="md-list-avatar" radial-graph check="check">
+                <div class="md-list-avatar-inner">100</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

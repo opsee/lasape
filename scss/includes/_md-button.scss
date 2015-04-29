@@ -23,7 +23,17 @@ $button-fab-padding: 1.60rem !default;
   line-height: 20px;
   text-transform: uppercase;
   @include transition(box-shadow $swift-ease-out-duration $swift-ease-out-timing-function, background-color $swift-ease-out-duration $swift-ease-out-timing-function);
+  &.disabled, &[disabled] {
+    @include opacity(100);
+    color: $text-color-secondary;
+    cursor: not-allowed;
+    pointer-events: none;
+    &.btn-raised, &.btn-fab {
+      background-color: $gray-800;
+    }
+  }
 }
+
 .btn-raised {
   &:not([disabled]) {
     @extend .md-shadow-bottom-z-1;
@@ -60,14 +70,6 @@ $button-fab-padding: 1.60rem !default;
 }
 .btn-block {
   display: block;
-}
-.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
-  @include opacity(100);
-  color: $text-color-secondary;
-  cursor: not-allowed;
-  &.btn-raised, &.btn-fab {
-    background-color: $gray-800;
-  }
 }
 .btn-icon {
   // .transition(fill 400ms cubic-bezier(0.23, 1, 0.32, 1));
