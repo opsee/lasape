@@ -63,8 +63,8 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
       }
     },
     claim:function(user){
-      if(user && user.password && user.token){
-        var path = $resource(ENDPOINTS.api+'/activations/'+user.token+'/activate');
+      if(user && user.password && user.activationId){
+        var path = $resource(ENDPOINTS.api+'/activations/'+user.activationId+'/activate');
         return path.save(user).$promise;
       }else{
         return $q.reject({data:{error:'Bad credentials.'}});

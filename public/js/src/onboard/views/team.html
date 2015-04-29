@@ -5,7 +5,7 @@
       <form name="teamForm" ng-submit="submit()">
 
         <div class="form-group">
-          <input type="text" ng-model="user.team.name" placeholder="Team Name" class="form-control" ng-required="true" ng-minlength="3"/>
+          <input type="text" ng-model="user.account.team_name" placeholder="Team Name" class="form-control" ng-required="true" ng-minlength="3"/>
           <!-- <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg> -->
           <label>Team Name</label>
           <span class="input-error-text small">is not valid</span>
@@ -14,7 +14,7 @@
         </div>
 
         <div class="form-group display-flex flex-wrap">
-          <input style="text-align: right;" type="text" ng-model="user.team.domain" placeholder="Team Domain" class="form-control flex-75" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain"/>
+          <input style="text-align: right;" type="text" ng-model="user.account.customer_id" placeholder="Team Domain" class="form-control flex-75" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain"/>
           <div style="background-color: #222;" class="input-suffix flex-25">.opsee.co</div>
           <!-- <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg> -->
           <label for="domain">Team Domain</label>

@@ -41,8 +41,8 @@ function SingleCheckCtrl($scope, $state, $stateParams, Check, singleCheck){
   $scope.check = new Check(singleCheck).setDefaults();
 }
 SingleCheckCtrl.resolve = {
-  singleCheck:function($stateParams){
-    return {
+  singleCheck:function($stateParams, Check){
+  var check = {
       name:'My great check2',
       info:'Fun info here2.',
       id:$stateParams.id || 'TESTID',
@@ -62,22 +62,53 @@ SingleCheckCtrl.resolve = {
       ],
       instances:[
       {
-        status:'Failing',
         name:'a-q8r-309fo (US-West-1)',
-        lastChecked:new Date()
+        lastChecked:new Date(),
+        info:'Fun info here.',
+        id:'foo',
+        status:{
+          health:25,
+          state:'running',
+          silence:{
+            startDate:null,
+            duration:null
+          }
+        },
       },
       {
-        status:'Passing',
-        name:'hr-afoijfa-309fo (US-West-2)',
-        lastChecked:new Date()
+        name:'aefiljea-fae-fe (US-West-2)',
+        lastChecked:new Date(),
+        info:'Secondary info.',
+        id:'foo-2',
+        status:{
+          health:25,
+          state:'running',
+          silence:{
+            startDate:null,
+            duration:null
+          }
+        },
       },
       {
-        status:'Passing',
-        name:'aekfjoiuhfef1234-309fo (US-West-1)',
-        lastChecked:new Date()
-      }
+        name:'popfaef-eefff-f (US-West-3)',
+        lastChecked:new Date(),
+        info:'Great info here.',
+        id:'foo-3',
+        status:{
+          health:25,
+          state:'running',
+          silence:{
+            startDate:null,
+            duration:null
+          }
+        },
+      },
       ]
-    }
+    }//check
+    check.instances.forEach(function(c,i){
+      check.instances[i] = new Check(c);
+    });
+    return check;
   }
 }
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);

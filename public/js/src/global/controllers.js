@@ -17,10 +17,6 @@ function headerController($scope, Global, $location, $rootScope) {
           title:'Login',
           sref:'login',
         },
-        {
-          title:'Set Password',
-          sref:'password',
-        },
       ]
     },
     {
@@ -33,6 +29,10 @@ function headerController($scope, Global, $location, $rootScope) {
         {
           title:'Tutorial',
           sref:'onboard.tutorial.1',
+        },
+        {
+          title:'Set Password',
+          sref:'onboard.password',
         },
         {
           title:'Create Team',
