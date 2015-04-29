@@ -105,39 +105,50 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <h3>Response Code & Headers</h3>
-    <table class="table">
-      <tr>
-        <td><strong><code>Status Code</code></strong></td>
-        <td><code>{{checkResponse.status}} - {{checkResponse.statusText}}</code></td>
-      </tr>
-      <tr ng-repeat="h in checkResponse.responseHeaders">
-        <td><strong><code>{{h[0]}}</code></strong></h4></td>
-        <td><code>{{h[1]}}</code></td>
-      </tr>
-    </table>
 
-    <h3>Response Body</h3>
-    <div hljs source="checkResponse.dataString" language="{{checkResponse.language}}">
-    </div>
+    <h2>Your Response & Request</h2>
+    <p>We're including the content of your response and your request to help you define assertions.</p>
+    <br/>
 
-    <h3>Request</h3>
-    <table class="table">
-      <tr>
-        <td><strong><code>URL</code></strong></td>
-        <td><code>{{checkResponse.config.url}}</code></td>
-      </tr>
-      <tr>
-        <td><strong><code>Verb</code></strong></td>
-        <td><code>{{checkResponse.config.method}}</code></td>
-      </tr>
-      <tr>
-        <td colspan="2"><strong><code>Headers</code></strong></td>
-      </tr>
-      <tr ng-repeat="(key,val) in checkResponse.config.headers">
-        <td><strong><code>{{key}}</code></strong></td>
-        <td><code>{{val}}</code></td>
-      </tr>
-    </table>
+    <tabset>
+      <tab heading="Headers">
+        <br>
+        <table class="table">
+          <tr>
+            <td><strong><code>Status Code</code></strong></td>
+            <td><code>{{checkResponse.status}} - {{checkResponse.statusText}}</code></td>
+          </tr>
+          <tr ng-repeat="h in checkResponse.responseHeaders">
+            <td><strong><code>{{h[0]}}</code></strong></h4></td>
+            <td><code>{{h[1]}}</code></td>
+          </tr>
+        </table>
+      </tab>
+      <tab heading="Body">
+        <br>
+        <div hljs source="checkResponse.dataString" language="{{checkResponse.language}}">
+        </div>
+      </tab>
+      <tab heading="Request">
+        <br>
+        <table class="table">
+          <tr>
+            <td><strong><code>URL</code></strong></td>
+            <td><code>{{checkResponse.config.url}}</code></td>
+          </tr>
+          <tr>
+            <td><strong><code>Verb</code></strong></td>
+            <td><code>{{checkResponse.config.method}}</code></td>
+          </tr>
+          <tr>
+            <td colspan="2"><strong><code>Headers</code></strong></td>
+          </tr>
+          <tr ng-repeat="(key,val) in checkResponse.config.headers">
+            <td><strong><code>{{key}}</code></strong></td>
+            <td><code>{{val}}</code></td>
+          </tr>
+        </table>
+      </tab>
+    </tabset>
   </div>
 </div>
