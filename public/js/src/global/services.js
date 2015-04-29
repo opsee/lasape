@@ -366,13 +366,19 @@ function NotificationSettings(){
   return{
     types:[
       {
-        name:'Email'
+        name:'Email',
+        title:'user@domain.com',
+        placeholder:'user@domain.com'
       },
       {
-        name:'Webhook'
+        name:'Webhook',
+        title:'An api service to post to',
+        placeholder:'http://service.com'
       },
       {
-        name:'Slack'
+        name:'Slack',
+        title:'Slack channel',
+        placeholder:'channel@slack'
       }
     ]
   }
@@ -437,16 +443,20 @@ angular.module('opsee.global.services').service('StatusCodes', StatusCodes);
 function Relationships(){
   return[
     {
-      name:'Equal To'
+      name:'Equal To',
+      title:'Exactly equal to.'
     },
     {
-      name:'Not Equal To'
+      name:'Not Equal To',
+      title:'Not equal to.'
     },
     {
-      name:'Is Empty'
+      name:'Is Empty',
+      title:'Is empty.'
     },
     {
-      name:'Is Not Empty'
+      name:'Is Not Empty',
+      title:'Is not empty.'
     },
     // {
     //   name:'Greater Than'
@@ -455,10 +465,12 @@ function Relationships(){
     //   name:'Less Than'
     // },
     {
-      name:'Contains'
+      name:'Contains',
+      title:'Contains all text.'
     },
     {
-      name:'RegExp'
+      name:'RegExp',
+      title:'^2 etc.'
     }
   ]
 }
@@ -467,13 +479,16 @@ angular.module('opsee.global.services').service('Relationships', Relationships);
 function AssertionTypes(){
   return[
     {
-      name:'Status Code'
+      name:'Status Code',
+      title:'2XX-5XX'
     },
     {
-      name:'Header'
+      name:'Header',
+      title:'Response Header, auth, etc.'
     },
     {
-      name:'Response Body'
+      name:'Response Body',
+      title:'Data from the response'
     },
   ]
 }

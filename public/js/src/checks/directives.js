@@ -158,7 +158,7 @@ function radialGraph(){
          }
       }
 
-      $scope.text = $scope.status.health ? Math.round($scope.status.health) : null;
+      $scope.text = $scope.status && $scope.status.health ? Math.round($scope.status.health) : null;
       $scope.width = 40;
       function getSilenceRemaining(obj){
         if(obj && obj.startDate){

@@ -14,12 +14,12 @@
     <div class="col-xs-11 col-sm-4">
       <div class="form-group" dropdown is-open="status['assertionType'+$index]">
         <select class="sr-only" ng-required="true" ng-model="check.assertions[$index].type" ng-options="r for r in assertionTypes"></select>
-        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{assertion.type.title || 'Pick your assertion type.'}}">
           {{assertion.type.name || 'Type'}} <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="type in assertionTypes">
-            <a href="#" ng-click="changeAssertionType(type,assertionIndex)">
+            <a href="#" ng-click="changeAssertionType(type,assertionIndex)" title="{{type.title}}">
               {{type.name}}
             </a>
           </li>
@@ -29,12 +29,12 @@
     <div class="col-xs-11 col-xs-offset-1 col-sm-7 col-sm-offset-0">
       <div class="form-group" dropdown is-open="status['assertionRelationship'+$index]">
         <select class="sr-only" ng-required="true" ng-model="assertion.relationship" ng-options="r for r in relationships"></select>
-        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{assertion.relationship.title || 'Pick your relationship'}}">
           {{assertion.relationship.name || 'Relationship'}} <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="relationship in relationships">
-            <a href="#" ng-click="changeAssertionRelationship(relationship,assertion)">
+            <a href="#" ng-click="changeAssertionRelationship(relationship,assertion)" title="{{relationship.title}}">
               {{relationship.name}}
             </a>
           </li>
