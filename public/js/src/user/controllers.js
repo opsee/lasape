@@ -42,42 +42,6 @@ function LoginCtrl($scope, $http, $state) {
 }
 angular.module('opsee.user.controllers').controller('LoginCtrl', LoginCtrl);
 
-function UserPasswordCtrl($scope,$state,$rootScope,$stateParams,User,UserService){
-  $scope.user = new User().setDefaults();
-  $scope.user.token = $stateParams.token;
-  $scope.user.account.email = $stateParams.email;
-  $scope.submit = function(){
-    var data = {
-      password:$scope.user.account.password,
-      customer_id:$scope.user.account.customer_id,
-      token:$scope.user.token,
-      email:$scope.user.account.email
-    }
-    UserService.claim(data).then(function(res){
-      console.log(res);
-      $rootScope.$emit('setUser',res.data);
-      UserService.login($scope.user).then(function(res){
-        console.log(res);
-        if(res.token){
-          $rootScope.$emit('setAuth',res.token);
-          $state.go('onboard.team');
-        }
-      }, function(err){
-        console.log(err);
-        $scope.error = res.data.error || 'There was an error processing your request.';
-        $rootScope.$emit('notify',$scope.error);
-      })
-      // $state.go('onboard.team');
-    }, function(res){
-      console.log(res);
-      $scope.error = res.data && res.data.error || 'There was an error processing your request.';
-      // $scope.state = $scope.options.error;
-      $rootScope.$emit('notify',$scope.error);
-    })
-  }
-}
-angular.module('opsee.user.controllers').controller('UserPasswordCtrl', UserPasswordCtrl);
-
 function UserProfileCtrl($scope, $rootScope, $state, profile) {
   $scope.profile = profile;
   console.log(profile);
@@ -109,12 +73,6 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/user/views/login.html',
       controller:'LoginCtrl',
       title:'Login'
-    })
-    .state('password', {
-      url:'/password?email&token',
-      templateUrl:'/public/js/src/user/views/password.html',
-      controller:'UserPasswordCtrl',
-      title:'Set Your Password'
     })
     .state('profile', {
       url:'/profile',

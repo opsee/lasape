@@ -9,8 +9,8 @@
           <ul class="md-list md-list-two-line md-list-has-avatars">
             <li class="md-list-item" ng-repeat="check in checks" ng-if="check.status.state == 'running'">
               <div class="md-list-line">{{check.name}}</div>
-              <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Silenced for {{check.getInfo()}} by [username].</div>
-              <div class="md-list-line" ng-if="!check.status.silence.remaining > 0">{{check.getInfo()}}</div>
+              <!-- <div class="md-list-line">Silenced for {{check.getInfo()}} by [username].</div> -->
+              <div class="md-list-line">{{check.getInfo()}}</div>
               <div class="md-list-avatar" radial-graph check="check"></div>
             </li>
           </ul>
@@ -21,8 +21,7 @@
           <ul class="md-list md-list-two-line md-list-has-avatars">
             <li class="md-list-item" ng-repeat="check in checks" ng-if="check.status.state == 'unmonitored'">
               <div class="md-list-line">{{check.name}}</div>
-              <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Silenced for {{check.getInfo()}} by [username].</div>
-              <div class="md-list-line" ng-if="!check.status.silence.remaining > 0">{{check.getInfo()}}</div>
+              <div class="md-list-line">{{check.getInfo()}}</div>
               <div class="md-list-avatar" radial-graph check="check"></div>
             </li>
           </ul>
@@ -33,8 +32,7 @@
           <ul class="md-list md-list-two-line md-list-has-avatars">
             <li class="md-list-item" ng-repeat="check in checks" ng-if="check.status.state == 'stopped'">
               <div class="md-list-line">{{check.name}}</div>
-              <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Silenced for {{check.getInfo()}} by [username].</div>
-              <div class="md-list-line" ng-if="!check.status.silence.remaining > 0">{{check.getInfo()}}</div>
+              <div class="md-list-line">{{check.getInfo()}}</div>
               <div class="md-list-avatar" radial-graph check="check"></div>
             </li>
           </ul>

@@ -31,8 +31,7 @@
               </button>
               <a ui-sref="checkSingle({id:check.id})" class="md-list-link" title="Go to this Check">
                 <div class="md-list-line">{{check.name}}</div>
-                <div class="md-list-line" ng-if="check.status.silence.remaining > 0">Silenced for {{check.getInfo()}} by [username].</div>
-                <div class="md-list-line" ng-if="!check.status.silence.remaining > 0">{{check.getInfo()}}</div>
+                <div class="md-list-line">{{check.getInfo()}}</div>
                 <div class="md-list-avatar" radial-graph check="check">
                   <div class="md-list-avatar-inner">100</div>
                 </div>

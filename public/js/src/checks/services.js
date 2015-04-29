@@ -21,32 +21,19 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
           {
             title:'1 minute',
             run:function(){
-              //this = parent check item
-              this.status.silence.startDate = new Date();
-              this.status.silence.duration = moment.duration(1,'m').asMilliseconds();
-              var deferred = $q.defer();
-              deferred.resolve();
-              return deferred.promise;
+              return this.setSilence(1,'m');
             }
           },
           {
             title:'10 minutes',
             run:function(){
-              this.status.silence.startDate = new Date();
-              this.status.silence.duration = moment.duration(10,'m').asMilliseconds();
-              var deferred = $q.defer();
-              deferred.resolve();
-              return deferred.promise;
+              return this.setSilence(10,'m');
             }
           },
           {
             title:'1 hour',
             run:function(){
-              this.status.silence.startDate = new Date();
-              this.status.silence.duration = moment.duration(1,'h').asMilliseconds();
-              var deferred = $q.defer();
-              deferred.resolve();
-              return deferred.promise;
+              return this.setSilence(1,'h');
             }
           }
         ]
@@ -63,10 +50,22 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
       //   }
       // }
     ]
-  check.prototype.setDefaults = function(){
-    _.defaults(this, CHECK_DEFAULTS);
-    return this;
-  }
+    check.prototype.setSilence = function(length,unit){
+      var deferred = $q.defer();
+      var c = this;
+      c.status.silence.startDate = new Date();
+      c.status.silence.duration = moment.duration(length,unit).asMilliseconds();
+      if($rootScope.user.hasUser()){
+        c.status.silence.user = $rootScope.user.name || $rootScope.user.email;
+        c.status.silence.user = 'you';
+      }
+      deferred.resolve();
+      return deferred.promise;
+    }
+    check.prototype.setDefaults = function(){
+      _.defaults(this, CHECK_DEFAULTS);
+      return this;
+    }
   check.prototype.getInfo = function(){
     var self = this;
     switch(self.status.state){
@@ -74,7 +73,8 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
       if(self.status.silence.remaining > 0){
         self.status.silence.diff = moment(self.status.silence.startDate).fromNow();
         self.status.silence.humanDuration = moment.duration(self.status.silence.duration).humanize();
-        return self.status.silence.humanDuration;
+        self.status.silence.user = self.status.silence.user || '[username]';
+        return 'Silenced for '+ self.status.silence.humanDuration + ' by '+self.status.silence.user+'.';
       }else{
         return self.info;
       }

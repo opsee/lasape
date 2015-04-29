@@ -106,6 +106,7 @@ function HomeCtrl($scope, $rootScope, _, $state, Check){
     },
     {
       name:'Third check.',
+      info:'This is info here',
       status:{
         health:70,
         state:'running',

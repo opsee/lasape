@@ -16,10 +16,6 @@
       @include transform(translate(0,0));
       visibility: visible;
     }
-    .step-title {
-      @include opacity(100);
-      visibility: visible;
-    }
   }
   &.previous {
     .step-image {
@@ -28,25 +24,51 @@
     }
   }
 }
+
 .step-image {
-  @include opacity(0);
-  @include transform(translate(100%,0));
   @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function,
                       opacity $swift-ease-out-duration $swift-ease-out-timing-function,
                       visibility $swift-ease-out-duration $swift-ease-out-timing-function);
   display: block;
   margin: 0 auto;
   width: 100%;
-  visibility: hidden;
+  .ng-enter &{
+    opacity: 0;
+    @include transform(translateX(100%));
+  }
+  .ng-enter-active &{
+    opacity:1;
+    @include transform(translateX(0%));
+  }
+  .ng-leave &{
+    opacity: 1;
+    @include transform(none);
+  }
+  .ng-leave-active &{
+    opacity: 0;
+    @include transform(translateX(-100%));
+  }
+}
+
+@include keyframes('fadeIn'){
+  0%{
+    opacity:0;
+  }
+  100%{
+    opacity:1;
+  }
 }
 .step-title {
-  @include opacity(0);
-  @include transition(opacity $swift-ease-out-duration $swift-ease-out-timing-function,
-                      visibility $swift-ease-out-duration $swift-ease-out-timing-function);
   background-color: $gray-900;
   margin-top: 32px;
   padding: 16px 0;
-  visibility: hidden;
+  > *{
+    opacity:0;
+    @include animation-duration(700ms);
+    @include animation-name(fadeIn);
+    @include animation-delay(400ms);
+    @include animation-fill-mode(forwards);
+  }
 }
 .step-counter {
   // .user-select(none);
