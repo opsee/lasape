@@ -87,6 +87,11 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
       $cookies.remove('user');
       $cookies.remove('authToken');
       $rootScope.user = new User().setDefaults();
+    },
+    forgotPassword:function(user){
+      var path = $resource(ENDPOINTS.api+'/forgot-password');
+      saved = path.save(user.account.email);
+      return saved.$promise;
     }
   }
 }

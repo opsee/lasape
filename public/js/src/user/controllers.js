@@ -29,18 +29,24 @@ function LogoutCtrl($state, principal) {
 }
 angular.module('opsee.user.controllers').controller('LogoutCtrl', LogoutCtrl);
 
-function LoginCtrl($scope, $http, $state) {
-  $scope.user = {
-    account:{
-      email:null,
-      password:null
-    },
-    bio:{
-      name:null
-    }
-  }
+function LoginCtrl($scope, $rootScope, $state, User) {
+  $scope.user = $rootScope.user;
 }
 angular.module('opsee.user.controllers').controller('LoginCtrl', LoginCtrl);
+
+function PasswordForgotCtrl($scope, $rootScope, $state, UserService) {
+  $scope.user = $rootScope.user;
+  $scope.submit = function(){
+    $scope.msg = null;
+    UserService.forgotPassword($scope.user).then(function(res){
+      $scope.msg = res.msg;
+      $scope.msg = 'This endpoint does not exist yet, but this is the success message.';
+    }, function(res){
+      $scope.msg = res.msg || 'Dang, something went wrong.';
+    })
+  }
+}
+angular.module('opsee.user.controllers').controller('PasswordForgotCtrl', PasswordForgotCtrl);
 
 function UserProfileCtrl($scope, $rootScope, $state, profile) {
   $scope.profile = profile;
@@ -73,6 +79,12 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/user/views/login.html',
       controller:'LoginCtrl',
       title:'Login'
+    })
+    .state('passwordForgot', {
+      url:'/password-forgot',
+      templateUrl:'/public/js/src/user/views/password-forgot.html',
+      controller:'PasswordForgotCtrl',
+      title:'Forgot my password'
     })
     .state('profile', {
       url:'/profile',

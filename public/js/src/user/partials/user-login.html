@@ -1,6 +1,8 @@
 <form name="loginForm" ng-submit="submit()">
   <user-inputs login="true" user="user"></user-inputs>
-  <div>
-    <button ng-disabled="state == options.inProgress || loginForm.$invalid" type="submit" class="btn btn-raised btn-success btn-block ng-disabled" disabled>Log In</button>
+  <button ng-disabled="state == options.inProgress || loginForm.$invalid" type="submit" class="btn btn-raised btn-success btn-block ng-disabled" disabled>Log In</button>
+  <div class="clearfix"><br/></div>
+  <div class="clearfix">
+    <a class="small" ui-sref="passwordForgot">Forgot Password?</a>
   </div>
 </form>

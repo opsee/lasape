@@ -95,9 +95,9 @@ function OnboardPasswordCtrl($scope,$state,$rootScope,$stateParams,User,UserServ
 angular.module('opsee.user.controllers').controller('OnboardPasswordCtrl', OnboardPasswordCtrl);
 
 function OnboardTeamCtrl($scope, $rootScope, $state, UserService){
-  // if(!$scope.user.account.password){
-  //   return $state.go('onboard.password');
-  // }
+  if(!$scope.user.account.password){
+    return $state.go('onboard.password');
+  }
   $scope.fullDomain = null;
   $scope.$watch(function(){return $scope.user.account.customer_id}, function(newVal,oldVal){
     $scope.fullDomain = newVal ? newVal+'.opsee.co' : null;
