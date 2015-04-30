@@ -13,14 +13,15 @@
           <div class="help-block">This name will appear in headings and menus to identify your team. Your company name is probably a good choice, but it doesn't need to be official or anything.</div>
         </div>
 
-        <div class="form-group display-flex flex-wrap">
-          <input style="text-align: right;" type="text" ng-model="user.account.customer_id" placeholder="Team Domain" class="form-control flex-75" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain"/>
-          <div style="background-color: #222;" class="input-suffix flex-25">.opsee.co</div>
+        <div class="form-group">
+          <input type="text" ng-model="user.account.customer_id" placeholder="Team Domain" class="form-control flex-75" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain"/>
+          <!-- <div style="background-color: #222;" class="input-suffix flex-25">.opsee.co</div> -->
           <!-- <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg> -->
           <label for="domain">Team Domain</label>
           <div style="padding:.3em;" class="input-error-text small">is not valid</div>
 
           <div class="help-block">The web address you'll use to access your team's account. Keep it short and memorable. Only lowercase letters, numbers, and dashes are allowed, and it must start with a letter.</div>
+          <div class="ng-hide" ng-show="fullDomain">{{fullDomain}}</div>
         </div>
 
 
