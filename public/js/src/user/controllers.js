@@ -2,25 +2,6 @@
 
 angular.module('opsee.user.controllers', ['opsee.user.services']);
 
-// function LoginCtrl(apiEndpoint, $scope, $http, $state, principal) {
-//   $scope.login = function(user) {
-//     $http.post(apiEndpoint + '/authenticate/password', user)
-//     .success(function(data, status, headers, config) {
-//       principal.authenticate({
-//         email: user.email,
-//         roles: ['User']
-//       });
-
-//       if ($scope.returnToState) $state.go($scope.returnToState.name, $scope.returnToStateParams);
-//       else $state.go('pre-welcome');
-//     })
-//     .error(function(data, status, headers, config) {
-//       console.log("error");
-//     });
-//   };
-// }
-// angular.module('opsee.user.controllers').controller('LoginCtrl', LoginCtrl);
-
 function LogoutCtrl($state, principal) {
   principal.authenticate(null);
   //delete $cookies.authToken;
@@ -38,7 +19,7 @@ function PasswordForgotCtrl($scope, $rootScope, $state, UserService) {
   $scope.user = $rootScope.user;
   $scope.submit = function(){
     $scope.msg = null;
-    UserService.forgotPassword($scope.user).then(function(res){
+    UserService.passwordForgot($scope.user).then(function(res){
       $scope.msg = res.msg;
       $scope.msg = 'This endpoint does not exist yet, but this is the success message.';
     }, function(res){
@@ -47,6 +28,22 @@ function PasswordForgotCtrl($scope, $rootScope, $state, UserService) {
   }
 }
 angular.module('opsee.user.controllers').controller('PasswordForgotCtrl', PasswordForgotCtrl);
+
+function PasswordChangeCtrl($scope, $rootScope, $state, $stateParams, UserService) {
+  $scope.user = $rootScope.user;
+  $scope.user.resetToken = $stateParams.resetToken;
+  console.log($stateParams.resetToken);
+  $scope.submit = function(){
+    $scope.msg = null;
+    $scope.user.$update($scope.user).then(function(res){
+      $scope.msg = res.msg;
+      $scope.msg = 'This endpoint does not exist yet, but this is the success message.';
+    }, function(res){
+      $scope.msg = res.msg || 'Dang, something went wrong.';
+    })
+  }
+}
+angular.module('opsee.user.controllers').controller('PasswordChangeCtrl', PasswordChangeCtrl);
 
 function UserProfileCtrl($scope, $rootScope, $state, profile) {
   $scope.profile = profile;
@@ -84,7 +81,13 @@ function config ($stateProvider, $urlRouterProvider) {
       url:'/password-forgot',
       templateUrl:'/public/js/src/user/views/password-forgot.html',
       controller:'PasswordForgotCtrl',
-      title:'Forgot my password'
+      title:'Forgot Password'
+    })
+    .state('passwordChange', {
+      url:'/password-change?resetToken',
+      templateUrl:'/public/js/src/user/views/password-change.html',
+      controller:'PasswordChangeCtrl',
+      title:'Change Password'
     })
     .state('profile', {
       url:'/profile',

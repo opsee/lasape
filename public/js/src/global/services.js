@@ -136,23 +136,6 @@ angular.module('opsee.global.services').constant('ENDPOINTS', ENDPOINTS);
 
 'use strict';
 
-/* Services */
-var domain = 'http://api-beta.opsee.co';
-var opseeServices = angular.module('opseeServices', ['ngResource', 'ngCookies']);
-
-opseeServices.factory('Login', function() {
-    var login = {};
-
-    return {
-      setLogin: function(l) {
-        login = l;
-      },
-      getLogin: function() {
-        return login;
-      }
-    };
-  });
-
 function Credentials(ENDPOINTS, $resource) {
   return $resource(ENDPOINTS.api + '/environments/:envId/credentials');
 };

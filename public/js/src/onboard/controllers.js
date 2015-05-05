@@ -3,7 +3,6 @@
 angular.module('opsee.onboard.controllers', ['opsee.onboard.services','opsee.global.services']);
 
 function OnboardCtrl($rootScope,$scope,$state){
-  console.log('foo');
   $scope.user = $rootScope.user;
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
@@ -132,6 +131,36 @@ function OnboardTeamCtrl($scope, $rootScope, $state, UserService){
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', OnboardTeamCtrl);
 
+function OnboardCredentialsCtrl($scope, $rootScope, $state, UserService){
+  $scope.submit = function(){
+    // test creds
+    // AKIAITLC4AUQZLJXBZGQ
+    // iLT9yuQLusvmhq/fTnOquSHQfnXQOJiaenc0oEWR
+    var data = {
+      regions:$scope.user.regions
+    }
+    UserService.claim(data).then(function(res){
+      console.log(res);
+      $rootScope.$emit('setUser',res.data);
+      UserService.login($scope.user).then(function(res){
+        console.log(res);
+        if(res.token){
+          $rootScope.$emit('setAuth',res.token);
+        }
+      }, function(err){
+        console.log(err);
+        $scope.error = res.data.error || 'There was an error processing your request.';
+        $rootScope.$emit('notify',$scope.error);
+      })
+    }, function(res){
+      console.log(res);
+      $scope.error = res.data && res.data.error || 'There was an error processing your request.';
+      $rootScope.$emit('notify',$scope.error);
+    })
+  }
+}
+angular.module('opsee.onboard.controllers').controller('OnboardCredentialsCtrl', OnboardCredentialsCtrl);
+
 
 function config ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('/tutorial', '/tutorial/1');
@@ -205,6 +234,13 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/team.html',
       controller:'OnboardTeamCtrl',
       title:'Create Your Team'
+    })
+    .state('onboard.credentials', {
+      url:'credentials',
+      parent:'onboard',
+      templateUrl:'/public/js/src/onboard/views/credentials.html',
+      controller:'OnboardCredentialsCtrl',
+      title:'Enter your AWS Credentials'
     })
   }
 angular.module('opsee').config(config);

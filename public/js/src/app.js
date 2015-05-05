@@ -1,6 +1,6 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngPageTitle', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','angularMoment', 'ngAnimate','hljs'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngPageTitle', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','angularMoment', 'ngAnimate','hljs'])
 
   angular.module('opsee').config(function($analyticsProvider, $pageTitleProvider){
     $pageTitleProvider.setSuffix(' - Opsee');
@@ -110,7 +110,8 @@
       return {
         request:function(config){
           config.headers = config.headers || {};
-          if ($cookies.authToken) {
+          //slack rejects us if we have extraneous headers, sigh.
+          if ($cookies.authToken && !config.url.match('slack.com')) {
             config.headers.Authorization = $cookies.authToken;
           }
           return config;
