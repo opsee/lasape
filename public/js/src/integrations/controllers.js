@@ -2,7 +2,7 @@
 
 angular.module('opsee.integrations.controllers', []);
 
-function SlackOauthCtrl($scope, $rootScope, $state, $stateParams, SlackService) {
+function SlackOauthCtrl($scope, $rootScope, $state, $stateParams, $cookies, $localStorage, SlackService) {
   $scope.msg = 'Processing...';
   if($stateParams.code){
     SlackService.token({code:$stateParams.code}).then(function(res){
@@ -10,6 +10,8 @@ function SlackOauthCtrl($scope, $rootScope, $state, $stateParams, SlackService) 
       if(res.data.ok){
         //save access_token here
         console.log(res.data.access_token);
+        $localStorage.slackAccessToken = res.data.access_token;
+        $scope.msg = 'Success.';
       }else{
         $rootScope.$emit('notify',res.data.error);
         $scope.msg = 'Something went wrong.';

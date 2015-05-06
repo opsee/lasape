@@ -100,9 +100,9 @@ module.exports = function(grunt) {
             'angular-aria/angular-aria.min',
             'moment/moment',
             'angular-moment/angular-moment.min',
-            'angular-cookies/angular-cookies.min',
             '../js/src/vendor/scripts/highlight.pack',
-            'angular-highlightjs/angular-highlightjs'
+            'angular-highlightjs/angular-highlightjs',
+            'ngstorage/ngStorage.min'
           ])
         }
       },

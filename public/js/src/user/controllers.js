@@ -65,7 +65,6 @@ function UserProfileEditCtrl($scope, $rootScope, $state, profile) {
   $scope.profile.account = {
     email:$scope.profile.email
   }
-  console.log(profile);
 }
 angular.module('opsee.user.controllers').controller('UserProfileEditCtrl', UserProfileEditCtrl);
 

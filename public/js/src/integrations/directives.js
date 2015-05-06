@@ -20,4 +20,30 @@ function slackAuth(){
 }
 angular.module('opsee.integrations.directives').directive('slackAuth',slackAuth);
 
+function slackTest(){
+  return {
+    restrict:'EA',
+    replace:true,
+    template:'<button ng-click="go()" class="btn btn-primary">Send Test Slack Msg</button>',
+    controller:function($scope, $rootScope, $cookies, SlackService, INTEGRATIONS_DETAILS){
+      console.log($cookies);
+      $scope.details = INTEGRATIONS_DETAILS.slack;
+      $scope.go = function(){
+        SlackService.sendTest().then(function(res){
+          console.log(res);
+          if(res.data.ok){
+            $rootScope.$emit('notify','Test Message Sent.');
+          }else{
+            $rootScope.$emit('notify',res.data.error);
+          }
+        },function(res){
+          $rootScope.$emit('notify','Something went wrong.');
+          console.log(res);
+        })
+      }
+    }
+  }
+}
+angular.module('opsee.integrations.directives').directive('slackTest',slackTest);
+
 })();//IIFE
