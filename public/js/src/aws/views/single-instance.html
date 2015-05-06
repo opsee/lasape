@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="col-xs-12">
+    <h1>Instance: {{instance.name}}</h1>
+      <table class="table">
+        <tr>
+          <td><strong>State</strong></td>
+          <td>{{instance.status.state}}</td>
+        </tr>
+        <tr>
+          <td><strong>Last Checked</strong></td>
+          <td><span am-time-ago="instance.lastChecked"></span></td>
+        </tr>
+        <tr>
+          <td><strong>Created</strong></td>
+          <td><span am-time-ago="instance.created"></span></td>
+        </tr>
+        <tr>
+          <td><strong>Instance Size</strong></td>
+          <td>{{instance.size}}</td>
+        </tr>
+      </table>
+
+      <div>
+        <h2>{{instance.checks.length}} Checks</h2>
+        <ul class="md-list md-list-two-line md-list-has-avatars">
+          <li class="md-list-item" ng-repeat="check in instance.checks" ng-if="check.status.state == 'running'">
+            <check-item check="check"></check-item>
+          </li>
+        </ul>
+      </div>
+  </div>
+</div>

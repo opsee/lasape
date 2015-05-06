@@ -249,4 +249,16 @@ function radialGraph(){
 }
 angular.module('opsee.checks.directives').directive('radialGraph', radialGraph);
 
+function checkItem(){
+  return {
+    restrict:'EA',
+    templateUrl:'/public/js/src/checks/partials/check-item.html',
+    scope:{
+      check:'='
+    }
+  }
+}
+angular.module('opsee.checks.directives').directive('checkItem', checkItem);
+
+
 })();//IIFE

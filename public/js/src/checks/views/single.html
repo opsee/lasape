@@ -28,13 +28,7 @@
 
         <ul class="md-list md-list-two-line md-list-has-avatars">
           <li ng-repeat="instance in check.instances" class="md-list-item">
-            <a ui-sref="checkSingle({id:instance.id})" class="md-list-link" title="Go to this Check">
-              <div class="md-list-line">{{instance.name}}</div>
-              <div class="md-list-line">{{instance.getInfo()}}</div>
-              <div class="md-list-avatar" radial-graph check="instance">
-                <div class="md-list-avatar-inner">100</div>
-              </div>
-            </a>
+            <instance-item instance="instance"></instance-item>
           </li>
         </ul>
       </div>

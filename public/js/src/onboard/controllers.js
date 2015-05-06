@@ -131,30 +131,21 @@ function OnboardTeamCtrl($scope, $rootScope, $state, UserService){
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', OnboardTeamCtrl);
 
-function OnboardCredentialsCtrl($scope, $rootScope, $state, UserService){
+function OnboardCredentialsCtrl($scope, $rootScope, $state, AWSService){
   $scope.submit = function(){
-    // test creds
-    // AKIAITLC4AUQZLJXBZGQ
-    // iLT9yuQLusvmhq/fTnOquSHQfnXQOJiaenc0oEWR
     var data = {
-      regions:$scope.user.regions
+      accessKey:$scope.user.aws.accessKey,
+      secretKey:$scope.user.aws.secretKey
     }
-    UserService.claim(data).then(function(res){
+    //test creds
+    data.accessKey = 'AKIAITLC4AUQZLJXBZGQ';
+    data.secretKey = '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';
+    data.regions = ['us-west-1','us-west-2'];
+    AWSService.vpcScan(data).then(function(res){
       console.log(res);
-      $rootScope.$emit('setUser',res.data);
-      UserService.login($scope.user).then(function(res){
-        console.log(res);
-        if(res.token){
-          $rootScope.$emit('setAuth',res.token);
-        }
       }, function(err){
-        console.log(err);
-        $scope.error = res.data.error || 'There was an error processing your request.';
-        $rootScope.$emit('notify',$scope.error);
-      })
-    }, function(res){
-      console.log(res);
-      $scope.error = res.data && res.data.error || 'There was an error processing your request.';
+      console.log(err);
+      $scope.error = res.data.error || 'There was an error processing your request.';
       $rootScope.$emit('notify',$scope.error);
     })
   }

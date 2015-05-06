@@ -38,6 +38,10 @@ function headerController($scope, Global, $location, $rootScope) {
           title:'Create Team',
           sref:'onboard.team',
         },
+        {
+          title:'Credentials',
+          sref:'onboard.credentials',
+        },
       ]
     },
     {

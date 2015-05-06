@@ -106,6 +106,10 @@ var userDefaults = {
   bio:{
     name:null
   },
+  aws:{
+    accessKey:null,
+    secretKey:null
+  },
   teams:[
   ]
 }

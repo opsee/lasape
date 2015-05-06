@@ -25,8 +25,7 @@ function slackTest(){
     restrict:'EA',
     replace:true,
     template:'<button ng-click="go()" class="btn btn-primary">Send Test Slack Msg</button>',
-    controller:function($scope, $rootScope, $cookies, SlackService, INTEGRATIONS_DETAILS){
-      console.log($cookies);
+    controller:function($scope, $rootScope, SlackService, INTEGRATIONS_DETAILS){
       $scope.details = INTEGRATIONS_DETAILS.slack;
       $scope.go = function(){
         SlackService.sendTest().then(function(res){

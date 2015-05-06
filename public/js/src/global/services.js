@@ -130,7 +130,8 @@ angular.module('opsee.global.services').constant('KEYS', KEYS);
 var api = 'http://api-beta.opsee.co';
 var ENDPOINTS = {
   api:api,
-  user:api+'/logins/:id'
+  user:api+'/logins/:id',
+  vpcScan:api+'/scan-vpcs'
 }
 angular.module('opsee.global.services').constant('ENDPOINTS', ENDPOINTS);
 

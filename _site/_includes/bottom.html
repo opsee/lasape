@@ -11,42 +11,14 @@ ga('create', 'UA-59205908-2', 'auto');
 
 <script type="text/javascript" src="/public/js/dist/deps.min.js"></script>
 <script type="text/javascript" src="/public/js/src/app.js"></script>
-<script type="text/javascript" src="/public/js/src/global/controllers.js"></script>
-<script type="text/javascript" src="/public/js/src/global/services.js"></script>
-<script type="text/javascript" src="/public/js/src/global/directives.js"></script>
-<script type="text/javascript" src="/public/js/src/global/filters.js"></script>
-<script type="text/javascript" src="/public/js/src/global/module.js"></script>
 
-<script type="text/javascript" src="/public/js/src/user/controllers.js"></script>
-<script type="text/javascript" src="/public/js/src/user/services.js"></script>
-<script type="text/javascript" src="/public/js/src/user/directives.js"></script>
-<script type="text/javascript" src="/public/js/src/user/filters.js"></script>
-<script type="text/javascript" src="/public/js/src/user/module.js"></script>
-
-<script type="text/javascript" src="/public/js/src/onboard/controllers.js"></script>
-<script type="text/javascript" src="/public/js/src/onboard/services.js"></script>
-<script type="text/javascript" src="/public/js/src/onboard/directives.js"></script>
-<script type="text/javascript" src="/public/js/src/onboard/filters.js"></script>
-<script type="text/javascript" src="/public/js/src/onboard/module.js"></script>
-
-
-<script type="text/javascript" src="/public/js/src/checks/controllers.js"></script>
-<script type="text/javascript" src="/public/js/src/checks/services.js"></script>
-<script type="text/javascript" src="/public/js/src/checks/directives.js"></script>
-<script type="text/javascript" src="/public/js/src/checks/filters.js"></script>
-<script type="text/javascript" src="/public/js/src/checks/module.js"></script>
-
-<script type="text/javascript" src="/public/js/src/admin/controllers.js"></script>
-<script type="text/javascript" src="/public/js/src/admin/services.js"></script>
-<script type="text/javascript" src="/public/js/src/admin/directives.js"></script>
-<script type="text/javascript" src="/public/js/src/admin/filters.js"></script>
-<script type="text/javascript" src="/public/js/src/admin/module.js"></script>
-
-<script type="text/javascript" src="/public/js/src/integrations/controllers.js"></script>
-<script type="text/javascript" src="/public/js/src/integrations/services.js"></script>
-<script type="text/javascript" src="/public/js/src/integrations/directives.js"></script>
-<script type="text/javascript" src="/public/js/src/integrations/filters.js"></script>
-<script type="text/javascript" src="/public/js/src/integrations/module.js"></script>
-
+{% assign folders = 'global|user|onboard|checks|admin|integrations|aws' | split: '|' %}
+{% for folder in folders %}
+  <script type="text/javascript" src="/public/js/src/{{folder}}/controllers.js"></script>
+  <script type="text/javascript" src="/public/js/src/{{folder}}/services.js"></script>
+  <script type="text/javascript" src="/public/js/src/{{folder}}/directives.js"></script>
+  <script type="text/javascript" src="/public/js/src/{{folder}}/filters.js"></script>
+  <script type="text/javascript" src="/public/js/src/{{folder}}/module.js"></script>
+{% endfor %}
 </body>
 </html>
