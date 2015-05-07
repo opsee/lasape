@@ -2,7 +2,7 @@
 
 angular.module('opsee.checks.controllers', ['opsee.checks.services']);
 
-function ChecksCtrl($scope, $state, Check){
+function ChecksCtrl($scope, $state, $timeout, Check){
   $scope.checks = [
   {
     name:'My great check',
@@ -33,6 +33,20 @@ function ChecksCtrl($scope, $state, Check){
   ]
   $scope.checks.forEach(function(c,i){
     $scope.checks[i] = new Check(c);
+  });
+  $scope.$watch(function(){return $scope.checkSearch},function(newVal,oldVal){
+    if(newVal != oldVal){
+      var query = Check.query({q:newVal});
+      query.$promise.then(function(res){
+        $scope.checks = res.data;
+        $scope.searching = false;
+      });
+      $timeout(function(){
+        if(!query.$resolved){
+          $scope.searching = true;
+        }
+      },300);
+    }
   });
 }//ChecksCtrl
 angular.module('opsee.checks.controllers').controller('ChecksCtrl', ChecksCtrl);

@@ -4,28 +4,28 @@
       <tabset>
         <tab heading="Instances">
           <h2 class="md-subheader md-subheader-has-avatars">
-            <span class="md-subheader-content">Running ({{[1,2,3,4].length}})</span>
+            <span class="md-subheader-content">Running ({{runningChecks.length}})</span>
           </h2>
           <ul class="md-list md-list-two-line md-list-has-avatars">
-            <li class="md-list-item" ng-repeat="check in checks" ng-if="check.status.state == 'running'">
+            <li class="md-list-item" ng-repeat="check in runningChecks">
               <check-item check="check"></check-item>
             </li>
           </ul>
 
           <h2 class="md-subheader md-subheader-has-avatars">
-            <span class="md-subheader-content">Unmonitored ({{[1,2,3,4].length}})</span>
+            <span class="md-subheader-content">Unmonitored ({{unmonitoredChecks.length}})</span>
           </h2>
           <ul class="md-list md-list-two-line md-list-has-avatars">
-            <li class="md-list-item" ng-repeat="check in checks" ng-if="check.status.state == 'unmonitored'">
+            <li class="md-list-item" ng-repeat="check in unmonitoredChecks">
               <check-item check="check"></check-item>
             </li>
           </ul>
 
           <h2 class="md-subheader md-subheader-has-avatars">
-            <span class="md-subheader-content">Stopped ({{[1,2,3,4].length}})</span>
+            <span class="md-subheader-content">Stopped ({{stoppedChecks.length}})</span>
           </h2>
           <ul class="md-list md-list-two-line md-list-has-avatars">
-            <li class="md-list-item" ng-repeat="check in checks" ng-if="check.status.state == 'stopped'">
+            <li class="md-list-item" ng-repeat="check in stoppedChecks">
               <check-item check="check"></check-item>
             </li>
           </ul>

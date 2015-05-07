@@ -20,25 +20,34 @@
           <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
         </a>
 
-        <h2 class="md-subheader md-subheader-has-avatars">
-          <span class="md-subheader-content">All Checks</span>
-        </h2>
-        <ul class="md-list md-list-two-line md-list-has-avatars">
-          <li ng-repeat="check in checks">
-            <div class="md-list-item">
-              <button type="button" class="btn btn-iconbtn md-list-secondary-action" ng-click="check.menu()" title="Silence check">
-                <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off" />
-              </button>
-              <a href="/check/{{check.id}}" class="md-list-link" title="Go to this Check">
-                <div class="md-list-line">{{check.name}}</div>
-                <div class="md-list-line">{{check.getInfo()}}</div>
-                <div class="md-list-avatar" radial-graph check="check">
-                  <div class="md-list-avatar-inner">100</div>
-                </div>
-              </a>
-            </div>
-          </li>
-        </ul>
+        <div class="col-xs-12 clearfix">
+          <div><br/><br/></div>
+          <input type="search" class="form-control" placeholder="Search Checks" ng-model="checkSearch" ng-model-options="{debounce: 300}"/>
+          <div><br/></div>
+        </div>
+
+        <div class="col-xs-12">
+          <h2 class="md-subheader md-subheader-has-avatars">
+            <span class="md-subheader-content">All Checks</span>
+          </h2>
+          <div ng-show="searching" ng-activity-indicator skip-ng-show="yes"></div>
+          <ul class="md-list md-list-two-line md-list-has-avatars" ng-hide="searching">
+            <li ng-repeat="check in checks">
+              <div class="md-list-item">
+                <button type="button" class="btn btn-iconbtn md-list-secondary-action" ng-click="check.menu()" title="Silence check">
+                  <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off"/></svg>
+                </button>
+                <a href="/check/{{check.id}}" class="md-list-link" title="Go to this Check">
+                  <div class="md-list-line">{{check.name}}</div>
+                  <div class="md-list-line">{{check.getInfo()}}</div>
+                  <div class="md-list-avatar" radial-graph check="check">
+                    <div class="md-list-avatar-inner">100</div>
+                  </div>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

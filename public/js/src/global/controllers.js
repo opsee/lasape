@@ -2,7 +2,7 @@
 
 angular.module('opsee.global.controllers', ['opsee.global.services']); 
 
-function headerController($scope, Global, $location, $rootScope) {
+function HeaderCtrl($scope, Global, $location, $rootScope) {
   // $scope.user = $rootScope.user;
   $scope.navbarEntries = [
     {
@@ -67,7 +67,7 @@ function headerController($scope, Global, $location, $rootScope) {
   });
 }
 
-angular.module('opsee.global.controllers').controller('HeaderController', headerController);
+angular.module('opsee.global.controllers').controller('HeaderCtrl', HeaderCtrl);
 
 function footerController($scope, Global, $location) {
   $scope.navbarEntries = [
@@ -82,9 +82,6 @@ function footerController($scope, Global, $location) {
 angular.module('opsee.global.controllers').controller('FooterController', footerController);
 
 function HomeCtrl($scope, $rootScope, _, $state, Check){
-  // if(!$rootScope.user.account.email){
-  //   $state.go('onboard');
-  // }
   $scope.checks = [
     {
       name:'Wee a check',
@@ -144,6 +141,10 @@ function HomeCtrl($scope, $rootScope, _, $state, Check){
   $scope.checks.forEach(function(c,i){
     $scope.checks[i] = new Check(c);
   });
+  $scope.runningChecks = _.filter($scope.checks, function(c){return c.status.state == 'running'});
+  $scope.unmonitoredChecks = _.filter($scope.checks, function(c){return c.status.state == 'unmonitored'});
+  $scope.stoppedChecks = _.filter($scope.checks, function(c){return c.status.state == 'stopped'});
+  delete $scope.checks;
 }
 angular.module('opsee.global.controllers').controller('HomeCtrl',HomeCtrl);
 
