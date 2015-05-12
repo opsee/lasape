@@ -9,10 +9,10 @@ function userInputs(){
     transclude: true,
     scope:{
       user:'=',
-      login:'='
+      login:'=',
+      onboarding:'='
     },
     controller:function($scope,$rootScope){
-      $scope.regex = $rootScope.regex;
     }
   }
 }

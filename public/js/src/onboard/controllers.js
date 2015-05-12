@@ -88,15 +88,36 @@ function OnboardPasswordCtrl($scope,$state,$rootScope,$stateParams,User,UserServ
   $scope.user.activationId = $stateParams.token;
   $scope.user.account.email = $stateParams.email;
   $scope.submit = function(){
-    $state.go('onboard.team')
+    $state.go('onboard.profile');
   }
 }
 angular.module('opsee.user.controllers').controller('OnboardPasswordCtrl', OnboardPasswordCtrl);
 
-function OnboardTeamCtrl($scope, $rootScope, $state, UserService){
-  if(!$scope.user.account.password){
-    return $state.go('onboard.password');
+function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $localStorage, User, UserService, SlackService, slackProfile){
+  $scope.slackProfile = slackProfile;
+  if($scope.slackProfile){
+    $scope.user.bio.title = $scope.user.bio.title || $scope.slackProfile.title;
   }
+  $scope.submit = function(){
+    $state.go('onboard.team');
+  }
+}
+OnboardProfileCtrl.resolve = {
+  slackProfile:function($localStorage,SlackService){
+    if($localStorage.slackAccessToken){
+      return SlackService.getProfile().then(function(res){
+        return res.data.user.profile;
+      }, function(res){
+        return null;
+      })
+    }else{
+      return false;
+    }
+  }
+}
+angular.module('opsee.user.controllers').controller('OnboardProfileCtrl', OnboardProfileCtrl);
+
+function OnboardTeamCtrl($scope, $rootScope, $state, UserService){
   $scope.fullDomain = null;
   $scope.$watch(function(){return $scope.user.account.customer_id}, function(newVal,oldVal){
     $scope.fullDomain = newVal ? newVal+'.opsee.co' : null;
@@ -168,28 +189,28 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'Start'
     })
     .state('onboard.email', {
-      url:'email?email',
+      url:'start/email?email',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/email.html',
       controller:'OnboardEmailCtrl',
       title:'Email'
     })
     .state('onboard.thanks', {
-      url:'thanks?email',
+      url:'start/thanks?email',
       parent:'onboard',
       controller:'OnboardThanksCtrl',
       templateUrl:'/public/js/src/onboard/views/thanks.html',
       title:'Thank You'
     })
     .state('onboard.tutorial', {
-      url:'tutorial',
+      // url:'tutorial',
       parent:'onboard',
       controller:'OnboardTutorialCtrl',
       title:'Tutorial',
       templateUrl:'/public/js/src/onboard/views/tutorial.html',
     })
     .state('onboard.tutorial.1', {
-      url:'/1',
+      url:'intro/1',
       parent:'onboard.tutorial',
       templateUrl:'/public/js/src/onboard/views/tutorial-1.html',
       controller:'OnboardTutorial1Ctrl',
@@ -197,7 +218,7 @@ function config ($stateProvider, $urlRouterProvider) {
       resolve:OnboardTutorial1Ctrl.resolve
     })
     .state('onboard.tutorial.2', {
-      url:'/2',
+      url:'intro/2',
       parent:'onboard.tutorial',
       templateUrl:'/public/js/src/onboard/views/tutorial-2.html',
       controller:'OnboardTutorial2Ctrl',
@@ -205,7 +226,7 @@ function config ($stateProvider, $urlRouterProvider) {
       resolve:OnboardTutorial2Ctrl.resolve
     })
     .state('onboard.tutorial.3', {
-      url:'/3',
+      url:'intro/3',
       parent:'onboard.tutorial',
       templateUrl:'/public/js/src/onboard/views/tutorial-3.html',
       controller:'OnboardTutorial3Ctrl',
@@ -213,21 +234,29 @@ function config ($stateProvider, $urlRouterProvider) {
       resolve:OnboardTutorial3Ctrl.resolve
     })
     .state('onboard.password', {
-      url:'password?email&token',
+      url:'start/password?email&token',
       parent:'onboard',
       templateUrl:'/public/js/src/user/views/password.html',
       controller:'OnboardPasswordCtrl',
       title:'Set Your Password',
     })
+    .state('onboard.profile', {
+      url:'start/profile',
+      parent:'onboard',
+      templateUrl:'/public/js/src/onboard/views/profile.html',
+      controller:'OnboardProfileCtrl',
+      title:'Fill Out Your Profile',
+      resolve:OnboardProfileCtrl.resolve
+    })
     .state('onboard.team', {
-      url:'team',
+      url:'start/team',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/team.html',
       controller:'OnboardTeamCtrl',
       title:'Create Your Team'
     })
     .state('onboard.credentials', {
-      url:'credentials',
+      url:'start/credentials',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/credentials.html',
       controller:'OnboardCredentialsCtrl',

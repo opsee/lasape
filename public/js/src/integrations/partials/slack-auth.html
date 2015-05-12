@@ -1,6 +1,3 @@
 <div>
-  <form>
-    <a href="{{details.endpoints.auth}}?client_id={{details.creds.client_id}}&state={{state}}" class="btn btn-primary">Authorize</a>
-<!--     <button type="button" ng-click="submit()" class="btn btn-primary">Authorize</button> -->
-  </form>
+  <a href="{{details.endpoints.auth}}?client_id={{details.creds.client_id}}&state={{state}}&redirect_uri={{redirect}}" class="btn btn-primary">Authorize</a>
 </div>

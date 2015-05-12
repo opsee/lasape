@@ -35,6 +35,10 @@ function HeaderCtrl($scope, Global, $location, $rootScope) {
           sref:'onboard.password',
         },
         {
+          title:'Profile',
+          sref:'onboard.profile',
+        },
+        {
           title:'Create Team',
           sref:'onboard.team',
         },

@@ -8,7 +8,8 @@ var INTEGRATIONS_DETAILS = {
       auth:'https://slack.com/oauth/authorize',
       token:'https://slack.com/api/oauth.access',
       test:'https://slack.com/api/auth.test',
-      postMessage:'https://slack.com/api/chat.postMessage'
+      postMessage:'https://slack.com/api/chat.postMessage',
+      userInfo:'https://slack.com/api/users.info'
     },
     creds:{
       client_id:'3378465181.4743809532',
@@ -29,6 +30,20 @@ function SlackService($http, $localStorage, INTEGRATIONS_DETAILS){
           params:data
         });
       }
+    },
+    getProfile:function(){
+      return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.test, {
+        params:{
+          token:$localStorage.slackAccessToken
+        }
+      }).then(function(res){
+        return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.userInfo, {
+          params:{
+            token:$localStorage.slackAccessToken,
+            user:res.data.user_id
+          }
+        });
+      });
     },
     sendTest:function(){
       //send test directly to current user

@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="col-xs-12">
+    <h1>Fill out your Profile</h1>
+    <form name="profileForm" ng-submit="submit()">
+      <user-inputs user="user" onboarding="true"></user-inputs>
+      <div ng-if="!slackProfile">
+        <h2>Slack Authorization</h2>
+        <slack-auth></slack-auth>
+      </div>
+      <!-- <slack-test></slack-test> -->
+      <div ng-if="slackProfile">
+        <h2>From Slack:</h2>
+        <div>{{slackProfile.real_name_normalized}}</div>
+        <div>{{slackProfile.title}}</div>
+        <div><img src="{{slackProfile.image_original}}"/></div>
+      </div>
+      <div><br/><br/></div>
+      <button class="btn btn-primary" type="submit" ng-disabled="profileForm.$invalid">Next</button>
+    </form>
+  </div>
+</div>

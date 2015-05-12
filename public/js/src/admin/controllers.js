@@ -32,13 +32,13 @@ angular.module('opsee.admin.controllers').controller('SingleSignupCtrl', SingleS
 
 function config ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('signups', {
-      url:'/signups',
+      url:'/admin/signups',
       templateUrl:'/public/js/src/admin/views/signups.html',
       controller:'SignupsCtrl',
       resolve:SignupsCtrl.resolve
     })
     .state('singleSignup', {
-      url:'/signup/:id',
+      url:'/admin/signup/:id',
       templateUrl:'/public/js/src/admin/views/single-signup.html',
       controller:'SingleSignupCtrl',
       resolve:SingleSignupCtrl.resolve

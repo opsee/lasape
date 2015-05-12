@@ -6,15 +6,9 @@ function slackAuth(){
   return {
     restrict:'EA',
     templateUrl:'/public/js/src/integrations/partials/slack-auth.html',
-    controller:function($scope, SlackService, INTEGRATIONS_DETAILS){
+    controller:function($scope, $state, $window, SlackService, INTEGRATIONS_DETAILS, ENDPOINTS){
       $scope.details = INTEGRATIONS_DETAILS.slack;
-      $scope.submit = function(){
-        SlackService.auth().then(function(res){
-          console.log(res);
-        },function(res){
-          console.log(res);
-        })
-      }
+      $scope.redirect = $window.location.origin+'/oauth/slack/'+$state.current.name;
     }
   }
 }
