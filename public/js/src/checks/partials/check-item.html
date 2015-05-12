@@ -1,10 +1,16 @@
-<div>
-  <button type="button" class="btn btn-iconbtn md-list-secondary-action" ng-click="check.menu()" title="Silence check" ng-if="check.status.state == 'running'">
-    <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off" />
-  </button>
-  <a href="/check/{{check.id}}" class="md-list-link">
-    <div class="md-list-line">{{check.name}}</div>
-    <div class="md-list-line">{{check.getInfo()}}</div>
-    <div class="md-list-avatar" radial-graph check="check"></div>
-  </a>
+<div class="md-list-link">
+  <div class="row">
+    <div class="col-xs-12 display-flex vertical-align">
+      <a href="/check/{{check.id}}" class="flex-1 display-flex vertical-align md-list-link">
+        <div class="md-list-avatar" radial-graph check="check"></div>
+        <div>
+          <div class="md-list-line">{{check.name}}</div>
+          <div class="md-list-line">{{check.getInfo()}}</div>
+        </div>
+      </a>
+      <button type="button" class="btn btn-iconbtn md-list-secondary-action" ng-click="check.menu()" title="Silence check" ng-if="check.status.state == 'running'">
+        <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off"/></svg>
+      </button>
+    </div>
+  </div>
 </div>

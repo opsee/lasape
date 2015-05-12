@@ -5,7 +5,7 @@ $graphWidth:40px;
     color:$body-bg;
     // font-size: 0.875rem;
     font-weight: 500;
-    position: absolute;
+    position: relative;
     height: $graphWidth;
     width: $graphWidth;
     &.running{

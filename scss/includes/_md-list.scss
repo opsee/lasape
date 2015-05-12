@@ -3,12 +3,18 @@
   padding: 8px 0;
   &.md-list-two-line {
     .md-list-item {
-      padding: 20px 16px;
+      // padding: 20px 16px;
+      .md-list-item-col{
+        padding: 20px 16px;
+      }
     }
   }
   &.md-list-has-avatars {
     .md-list-item {
-      padding-left: 72px;
+      // padding-left: 72px;
+      .md-list-item-col:first-child{
+        padding-left: 72px;
+      }
     }
   }
 }
@@ -17,15 +23,14 @@
   @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
   border-bottom: 1px solid $gray-800;
   line-height: 16px;
-  padding: 16px 16px;
+  // padding: 16px 16px;
   position: relative;
-  &:active {
-    background-color: $gray-800;
-  }
+  // &:active {
+  //   background-color: $gray-800;
+  // }
 }
 .md-list-link {
   color: inherit;
-  display: block;
   text-decoration: none;
   &:hover, &:focus {
     color: inherit;
@@ -44,11 +49,9 @@
   fill: $text-color;
   font-family: $headings-font-family;
   font-weight: 500;
-  height: 40px;
-  left: 16px;
-  position: absolute;
-  top: 16px;
   width: 40px;
+  height: 40px;
+  margin:1em 1em 1em 0;
   &.running {
     background-color: $red-500;
     .avatar-inner {
@@ -63,10 +66,10 @@
   &.unmonitored { background-color: $yellow-800;}
 }
 .md-list-secondary-action {
-  margin-top: -24px;
-  position: absolute;
-  top: 50%;
-  right: 8px;
+  // margin-top: -24px;
+  // position: absolute;
+  // top: 50%;
+  // right: 8px;
 }
 .md-list-avatar-inner {
   @include box-sizing(border-box);

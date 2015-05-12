@@ -107,7 +107,6 @@ function HomeCtrl($scope, $rootScope, _, $state, Check){
     },
     {
       name:'Third check.',
-      info:'This is info here',
       status:{
         health:70,
         state:'running',
@@ -118,6 +117,7 @@ function HomeCtrl($scope, $rootScope, _, $state, Check){
       },
     },
     {
+      name:'A check that needs attention',
       status:{
         health:null,
         state:'unmonitored',
@@ -128,6 +128,7 @@ function HomeCtrl($scope, $rootScope, _, $state, Check){
       },
     },
     {
+      name:'Another',
       status:{
         health:null,
         state:'stopped',
