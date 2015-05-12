@@ -8,6 +8,8 @@ $graphWidth:40px;
     position: relative;
     height: $graphWidth;
     width: $graphWidth;
+    min-width:$graphWidth;
+    min-height:$graphWidth;
     &.running{
       background-color:$red-500;
       .radial-graph-inner{
