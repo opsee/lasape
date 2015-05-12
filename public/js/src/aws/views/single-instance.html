@@ -22,7 +22,7 @@
 
       <div>
         <h2>{{instance.checks.length}} Checks</h2>
-        <ul class="md-list md-list-two-line md-list-has-avatars">
+        <ul class="md-list md-list-two-line">
           <li class="md-list-item" ng-repeat="check in instance.checks" ng-if="check.status.state == 'running'">
             <check-item check="check"></check-item>
           </li>

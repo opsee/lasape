@@ -112,6 +112,12 @@
   font-style: italic;
 }
 
+.btn-none{
+  -webkit-appearance:none;
+  background:none;
+  border:0;
+}
+
 // input{
 //   &.ng-invalid.ng-touched{
 //     border-color:$brand-danger;

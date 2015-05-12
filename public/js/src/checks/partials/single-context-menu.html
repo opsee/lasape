@@ -1,5 +1,5 @@
 <div>
-  <div class="modal-body container">
+  <div class="modal-body container-fluid">
     <div ng-repeat="action in item.actions">
       <!-- <div ng-hide="item.hasChildrenActive()"> -->
       <div>
@@ -8,14 +8,14 @@
         </h2>
       </div>
 
-      <ul class="md-list md-list-has-avatars">
-        <li ng-repeat="childAction in action.actions">
-          <div class="md-list-item">
-            <a class="md-list-link" ng-click="run(childAction,item)">
-              <div class="md-list-line">{{childAction.title}}</div>
-              <svg class="md-list-avatar md-avatar-small" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off" /></svg>
-            </a>
-          </div>
+      <ul class="md-list">
+        <li ng-repeat="childAction in action.actions" class="md-list-item">
+          <button ng-click="run(childAction,item)" class="btn-none" style="width:100%;">
+            <div class="display-flex vertical-align text-left padding-lr">
+              <div class="flex-1">{{childAction.title}}</div>
+              <svg class="md-list-avatar md-list-avatar-small md-list-avatar-right" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off" /></svg>
+            </div>
+          </button>
         </li>
       </ul>
 

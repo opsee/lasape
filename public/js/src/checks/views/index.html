@@ -31,7 +31,7 @@
             <span class="md-subheader-content">All Checks</span>
           </h2>
           <div ng-show="searching" ng-activity-indicator skip-ng-show="yes"></div>
-          <ul class="md-list md-list-two-line md-list-has-avatars" ng-hide="searching">
+          <ul class="md-list md-list-two-line" ng-hide="searching">
             <li class="md-list-item" ng-repeat="check in checks">
               <check-item check="check"></check-item>
             </li>

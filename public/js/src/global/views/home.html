@@ -6,7 +6,7 @@
           <h2 class="md-subheader md-subheader-has-avatars">
             <span class="md-subheader-content">Running ({{runningChecks.length}})</span>
           </h2>
-          <ul class="md-list md-list-two-line md-list-has-avatars">
+          <ul class="md-list md-list-two-line">
             <li class="md-list-item" ng-repeat="check in runningChecks">
               <check-item check="check"></check-item>
             </li>
@@ -15,7 +15,7 @@
           <h2 class="md-subheader md-subheader-has-avatars">
             <span class="md-subheader-content">Unmonitored ({{unmonitoredChecks.length}})</span>
           </h2>
-          <ul class="md-list md-list-two-line md-list-has-avatars">
+          <ul class="md-list md-list-two-line">
             <li class="md-list-item" ng-repeat="check in unmonitoredChecks">
               <check-item check="check"></check-item>
             </li>
@@ -24,7 +24,7 @@
           <h2 class="md-subheader md-subheader-has-avatars">
             <span class="md-subheader-content">Stopped ({{stoppedChecks.length}})</span>
           </h2>
-          <ul class="md-list md-list-two-line md-list-has-avatars">
+          <ul class="md-list md-list-two-line">
             <li class="md-list-item" ng-repeat="check in stoppedChecks">
               <check-item check="check"></check-item>
             </li>
