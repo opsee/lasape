@@ -99,7 +99,10 @@ function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $localStor
   if($scope.slackProfile){
     $scope.user.bio.title = $scope.user.bio.title || $scope.slackProfile.title;
   }
-  SlackService.sendTest();
+  if(!$localStorage.testSent){
+    SlackService.sendTest();
+    $localStorage.testSent = true;
+  }
   $scope.submit = function(){
     $state.go('onboard.team');
   }
