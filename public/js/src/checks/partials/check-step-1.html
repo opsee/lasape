@@ -4,7 +4,7 @@
     <div class="form-group" dropdown>
       <select class="sr-only" ng-required="true" ng-model="check.group" ng-options="g for g in groups"></select>
       <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        {{check.group.name || 'Group'}} <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
+        {{check.group.name || 'Group'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="g in groups">
@@ -23,7 +23,7 @@
     <div class="form-group" dropdown>
       <select class="sr-only" ng-required="true" ng-model="check.protocol" ng-options="p for p in protocols"></select>
       <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        {{check.protocol.name || 'Protocol'}} <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
+        {{check.protocol.name || 'Protocol'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="p in protocols">
@@ -52,7 +52,7 @@
     <div class="form-group" dropdown>
       <select class="sr-only" ng-required="true" ng-model="check.verb" ng-options="v for v in verbs"></select>
       <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        {{check.verb.name || 'Verb'}} <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
+        {{check.verb.name || 'Verb'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="v in verbs">
@@ -90,7 +90,7 @@
     </div>
   </div>
   <div class="col-xs-12">
-    <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('http.headers')"><svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add a Header</button>
+    <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('http.headers')"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add a Header</button>
   </div>
 </div>
 <br />

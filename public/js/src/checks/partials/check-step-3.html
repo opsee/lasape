@@ -50,7 +50,7 @@
     <div class="form-group" dropdown is-open="status['notificationSettings.types'+$index]">
       <select class="sr-only" ng-required="true" ng-model="notif.type" ng-options="t for t in notificationSettings.types"></select>
       <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{notif.type.title || 'Pick your notification type'">
-        {{notif.type.name || 'Type'}} <svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
+        {{notif.type.name || 'Type'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="nt in notificationSettings.types">
@@ -69,7 +69,7 @@
 </div>
 
 <div class="form-group">
-  <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('notifications')"><svg class="btn-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add another Notification</button>
+  <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('notifications')"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add another Notification</button>
 </div>
 <br />
 <br />
