@@ -95,9 +95,11 @@ angular.module('opsee.user.controllers').controller('OnboardPasswordCtrl', Onboa
 
 function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $localStorage, User, UserService, SlackService, slackProfile){
   $scope.slackProfile = slackProfile;
+  console.log(slackProfile);
   if($scope.slackProfile){
     $scope.user.bio.title = $scope.user.bio.title || $scope.slackProfile.title;
   }
+  SlackService.sendTest();
   $scope.submit = function(){
     $state.go('onboard.team');
   }

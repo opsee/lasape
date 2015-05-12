@@ -20,7 +20,7 @@ var INTEGRATIONS_DETAILS = {
 angular.module('opsee.integrations.services').constant('INTEGRATIONS_DETAILS',INTEGRATIONS_DETAILS);
 
 function SlackService($http, $localStorage, INTEGRATIONS_DETAILS){
-  return {
+  var obj = {
     token:function(data){
       if(data){
         data.client_id = INTEGRATIONS_DETAILS.slack.creds.client_id;
@@ -47,21 +47,18 @@ function SlackService($http, $localStorage, INTEGRATIONS_DETAILS){
     },
     sendTest:function(){
       //send test directly to current user
-      return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.test, {
-        params:{
-          token:$localStorage.slackAccessToken
-        }
-      }).then(function(res){
+      obj.getProfile().then(function(res){
         return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.postMessage, {
           params:{
             token:$localStorage.slackAccessToken,
-            channel:res.data.user_id,
-            text:'Hello from Opsee Front-end!',
+            channel:res.data.user.id,
+            text:'Thanks for signing up, '+res.data.user.profile.first_name+'! - The Opsee Team',
           }
         });
       });
     }
   }
+  return obj;
 }
 
 angular.module('opsee.integrations.services').service('SlackService', SlackService);
