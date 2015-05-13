@@ -7,18 +7,14 @@
           <span class="md-subheader-content">{{action.title}}</span>
         </h2>
       </div>
-
-      <ul class="md-list">
-        <li ng-repeat="childAction in action.actions" class="md-list-item">
-          <button ng-click="run(childAction,item)" class="btn-none" style="width:100%;">
-            <div class="display-flex vertical-align text-left padding-lr">
-              <div class="flex-1">{{childAction.title}}</div>
-              <svg class="md-list-avatar md-list-avatar-small md-list-avatar-right" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off" /></svg>
-            </div>
+      <ul class="md-bottom-sheet">
+        <li ng-repeat="childAction in action.actions" class="md-bottom-sheet-item">
+          <button ng-click="run(childAction,item)" class="btn-none">
+            <svg class="md-bottom-sheet-avatar" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off" /></svg>
+            <span class="md-bottom-sheet-title">{{childAction.title}}</span>
           </button>
         </li>
       </ul>
-
     </div>
   </div>
 </div>
