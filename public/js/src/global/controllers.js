@@ -158,7 +158,7 @@ function NotFoundCtrl($scope, $rootScope, _, $state){
 angular.module('opsee.global.controllers').controller('NotFoundCtrl',NotFoundCtrl);
 
 function config ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('404');
     $stateProvider.state('app', {
       'abstract': true,
       resolve: {
@@ -173,120 +173,9 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/global/views/home.html',
     })
     .state('404', {
-      url:'/',
+      url:'/404',
       controller:'NotFoundCtrl',
       templateUrl:'/public/js/src/global/views/404.html',
-    })
-    .state('pre-welcome', {
-      parent: 'app',
-      url: '/pre-welcome',
-      data: {
-        roles: ['User']
-      },
-      views: {
-        'content@': {
-          // templateUrl: '/app/views/pre-welcome.html',
-          template:'<div>foo</div>',
-          controller: 'PreWelcomeCtrl'
-        }
-      }
-    }).state('welcome', {
-      parent: 'app',
-      url: '/welcome',
-      data: {
-        roles: ['User']
-      },
-      views: {
-        'content@': {
-          templateUrl: '/app/views/welcome.html',
-          controller: 'WelcomeCtrl'
-        }
-      }
-    }).state('welcome-aws', {
-      parent: 'app',
-      url: '/welcome-aws',
-      data: {
-        roles: ['User']
-      },
-      views: {
-        'content@': {
-          templateUrl: '/app/views/welcome-aws.html',
-          controller: 'WelcomeCtrl'
-        }
-      }
-    }).state('welcome-scan', {
-      parent: 'app',
-      url: '/welcome-scan',
-      data: {
-        roles: ['User']
-      },
-      views: {
-        'content@': {
-          templateUrl: '/app/views/welcome-scan.html',
-          controller: 'WelcomeCtrl'
-        }
-      }
-    }).state('welcome-checks', {
-      parent: 'app',
-      url: '/welcome-checks',
-      data: {
-        roles: ['User']
-      },
-      views: {
-        'content@': {
-          templateUrl: '/app/views/welcome-checks.html',
-          controller: 'CheckCtrl'
-        }
-      }
-    })
-    // .state('login', {
-    //   parent: 'app',
-    //   url: '/login',
-    //   data: {
-    //     roles: []
-    //   },
-    //   views: {
-    //     'content@': {
-    //       templateUrl: '/app/views/login.html',
-    //       controller: 'LoginCtrl'
-    //     }
-    //   }
-    // })
-    .state('logout', {
-      parent: 'app',
-      url: '/logout',
-      data: {
-        roles: []
-      },
-      views: {
-        'content@': {
-          controller: 'LogoutCtrl'
-        }
-      }
-    })
-    .state('restricted', {
-      parent: 'app',
-      url: '/restricted',
-      data: {
-        roles: ['Admin']
-      },
-      views: {
-        'content@': {
-          templateUrl: 'restricted.html'
-        }
-      }
-    })
-    .state('accessdenied', {
-      parent: 'app',
-      url: '/403',
-      data: {
-        roles: []
-      },
-      views: {
-        'content@': {
-          templateUrl: '/app/views/403.html'
-        }
-      }
     })
   }
   angular.module('opsee').config(config);
