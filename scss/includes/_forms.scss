@@ -1,6 +1,9 @@
 .form-group {
   border: none;
   position: relative;
+  &.search-group {
+    margin-top: 4em;
+  }
   > label {
     @include opacity(0);
     @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function,
@@ -77,6 +80,29 @@
       text-indent: 32px;
     }
   }// > input
+  > input[type='search'] {
+    @include border-radius(3px);
+    @include appearance(none);
+    @include placeholder($text-color-secondary);
+    @extend .md-shadow-bottom-z-1;
+    background-color: $gray-800;
+    border: none;
+    color: $text-color;
+    padding: 1.5em 1em;
+    text-indent: 2em;
+    &:focus {
+      outline: none;
+    }
+    + .search-icon {
+      fill: $text-color-secondary;
+      height: 24px;
+      left: 0.75em;
+      margin-top: -12px;
+      position: absolute;
+      top: 50%;
+      width: 24px;
+    }
+  }
   .input-suffix{
     // position: absolute;
     // top: 0;
