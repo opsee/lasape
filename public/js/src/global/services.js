@@ -127,13 +127,15 @@ var KEYS = {
 }
 angular.module('opsee.global.services').constant('KEYS', KEYS);
 
-var api = 'http://api-beta.opsee.co';
-var ENDPOINTS = {
-  api:api,
-  user:api+'/logins/:id',
-  vpcScan:api+'/scan-vpcs'
+function ENDPOINTS(){
+  var api = window.api_host || 'http://api-beta.opsee.co';
+  return {
+    api:api,
+    user:api+'/logins/:id',
+    vpcScan:api+'/scan-vpcs'
+  }
 }
-angular.module('opsee.global.services').constant('ENDPOINTS', ENDPOINTS);
+angular.module('opsee.global.services').constant('ENDPOINTS', ENDPOINTS());
 
 'use strict';
 

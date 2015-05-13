@@ -6,7 +6,7 @@
     $pageTitleProvider.setSuffix(' - Opsee');
   });
 
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $cookies, $timeout, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, authService, User) {
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $cookies, $timeout, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, authService, User, ENDPOINTS) {
 
     $rootScope.$on('$stateChangeStart', function (event, toState, fromState, fromParams) {
       if(toState.name != ('login')){

@@ -27,7 +27,8 @@
     "angular-bootstrap": "~0.12.1",
     "angular-moment": "~0.10.0",
     "know-your-http-well": "https://github.com/for-GET/know-your-http-well.git#~0.2.0",
-    "angular-highlightjs": "~0.4.1"
+    "angular-highlightjs": "~0.4.1",
+    "angular-gravatar": "~0.3.1"
   },
   "devDependencies": {
     "angular-mocks": "1.2.0-rc.1",
