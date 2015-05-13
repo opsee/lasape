@@ -19,7 +19,7 @@ var INTEGRATIONS_DETAILS = {
 }
 angular.module('opsee.integrations.services').constant('INTEGRATIONS_DETAILS',INTEGRATIONS_DETAILS);
 
-function SlackService($http, $q, $localStorage, INTEGRATIONS_DETAILS){
+function SlackService($http, $q, $rootScope, $localStorage, INTEGRATIONS_DETAILS){
   var obj = {
     token:function(data){
       if(data){
@@ -32,6 +32,11 @@ function SlackService($http, $q, $localStorage, INTEGRATIONS_DETAILS){
       }
     },
     getProfile:function(){
+      if($rootScope.user && $rootScope.user.integrations.slack.user){
+        var d = $q.defer();
+        d.resolve($rootScope.user.integrations.slack.user);
+        return d.promise;
+      }
       if($localStorage.slackAccessToken){
         return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.test, {
           params:{
