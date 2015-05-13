@@ -19,7 +19,7 @@ var INTEGRATIONS_DETAILS = {
 }
 angular.module('opsee.integrations.services').constant('INTEGRATIONS_DETAILS',INTEGRATIONS_DETAILS);
 
-function SlackService($http, $localStorage, INTEGRATIONS_DETAILS){
+function SlackService($http, $q, $localStorage, INTEGRATIONS_DETAILS){
   var obj = {
     token:function(data){
       if(data){
@@ -32,18 +32,24 @@ function SlackService($http, $localStorage, INTEGRATIONS_DETAILS){
       }
     },
     getProfile:function(){
-      return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.test, {
-        params:{
-          token:$localStorage.slackAccessToken
-        }
-      }).then(function(res){
-        return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.userInfo, {
+      if($localStorage.slackAccessToken){
+        return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.test, {
           params:{
-            token:$localStorage.slackAccessToken,
-            user:res.data.user_id
+            token:$localStorage.slackAccessToken
           }
+        }).then(function(res){
+          return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.userInfo, {
+            params:{
+              token:$localStorage.slackAccessToken,
+              user:res.data.user_id
+            }
+          });
         });
-      });
+      }else{
+        var d = $q.defer();
+        d.reject();
+        return d.promise;
+      }
     },
     sendTest:function(){
       //send test directly to current user
