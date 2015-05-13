@@ -44,7 +44,7 @@ module.exports = function(grunt) {
         command:'bower install'
       },
       docker:{
-        command:'docker build -t opsee/bartnet .'
+        command:'docker build -t opsee/lasape .'
       }
     },
     connect: {
