@@ -42,6 +42,9 @@ module.exports = function(grunt) {
       },
       bower:{
         command:'bower install'
+      },
+      docker:{
+        command:'docker build -t opsee/bartnet .'
       }
     },
     connect: {
@@ -103,19 +106,6 @@ module.exports = function(grunt) {
             '../js/src/vendor/scripts/highlight.pack',
             'angular-highlightjs/angular-highlightjs',
             'ngstorage/ngStorage.min'
-          ])
-        }
-      },
-      srcScripts:{
-        options:{
-          mangle:false,
-          compress:false,
-          beautify:true
-        },
-        files:{
-          'public/js/dist/script.min.js':addSrc([
-          'contact',
-          'script'
           ])
         }
       }
@@ -204,5 +194,6 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['shell:bower','compass','build','connect', 'watch']);
   grunt.registerTask('build', ['uglify','shell:jekyll','copy']);
+  grunt.registerTask('docker', ['shell:bower', 'compass', 'build', 'shell:docker']);
 
 };
