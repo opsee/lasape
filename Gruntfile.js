@@ -40,6 +40,9 @@ module.exports = function(grunt) {
       },
       bower:{
         command:'bower install'
+      },
+      docker:{
+        command:'docker build -t opsee/lasape .'
       }
     },
     connect: {
@@ -97,19 +100,6 @@ module.exports = function(grunt) {
             'angular-highlightjs/angular-highlightjs',
             'ngstorage/ngStorage.min',
             'angular-gravatar/build/angular-gravatar.min'
-          ])
-        }
-      },
-      srcScripts:{
-        options:{
-          mangle:false,
-          compress:false,
-          beautify:true
-        },
-        files:{
-          'public/js/dist/script.min.js':addSrc([
-          'contact',
-          'script'
           ])
         }
       }
@@ -188,5 +178,6 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['shell:bower','compass','build','connect', 'watch']);
   grunt.registerTask('build', ['uglify','shell:jekyll','copy']);
+  grunt.registerTask('docker', ['shell:bower', 'compass', 'build', 'shell:docker']);
 
 };

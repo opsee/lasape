@@ -14,7 +14,7 @@
   @include box-sizing(border-box);
   @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
   border-bottom: 1px solid $gray-800;
-  line-height: 16px;
+  line-height: 1.6rem;
   // padding: 16px 16px;
   position: relative;
   // &:active {

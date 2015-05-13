@@ -1,0 +1,30 @@
+.md-bottom-sheet {
+  list-style: none;
+  padding: 0;
+  &:not(:first-of-type) {
+    border-top: 1px solid $gray-800;
+  }
+}
+.md-bottom-sheet-item {
+  @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
+  padding: 16px;
+  > button {
+    text-align: left;
+    width: 100%;
+  }
+  &:hover, &:active {
+    background-color: $gray-800;
+  }
+}
+.md-bottom-sheet-avatar {
+  display: inline-block;
+  fill: $text-color;
+  height: 18px;
+  margin-right: 16px;
+  vertical-align: text-bottom;
+  width: 18px;
+}
+.md-bottom-sheet-title {
+  // line-height: 16px;
+  vertical-align: middle;
+}

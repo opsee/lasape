@@ -1,0 +1,19 @@
+lasape:
+  image: opsee/lasape
+  links:
+    - bartnet:bartnet-api
+  environment:
+    BARTNET_HOST: bartnet-api
+    BARTNET_PORT: 8080
+  ports:
+    - "9000:80"
+bartnet:
+  image: opsee/bartnet
+  links:
+    - db:postgres
+  ports: 
+    - "8080:8080"
+db:
+  image: postgres:9.4
+  ports:
+    - "5432:5432"
