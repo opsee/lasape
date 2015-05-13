@@ -2,8 +2,6 @@ module.exports = function(grunt) {
 
   var rewrite = require( "connect-modrewrite" );
 
-  // var bower = "components/";
-
   function addLib(array){
     var n = [];
     array.forEach(function(a){
@@ -74,11 +72,6 @@ module.exports = function(grunt) {
     },
     uglify:{
       deps:{
-        // options:{
-        //   uglify:false,
-        //   beautify:true,
-        //   mangle:false
-        // },
         files:{
           'public/js/dist/deps.min.js':addLib([
             'angular/angular.min',
@@ -102,7 +95,8 @@ module.exports = function(grunt) {
             'angular-moment/angular-moment.min',
             '../js/src/vendor/scripts/highlight.pack',
             'angular-highlightjs/angular-highlightjs',
-            'ngstorage/ngStorage.min'
+            'ngstorage/ngStorage.min',
+            'angular-gravatar/build/angular-gravatar.min'
           ])
         }
       },
@@ -118,15 +112,6 @@ module.exports = function(grunt) {
           'script'
           ])
         }
-      }
-    },
-    cssmin: {
-      minify: {
-        expand: true,
-        cwd: 'css/src',
-        src: ['*.css', '!*.min.css'],
-        dest: 'css/dist',
-        ext: '.min.css'
       }
     },
     autoprefixer:{
@@ -195,7 +180,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-jekyll');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-shell-spawn');

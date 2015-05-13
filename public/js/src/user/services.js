@@ -2,7 +2,7 @@
 
 angular.module('opsee.user.services', []);
 
-function User($resource, $rootScope, _, $cookies, $state, USER_DEFAULTS, ENDPOINTS){
+function User($resource, $rootScope, _, $cookies, $state, $q, USER_DEFAULTS, ENDPOINTS, SlackService, gravatarService){
   var User = $resource(ENDPOINTS.user,
     {
       id:'@_id'
@@ -14,6 +14,39 @@ function User($resource, $rootScope, _, $cookies, $state, USER_DEFAULTS, ENDPOIN
     });
   User.prototype.setDefaults = function(){
     _.defaults(this, USER_DEFAULTS);
+    this.populateSlack();
+    return this;
+  }
+  User.prototype.populateSlack = function(){
+    var self = this;
+    var deferred = $q.defer();
+    SlackService.getProfile().then(function(res){
+      self.integrations.slack.user = res.data.user;
+      self.setImage();
+      deferred.resolve();
+    }, function(){
+      self.setImage();
+      deferred.resolve();
+    });
+    return deferred.promise;
+  }
+  User.prototype.setImage = function(){
+    var self = this;
+    function slackSet(data){
+      self.bio.img = data.user.profile.image_192;
+      self.bio.imgService = 'Slack';
+    }
+    if(this.integrations.slack.user){
+      slackSet(self.integrations.slack);
+    }else{
+      SlackService.getProfile().then(function(res){
+        slackSet(res.data);
+      }, function(){
+        //no slack integration found, default to gravatar
+        self.bio.img = gravatarService.url(self.account.email || self.email, {s:200});
+        self.bio.imgService = 'Gravatar';
+      });
+    }
     return this;
   }
   // User.prototype.hasPermission = function(string){
@@ -31,6 +64,29 @@ function User($resource, $rootScope, _, $cookies, $state, USER_DEFAULTS, ENDPOIN
   return User;
 }
 angular.module('opsee.user.services').factory('User', User);
+
+var userDefaults = {
+  account:{
+    email:null,
+    password:null
+  },
+  bio:{
+    name:null
+  },
+  aws:{
+    accessKey:null,
+    secretKey:null
+  },
+  teams:[
+  ],
+  integrations:{
+    slack:{
+      access_token:null,
+      user:null
+    }
+  }
+}
+angular.module('opsee.user.services').constant('USER_DEFAULTS', userDefaults);
 
 
 function UserService($q, $resource, $rootScope, User, ENDPOINTS){
@@ -96,23 +152,5 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
   }
 }
 angular.module('opsee.user.services').service('UserService', UserService);
-
-
-var userDefaults = {
-  account:{
-    email:null,
-    password:null
-  },
-  bio:{
-    name:null
-  },
-  aws:{
-    accessKey:null,
-    secretKey:null
-  },
-  teams:[
-  ]
-}
-angular.module('opsee.user.services').constant('USER_DEFAULTS', userDefaults);
 
 })();

@@ -93,11 +93,9 @@ function OnboardPasswordCtrl($scope,$state,$rootScope,$stateParams,User,UserServ
 }
 angular.module('opsee.user.controllers').controller('OnboardPasswordCtrl', OnboardPasswordCtrl);
 
-function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $localStorage, User, UserService, SlackService, slackProfile){
-  $scope.slackProfile = slackProfile;
-  console.log(slackProfile);
-  if($scope.slackProfile){
-    $scope.user.bio.title = $scope.user.bio.title || $scope.slackProfile.title;
+function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $localStorage, User, UserService, SlackService){
+  if(!$scope.user.bio.title && $scope.user.integrations.slack.user){
+    $scope.user.bio.title = $scope.user.integrations.slack.user.profile.title;
   }
   if(!$localStorage.testSent){
     SlackService.sendTest();
@@ -108,13 +106,11 @@ function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $localStor
   }
 }
 OnboardProfileCtrl.resolve = {
-  slackProfile:function($localStorage,SlackService){
-    if($localStorage.slackAccessToken){
-      return SlackService.getProfile().then(function(res){
-        return res.data.user.profile;
-      }, function(res){
-        return null;
-      })
+  slackProfile:function($localStorage,$rootScope){
+    if($rootScope.user.integrations.slack.user){
+      return true; 
+    }else if($localStorage.slackAccessToken){
+      return $rootScope.user.populateSlack();
     }else{
       return false;
     }
@@ -122,10 +118,16 @@ OnboardProfileCtrl.resolve = {
 }
 angular.module('opsee.user.controllers').controller('OnboardProfileCtrl', OnboardProfileCtrl);
 
-function OnboardTeamCtrl($scope, $rootScope, $state, UserService){
+function OnboardTeamCtrl($scope, $rootScope, $state, UserService, OnboardService){
   $scope.fullDomain = null;
   $scope.$watch(function(){return $scope.user.account.customer_id}, function(newVal,oldVal){
     $scope.fullDomain = newVal ? newVal+'.opsee.co' : null;
+    OnboardService.domainAvailable(newVal).then(function(res){
+      console.log(res);
+    }, function(res){
+      $rootScope.emit('notify',res);
+      console.log(res);
+    })
   })
   $scope.submit = function(){
     var data = {

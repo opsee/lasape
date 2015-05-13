@@ -47,5 +47,13 @@ function userLogin(){
 }
 angular.module('opsee.user.directives').directive('userLogin', userLogin);
 
+function profileImg(){
+  return {
+    restrict:'EA',
+    template:'<div ng-if="user.bio.img"><img title="Image from {{user.bio.imgService}}" src="{{user.bio.img}}"></div>'
+  }
+}
+angular.module('opsee.user.directives').directive('profileImg', profileImg);
+
 
 })();//IIFE
