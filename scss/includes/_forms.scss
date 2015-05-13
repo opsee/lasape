@@ -81,17 +81,23 @@
     }
   }// > input
   > input[type='search'] {
+    @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
     @include border-radius(3px);
     @include appearance(none);
     @include placeholder($text-color-secondary);
     @extend .md-shadow-bottom-z-1;
+    // @include box-shadow(none);
     background-color: $gray-800;
     border: none;
     color: $text-color;
     padding: 1.5em 1em;
     text-indent: 2em;
     &:focus {
+      background-color: $blue-gray-800;
       outline: none;
+      + .search-icon {
+        fill: $text-color;
+      }
     }
     + .search-icon {
       fill: $text-color-secondary;
