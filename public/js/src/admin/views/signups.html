@@ -3,7 +3,7 @@
     <h1>Signups</h1>
     <ul class="list-unstyled row">
       <li ng-repeat="signup in signups | orderBy:'-created_at'" class="col-xs-12 col-sm-6">
-        <h2><a href="/admin/signup/{{::signup.id}}">{{::signup.name}}</a></h2>
+        <h2>{{::signup.name}}</h2>
         <h3>{{::signup.email}} - ID:{{::signup.id}}</h3>
         Created: {{::signup.created_at | date:'mediumDate'}}
         <button type="button" class="btn btn-primary" ng-click="activateSignup(signup.email)">Activate User</button>

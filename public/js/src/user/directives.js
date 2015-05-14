@@ -9,8 +9,9 @@ function userInputs(){
     transclude: true,
     scope:{
       user:'=',
-      login:'=',
-      onboarding:'='
+      login:'=?',
+      onboarding:'=?',
+      starting:'=?'
     },
     controller:function($scope,$rootScope){
     }
@@ -34,8 +35,8 @@ function userLogin(){
           UserService.login($scope.user).then(function(res){
             $rootScope.$emit('setUser',res);
             $scope.state = res.statusText || $scope.options.success;
-          }, function(err){
-            console.log(err);
+          }, function(res){
+            console.log(res);
             $scope.error = res.data.error || 'There was an error processing your request.';
             $scope.state = $scope.options.error;
             $rootScope.$emit('notify',$scope.error);

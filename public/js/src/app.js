@@ -1,12 +1,8 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngPageTitle', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','angularMoment', 'ngAnimate','hljs', 'ui.gravatar'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','angularMoment', 'ngAnimate','hljs', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
 
-  angular.module('opsee').config(function($analyticsProvider, $pageTitleProvider){
-    $pageTitleProvider.setSuffix(' - Opsee');
-  });
-
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $cookies, $timeout, Global, Regex, $localStorage, $pageTitle, $analytics, $activityIndicator, $state, authService, User, ENDPOINTS) {
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $timeout, Global, Regex, $localStorage, $analytics, $activityIndicator, $state, authService, User, ENDPOINTS) {
 
     $rootScope.$on('$stateChangeStart', function (event, toState, fromState, fromParams) {
       if(toState.name != ('login')){
@@ -21,7 +17,7 @@
     });
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, fromState, fromParams) {
-      $analytics.pageTrack(toState.name);
+      $analytics.pageTrack(toState.url);
       $activityIndicator.timer = false;
       $activityIndicator.stopAnimating();
     });
@@ -35,10 +31,19 @@
     $rootScope.localStorage = $localStorage;
     $rootScope.global = Global;
     $rootScope.regex = Regex;
+    console.log($state.current);
+    $rootScope.pageInfo = {
+      title: function(){
+        if(!$state.current.title){
+          return 'Opsee';
+        }
+        return $state.current.title == 'Opsee' ? 'Opsee' : $state.current.title + ' - Opsee'
+      }
+    }
 
-    if($cookies.user){
+    if($localStorage.user){
       try{
-        $rootScope.user = new User(JSON.parse($cookies.user)).setDefaults();
+        $rootScope.user = new User(JSON.parse($localStorage.user)).setDefaults();
       }catch(err){
         $rootScope.user = new User().setDefaults();
       }
@@ -61,14 +66,13 @@
 
     $rootScope.$state = $state;
 
-    $pageTitle.set();
-
     $rootScope.$on('notify', function(event,msg){
+      $analytics.eventTrack('notify', {category:'Global',label:msg});
       Global.notify(msg);
     });
 
     $rootScope.$on('setAuth', function(event,token){
-      $cookies.authToken = token || null;
+      $localStorage.authToken = token || null;
       // authService.loginConfirmed();
       if($rootScope.previousRoute){
         $state.go($rootScope.previousRoute);
@@ -78,7 +82,7 @@
     });
 
     $rootScope.$on('setUser', function(event,user){
-      $cookies.user = angular.toJson(user);
+      $localStorage.user = angular.toJson(user);
       $rootScope.user = new User(user).setDefaults();
       $rootScope.$broadcast('setAuth',user.token);
     })
@@ -106,13 +110,13 @@
   });
 
   function opseeInterceptor($routeProvider, $locationProvider, $httpProvider, $provide, $stateProvider) {
-    $provide.factory('opseeInterceptor', function($q, $cookies, $injector) {
+    $provide.factory('opseeInterceptor', function($q, $localStorage, $injector) {
       return {
         request:function(config){
           config.headers = config.headers || {};
           //slack rejects us if we have extraneous headers, sigh.
-          if ($cookies.authToken && !config.url.match('slack.com')) {
-            config.headers.Authorization = $cookies.authToken;
+          if ($localStorage.authToken && !config.url.match('slack.com')) {
+            config.headers.Authorization = $localStorage.authToken;
           }
           return config;
         },

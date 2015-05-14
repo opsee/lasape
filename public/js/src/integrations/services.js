@@ -19,7 +19,7 @@ var INTEGRATIONS_DETAILS = {
 }
 angular.module('opsee.integrations.services').constant('INTEGRATIONS_DETAILS',INTEGRATIONS_DETAILS);
 
-function SlackService($http, $q, $rootScope, $localStorage, INTEGRATIONS_DETAILS){
+function SlackService($http, $q, $rootScope, $localStorage, $analytics, INTEGRATIONS_DETAILS){
   var obj = {
     token:function(data){
       if(data){
@@ -43,12 +43,18 @@ function SlackService($http, $q, $rootScope, $localStorage, INTEGRATIONS_DETAILS
             token:$localStorage.slackAccessToken
           }
         }).then(function(res){
-          return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.userInfo, {
+          var deferred = $q.defer();
+          $http.get(INTEGRATIONS_DETAILS.slack.endpoints.userInfo, {
             params:{
               token:$localStorage.slackAccessToken,
               user:res.data.user_id
             }
+          }).then(function(res){
+            deferred.resolve(res.data.user);
+          }, function(res){
+            deferred.reject(res);
           });
+          return deferred.promise;
         });
       }else{
         var d = $q.defer();
@@ -59,11 +65,13 @@ function SlackService($http, $q, $rootScope, $localStorage, INTEGRATIONS_DETAILS
     sendTest:function(){
       //send test directly to current user
       obj.getProfile().then(function(res){
+        var text = 'Thanks for signing up, '+res.data.user.profile.first_name+'! - The Opsee Team';
+        $analytics.eventTrack('slack-test-send', {category:'Integrations',label:text});
         return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.postMessage, {
           params:{
             token:$localStorage.slackAccessToken,
             channel:res.data.user.id,
-            text:'Thanks for signing up, '+res.data.user.profile.first_name+'! - The Opsee Team',
+            text:text,
           }
         });
       });

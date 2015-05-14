@@ -7,11 +7,11 @@ function OnboardCtrl($rootScope,$scope,$state){
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
-function OnboardStartCtrl($scope,$state,UserService,Global){
+function OnboardStartCtrl($scope, $state, $analytics, UserService, Global){
   $scope.submit = function(){
     $scope.state = $scope.options.inProgress;
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'Start Form'});
     UserService.create($scope.user).then(function(res){
-      console.log(res);
       $scope.state = res.statusText || $scope.options.success;
       $state.go('onboard.thanks',{email:$scope.user.account.email});
     }, function(res){
@@ -84,16 +84,17 @@ OnboardTutorial3Ctrl.resolve = {
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorial3Ctrl', OnboardTutorial3Ctrl);
 
-function OnboardPasswordCtrl($scope,$state,$rootScope,$stateParams,User,UserService){
+function OnboardPasswordCtrl($scope, $state, $rootScope, $stateParams, $analytics, User, UserService){
   $scope.user.activationId = $stateParams.token;
   $scope.user.account.email = $stateParams.email;
   $scope.submit = function(){
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'Password Form'});
     $state.go('onboard.profile');
   }
 }
 angular.module('opsee.user.controllers').controller('OnboardPasswordCtrl', OnboardPasswordCtrl);
 
-function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $localStorage, User, UserService, SlackService){
+function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $analytics, $localStorage, User, UserService, SlackService){
   if(!$scope.user.bio.title && $scope.user.integrations.slack.user){
     $scope.user.bio.title = $scope.user.integrations.slack.user.profile.title;
   }
@@ -102,6 +103,7 @@ function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $localStor
     $localStorage.testSent = true;
   }
   $scope.submit = function(){
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'Profile Form'});
     $state.go('onboard.team');
   }
 }
@@ -118,7 +120,7 @@ OnboardProfileCtrl.resolve = {
 }
 angular.module('opsee.user.controllers').controller('OnboardProfileCtrl', OnboardProfileCtrl);
 
-function OnboardTeamCtrl($scope, $rootScope, $state, UserService, OnboardService){
+function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, OnboardService){
   $scope.fullDomain = null;
   $scope.$watch(function(){return $scope.user.account.customer_id}, function(newVal,oldVal){
     $scope.fullDomain = newVal ? newVal+'.opsee.co' : null;
@@ -130,6 +132,7 @@ function OnboardTeamCtrl($scope, $rootScope, $state, UserService, OnboardService
     })
   })
   $scope.submit = function(){
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'Team Form'});
     var data = {
       password:$scope.user.account.password,
       team_name:$scope.user.account.team_name,
@@ -159,8 +162,9 @@ function OnboardTeamCtrl($scope, $rootScope, $state, UserService, OnboardService
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', OnboardTeamCtrl);
 
-function OnboardCredentialsCtrl($scope, $rootScope, $state, AWSService){
+function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSService){
   $scope.submit = function(){
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
     var data = {
       accessKey:$scope.user.aws.accessKey,
       secretKey:$scope.user.aws.secretKey
@@ -210,7 +214,6 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'Thank You'
     })
     .state('onboard.tutorial', {
-      // url:'tutorial',
       parent:'onboard',
       controller:'OnboardTutorialCtrl',
       title:'Tutorial',

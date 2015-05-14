@@ -150,23 +150,16 @@ angular.module('opsee.global.controllers').controller('NotFoundCtrl',NotFoundCtr
 
 function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('404');
-    $stateProvider.state('app', {
-      'abstract': true,
-      resolve: {
-        authorize:function(authorization) {
-          return authorization.authorize();
-        }
-      }
-    })
-    .state('home', {
+    $stateProvider.state('home', {
       url:'/',
       controller:'HomeCtrl',
-      templateUrl:'/public/js/src/global/views/home.html',
+      templateUrl:'/public/js/src/global/views/home.html'
     })
     .state('404', {
       url:'/404',
       controller:'NotFoundCtrl',
       templateUrl:'/public/js/src/global/views/404.html',
+      title:'404'
     })
   }
   angular.module('opsee').config(config);

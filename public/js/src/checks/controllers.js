@@ -2,7 +2,7 @@
 
 angular.module('opsee.checks.controllers', ['opsee.checks.services']);
 
-function ChecksCtrl($scope, $state, $timeout, Check){
+function ChecksCtrl($scope, $state, $timeout, $analytics, Check){
   $scope.checks = [
   {
     name:'My great check',
@@ -35,7 +35,8 @@ function ChecksCtrl($scope, $state, $timeout, Check){
     $scope.checks[i] = new Check(c);
   });
   $scope.$watch(function(){return $scope.checkSearch},function(newVal,oldVal){
-    if(newVal != oldVal){
+    if(newVal && newVal != oldVal){
+      $analytics.eventTrack('search', {category:'Checks',label:newVal});
       var query = Check.query({q:newVal});
       query.$promise.then(function(res){
         $scope.checks = res.data;
@@ -53,6 +54,7 @@ angular.module('opsee.checks.controllers').controller('ChecksCtrl', ChecksCtrl);
 
 function SingleCheckCtrl($scope, $state, $stateParams, Check, singleCheck){
   $scope.check = new Check(singleCheck).setDefaults();
+  $state.current.title = $scope.check.name;
 }
 SingleCheckCtrl.resolve = {
   singleCheck:function($stateParams, Check){
