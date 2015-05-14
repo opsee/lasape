@@ -13,7 +13,11 @@ bartnet:
     - db:postgres
   ports: 
     - "8080:8080"
+  environment:
+    DB_NAME: "opsee_stage"
 db:
-  image: postgres:9.4
+  image: opsee/postgres
   ports:
     - "5432:5432"
+  volumes:
+    - /home/docker:/data
