@@ -84,7 +84,7 @@
     @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
     @include border-radius(3px);
     @include appearance(none);
-    @include placeholder($text-color-secondary);
+    // @include placeholder($text-color-secondary);
     @extend .md-shadow-bottom-z-1;
     // @include box-shadow(none);
     background-color: $gray-800;
@@ -100,6 +100,7 @@
       }
     }
     + .search-icon {
+      @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);
       fill: $text-color-secondary;
       height: 24px;
       left: 0.75em;
@@ -115,6 +116,23 @@
     // right: 0;
     padding: 6px 12px;
     color: $gray-400;
+  }
+  .dropdown-toggle {
+    @include border-radius(0);
+    @include transition(border-color $swift-ease-out-duration $swift-ease-out-timing-function);
+    background-color: transparent;
+    border-bottom: 1px solid $gray-800;
+    padding-left: 0;
+    text-align: left;
+    text-transform: none;
+    &:hover {
+      background-color: transparent;
+      border-bottom-color: $gray-400;
+    }
+    .icon {
+      fill: $text-color-secondary;
+      float: right;
+    }
   }
 }//.form-group
 .input-error-text {

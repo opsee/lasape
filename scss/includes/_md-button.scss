@@ -118,7 +118,7 @@ $button-fab-padding: 1.60rem !default;
   background-clip: padding-box;
   overflow: hidden;
   position: relative;
-  &:hover, &:active {
+  &:active {
     background-color: $gray-800;
   }
   .btn-fab-icon {
@@ -134,24 +134,6 @@ $button-fab-padding: 1.60rem !default;
   position: absolute;
   top: 50%;
   width: 24px;
-}
-
-.dropdown-toggle {
-  @include border-radius(0);
-  @include transition(border-color $swift-ease-out-duration $swift-ease-out-timing-function);
-  background-color: transparent;
-  border-bottom: 1px solid $gray-800;
-  padding-left: 0;
-  text-align: left;
-  text-transform: none;
-  &:hover {
-    background-color: transparent;
-    border-bottom-color: $gray-400;
-  }
-  .icon {
-    fill: $text-color-secondary;
-    float: right;
-  }
 }
 
 .dropdown-menu {

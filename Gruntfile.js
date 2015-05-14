@@ -50,7 +50,6 @@ module.exports = function(grunt) {
         options: {
           port: 8000,
           base: '',
-          hostname:'localhost',
           open:true,
           middleware: function(connect, options, middlewares) {
             var rules = [

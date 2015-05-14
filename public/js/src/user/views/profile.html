@@ -1,10 +1,12 @@
 <div class="container">
-  <div class="col-xs-12">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
     <h1>Your Profile</h1>
     <profile-img></profile-img>
     <div>{{profile.name}}</div>
     <div>Username: {{profile.customer_id}}</div>
     <div>Email: {{profile.email}}</div>
     <a ui-sref="profileEdit">Edit Your Profile</a>
+
+    <button class="btn btn-raised btn-danger btn-block" ng-click="user.logout()">Log out</button>
   </div>
 </div>

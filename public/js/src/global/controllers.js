@@ -1,6 +1,6 @@
 (function(){
 
-angular.module('opsee.global.controllers', ['opsee.global.services']); 
+angular.module('opsee.global.controllers', ['opsee.global.services']);
 
 function HeaderCtrl($scope, Global, $location, $rootScope) {
   // $scope.user = $rootScope.user;
@@ -9,15 +9,6 @@ function HeaderCtrl($scope, Global, $location, $rootScope) {
       title:'Checks',
       sref:'checks',
       children:[]
-    },
-    {
-      title:'User',
-      children:[
-        {
-          title:'Login',
-          sref:'login',
-        },
-      ]
     },
     {
       title:'Onboarding',
