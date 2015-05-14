@@ -73,9 +73,7 @@ function checkInputs(){
         return AssertionTest($scope.check.assertions[$index],$scope.checkResponse);
       }
       $scope.sendTestNotification = function(){
-        console.log($scope.check);
-      }
-      $scope.finishCreate = function(){
+        $analytics.eventTrack('notification-test', {category:'Checks'});
         console.log($scope.check);
       }
       $scope.forward = function(num){
@@ -88,6 +86,7 @@ function checkInputs(){
           $scope.checkStep = num;
         }else{
           //create this mofo
+          $analytics.eventTrack('create', {category:'Checks'});
           console.log('create',$scope.check);
         }
       }
