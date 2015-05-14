@@ -31,7 +31,6 @@
     $rootScope.localStorage = $localStorage;
     $rootScope.global = Global;
     $rootScope.regex = Regex;
-    console.log($state.current);
     $rootScope.pageInfo = {
       title: function(){
         if(!$state.current.title){

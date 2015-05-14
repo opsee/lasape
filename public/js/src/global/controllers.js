@@ -11,10 +11,10 @@ function HeaderCtrl($scope, Global, $location, $rootScope) {
       children:[]
     },
     {
-      title:'Onboarding',
+      title:'Admin',
       children:[
         {
-          title:'Start',
+          title:'Signup',
           sref:'onboard.start',
         },
         {
@@ -37,15 +37,11 @@ function HeaderCtrl($scope, Global, $location, $rootScope) {
           title:'Credentials',
           sref:'onboard.credentials',
         },
-      ]
-    },
-    {
-      title:'Admin',
-      children:[
         {
           title:'Signups',
           sref:'signups',
-        },
+          children:[]
+        }
       ]
     }
   ];
