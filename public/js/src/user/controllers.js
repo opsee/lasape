@@ -4,7 +4,7 @@ angular.module('opsee.user.controllers', ['opsee.user.services']);
 
 function LogoutCtrl($state, principal) {
   principal.authenticate(null);
-  //delete $cookies.authToken;
+  //delete $localStorage.authToken;
   localStorage.removeItem("opsee.identity");
   $state.go('login');
 }

@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>{{page.title}}</title>
+  <title ng-bind="pageInfo.title()"></title>
   <meta name="viewport" content="width=device-width">
   <link rel="shortcut icon" href="/public/favicon.ico">
   <link rel="stylesheet" href="/public/css/src/style.css">
@@ -18,5 +18,4 @@
     <div ng-include="'/public/js/src/global/views/svg-sprite.html'"></div>
     <header id="header" ng-include="'/public/js/src/global/views/header.html'"></header>
     <section class="content wrap" ui-view>
-      <div ui-view="onboard"></div>
     </section>

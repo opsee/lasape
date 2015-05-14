@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <h1>Edit Your Profile</h1>
     <user-inputs user="profile"></user-inputs>
-    <div ng-if="">
+    <div ng-if="!user.integrations.slack.user">
       <h2>Slack Authorization</h2>
       <slack-auth></slack-auth>
     </div>

@@ -4,7 +4,7 @@
       <h1>Create your account</h1>
 
       <form name="signupForm" ng-submit="submit()" user-signup novalidate>
-        <user-inputs user="user"></user-inputs>
+        <user-inputs user="user" starting="true"></user-inputs>
         <div class="form-group">
           <button disabled="disabled" ng-disabled="state == options.inProgress || signupForm.$invalid" type="submit" class="btn btn-success btn-raised btn-block ng-disabled">
             <span>{{state}}</span>

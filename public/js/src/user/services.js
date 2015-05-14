@@ -2,7 +2,7 @@
 
 angular.module('opsee.user.services', []);
 
-function User($resource, $rootScope, _, $cookies, $state, $q, USER_DEFAULTS, ENDPOINTS, SlackService, gravatarService){
+function User($resource, $rootScope, _, $localStorage, $state, $q, USER_DEFAULTS, ENDPOINTS, SlackService, gravatarService){
   var User = $resource(ENDPOINTS.user,
     {
       id:'@_id'
@@ -20,8 +20,8 @@ function User($resource, $rootScope, _, $cookies, $state, $q, USER_DEFAULTS, END
   User.prototype.populateSlack = function(){
     var self = this;
     var deferred = $q.defer();
-    SlackService.getProfile().then(function(res){
-      self.integrations.slack.user = res.data.user;
+    SlackService.getProfile().then(function(data){
+      self.integrations.slack.user = data;
       self.setImage();
       deferred.resolve();
     }, function(){
@@ -39,8 +39,8 @@ function User($resource, $rootScope, _, $cookies, $state, $q, USER_DEFAULTS, END
     if(this.integrations.slack.user){
       slackSet(self.integrations.slack);
     }else{
-      SlackService.getProfile().then(function(res){
-        slackSet(res.data);
+      SlackService.getProfile().then(function(data){
+        slackSet(data);
       }, function(){
         //no slack integration found, default to gravatar
         self.bio.img = gravatarService.url(self.account.email || self.email, {s:200});
@@ -56,8 +56,8 @@ function User($resource, $rootScope, _, $cookies, $state, $q, USER_DEFAULTS, END
     return !!this.id;
   }
   User.prototype.logout = function(){
-    delete $cookies.user;
-    delete $cookies.authToken;
+    delete $localStorage.user;
+    delete $localStorage.authToken;
     $rootScope.user = new User().setDefaults();
     $state.go('home');
   }
@@ -89,7 +89,7 @@ var userDefaults = {
 angular.module('opsee.user.services').constant('USER_DEFAULTS', userDefaults);
 
 
-function UserService($q, $resource, $rootScope, User, ENDPOINTS){
+function UserService($q, $resource, $rootScope, $analytics, User, ENDPOINTS){
   return{
     set:function(USER){
       $rootScope.user = new User(USER).setDefaults().setPrefs();
@@ -127,6 +127,7 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
       }
     },
     login:function(user){
+      $analytics.eventTrack('login', {category:'User'});
       if(user && user.account.email){
         var data = {
           password:user.account.password,
@@ -139,9 +140,10 @@ function UserService($q, $resource, $rootScope, User, ENDPOINTS){
         return $q.reject();
       }
     },
-    logout:function(user,$cookies){
-      $cookies.remove('user');
-      $cookies.remove('authToken');
+    logout:function(user,$localStorage){
+      $analytics.eventTrack('logout', {category:'User'});
+      delete $localStorage.user;
+      delete $localStorage.authToken;
       $rootScope.user = new User().setDefaults();
     },
     passwordForgot:function(user){
