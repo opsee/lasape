@@ -2,6 +2,7 @@
 @import "compass/css3/deprecated-support";
 @import "breakpoint";
 @import "includes/module";
+@import "global/header";
 @import "CSS:../public/lib/highlightjs/styles/dark";
 @import "checks/module";
 
@@ -33,97 +34,3 @@ hr {
 .dropdown-menu > li > a {
   font-weight: $body-font-weight;
 }
-
-// img{
-//   max-width:100%;
-//   height:auto;
-// }
-
-// body{
-//   font-family:$sans-serif;
-//   font-size:15px;
-//   min-height:100vh;
-//   @include display-flex();
-//   @include flex-direction(column);
-//   text-rendering: optimizeLegibility;
-//   -webkit-font-variant-ligatures: common-ligatures; /* for iOS and Safari 6 */
-//   font-variant-ligatures: common-ligatures; /* for up-to-date browsers, including IE10 and Opera 21 */
-//   -moz-font-feature-settings: "kern=1"; /* pre-Firefox 14+ */
-//   -webkit-font-feature-settings: "kern";
-//   -moz-font-feature-settings: "kern"; /* Firefox 14+ */
-//   font-feature-settings: "kern"; /* standard */
-//   font-kerning: normal; /* Safari 7+, Firefox 24+, Chrome 33(?)+, Opera 21+*/
-//   > .ai-indicator{
-//     position: fixed;
-//     top:49%;
-//     left:49%;
-//   }
-// }
-
-// svg:not(:root) {
-//   overflow: visible;
-// }
-
-// a{
-//   // color:black;
-// }
-
-// [data-ng-view]{
-//   padding-top:1.5em;
-// }
-// #top{
-//   flex:1;
-// }
-
-// hr{
-//   clear: both;
-//   float: left;
-//   width:100%;
-//   + *{
-//     clear: both;
-//   }
-// }
-
-// .form-control{
-//   font-size:16px;
-// }
-
-// .input-group{
-//   margin-bottom:1em;
-// }
-
-// .modal{
-//   @include transition(background 300ms);
-//   &.in{
-//     background:rgba(0,0,0,.5);
-//     @include transition(none);
-//   }
-//   .modal-lg{
-//     width:90%;
-//     max-width:1000px;
-//   }
-//   .img-modal{
-//     img{
-//       width:100%;
-//       height:auto;
-//     }
-//   }
-// }
-
-// table{
-//   tr:first-of-type{
-//     td{
-//       border:0;
-//     }
-//   }
-// }
-
-// .list-group-item{
-//   padding:6px 9px;
-// }
-// .panel-group{
-//   margin-bottom:8px;
-// }
-
-// @import "global/import";
-// @import "includes/forms";

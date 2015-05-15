@@ -1,32 +1,52 @@
-.navbar{
-  border-radius:0;
+.md-navbar {
+  @extend .md-shadow-bottom-z-2;
+  background-color: $blue-gray-800;
+  bottom: 0;
+  margin: 0;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
 }
-#header{
-  position: relative;
-  margin-bottom:1.5em;
-  padding-top:10px;
-  .icon-nav{
-  font-size:1.1em;
-    a{
-    }
-  }
+.md-navbar-icon {
+  @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);
+  display: block;
+  fill: $text-color;
+  height: 24px;
+  margin: 0 auto;
+  width: 24px;
 }
-.navbar-black{
-  background:white;
-  margin:0;
-  a{
-    color:black;
-  }
-  .icon-bar{
-    background:black;
-  }
+.md-navbar-list {
+  margin: 0 0;
+  padding: 0 0;
 }
-
-.navbar-brand{
-  // background:image-url('logo.png') no-repeat 50% 50%;
-  // background:red;
-  // background-size:100% auto;
-  // margin: 5px 20px;
-  // width: 110px;
-  // height:45px;
+.md-navbar-item {
+  display: inline-block;
+  width: 25%;
+}
+.md-navbar-title {
+  display: block;
+  margin-top: 0.25em;
+}
+.md-navbar-link {
+  @include transition(color $swift-ease-out-duration $swift-ease-out-timing-function);
+  color: $text-color-secondary;
+  display: block;
+  font-size: 0.75em;
+  overflow: hidden;
+  padding: 0.5em 0;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:hover, &:active, &:focus {
+    color: $text-color;
+    background-color: transparent !important;
+    text-decoration: none;
+  }
+  &:active, &:active .md-navbar-icon {
+    color: $brand-primary;
+    fill: $brand-primary;
+  }
+  .icon {
+    fill: $text-color-secondary;
+  }
 }

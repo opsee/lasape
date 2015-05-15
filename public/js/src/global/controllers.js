@@ -11,7 +11,7 @@ function HeaderCtrl($scope, Global, $location, $rootScope) {
       children:[]
     },
     {
-      title:'Admin',
+      title:'More',
       children:[
         {
           title:'Signup',
@@ -26,7 +26,7 @@ function HeaderCtrl($scope, Global, $location, $rootScope) {
           sref:'onboard.password',
         },
         {
-          title:'Profile',
+          title:'Onboarding Profile',
           sref:'onboard.profile',
         },
         {
