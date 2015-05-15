@@ -32,18 +32,15 @@ function SlackService($http, $q, $rootScope, $localStorage, $analytics, INTEGRAT
       }
     },
     getProfile:function(){
+      var deferred = $q.defer();
       if($rootScope.user && $rootScope.user.integrations.slack.user){
-        var d = $q.defer();
-        d.resolve($rootScope.user.integrations.slack.user);
-        return d.promise;
-      }
-      if($localStorage.slackAccessToken){
-        return $http.get(INTEGRATIONS_DETAILS.slack.endpoints.test, {
+        deferred.resolve($rootScope.user.integrations.slack.user);
+      }else if($localStorage.slackAccessToken){
+        $http.get(INTEGRATIONS_DETAILS.slack.endpoints.test, {
           params:{
             token:$localStorage.slackAccessToken
           }
         }).then(function(res){
-          var deferred = $q.defer();
           $http.get(INTEGRATIONS_DETAILS.slack.endpoints.userInfo, {
             params:{
               token:$localStorage.slackAccessToken,
@@ -54,13 +51,11 @@ function SlackService($http, $q, $rootScope, $localStorage, $analytics, INTEGRAT
           }, function(res){
             deferred.reject(res);
           });
-          return deferred.promise;
         });
       }else{
-        var d = $q.defer();
-        d.reject();
-        return d.promise;
+        return $q.reject();
       }
+      return deferred.promise;
     },
     sendTest:function(){
       //send test directly to current user

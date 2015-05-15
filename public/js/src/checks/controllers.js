@@ -195,6 +195,7 @@ angular.module('opsee.checks.controllers').controller('EditCheckCtrl', EditCheck
 function CreateCheckCtrl($scope, $state, Check){
   $scope.check = new Check().setDefaults();
   $scope.submit = function(){
+    $analytics.eventTrack('create', {category:'Checks'});
     console.log($scope.check);
   }
   $scope.checkStep = 1;
@@ -202,7 +203,7 @@ function CreateCheckCtrl($scope, $state, Check){
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 
-function config ($stateProvider, $urlRouterProvider) {
+function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
     $stateProvider.state('checks', {
       url:'/checks',
       templateUrl:'/public/js/src/checks/views/index.html',
