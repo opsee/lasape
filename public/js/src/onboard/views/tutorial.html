@@ -1,18 +1,28 @@
 <div class="tutorial">
+  <div class="md-toolbar md-medium-tall">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+          <div class="md-toolbar-tools">
+            <h1>How Opsee Works</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- .md-toolbar -->
   <div class="ui-view-container">
     <div ui-view class="no-transition" ng-class="{popstate:popstate}"></div>
   </div>
-  <div class="bg-gray-900">
+  <div>
     <div class="container">
       <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
         <a class="btn btn-success btn-block btn-raised" href="#" ng-click="$state.go(step.link)">
         {{step.text}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg>
         </a>
-        <div><br/></div>
+        <div class="step-counter">
+          <div ng-class="{active:$state.is('onboard.tutorial.'+s)}" class="step-bullet" ng-repeat="s in [1,2,3]"></div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="step-counter">
-    <div ng-class="{active:$state.is('onboard.tutorial.'+s)}" class="step-bullet" ng-repeat="s in [1,2,3]"></div>
   </div>
 </div>

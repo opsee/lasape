@@ -13,13 +13,29 @@
   <div class="container">
     <div class="row">
       <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-        <profile-img></profile-img>
-        <div>{{profile.name}}</div>
-        <div>Username: {{profile.customer_id}}</div>
-        <div>Email: {{profile.email}}</div>
-        <a ui-sref="profileEdit">Edit Your Profile</a>
 
-        <button class="btn btn-raised btn-danger btn-block" ng-click="user.logout()">Log out</button>
+        <a ui-sref="profileEdit" class="btn btn-primary btn-fab btn-fab-bottom-right-toolbar" title="Edit Your Profile">
+          <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_edit" /></svg>
+        </a>
+
+        <h2>{{profile.name}}</h2>
+
+        <profile-img></profile-img>
+
+        <table class="table">
+          <tbody>
+            <tr>
+              <td><strong>Name</strong></td>
+              <td>{{profile.customer_id}}</td>
+            </tr>
+            <tr>
+              <td><strong>Email</strong></td>
+              <td>{{profile.email}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button class="btn btn-flat btn-nopad btn-danger" ng-click="user.logout()">Log out</button>
       </div>
     </div>
   </div><!-- .container -->

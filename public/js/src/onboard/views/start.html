@@ -1,17 +1,30 @@
-<div class="container" ng-cloak>
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-      <h1>Create your account</h1>
-
-      <form name="signupForm" ng-submit="submit()" user-signup novalidate>
-        <user-inputs user="user" starting="true"></user-inputs>
-        <div class="form-group">
-          <button disabled="disabled" ng-disabled="state == options.inProgress || signupForm.$invalid" type="submit" class="btn btn-success btn-raised btn-block ng-disabled">
-            <span>{{state}}</span>
-            <span class="ng-hide" ng-show="state == options.inProgress">A spinner</span>
-          </button>
+<div>
+  <div class="md-toolbar md-medium-tall">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+          <div class="md-toolbar-tools">
+            <h1>Create your account</h1>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div><!-- .container -->
+  </div><!-- .md-toolbar -->
+  <div class="container" ng-cloak>
+    <div class="row">
+      <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+        <form name="signupForm" ng-submit="submit()" user-signup novalidate>
+          <div class="form-group">
+            <user-inputs user="user" starting="true"></user-inputs>
+          </div>
+          <div class="form-group">
+            <button disabled="disabled" ng-disabled="state == options.inProgress || signupForm.$invalid" type="submit" class="btn btn-success btn-raised btn-block ng-disabled">
+              <span>{{state}}</span>
+              <span class="ng-hide" ng-show="state == options.inProgress">A spinner</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div><!-- .container -->
+</div>

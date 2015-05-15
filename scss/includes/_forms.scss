@@ -1,10 +1,11 @@
 .form-group {
   border: none;
+  margin-bottom: 32px;
   position: relative;
   &.search-group {
     margin-top: 4em;
   }
-  > label {
+  label {
     @include opacity(0);
     @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function,
                         opacity $swift-ease-out-duration $swift-ease-out-timing-function,
@@ -19,7 +20,7 @@
     visibility: hidden;
     + input {padding-top: 0.8rem;}
   }
-  > input[type='text'], > [type='email'], > [type='password'], > textarea  {
+  input[type='text'], > [type='email'], > [type='password'], > textarea  {
     @include box-shadow(none);
     @include placeholder($text-color-secondary);
     background-color: transparent;
@@ -34,7 +35,7 @@
         fill: $gray-400;
       }
     }
-    &:focus, &:active, &.has-content, &.error {
+    &:focus, &.has-content, &.error {
       @include placeholder(transparent);
       ~ label {
         @include opacity(100);
@@ -42,7 +43,7 @@
         visibility: visible;
       }
     }
-    &:focus, &:active {
+    &:focus {
       @include box-shadow(0 1px 0 $brand-info);
       border-bottom-color: $brand-info;
       ~ label {color: $brand-info;}
@@ -80,7 +81,7 @@
       text-indent: 32px;
     }
   }// > input
-  > input[type='search'] {
+  input[type='search'] {
     @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
     @include border-radius(3px);
     @include appearance(none);

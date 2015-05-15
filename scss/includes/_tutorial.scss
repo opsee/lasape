@@ -80,19 +80,24 @@
 .step-bullet {
   @include box-sizing(border-box);
   @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
-  border: 3px solid white;
-  border-radius: 8px;
+  border: 2px solid white;
+  border-radius: 50%;
   background-color: transparent;
   content: "";
   display: inline-block;
-  height: 16px;
+  height: 12px;
   margin: 16px 8px 16px 0;
-  width: 16px;
+  width: 12px;
   &.active {
     background-color: white;
   }
   &:last-of-type {
     margin-right: 0;
+  }
+  @include breakpoint($screen-sm) {
+    border: 3px solid white;
+    height: 16px;
+    width: 16px;
   }
 }
 

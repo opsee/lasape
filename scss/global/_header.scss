@@ -6,6 +6,10 @@
   position: fixed;
   z-index: 10;
   width: 100%;
+  // @include breakpoint($screen-sm) {
+  //   position: static;
+  //   bottom: auto;
+  // }
 }
 .md-navbar-icon {
   @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);

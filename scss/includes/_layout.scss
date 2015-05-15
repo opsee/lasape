@@ -1,5 +1,9 @@
+body {
+  padding-bottom: 100px;
+}
+
 .content-pad {
-  padding-top: 16px;
+  padding-top: 32px;
 }
 
 .display-flex{
@@ -53,7 +57,6 @@ to prevent collapsing during animation*/
 
 [ui-view] {
   @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
-  margin-bottom: 100px;
   &.ng-enter{
     @include transform(translateY(15px));
   }
