@@ -14,7 +14,7 @@
 .md-navbar-icon {
   @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);
   display: block;
-  fill: $text-color;
+  fill: $text-color-secondary;
   height: 24px;
   margin: 0 auto;
   width: 24px;
@@ -45,6 +45,9 @@
     color: $text-color;
     background-color: transparent !important;
     text-decoration: none;
+    .md-navbar-icon {
+      fill: $text-color;
+    }
   }
   &:active, &:active .md-navbar-icon {
     color: $brand-primary;

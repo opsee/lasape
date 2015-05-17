@@ -118,7 +118,7 @@ $button-fab-padding: 1.60rem !default;
   background-clip: padding-box;
   overflow: hidden;
   position: relative;
-  &:active {
+  &:hover, &:active, &:focus {
     background-color: $gray-800;
   }
   .btn-fab-icon {
