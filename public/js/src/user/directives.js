@@ -7,13 +7,15 @@ function userInputs(){
     restrict:'EA',
     templateUrl:'/public/js/src/user/partials/inputs.html',
     transclude: true,
+    require: '^form',
     scope:{
       user:'=',
       login:'=?',
       onboarding:'=?',
       starting:'=?'
     },
-    controller:function($scope,$rootScope){
+    link:function($scope, $element, $attrs, $formCtrl){
+      $scope.form = $formCtrl;
     }
   }
 }

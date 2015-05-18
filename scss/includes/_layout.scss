@@ -36,11 +36,17 @@ body {
 .justify-content-between{
   @include justify-content(space-between);
 }
+.justify-content-around{
+  @include justify-content(space-around);
+}
 .flex-75{
   @include flex(1 75%);
 }
 .flex-25{
  @include flex(1 25%);
+}
+.flex-order-1{
+  @include order(1);
 }
 
 /* Have to set height explicity on ui-view
@@ -55,27 +61,75 @@ to prevent collapsing during animation*/
   }
 }
 
-[ui-view] {
+[ui-view]{
   @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
+  // @include transition(all 5000ms);
+  &.transition-grow{
+    @include transform-origin(top left);
+  }
   &.ng-enter{
-    @include transform(translateY(15px));
+    &.transition-regular{
+      @include transform(translateY(15px));
+    }
+    &.transition-slide{
+      @include transform(translateX(100%));
+    }
+    &.transition-grow{
+      z-index:2;
+      @include transform(scale(1,0));
+      &.close{
+        @include transform(none);
+        z-index:0;
+      }
+    }
   }
   &.ng-enter,&.ng-leave-active{
-    opacity:0;
     position:absolute;
     left:0;
     right:0;
+    &.transition-regular{
+      opacity:0;
+    }
   }
   &.ng-enter-active,&.ng-leave{
-    @include transform(none);
-    opacity:1;
     position:absolute;
     left:0;
     right:0;
+    &.transition-regular{
+      opacity:1;
+      @include transform(none);
+    }
+    &.transition-slide{
+     @include transform(none); 
+    }
+  }
+  &.ng-enter-active{
+    &.transition-grow{
+      &.close{
+        @include transform(none);
+      }
+    }
+  }
+  &.ng-leave{
+    &.transition-grow{
+      &.close{
+        @include transform(scale(1,0));
+        z-index:2;
+      }
+    }
   }
   &.ng-leave-active{
-    @include transform(translateY(-15px));
-    opacity:0;
+    &.transition-regular{
+      @include transform(translateY(-15px));
+      opacity:0;
+    }
+    &.transition-slide{
+      // @include transform(translateX(100%));
+      @include transform(none);
+    }
+    &.transition-grow{
+      @include transform(none);
+    }
   }
 }
 

@@ -2,40 +2,40 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-        <ul class="md-navbar-list">
-          <li class="md-navbar-item">
-            <a class="md-navbar-link" ui-sref="home">
-              <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_globe" /></svg>
-              <span class="md-navbar-title">Environment</span>
-            </a>
-          </li><!--
-       --><li dropdown class="md-navbar-item dropup" ng-repeat="link in navbarEntries">
-            <a href="#" ng-class="{'active':isActive($index)}" class="dropdown-toggle md-navbar-link" ng-if="link.children.length" dropdown-toggle>
-              <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_more_horiz" /></svg>
-              <span class="md-navbar-title">{{::link.title}}</span>
-            </a>
-            <a class="md-navbar-link" href="#" ng-click="$state.go(link.sref)" ng-if="!link.children.length" ng-class="{'active':isActive($index)}">
-              <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg>
-              <span class="md-navbar-title">{{::link.title}}</span>
-            </a>
-            <ul class="dropdown-menu" ng-if="link.children.length">
-              <li ng-repeat="child in link.children">
-                <a href="#" ng-click="$state.go(child.sref)">{{::child.title}}</a>
-              </li>
-            </ul>
-          </li><!--
-       --><li class="md-navbar-item" ng-if="user.hasUser()">
-            <a class="md-navbar-link" href="#" ui-sref="profile">
-              <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_account" /></svg>
-              <span class="md-navbar-title">Profile</span>
-            </a>
-          </li><!--
-       --><li class="md-navbar-item" ng-if="!user.hasUser()">
-            <a class="md-navbar-link" href="#" ui-sref="login">
-              <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_login" /></svg>
-              <span class="md-navbar-title">Login</span>
-            </a>
-          </li>
+        <ul class="md-navbar-list list-unstyled display-flex justify-content-around">
+          <li>
+           <a class="md-navbar-link" href="/" ng-class="{'active':isActive('home')}">
+             <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_globe" /></svg>
+             <span class="md-navbar-title">Environment</span>
+           </a>
+         </li>
+         <li dropdown class="dropup" ng-repeat="link in navbarEntries">
+           <a href="#" ng-class="{'active':isActive()}" class="dropdown-toggle md-navbar-link" ng-if="link.children.length" dropdown-toggle>
+             <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_more_horiz" /></svg>
+             <span class="md-navbar-title">{{::link.title}}</span>
+           </a>
+           <a class="md-navbar-link" href="#" ng-click="$state.go(link.sref)" ng-if="!link.children.length" ng-class="{'active':isActive(link.sref)}">
+             <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg>
+             <span class="md-navbar-title">{{::link.title}}</span>
+           </a>
+           <ul class="dropdown-menu" ng-if="link.children.length">
+             <li ng-repeat="child in link.children">
+               <a href="#" ng-click="$state.go(child.sref)">{{::child.title}}</a>
+             </li>
+           </ul>
+         </li>
+         <li class="" ng-if="user.hasUser()">
+           <a class="md-navbar-link" href="/profile" ng-class="{'active':isActive('profile')}">
+             <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_account" /></svg>
+             <span class="md-navbar-title">Profile</span>
+           </a>
+         </li>
+         <li class="" ng-if="!user.hasUser()">
+           <a class="md-navbar-link" href="/login" ng-class="{'active':isActive('login')}">
+             <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_login" /></svg>
+             <span class="md-navbar-title">Login</span>
+           </a>
+         </li>
         </ul>
       </div>
     </div>

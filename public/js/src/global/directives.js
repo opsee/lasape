@@ -63,5 +63,4 @@ function contextMenu(){
 }
 angular.module('opsee.global.directives').directive('contextMenu', contextMenu);
 
-
 })();//IIFE

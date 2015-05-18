@@ -13,7 +13,9 @@
   <div class="container">
     <div class="row">
       <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-        <user-inputs user="profile"></user-inputs>
+        <form name="profileForm">
+          <user-inputs user="profile"></user-inputs>
+        </form>
         <div ng-if="!user.integrations.slack.user">
           <h2>Slack Authorization</h2>
           <slack-auth></slack-auth>

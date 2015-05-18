@@ -1,6 +1,6 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','angularMoment', 'ngAnimate','hljs', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','ngMessages','angularMoment', 'ngAnimate','hljs', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
 
   angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $timeout, Global, Regex, $localStorage, $analytics, $activityIndicator, $state, authService, User, ENDPOINTS) {
 
@@ -8,6 +8,7 @@
       if(toState.name != ('login')){
         $rootScope.previousRoute = toState.name;
       }
+      $rootScope.hideHeader = !!(toState.hideHeader);
       $activityIndicator.timer = true;
       $timeout(function(){
         if($activityIndicator.timer){

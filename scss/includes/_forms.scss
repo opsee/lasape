@@ -1,73 +1,67 @@
 .form-group {
   border: none;
   margin-bottom: 32px;
+  padding-top: 2em;
   position: relative;
+  background-color: $gray-800;
+  // &.has-error {
+  //   label {
+  //     color: $brand-danger;
+  //   }
+  // }
   &.search-group {
     margin-top: 4em;
   }
   label {
-    @include opacity(0);
-    @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function,
-                        opacity $swift-ease-out-duration $swift-ease-out-timing-function,
-                        visibility $swift-ease-out-duration $swift-ease-out-timing-function);
-    // .transition-transform-opacity(@transition_transform);
-    @include transform(translate(-32px,0));
-    color: $text-color-secondary;
-    display: inline-block;
-    font-size: 14px;
+    @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
+    color: $text-color;
+    display: block;
+    font-size: 0.875em;
     font-weight: $body-font-weight;
-    margin-top: 0.4rem;
-    visibility: hidden;
-    + input {padding-top: 0.8rem;}
+    left: 0;
+    padding: 0.5em;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
-  input[type='text'], > [type='email'], > [type='password'], > textarea  {
+  input[type='text'], [type='email'], [type='password'], textarea  {
     @include box-shadow(none);
     @include placeholder($text-color-secondary);
+    @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid $gray-800;
     color: $text-color;
-    padding-left: 0;
-
+    padding: 0.5em;
     &:hover {
-      border-bottom-color: $gray-400;
       & ~ .input-icon {
         fill: $gray-400;
       }
     }
     &:focus, &.has-content, &.error {
-      @include placeholder(transparent);
-      ~ label {
-        @include opacity(100);
-        @include transform(translate(0,0));
-        visibility: visible;
-      }
+      @include box-shadow(none);
     }
     &:focus {
-      @include box-shadow(0 1px 0 $brand-info);
-      border-bottom-color: $brand-info;
-      ~ label {color: $brand-info;}
-      ~ .input-icon { fill: $brand-info; }
+      background-color: $blue-gray-800;
+      ~ label {
+        background-color: $blue-gray-800;
+      }
     }
-    &.ng-invalid {
-
-      &:not(.ng-pristine),&.ng-invalid-pattern{
-        @include box-shadow(0 1px 0 $brand-danger);
-        border-bottom-color: $brand-danger;
+    &.ng-invalid.ng-touched {
+      // &:not(.ng-pristine),
+      // &.ng-invalid-pattern {
         ~ label {
           @include opacity(100);
           @include transform(translate(0,0));
-          visibility: visible;
           color: $brand-danger;
+          visibility: visible;
         }
         ~ .input-icon { fill: $brand-danger; }
         ~ .input-error-text {
           @include opacity(100);
-          // .translate(0;0);
           @include transform(translate(0,0));
           visibility: visible;
         }
-      }
+      // }
     }
     &.ng-valid.ng-touched {
       ~ label {
@@ -81,80 +75,51 @@
       text-indent: 32px;
     }
   }// > input
-  input[type='search'] {
-    @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
-    @include border-radius(3px);
-    @include appearance(none);
-    // @include placeholder($text-color-secondary);
-    @extend .md-shadow-bottom-z-1;
-    // @include box-shadow(none);
-    background-color: $gray-800;
-    border: none;
-    color: $text-color;
-    padding: 1.5em 1em;
-    text-indent: 2em;
-    &:focus {
-      background-color: $blue-gray-800;
-      outline: none;
-      + .search-icon {
-        fill: $text-color;
-      }
-    }
-    + .search-icon {
-      @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);
-      fill: $text-color-secondary;
-      height: 24px;
-      left: 0.75em;
-      margin-top: -12px;
-      position: absolute;
-      top: 50%;
-      width: 24px;
-    }
-  }
-  .input-suffix{
-    // position: absolute;
-    // top: 0;
-    // right: 0;
-    padding: 6px 12px;
-    color: $gray-400;
-  }
   .dropdown-toggle {
     @include border-radius(0);
-    @include transition(border-color $swift-ease-out-duration $swift-ease-out-timing-function);
     background-color: transparent;
-    border-bottom: 1px solid $gray-800;
+    border-top: 1px solid $body-bg;
     font-weight: $body-font-weight;
-    padding-left: 0;
     text-align: left;
     text-transform: none;
     &:hover {
       background-color: transparent;
-      border-bottom-color: $gray-400;
+    }
+    &:active, &:focus {
+      @include box-shadow(none);
+      background-color: $blue-gray-800;
+      outline: none;
     }
     .icon {
       fill: $text-color-secondary;
       float: right;
     }
   }
+  .dropdown-menu {
+    min-width: 70%;
+  }
 }//.form-group
-.input-error-text {
-  @include opacity(0);
-  @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);
-  // .transition-transform-opacity(@transition_transform 100ms);
-  @include transform(translate(32px,0));
+[ng-message]{
   color: $brand-danger;
-  display: inline-block;
   font-weight: $body-font-weight-bold;
-  visibility: hidden;
+  @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  &.ng-enter, &.ng-leave.ng-leave-active{
+    @include transform(translate(32px,0));
+    opacity:0;
+  }
+  &.ng-enter.ng-enter-active,&.ng-leave{
+    @include transform(none);
+    opacity:1;
+  }
 }
 .input-icon {
   @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);
+  bottom: 0.5em;
   fill: $text-color-secondary;
   height: 20px;
-  left: 0;
+  left: 0.5em;
   margin-top: 6px;
   position: absolute;
-  top: 0;
   width: 20px;
 }
 .help-block {
@@ -162,6 +127,7 @@
   font-family: $font-family-serif;
   font-size: 13px;
   font-style: italic;
+  padding: 0 0.5em;
 }
 
 .btn-none{

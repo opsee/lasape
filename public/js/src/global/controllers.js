@@ -2,7 +2,7 @@
 
 angular.module('opsee.global.controllers', ['opsee.global.services']);
 
-function HeaderCtrl($scope, Global, $location, $rootScope) {
+function HeaderCtrl($scope, $location, $state, $rootScope, Global) {
   // $scope.user = $rootScope.user;
   $scope.navbarEntries = [
     {
@@ -12,45 +12,15 @@ function HeaderCtrl($scope, Global, $location, $rootScope) {
     },
     {
       title:'More',
-      children:[
-        {
-          title:'Signup',
-          sref:'onboard.start',
-        },
-        {
-          title:'Tutorial',
-          sref:'onboard.tutorial.1',
-        },
-        {
-          title:'Set Password',
-          sref:'onboard.password',
-        },
-        {
-          title:'Onboarding Profile',
-          sref:'onboard.profile',
-        },
-        {
-          title:'Create Team',
-          sref:'onboard.team',
-        },
-        {
-          title:'Credentials',
-          sref:'onboard.credentials',
-        },
-        {
-          title:'Signups',
-          sref:'signups',
-          children:[]
-        }
-      ]
+      sref:'more',
+      children:[]
     }
   ];
-  $scope.isActive = function ($index) {
-    // if($scope.navbarEntries[$index].link == $location.path()){
-    //   return true;
-    // }
-    // var c = _.pluck($scope.navbarEntries[$index].children,'link');
-    // return c.indexOf($location.path()) > -1
+  $scope.isActive = function (string) {
+    if($state.current.name == string){
+      return true;
+    }
+    return false;
   };
   $scope.navCollapsed = true
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
@@ -156,6 +126,11 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'NotFoundCtrl',
       templateUrl:'/public/js/src/global/views/404.html',
       title:'404'
+    })
+    .state('more', {
+      url:'/more',
+      templateUrl:'/public/js/src/global/views/more.html',
+      title:'More Links'
     })
   }
   angular.module('opsee').config(config);

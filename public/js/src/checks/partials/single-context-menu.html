@@ -1,6 +1,6 @@
 <div>
   <div class="modal-body container-fluid">
-    <div ng-repeat="action in item.actions">
+    <div ng-repeat="action in item.actions" ng-hide="action.hidden">
       <!-- <div ng-hide="item.hasChildrenActive()"> -->
       <div>
         <h2 class="md-subheader">

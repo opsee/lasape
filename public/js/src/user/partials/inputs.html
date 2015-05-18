@@ -1,25 +1,50 @@
 <div>
   <div class="form-group" ng-if="!onboarding">
-    <input type="email" ng-model="user.account.email" placeholder="Email" class="form-control has-icon" ng-required="true" ng-pattern="regex.email"/>
-    <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg>
-    <label>Email</label>
-    <span class="input-error-text small">is not valid</span>
+      <input id="userEmail" name="userEmail" type="email" ng-model="user.account.email" placeholder="email@domain.com" class="form-control has-icon" ng-required="true" ng-pattern="regex.email"/>
+      <label for="userEmail">
+        <span class="form-label">Email</span>
+        <span ng-messages="form.userEmail.$error">
+          <span class="form-message ng-hide" ng-show="form.userEmail.$touched">
+            <span ng-message="required">is required.</span>
+          </span>
+        </span>
+      </label>
+      <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg>
+
   </div>
   <div class="form-group" ng-if="!login">
-    <input type="text" ng-model="user.bio.name" placeholder="Name" class="form-control has-icon" ng-required="true" ng-pattern="regex.general"/>
-    <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_person" /></svg>
-    <label>Name</label>
-    <span class="input-error-text small">is required</span>
-  </div>
-  <div class="form-group" ng-if="!login && !starting">
-    <input type="text" ng-model="user.bio.title" placeholder="Title" class="form-control has-icon"/>
-    <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_person" /></svg>
-    <label>Title</label>
+
+      <input id="userFullName" type="text" ng-model="user.bio.name" placeholder="First Last" class="form-control has-icon" ng-required="true" ng-pattern="regex.general"/>
+      <label for="userFullName">
+        <span class="form-label">Name</span>
+        <span class="input-error-text small">is required</span>
+      </label>
+      <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_person" /></svg>
+
   </div>
   <div class="form-group" ng-if="login && !onboarding">
-    <input type="password" ng-model="user.account.password" placeholder="Password" class="form-control has-icon" ng-required="true"/>
-    <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_lock" /></svg>
-    <label>Password</label>
-    <span class="input-error-text">is required</span>
+
+      <input id="userPassword" type="password" ng-model="user.account.password" placeholder="Password" class="form-control has-icon" ng-required="true"/>
+      <label for="userPassword">
+        <span class="form-label">Password</span>
+        <span class="input-error-text">is required</span>
+      </label>
+      <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_lock" /></svg>
+
   </div>
 </div>
+
+
+<!--
+<div class="form-group" ng-class="{'has-error':checkStep1Form.checkPort.$invalid && checkStep1Form.checkPort.$touched}">
+  <input id="checkPort" name="checkPort" type="text" ng-model="check.http.port" class="form-control" placeholder="80" ng-required="true"/>
+  <label for="checkPort">
+    <span class="form-label">Port</span>
+    <span ng-messages="checkStep1Form.checkPort.$error">
+      <span class="form-message ng-hide" ng-show="checkStep1Form.checkPort.$touched">
+        <span ng-message="required">is required.</span>
+      </span>
+    </span>
+  </label>
+</div>
+-->

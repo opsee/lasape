@@ -127,7 +127,7 @@ function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, On
     OnboardService.domainAvailable(newVal).then(function(res){
       console.log(res);
     }, function(res){
-      $rootScope.emit('notify',res);
+      $rootScope.$emit('notify',res);
       console.log(res);
     })
   })
