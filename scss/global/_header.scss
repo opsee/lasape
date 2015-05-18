@@ -6,10 +6,27 @@
   position: fixed;
   z-index: 10;
   width: 100%;
-  // @include breakpoint($screen-sm) {
-  //   position: static;
-  //   bottom: auto;
-  // }
+  @include breakpoint($screen-sm) {
+    position: static;
+    bottom: auto;
+    .md-navbar-item {
+      width: auto;
+    }
+    .md-navbar-icon {
+      display: inline-block;
+      height: 18px;
+      vertical-align: text-bottom;
+      width: 18px;
+    }
+    .md-navbar-link {
+      font-size: 1em;
+      padding: 1em 2em 0.5em 0;
+      text-align: left;
+    }
+    .md-navbar-title {
+      display: inline;
+    }
+  }
 }
 .md-navbar-icon {
   @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);
