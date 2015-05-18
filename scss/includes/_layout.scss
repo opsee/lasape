@@ -36,11 +36,17 @@ body {
 .justify-content-between{
   @include justify-content(space-between);
 }
+.justify-content-around{
+  @include justify-content(space-around);
+}
 .flex-75{
   @include flex(1 75%);
 }
 .flex-25{
  @include flex(1 25%);
+}
+.flex-order-1{
+  @include order(1);
 }
 
 /* Have to set height explicity on ui-view

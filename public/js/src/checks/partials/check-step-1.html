@@ -69,7 +69,8 @@
   </div>
   <div class="col-xs-12 col-sm-8">
 
-    <div class="form-group" ng-class="{'has-error':checkStep1Form.checkURL.$invalid}">
+    <div class="form-group display-flex flex-wrap" ng-class="{'has-error':checkStep1Form.checkURL.$invalid}">
+      <input id="checkURL" class="form-control flex-order-1" name="checkURL" type="text" ng-model="check.url" placeholder="/healthcheck" ng-required="true"/>
       <label for="checkURL">
         <span class="form-label">URL</span>
         <span ng-messages="checkStep1Form.checkURL.$error">
@@ -78,7 +79,6 @@
           </span>
         </span>
       </label>
-      <input id="checkURL" name="checkURL" type="text" ng-model="check.url" class="form-control" placeholder="/healthcheck" ng-required="true"/>
     </div>
 
   </div>
