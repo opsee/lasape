@@ -8,6 +8,7 @@
       if(toState.name != ('login')){
         $rootScope.previousRoute = toState.name;
       }
+      $rootScope.hideHeader = !!(toState.hideHeader);
       $activityIndicator.timer = true;
       $timeout(function(){
         if($activityIndicator.timer){
