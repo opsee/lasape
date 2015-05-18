@@ -12,6 +12,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
     });
     check.prototype.actions = [
       {
+        id:'silence',
         title:'Silence for...',
         childrenActive:true,
         run:function(){
@@ -38,17 +39,26 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
           }
         ]
       },
-      // {
-      //   title:'Delete Check',
-      //   run:function(){
-      //     var deferred = $q.defer();
-      //     Global.confirm('Delete this check?').then(function(){
-      //       $rootScope.$emit('notify','Deleted check.');
-      //     });
-      //     deferred.resolve();
-      //     return deferred.promise;
-      //   }
-      // }
+      {
+        id:'delete',
+        title:'Edit',
+        actions:[
+          {
+            title:'Delete Check',
+            run:function(){
+              return console.log('delete');
+            }
+          }
+        ],
+        run:function(){
+          // var deferred = $q.defer();
+          // Global.confirm('Delete this check?').then(function(){
+          //   $rootScope.$emit('notify','Deleted check.');
+          // });
+          // deferred.resolve();
+          // return deferred.promise;
+        }
+      }
     ]
     check.prototype.setSilence = function(length,unit){
       var deferred = $q.defer();
@@ -88,9 +98,12 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
      }
     return self.info;
   }
-  check.prototype.menu = function(directive){
+  check.prototype.menu = function(section){
     this.actions.forEach(function(a){
       a.childrenActive = false;
+      if(section && a.id != section){
+        a.hidden = true;
+      }
     });
     Global.contextMenu(this,'/public/js/src/checks/partials/single-context-menu.html');
   }
