@@ -60,9 +60,7 @@ function CheckCtrl($scope){
 angular.module('opsee.checks.controllers').controller('CheckCtrl', CheckCtrl);
 
 function SingleCheckCtrl($scope, $state, $stateParams, $location, Check, singleCheck){
-  console.log($stateParams);
   $scope.check = new Check(singleCheck).setDefaults();
-  $location.search('close',null);
   $state.current.title = $scope.check.name;
 }
 SingleCheckCtrl.resolve = {

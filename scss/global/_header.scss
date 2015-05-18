@@ -1,14 +1,21 @@
+#header{
+  position: fixed;
+  z-index: 10;
+  bottom:0;
+  left:0;
+  width:100%;
+  @include breakpoint($screen-sm) {
+    bottom:auto;
+    top:0;
+  }
+}
 .md-navbar {
   @extend .md-shadow-bottom-z-2;
   background-color: $blue-gray-800;
   bottom: 0;
   margin: 0;
-  position: fixed;
-  z-index: 10;
   width: 100%;
   @include breakpoint($screen-sm) {
-    position: static;
-    bottom: auto;
     .md-navbar-item {
       width: auto;
     }
