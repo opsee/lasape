@@ -2,17 +2,20 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="form-group" dropdown>
-      <select class="sr-only" ng-required="true" ng-model="check.group" ng-options="g for g in groups"></select>
-      <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        {{check.group.name || 'Group'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li ng-repeat="g in groups">
-          <a href="#" ng-click="check.group = g">
-            {{g.name}}
-          </a>
-        </li>
-      </ul>
+      <div class="input-bg">
+        <label for="check-group">Group</label>
+        <select id="check-group" class="sr-only" ng-required="true" ng-model="check.group" ng-options="g for g in groups"></select>
+        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          {{check.group.name || '- Group -'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="g in groups">
+            <a href="#" ng-click="check.group = g">
+              {{g.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -21,26 +24,31 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6">
     <div class="form-group" dropdown>
-      <select class="sr-only" ng-required="true" ng-model="check.protocol" ng-options="p for p in protocols"></select>
-      <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        {{check.protocol.name || 'Protocol'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li ng-repeat="p in protocols">
-          <a href="#" ng-click="check.protocol = p">
-            {{p.name}}
-          </a>
-        </li>
-      </ul>
+      <div class="input-bg">
+        <label for="check-protocol">Protocol</label>
+        <select id="check-protocol" class="sr-only" ng-required="true" ng-model="check.protocol" ng-options="p for p in protocols"></select>
+        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          {{check.protocol.name || '- Protocol -'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="p in protocols">
+            <a href="#" ng-click="check.protocol = p">
+              {{p.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="col-xs-12 col-sm-6">
     <div class="row">
       <div class="col-xs-12">
         <div class="form-group">
-          <input type="text" ng-model="check.http.port" class="form-control" placeholder="Port (e.g. 80)" ng-required="true"/>
-          <label>Port</label>
-          <span class="input-error-text">is required</span>
+          <div class="input-bg">
+            <label for="check-port">Port</label>
+            <span class="input-error-text">is required</span>
+            <input id="check-port" type="text" ng-model="check.http.port" class="form-control" placeholder="80" ng-required="true"/>
+          </div>
         </div>
       </div>
     </div>
@@ -50,24 +58,29 @@
 <div class="row">
   <div class="col-xs-12 col-sm-4">
     <div class="form-group" dropdown>
-      <select class="sr-only" ng-required="true" ng-model="check.verb" ng-options="v for v in verbs"></select>
-      <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        {{check.verb.name || 'Verb'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li ng-repeat="v in verbs">
-          <a href="#" ng-click="check.verb = v">
-            {{v.name}}
-          </a>
-        </li>
-      </ul>
+      <div class="input-bg">
+        <label for="check-verb">Verb</label>
+        <select id="check-verb" class="sr-only" ng-required="true" ng-model="check.verb" ng-options="v for v in verbs"></select>
+        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          {{check.verb.name || '- Verb -'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="v in verbs">
+            <a href="#" ng-click="check.verb = v">
+              {{v.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="col-xs-12 col-sm-8">
     <div class="form-group">
-      <input type="text" ng-model="check.url" class="form-control" placeholder="URL (e.g. '/')" ng-required="true"/>
-      <label>URL</label>
-      <span class="input-error-text">is required</span>
+      <div class="input-bg">
+        <label for="check-url">URL</label>
+        <span class="input-error-text">is required</span>
+        <input id="check-url" type="text" ng-model="check.url" class="form-control" placeholder="/healthcheck" ng-required="true"/>
+      </div>
     </div>
   </div>
 </div>
@@ -77,15 +90,19 @@
   <div ng-repeat="auth in check.http.headers">
     <div class="col-xs-12 col-sm-6">
       <div class="form-group">
-        <input type="text" ng-model="check.http.headers[$index].key" class="form-control has-icon" placeholder="Key" ng-required="true"/>
-        <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_key" /></svg>
-        <label>Key</label>
+        <div class="input-bg">
+          <label for="check-header-key-{{$index}}">Key</label>
+          <input id="check-header-key-{{$index}}" type="text" ng-model="check.http.headers[$index].key" class="form-control has-icon" placeholder="Key" ng-required="true"/>
+          <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_key" /></svg>
+        </div>
       </div>
     </div>
     <div class="col-xs-12 col-sm-6">
       <div class="form-group">
-        <input type="text" ng-model="check.http.headers[$index].value" class="form-control" placeholder="Value" ng-required="true"/>
-        <label>Value</label>
+        <div class="input-bg">
+          <label for="check-header-value-{{$index}}">Value</label>
+          <input id="check-header-value-{{$index}}" type="text" ng-model="check.http.headers[$index].value" class="form-control" placeholder="Value" ng-required="true"/>
+        </div>
       </div>
     </div>
   </div>
