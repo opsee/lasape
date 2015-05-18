@@ -12,37 +12,8 @@ function HeaderCtrl($scope, $location, $state, $rootScope, Global) {
     },
     {
       title:'More',
-      children:[
-        {
-          title:'Signup',
-          sref:'onboard.start',
-        },
-        {
-          title:'Tutorial',
-          sref:'onboard.tutorial.1',
-        },
-        {
-          title:'Set Password',
-          sref:'onboard.password',
-        },
-        {
-          title:'Onboarding Profile',
-          sref:'onboard.profile',
-        },
-        {
-          title:'Create Team',
-          sref:'onboard.team',
-        },
-        {
-          title:'Credentials',
-          sref:'onboard.credentials',
-        },
-        {
-          title:'Signups',
-          sref:'signups',
-          children:[]
-        }
-      ]
+      sref:'more',
+      children:[]
     }
   ];
   $scope.isActive = function (string) {
@@ -155,6 +126,11 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'NotFoundCtrl',
       templateUrl:'/public/js/src/global/views/404.html',
       title:'404'
+    })
+    .state('more', {
+      url:'/more',
+      templateUrl:'/public/js/src/global/views/more.html',
+      title:'More Links'
     })
   }
   angular.module('opsee').config(config);
