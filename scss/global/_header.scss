@@ -66,11 +66,10 @@
       fill: $text-color;
     }
   }
-  &:active, &.active, &:active .md-navbar-icon {
-    color: $brand-primary;
-    fill: $brand-primary;
-  }
-  &.active .md-navbar-icon {
-    fill: $text-color-secondary;
+  &:active, &.active {
+    color: white;
+    .md-navbar-icon {
+      fill: white;
+    }
   }
 }

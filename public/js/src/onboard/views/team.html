@@ -16,41 +16,53 @@
         <form name="teamForm" ng-submit="submit()">
 
           <div class="form-group">
-            <div class="input-bg">
-              <label for="team-name">Team Name</label>
-              <span class="input-error-text small">is not valid</span>
-              <input id="team-name" type="text" ng-model="user.account.team_name" placeholder="Initech" class="form-control" ng-required="true" ng-minlength="3"/>
-              <!-- <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg> -->
-              <div class="help-block">This name will appear in headings and menus to identify your team. Your company name is probably a good choice, but it doesn't need to be official or anything.</div>
-            </div>
+            <input id="teamName" name="teamName" type="text" ng-model="user.account.team_name" placeholder="Initech" class="form-control" ng-required="true" ng-minlength="3"/>
+            <label for="teamName">
+              <span class="form-label">Team Name</span>
+              <span ng-messages="teamForm.teamName.$error">
+                <span class="form-message ng-hide" ng-show="teamForm.teamName.$touched">
+                  <span ng-message="required">is not valid.</span>
+                </span>
+              </span>
+            </label>
           </div>
+          <div class="help-block">This name will appear in headings and menus to identify your team. Your company name is probably a good choice, but it doesn't need to be official or anything.</div>
+
+          <!--
+          <div class="form-group" ng-class="{'has-error':checkStep1Form.checkPort.$invalid && checkStep1Form.checkPort.$touched}">
+            <input id="checkPort" name="checkPort" type="text" ng-model="check.http.port" class="form-control" placeholder="80" ng-required="true"/>
+            <label for="checkPort">
+              <span class="form-label">Port</span>
+              <span ng-messages="checkStep1Form.checkPort.$error">
+                <span class="form-message ng-hide" ng-show="checkStep1Form.checkPort.$touched">
+                  <span ng-message="required">is required.</span>
+                </span>
+              </span>
+            </label>
+          </div>
+          -->
 
           <div class="form-group">
-            <div class="input-bg">
-              <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                  <label for="team-domain" for="domain">Team Domain</label>
-                  <div class="input-error-text small">is not valid</div>
-                  <input id="team-domain" type="text" ng-model="user.account.customer_id" placeholder="initech[.opsee.co]" class="form-control flex-75" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain" ng-model-options="{debounce:250}"/>
-                  <!-- <div style="background-color: #222;" class="input-suffix flex-25">.opsee.co</div> -->
-                  <!-- <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg> -->
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                  <div class="ng-hide" ng-show="fullDomain">{{fullDomain}}</div>
-                </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <input id="teamDomain" name="teamDomain" type="text" ng-model="user.account.customer_id" placeholder="initech[.opsee.co]" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain" ng-model-options="{debounce:250}"/>
+                <label for="teamDomain" for="domain">
+                  <span class="form-label">Team Domain</span>
+                  <span ng-messages="teamForm.teamDomain.$error">
+                    <span class="form-message ng-hide" ng-show="teamForm.teamDomain.$touched">
+                      <span ng-message="required">is not valid.</span>
+                    </span>
+                  </span>
+                </label>
               </div>
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="help-block">The web address you'll use to access your team's account. Keep it short and memorable. Only lowercase letters, numbers, and dashes are allowed, and it must start with a letter.</div>
-                </div>
+              <div class="col-xs-12 col-sm-6">
+                <div class="ng-hide" ng-show="fullDomain">{{fullDomain}}</div>
               </div>
             </div>
           </div>
+          <div class="help-block">The web address you'll use to access your team's account. Keep it short and memorable. Only lowercase letters, numbers, and dashes are allowed, and it must start with a letter.</div>
 
-
-          <div class="form-group">
-            <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="teamForm.$invalid">Next</button>
-          </div>
+          <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="teamForm.$invalid">Next</button>
         </form>
       </div>
     </div>
