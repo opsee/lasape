@@ -2,7 +2,7 @@
 
 angular.module('opsee.checks.controllers', ['opsee.checks.services']);
 
-function ChecksCtrl($scope, $state, $timeout, $analytics, Check){
+function AllChecksCtrl($scope, $state, $stateParams, $timeout, $analytics, Check){
   $scope.checks = [
   {
     name:'My great check',
@@ -50,10 +50,19 @@ function ChecksCtrl($scope, $state, $timeout, $analytics, Check){
     }
   });
 }//ChecksCtrl
-angular.module('opsee.checks.controllers').controller('ChecksCtrl', ChecksCtrl);
+angular.module('opsee.checks.controllers').controller('AllChecksCtrl', AllChecksCtrl);
 
-function SingleCheckCtrl($scope, $state, $stateParams, Check, singleCheck){
+function CheckCtrl($scope){
+  $scope.info = {
+    edit:false
+  }
+}
+angular.module('opsee.checks.controllers').controller('CheckCtrl', CheckCtrl);
+
+function SingleCheckCtrl($scope, $state, $stateParams, $location, Check, singleCheck){
+  console.log($stateParams);
   $scope.check = new Check(singleCheck).setDefaults();
+  $location.search('close',null);
   $state.current.title = $scope.check.name;
 }
 SingleCheckCtrl.resolve = {
@@ -129,8 +138,13 @@ SingleCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
-function EditCheckCtrl($scope, $state, $stateParams, singleCheck,Check){
+function EditCheckCtrl($scope, $state, $stateParams, $location, singleCheck, Check){
   $scope.check = new Check(singleCheck).setDefaults();
+  //tell parent ui-view to use close transition
+  $scope.info.edit = true;
+  $scope.close = function(){
+    $location.url('/check/'+$stateParams.id);
+  }
 }
 EditCheckCtrl.resolve = {
   singleCheck:function($stateParams){
@@ -207,18 +221,20 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
     $stateProvider.state('checks', {
       url:'/checks',
       templateUrl:'/public/js/src/checks/views/index.html',
-      controller:'ChecksCtrl',
+      controller:'AllChecksCtrl',
       title:'Checks'
     })
     .state('check', {
       abstract:true,
-      template:'<div ui-view class="transition-grow"></div>',
+      controller:'CheckCtrl',
+      template:'<div ui-view class="transition-grow" ng-class="{close:info.edit}"></div>',
     })
     .state('check.single', {
-      url:'/check/:id',
+      url:'/check/:id?close',
       templateUrl:'/public/js/src/checks/views/single.html',
       controller:'SingleCheckCtrl',
-      resolve:SingleCheckCtrl.resolve
+      resolve:SingleCheckCtrl.resolve,
+      reloadOnSearch:false
     })
     .state('check.edit', {
       url:'/check/:id/edit',

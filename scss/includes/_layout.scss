@@ -63,7 +63,7 @@ to prevent collapsing during animation*/
 
 [ui-view]{
   @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
-  // @include transition(all 5000ms);
+  @include transition(all 5000ms);
   &.transition-grow{
     @include transform-origin(top left);
   }
@@ -77,6 +77,10 @@ to prevent collapsing during animation*/
     &.transition-grow{
       z-index:2;
       @include transform(scale(1,0));
+      &.close{
+        @include transform(none);
+        z-index:0;
+      }
     }
   }
   &.ng-enter,&.ng-leave-active{
@@ -98,8 +102,20 @@ to prevent collapsing during animation*/
     &.transition-slide{
      @include transform(none); 
     }
+  }
+  &.ng-enter-active{
     &.transition-grow{
-      @include transform(none);
+      &.close{
+        @include transform(none);
+      }
+    }
+  }
+  &.ng-leave{
+    &.transition-grow{
+      &.close{
+        @include transform(scale(1,0));
+        z-index:2;
+      }
     }
   }
   &.ng-leave-active{
