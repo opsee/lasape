@@ -40,10 +40,16 @@
   <div class="col-xs-12 col-sm-6">
     <div class="row">
       <div class="col-xs-12">
-        <div class="form-group">
-          <label for="check-port">Port</label>
-          <span class="input-error-text">is required</span>
-          <input id="check-port" type="text" ng-model="check.http.port" class="form-control" placeholder="80" ng-required="true"/>
+        <div class="form-group" ng-class="{'has-error':checkStep1Form.checkPort.$invalid && checkStep1Form.checkPort.$touched}">
+          <input id="checkPort" name="checkPort" type="text" ng-model="check.http.port" class="form-control" placeholder="80" ng-required="true"/>
+          <label for="checkPort">
+            <span class="form-label">Port</span>
+            <span ng-messages="checkStep1Form.checkPort.$error">
+              <span class="form-message ng-hide" ng-show="checkStep1Form.checkPort.$touched">
+                <span ng-message="required">is required.</span>
+              </span>
+            </span>
+          </label>
         </div>
       </div>
     </div>
@@ -53,8 +59,6 @@
 <div class="row">
   <div class="col-xs-12 col-sm-4">
     <div class="form-group" dropdown>
-      <label for="check-verb">Verb</label>
-      <select id="check-verb" class="sr-only" ng-required="true" ng-model="check.verb" ng-options="v for v in verbs"></select>
       <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
         {{check.verb.name || '- Verb -'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
       </button>
@@ -65,10 +69,12 @@
           </a>
         </li>
       </ul>
+
+      <label for="check-verb">Verb</label>
+      <select id="check-verb" class="sr-only" ng-required="true" ng-model="check.verb" ng-options="v for v in verbs"></select>
     </div>
   </div>
   <div class="col-xs-12 col-sm-8">
-
     <div class="form-group display-flex flex-wrap" ng-class="{'has-error':checkStep1Form.checkURL.$invalid}">
       <input id="checkURL" class="form-control flex-order-1" name="checkURL" type="text" ng-model="check.url" placeholder="/healthcheck" ng-required="true"/>
       <label for="checkURL">
@@ -80,7 +86,6 @@
         </span>
       </label>
     </div>
-
   </div>
 </div>
 
