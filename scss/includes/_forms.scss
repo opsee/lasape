@@ -17,6 +17,7 @@
     color: $text-color;
     display: block;
     font-size: 0.875em;
+    font-weight: $body-font-weight;
     left: 0;
     padding: 0.5em;
     position: absolute;
@@ -38,19 +39,16 @@
     }
     &:focus, &.has-content, &.error {
       @include box-shadow(none);
-      @include placeholder(transparent);
     }
     &:focus {
       background-color: $blue-gray-800;
       ~ label {
         background-color: $blue-gray-800;
-        // color: $brand-info;
       }
-      ~ .input-icon { fill: $brand-info; }
     }
-    &.ng-invalid {
-      &:not(.ng-pristine),
-      &.ng-invalid-pattern {
+    &.ng-invalid.ng-touched {
+      // &:not(.ng-pristine),
+      // &.ng-invalid-pattern {
         ~ label {
           @include opacity(100);
           @include transform(translate(0,0));
@@ -63,7 +61,7 @@
           @include transform(translate(0,0));
           visibility: visible;
         }
-      }
+      // }
     }
     &.ng-valid.ng-touched {
       ~ label {

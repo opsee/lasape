@@ -2,7 +2,7 @@
 
 angular.module('opsee.global.controllers', ['opsee.global.services']);
 
-function HeaderCtrl($scope, Global, $location, $rootScope) {
+function HeaderCtrl($scope, $location, $state, $rootScope, Global) {
   // $scope.user = $rootScope.user;
   $scope.navbarEntries = [
     {
@@ -45,12 +45,11 @@ function HeaderCtrl($scope, Global, $location, $rootScope) {
       ]
     }
   ];
-  $scope.isActive = function ($index) {
-    // if($scope.navbarEntries[$index].link == $location.path()){
-    //   return true;
-    // }
-    // var c = _.pluck($scope.navbarEntries[$index].children,'link');
-    // return c.indexOf($location.path()) > -1
+  $scope.isActive = function (string) {
+    if($state.current.name == string){
+      return true;
+    }
+    return false;
   };
   $scope.navCollapsed = true
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {

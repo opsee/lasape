@@ -210,17 +210,22 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
       controller:'ChecksCtrl',
       title:'Checks'
     })
-    .state('checkSingle', {
+    .state('check', {
+      abstract:true,
+      template:'<div ui-view class="transition-grow"></div>',
+    })
+    .state('check.single', {
       url:'/check/:id',
       templateUrl:'/public/js/src/checks/views/single.html',
       controller:'SingleCheckCtrl',
       resolve:SingleCheckCtrl.resolve
     })
-    .state('checkEdit', {
+    .state('check.edit', {
       url:'/check/:id/edit',
       templateUrl:'/public/js/src/checks/views/edit.html',
       controller:'EditCheckCtrl',
-      resolve:EditCheckCtrl.resolve
+      resolve:EditCheckCtrl.resolve,
+      hideHeader:true
     })
     .state('checkCreate', {
       url:'/check-create',
