@@ -186,7 +186,7 @@ EditCheckCtrl.resolve = {
     "verb": {
       "name": "POST"
     },
-    "url": "http://foobar.com/fo/clowns"
+    // "url": "http://foobar.com/fo/clowns"
   }
   }
 }

@@ -2,11 +2,9 @@
   border: none;
   margin-bottom: 32px;
   position: relative;
+  background-color: $gray-800;
   &.search-group {
     margin-top: 4em;
-  }
-  .input-bg {
-    background-color: $gray-800;
   }
   label {
     color: $text-color;
@@ -87,15 +85,18 @@
     min-width: 70%;
   }
 }//.form-group
-.input-error-text {
-  @include opacity(0);
-  @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);
-  // .transition-transform-opacity(@transition_transform 100ms);
-  @include transform(translate(32px,0));
+[ng-message]{
   color: $brand-danger;
-  display: inline-block;
   font-weight: $body-font-weight-bold;
-  visibility: hidden;
+  @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  &.ng-enter, &.ng-leave.ng-leave-active{
+    @include transform(translate(32px,0));
+    opacity:0;
+  }
+  &.ng-enter.ng-enter-active,&.ng-leave{
+    @include transform(none);
+    opacity:1;
+  }
 }
 .input-icon {
   @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);

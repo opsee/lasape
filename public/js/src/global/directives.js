@@ -63,5 +63,28 @@ function contextMenu(){
 }
 angular.module('opsee.global.directives').directive('contextMenu', contextMenu);
 
+function formGroup($compile){
+  return {
+    restrict:'EA',
+    scope:{
+      label:'@',
+      model:'@',
+      errors:'='
+    },
+    controller:function($scope){
+      console.log($scope);
+    },
+    link:function($scope, $element){
+      var html = '<label for="'+$scope.model+'">'+$scope.label+'</label>';
+      html += '<span class="input-error-text">is required</span>';
+      html = $compile(html)($scope);
+      $element.addClass('form-group');
+      console.log($element.find('input'));
+      $element.append(html);
+    }
+  }
+}
+angular.module('opsee.global.directives').directive('formGroup', formGroup);
+
 
 })();//IIFE

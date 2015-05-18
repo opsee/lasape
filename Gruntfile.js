@@ -98,7 +98,8 @@ module.exports = function(grunt) {
             '../js/src/vendor/scripts/highlight.pack',
             'angular-highlightjs/angular-highlightjs',
             'ngstorage/ngStorage.min',
-            'angular-gravatar/build/angular-gravatar.min'
+            'angular-gravatar/build/angular-gravatar.min',
+            'angular-messages/angular-messages.min'
           ])
         }
       }
