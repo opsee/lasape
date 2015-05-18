@@ -63,7 +63,7 @@ to prevent collapsing during animation*/
 
 [ui-view]{
   @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
-  @include transition(all 5000ms);
+  // @include transition(all 5000ms);
   &.transition-grow{
     @include transform-origin(top left);
   }

@@ -14,8 +14,8 @@ function userInputs(){
       onboarding:'=?',
       starting:'=?'
     },
-    controller:function($scope,$rootScope,formCtrl){
-      console.log(formCtrl);
+    link:function($scope, $element, $attrs, $formCtrl){
+      $scope.form = $formCtrl;
     }
   }
 }
