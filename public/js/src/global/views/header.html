@@ -9,20 +9,17 @@
              <span class="md-navbar-title">Environment</span>
            </a>
          </li>
-         <li dropdown class="dropup" ng-repeat="link in navbarEntries">
-           <a href="#" ng-class="{'active':isActive()}" class="dropdown-toggle md-navbar-link" ng-if="link.children.length" dropdown-toggle>
-             <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_more_horiz" /></svg>
-             <span class="md-navbar-title">{{::link.title}}</span>
-           </a>
-           <a class="md-navbar-link" href="#" ng-click="$state.go(link.sref)" ng-if="!link.children.length" ng-class="{'active':isActive(link.sref)}">
+          <li>
+           <a class="md-navbar-link" href="/checks" ng-class="{'active':isActive('checks')}">
              <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg>
-             <span class="md-navbar-title">{{::link.title}}</span>
+             <span class="md-navbar-title">Checks</span>
            </a>
-           <ul class="dropdown-menu" ng-if="link.children.length">
-             <li ng-repeat="child in link.children">
-               <a href="#" ng-click="$state.go(child.sref)">{{::child.title}}</a>
-             </li>
-           </ul>
+         </li>
+          <li>
+           <a class="md-navbar-link" href="/more" ng-class="{'active':isActive('more')}">
+             <svg class="md-navbar-icon" viewBox="0 0 24 24"><use xlink:href="#ico_more_horiz" /></svg>
+             <span class="md-navbar-title">More</span>
+           </a>
          </li>
          <li class="" ng-if="user.hasUser()">
            <a class="md-navbar-link" href="/profile" ng-class="{'active':isActive('profile')}">
