@@ -143,6 +143,7 @@ function EditCheckCtrl($scope, $state, $stateParams, $location, singleCheck, Che
   //tell parent ui-view to use close transition
   $scope.info.edit = true;
   $scope.close = function(){
+    $scope.info.edit = false;
     $location.url('/check/'+$stateParams.id);
   }
 }
