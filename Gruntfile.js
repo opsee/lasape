@@ -70,7 +70,16 @@ module.exports = function(grunt) {
           filter:'isFile'
         }
         ]
-      }
+      },
+      annotated:{
+        files:[
+        {
+          src:'public/js/**/*.annotated.js',
+          dest:'public/annotated/',
+          filter:'isFile'
+        }
+        ]
+      },
     },
     uglify:{
       deps:{
@@ -99,10 +108,21 @@ module.exports = function(grunt) {
             'angular-highlightjs/angular-highlightjs',
             'ngstorage/ngStorage.min',
             'angular-gravatar/build/angular-gravatar.min',
-            'angular-messages/angular-messages.min'
+            'angular-messages/angular-messages.min',
+            'angular-visibility-change/dist/angular-visibility-change.min'
           ])
         }
-      }
+      },
+      build: {
+        files:{
+          'public/dist/opsee.min.js':['public/annotated/**/*.annotated.js']
+        }
+      },
+    },
+    clean:{
+      first:['public/js/*/**/*.annotated.js'],
+      second:['public/annotated'],
+      third:['public/js/app.app.js', 'public/js/app.min.js'],
     },
     autoprefixer:{
       single_file:{
@@ -112,6 +132,33 @@ module.exports = function(grunt) {
         src:'css/src/style.css',
         dest:'css/dist/style.min.css'
       }
+    },
+    ngAnnotate:{
+      options:{
+        add:true,
+        remove:true
+      },
+      all:{
+        files:[
+        {
+          expand:true,
+          src:['public/js/*/**/*.js'],
+          // src:['public/js/app.js'],
+          ext:'.annotated.js',
+          extDot:'last'
+        }
+        ]
+      },
+      app:{
+        files:[
+        {
+          expand:true,
+          src:['public/js/app.js'],
+          ext:'.app.js',
+          extDot:'last'
+        }
+        ]
+      },
     },
     watch:{
       grunt:{
@@ -178,6 +225,7 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['shell:bower','compass','build','connect', 'watch']);
   grunt.registerTask('build', ['uglify','shell:jekyll','copy']);
+  grunt.registerTask('annotate', ['ngAnnotate','copy:annotated', 'clean:first', 'uglify:deps', 'uglify:build', 'uglify:app', 'clean:second','clean:third']);
   grunt.registerTask('docker', ['shell:bower', 'compass', 'build', 'shell:docker']);
 
 };

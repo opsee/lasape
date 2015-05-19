@@ -1,8 +1,8 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','ngMessages','angularMoment', 'ngAnimate','hljs', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','ngMessages','angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
 
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $timeout, Global, Regex, $localStorage, $analytics, $activityIndicator, $state, authService, User, ENDPOINTS) {
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $timeout, $document, Global, Regex, $localStorage, $analytics, $activityIndicator, $state, authService, User, ENDPOINTS, VisibilityChange) {
 
     $rootScope.$on('$stateChangeStart', function (event, toState, fromState, fromParams) {
       if(toState.name != ('login')){
@@ -16,6 +16,10 @@
         }
       },400);
     });
+
+    VisibilityChange.onChange(function(visible){
+      $analytics.eventTrack('visibility-change', {category:'Global',label:visible ? 'visible' : 'hidden'});
+    })
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, fromState, fromParams) {
       $analytics.pageTrack(toState.url);
