@@ -43,22 +43,16 @@
           -->
 
           <div class="form-group">
-            <div class="row">
-              <div class="col-xs-12 col-sm-6">
-                <input id="teamDomain" name="teamDomain" type="text" ng-model="user.account.customer_id" placeholder="initech[.opsee.co]" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain" ng-model-options="{debounce:250}"/>
-                <label for="teamDomain" for="domain">
-                  <span class="form-label">Team Domain</span>
-                  <span ng-messages="teamForm.teamDomain.$error">
-                    <span class="form-message ng-hide" ng-show="teamForm.teamDomain.$touched">
-                      <span ng-message="required">is not valid.</span>
-                    </span>
-                  </span>
-                </label>
-              </div>
-              <div class="col-xs-12 col-sm-6">
-                <div class="ng-hide" ng-show="fullDomain">{{fullDomain}}</div>
-              </div>
-            </div>
+            <input id="teamDomain" name="teamDomain" type="text" ng-model="user.account.customer_id" placeholder="initech[.opsee.co]" ng-required="true" ng-minlength="2" ng-pattern="regex.subdomain" name="domain" ng-model-options="{debounce:250}"/>
+            <label for="teamDomain" for="domain">
+              <span class="form-label">Team Domain</span>
+              <span ng-messages="teamForm.teamDomain.$error">
+                <span class="form-message ng-hide" ng-show="teamForm.teamDomain.$touched">
+                  <span ng-message="required">is not valid.</span>
+                </span>
+              </span>
+            </label>
+            <div class="ng-hide" ng-show="fullDomain">{{fullDomain}}</div>
           </div>
           <div class="help-block">The web address you'll use to access your team's account. Keep it short and memorable. Only lowercase letters, numbers, and dashes are allowed, and it must start with a letter.</div>
 

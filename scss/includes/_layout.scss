@@ -1,8 +1,5 @@
 body {
   padding-bottom: 100px;
-  @include breakpoint($screen-sm){
-    padding-top:48px;
-  }
 }
 
 .content-pad {
