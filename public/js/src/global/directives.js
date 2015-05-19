@@ -63,4 +63,12 @@ function contextMenu(){
 }
 angular.module('opsee.global.directives').directive('contextMenu', contextMenu);
 
+function opseeHeader(){
+  return {
+    restrict:'EA',
+    templateUrl:'/public/js/src/global/partials/header.html'
+  }
+}
+angular.module('opsee.global.directives').directive('opseeHeader', opseeHeader);
+
 })();//IIFE

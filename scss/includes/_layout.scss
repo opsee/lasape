@@ -67,7 +67,8 @@ to prevent collapsing during animation*/
 [ui-view]{
   @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
   // @include transition(all 5000ms);
-  &.transition-grow{
+  &.transition-slide{
+    @include transition(all $swift-ease-in-out-duration $swift-ease-in-out-timing-function);
     @include transform-origin(top left);
   }
   &.ng-enter{
@@ -75,14 +76,10 @@ to prevent collapsing during animation*/
       @include transform(translateY(15px));
     }
     &.transition-slide{
-      @include transform(translateX(100%));
-    }
-    &.transition-grow{
-      z-index:2;
-      @include transform(scale(1,0));
+      opacity:0;
+      @include transform(translateY(150px));
       &.close{
         @include transform(none);
-        z-index:0;
       }
     }
   }
@@ -103,22 +100,8 @@ to prevent collapsing during animation*/
       @include transform(none);
     }
     &.transition-slide{
-     @include transform(none); 
-    }
-  }
-  &.ng-enter-active{
-    &.transition-grow{
-      &.close{
-        @include transform(none);
-      }
-    }
-  }
-  &.ng-leave{
-    &.transition-grow{
-      &.close{
-        @include transform(scale(1,0));
-        z-index:2;
-      }
+      opacity:1;
+     @include transform(none);
     }
   }
   &.ng-leave-active{
@@ -128,10 +111,12 @@ to prevent collapsing during animation*/
     }
     &.transition-slide{
       // @include transform(translateX(100%));
+      opacity:0;
       @include transform(none);
-    }
-    &.transition-grow{
-      @include transform(none);
+      &.close{
+        opacity:0;
+        @include transform(translateY(150px));
+      }
     }
   }
 }

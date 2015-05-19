@@ -59,9 +59,19 @@ function CheckCtrl($scope){
 }
 angular.module('opsee.checks.controllers').controller('CheckCtrl', CheckCtrl);
 
-function SingleCheckCtrl($scope, $state, $stateParams, $location, Check, singleCheck){
+function SingleCheckCtrl($scope, $state, $stateParams, $location, $timeout, Check, singleCheck){
   $scope.check = new Check(singleCheck).setDefaults();
   $state.current.title = $scope.check.name;
+  var timer = true;
+  $timeout(function(){
+    if(timer){
+      $scope.info.edit = false;
+    }
+  },1000);
+  $scope.edit = function(){
+    timer = false;
+    $location.url('/check/'+$stateParams.id+'/edit');
+  }
 }
 SingleCheckCtrl.resolve = {
   singleCheck:function($stateParams, Check){
@@ -136,12 +146,17 @@ SingleCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
-function EditCheckCtrl($scope, $state, $stateParams, $location, singleCheck, Check){
+function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, singleCheck, Check){
   $scope.check = new Check(singleCheck).setDefaults();
   //tell parent ui-view to use close transition
-  $scope.info.edit = true;
+  var timer = true;
+  $timeout(function(){
+    if(timer){
+      $scope.info.edit = true;
+    }
+  },1000);
   $scope.close = function(){
-    $scope.info.edit = false;
+    timer = false;
     $location.url('/check/'+$stateParams.id);
   }
 }
@@ -226,7 +241,7 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
     .state('check', {
       abstract:true,
       controller:'CheckCtrl',
-      template:'<div ui-view class="transition-grow" ng-class="{close:info.edit}"></div>',
+      template:'<div ui-view class="transition-slide" ng-class="{close:info.edit}"></div>',
     })
     .state('check.single', {
       url:'/check/:id?close',
