@@ -29,7 +29,8 @@
     "know-your-http-well": "https://github.com/for-GET/know-your-http-well.git#~0.2.0",
     "angular-highlightjs": "~0.4.1",
     "angular-gravatar": "~0.3.1",
-    "angular-messages": "~1.3.15"
+    "angular-messages": "~1.3.15",
+    "angular-visibility-change": "~0.1.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.0-rc.1",

@@ -137,8 +137,6 @@ function ENDPOINTS(){
 }
 angular.module('opsee.global.services').constant('ENDPOINTS', ENDPOINTS());
 
-'use strict';
-
 function Credentials(ENDPOINTS, $resource) {
   return $resource(ENDPOINTS.api + '/environments/:envId/credentials');
 };

@@ -92,7 +92,7 @@ function OnboardPasswordCtrl($scope, $state, $rootScope, $stateParams, $analytic
     $state.go('onboard.profile');
   }
 }
-angular.module('opsee.user.controllers').controller('OnboardPasswordCtrl', OnboardPasswordCtrl);
+angular.module('opsee.onboard.controllers').controller('OnboardPasswordCtrl', OnboardPasswordCtrl);
 
 function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $analytics, $localStorage, User, UserService, SlackService){
   if(!$scope.user.bio.title && $scope.user.integrations.slack.user){
@@ -118,7 +118,7 @@ OnboardProfileCtrl.resolve = {
     }
   }
 }
-angular.module('opsee.user.controllers').controller('OnboardProfileCtrl', OnboardProfileCtrl);
+angular.module('opsee.onboard.controllers').controller('OnboardProfileCtrl', OnboardProfileCtrl);
 
 function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, OnboardService){
   $scope.fullDomain = null;
