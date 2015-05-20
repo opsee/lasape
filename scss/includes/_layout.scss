@@ -45,8 +45,17 @@ body {
 .flex-25{
  @include flex(1 25%);
 }
+.flex-order-0{
+  @include order(0);
+}
 .flex-order-1{
   @include order(1);
+}
+.flex-order-2{
+  @include order(2);
+}
+.flex-order-3{
+  @include order(3);
 }
 
 /* Have to set height explicity on ui-view
@@ -63,12 +72,11 @@ to prevent collapsing during animation*/
 
 [ui-view]{
   @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
-  // @include transition(all 5000ms);
-  &.transition-slide{
+  &.transition-slide {
     @include transition(all $swift-ease-in-out-duration $swift-ease-in-out-timing-function);
     @include transform-origin(top left);
   }
-  &.ng-enter{
+  &.ng-enter {
     &.transition-regular{
       @include transform(translateY(15px));
     }
@@ -80,7 +88,7 @@ to prevent collapsing during animation*/
       }
     }
   }
-  &.ng-enter,&.ng-leave-active{
+  &.ng-enter,&.ng-leave-active {
     position:absolute;
     left:0;
     right:0;
@@ -88,26 +96,25 @@ to prevent collapsing during animation*/
       opacity:0;
     }
   }
-  &.ng-enter-active,&.ng-leave{
+  &.ng-enter-active,&.ng-leave {
     position:absolute;
     left:0;
     right:0;
-    &.transition-regular{
+    &.transition-regular {
       opacity:1;
       @include transform(none);
     }
-    &.transition-slide{
+    &.transition-slide {
       opacity:1;
-     @include transform(none);
+      @include transform(none);
     }
   }
-  &.ng-leave-active{
-    &.transition-regular{
+  &.ng-leave-active {
+    &.transition-regular {
       @include transform(translateY(-15px));
       opacity:0;
     }
-    &.transition-slide{
-      // @include transform(translateX(100%));
+    &.transition-slide {
       opacity:0;
       @include transform(none);
       &.close{
@@ -118,7 +125,13 @@ to prevent collapsing during animation*/
   }
 }
 
-.padding-lr{
+.padding-lr {
   padding-left:1em;
   padding-right:1em;
+}
+.padding-b {
+  padding-bottom: 1em;
+}
+.padding-b2 {
+  padding-bottom: 2em;
 }

@@ -6,10 +6,20 @@
   &.fade .modal-dialog { @include translate(0, 100px) }
   &.in .modal-dialog { @include translate(0, 0) }
   .modal-dialog {
-    bottom: 32px;
+    bottom: 0;
+    display: block;
     margin: 0 0 0 0;
+    overflow: hidden;
     position: absolute;
-    right: 32px;
+    right: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    @include breakpoint($screen-sm) {
+      bottom: 32px;
+      max-width: 500px;
+      right: 32px;
+    }
   }
 }
 

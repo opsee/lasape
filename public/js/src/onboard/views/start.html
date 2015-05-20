@@ -17,7 +17,7 @@
 
           <user-inputs user="user" starting="true"></user-inputs>
 
-          <button disabled="disabled" ng-disabled="state == options.inProgress || signupForm.$invalid" type="submit" class="btn btn-success btn-raised btn-block ng-disabled">
+          <button ng-disabled="state == options.inProgress || signupForm.$invalid" type="submit" class="btn btn-success btn-raised btn-block" disabled="disabled">
             <span>{{state}}</span>
             <span class="ng-hide" ng-show="state == options.inProgress">A spinner</span>
           </button>

@@ -1,88 +1,69 @@
 <form name="checkStep3Form" class="ng-hide" ng-show="!checkStep || checkStep == 3" ng-submit="forward(4)">
-<div class="form-group">
-  <h2>Check Name & Message</h2>
-</div>
-<div class="form-group">
-  <input type="text" ng-model="check.name" class="form-control" placeholder="Check Name" ng-required="true"/>
-  <label>Check Name</label>
-</div>
-<div class="form-group">
-  <textarea ng-model="check.message" class="form-control" placeholder="Message" ng-required="true"></textarea>
-  <label>Message</label>
-  <div class="help-block">This will appear in the notification to help recipients.</div>
-</div>
-<br />
 
-<div class="form-group">
+  <h2>Check Name & Message</h2>
+
+  <div class="form-group display-flex flex-wrap">
+    <input id="checkName" name="checkName" type="text" ng-model="check.name" class="form-control flex-order-1" placeholder="Check Name" ng-required="true"/>
+    <label for="checkName">Check Name</label>
+  </div>
+
+  <div class="form-group display-flex flex-wrap">
+    <textarea id="checkMsg" name="checkMsg" ng-model="check.message" class="form-control flex-order-1" placeholder="Message" ng-required="true"></textarea>
+    <label for="checkMsg">Message</label>
+  </div>
+  <div class="help-block">This will appear in the notification to help recipients.</div>
+
   <h2>Check Interval</h2>
-</div>
-<div class="form-group">
+
   <div class="btn-group">
     <select class="sr-only" ng-required="true" ng-model="check.interval" ng-options="i for i in intervals"></select>
     <label class="btn btn-raised btn-default" ng-model="check.interval" btn-radio="int" uncheckable ng-repeat="int in intervals">
       {{int.name}}
     </label>
   </div>
-</div>
-<br />
 
-<!-- <div class="ng-hide" ng-show="check.type && check.type.name == 'HTTP'">
-  <h2>Authentication</h2>
-  <button type="button" class="btn-plus btn btn-primary" ng-click="check.addItem('http.authentications')">Add Basic Auth</button>
-  <ul class="list-unstyled">
-    <li ng-repeat="auth in check.http.authentications" class="row">
-      <div class="col-xs-6">
-        <input type="text" ng-model="check.http.authentications[$index].username" class="form-control" placeholder="username" ng-required="true"/>
-      </div>
-      <div class="col-xs-6">
-        <input type="text" ng-model="check.http.authentications[$index].password" class="form-control" placeholder="password" ng-required="true"/>
-      </div>
-    </li>
-  </ul>
-</div> -->
 
-<div class="form-group">
   <h2>Notifications</h2>
-</div>
-<div ng-repeat="notif in check.notifications" class="row">
-  <div class="col-xs-4">
-    <div class="form-group" dropdown is-open="status['notificationSettings.types'+$index]">
-      <select class="sr-only" ng-required="true" ng-model="notif.type" ng-options="t for t in notificationSettings.types"></select>
-      <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{notif.type.title || 'Pick your notification type'">
-        {{notif.type.name || 'Type'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
-      </button>
-      <ul class="dropdown-menu">
-        <li ng-repeat="nt in notificationSettings.types">
-          <a href="#" ng-click="notif.type = nt" title="{{nt.title}}">
-            {{nt.name}}
-          </a>
-        </li>
-      </ul>
+
+  <div ng-repeat="notif in check.notifications" class="row">
+    <div class="col-xs-4">
+      <div class="form-group" dropdown is-open="status['notificationSettings.types'+$index]">
+        <select class="sr-only" ng-required="true" ng-model="notif.type" ng-options="t for t in notificationSettings.types"></select>
+        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{notif.type.title || 'Pick your notification type'">
+          {{notif.type.name || 'Type'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="nt in notificationSettings.types">
+            <a href="#" ng-click="notif.type = nt" title="{{nt.title}}">
+              {{nt.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-8">
+      <div class="form-group">
+        <input type="text" ng-model="check.notifications[$index].value" class="form-control" ng-required="true" placeholder="{{check.notifications[$index].type.placeholder || 'Pick notifcation type'}}"/>
+      </div>
     </div>
   </div>
-  <div class="col-xs-8">
-    <div class="form-group">
-      <input type="text" ng-model="check.notifications[$index].value" class="form-control" ng-required="true" placeholder="{{check.notifications[$index].type.placeholder || 'Pick notifcation type'}}"/>
+
+  <div class="padding-b2">
+    <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('notifications')"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add another Notification</button>
+  </div>
+
+  <div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+          <button type="button" class="btn btn-flat" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send test notification</button>
+          <button type="submit" class="btn btn-flat btn-success" ng-disabled="checkStep3Form.$invalid">
+            <span ng-if="creating">Finish</span>
+            <span ng-if="!creating">Save</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="form-group">
-  <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('notifications')"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add another Notification</button>
-</div>
-<br />
-<br />
-
-<div class="form-group">
-  <button type="submit" class="btn btn-raised btn-success btn-block" ng-disabled="checkStep1Form.$invalid">
-    <span ng-if="creating">Finish</span>
-    <span ng-if="!creating">Save</span>
-  </button>
-</div>
-<div class="form-group">
-  <button type="button" class="btn btn-flat btn-block" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send test notification</button>
-</div>
-
-<br />
-<br />
 </form>

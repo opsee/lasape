@@ -11,54 +11,53 @@
     </div>
   </div><!-- .md-toolbar -->
 
-  <tabset class="environment-tabs">
-    <tab>
-      <tab-heading>Instances</tab-heading>
-      <div class="container">
-        <div class="row">
-          <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-
-            <h2 class="md-subheader md-subheader-has-avatars">
-              <span class="md-subheader-content">Running ({{runningChecks.length}})</span>
-            </h2>
-            <ul class="md-list md-list-two-line">
-              <li class="md-list-item" ng-repeat="check in runningChecks">
-                <check-item check="check"></check-item>
-              </li>
-            </ul>
-
-            <h2 class="md-subheader md-subheader-has-avatars">
-              <span class="md-subheader-content">Unmonitored ({{unmonitoredChecks.length}})</span>
-            </h2>
-            <ul class="md-list md-list-two-line">
-              <li class="md-list-item" ng-repeat="check in unmonitoredChecks">
-                <check-item check="check"></check-item>
-              </li>
-            </ul>
-
-            <h2 class="md-subheader md-subheader-has-avatars">
-              <span class="md-subheader-content">Stopped ({{stoppedChecks.length}})</span>
-            </h2>
-            <ul class="md-list md-list-two-line">
-              <li class="md-list-item" ng-repeat="check in stoppedChecks">
-                <check-item check="check"></check-item>
-              </li>
-            </ul>
-
-          </div>
+  <div class="environment-tabs">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+          <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="#">Instances</a></li>
+            <li role="presentation"><a href="#">Groups</a></li>
+            <li role="presentation"><a href="#">Locations</a></li>
+          </ul>
         </div>
       </div>
-    </tab>
-    <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
-      {{tab.content}}
-    </tab>
-    <tab>
-      <tab-heading>Groups</tab-heading>
-      <p>I've got an HTML heading, and a select callback. Pretty cool!</p>
-    </tab>
-    <tab>
-      <tab-heading>Locations</tab-heading>
-      <p>I've got an HTML heading, and a select callback. Pretty cool!</p>
-    </tab>
-  </tabset>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+
+        <h2 class="md-subheader md-subheader-has-avatars">
+          <span class="md-subheader-content">Running ({{runningChecks.length}})</span>
+        </h2>
+        <ul class="md-list md-list-two-line">
+          <li class="md-list-item" ng-repeat="check in runningChecks">
+            <check-item check="check"></check-item>
+          </li>
+        </ul>
+
+        <h2 class="md-subheader md-subheader-has-avatars">
+          <span class="md-subheader-content">Unmonitored ({{unmonitoredChecks.length}})</span>
+        </h2>
+        <ul class="md-list md-list-two-line">
+          <li class="md-list-item" ng-repeat="check in unmonitoredChecks">
+            <check-item check="check"></check-item>
+          </li>
+        </ul>
+
+        <h2 class="md-subheader md-subheader-has-avatars">
+          <span class="md-subheader-content">Stopped ({{stoppedChecks.length}})</span>
+        </h2>
+        <ul class="md-list md-list-two-line">
+          <li class="md-list-item" ng-repeat="check in stoppedChecks">
+            <check-item check="check"></check-item>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
 </div>
