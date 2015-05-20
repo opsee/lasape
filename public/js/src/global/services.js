@@ -233,6 +233,9 @@ function NotificationSettings(){
         placeholder:'user@domain.com'
       },
       {
+        name:'Web'
+      },
+      {
         name:'Webhook',
         title:'An api service to post to',
         placeholder:'http://service.com'
