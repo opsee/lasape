@@ -243,6 +243,9 @@ function CreateCheckCtrl($scope, $state, Check){
   }
   $scope.checkStep = 1;
   $scope.dropdownStatus = {};
+  $scope.close = function() {
+    $state.go('checks');
+  }
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 
@@ -256,7 +259,7 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
     .state('check', {
       abstract:true,
       controller:'CheckCtrl',
-      template:'<div ui-view class="transition-slide" ng-class="{close:info.edit}"></div>',
+      template:'<div ui-view class="transition-parent-child" ng-class="{close:info.edit}"></div>',
     })
     .state('check.single', {
       url:'/check/:id?close',

@@ -39,7 +39,7 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="form-group display-flex flex-wrap" ng-class="{'has-error':checkStep1Form.checkPort.$invalid && checkStep1Form.checkPort.$touched}">
-          <input id="checkPort" name="checkPort" type="text" ng-model="check.http.port" class="form-control flex-order-1" placeholder="80" ng-required="true"/>
+          <input id="checkPort" name="checkPort" type="text" ng-model="check.http.port" class="form-control flex-order-1" placeholder="e.g. 80" ng-required="true"/>
           <label for="checkPort">
             <span class="form-label">Port</span>
             <span ng-messages="checkStep1Form.checkPort.$error">
@@ -72,7 +72,7 @@
   </div>
   <div class="col-xs-12 col-sm-8">
     <div class="form-group display-flex flex-wrap" ng-class="{'has-error':checkStep1Form.checkURL.$invalid}">
-      <input id="checkURL" class="form-control flex-order-1" name="checkURL" type="text" ng-model="check.url" placeholder="/healthcheck" ng-required="true"/>
+      <input id="checkURL" class="form-control flex-order-1" name="checkURL" type="text" ng-model="check.url" placeholder="e.g. /healthcheck" ng-required="true"/>
       <label class="flex-1" for="checkURL">
         <span class="form-label">URL</span>
         <span ng-messages="checkStep1Form.checkURL.$error">
@@ -113,7 +113,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
         <button type="submit" class="btn btn-flat btn-success" ng-disabled="checkStep1Form.$invalid">
-          <span ng-if="creating">Test This Request</span>
+          <span ng-if="creating">Next: Test This Request <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></span>
           <span ng-if="!creating">Continue</span>
         </button>
       </div>
