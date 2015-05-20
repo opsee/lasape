@@ -243,7 +243,7 @@ function NotificationSettings(){
       {
         name:'Slack',
         title:'Slack channel',
-        placeholder:'channel@slack'
+        placeholder:'#notifications'
       }
     ]
   }

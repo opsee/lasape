@@ -1,7 +1,6 @@
 .form-group {
   border: none;
   margin-bottom: 32px;
-  padding-top: 2em;
   position: relative;
   background-color: $gray-800;
   // &.has-error {
@@ -12,19 +11,18 @@
   &.search-group {
     margin-top: 4em;
   }
-  label {
+  > label {
     @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
     color: $text-color;
     display: block;
     font-size: 0.875em;
     font-weight: $body-font-weight;
     left: 0;
+    margin-bottom: 0;
     padding: 0.5em;
-    position: absolute;
-    top: 0;
     width: 100%;
   }
-  input[type='text'], [type='email'], [type='password'], textarea  {
+  > input[type='text'], [type='email'], [type='password'], textarea  {
     @include box-shadow(none);
     @include placeholder($text-color-secondary);
     @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
@@ -44,6 +42,9 @@
       background-color: $blue-gray-800;
       ~ label {
         background-color: $blue-gray-800;
+      }
+      ~ .input-icon {
+        fill: $brand-info;
       }
     }
     &.ng-invalid.ng-touched {
@@ -78,7 +79,6 @@
   .dropdown-toggle {
     @include border-radius(0);
     background-color: transparent;
-    border-top: 1px solid $body-bg;
     font-weight: $body-font-weight;
     text-align: left;
     text-transform: none;
@@ -97,6 +97,13 @@
   }
   .dropdown-menu {
     min-width: 70%;
+  }
+  .form-subdomain {
+    @include transition(height $swift-ease-out-duration $swift-ease-out-timing-function);
+    background-color: $gray-900;
+    display: block;
+    font-family: $font-family-monospace;
+    padding: 0.25em 0.5em;
   }
 }//.form-group
 [ng-message]{
@@ -121,6 +128,11 @@
   margin-top: 6px;
   position: absolute;
   width: 20px;
+}
+.input-group-addon {
+  background-color: black;
+  border: none;
+  color: $text-color-secondary;
 }
 .help-block {
   color: $text-color-secondary;

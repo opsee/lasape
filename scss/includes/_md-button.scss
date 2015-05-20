@@ -17,13 +17,44 @@ $button-fab-padding: 1.60rem !default;
   }
 }
 
+.btn-container {
+  background-color: $body-bg;
+  padding: 0.75em 0; //padding takes place of button margin when in container
+  &.btn-container-righty {
+    text-align: right;
+  }
+  &.btn-container-fixed {
+    bottom: 56px;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    @include breakpoint($screen-sm){
+      bottom: 0;
+    }
+  }
+  &.btn-container-bordered {
+    border-bottom: 1px solid $gray-800;
+    border-top: 1px solid $gray-800;
+  }
+  &.btn-container-bordered-top {
+    border-top: 1px solid $gray-800;
+  }
+  .btn {
+    margin: 0 0.25rem; //side margins for multiple buttons in container
+    &:first-of-type {
+      margin-left: 0; //0 margin for first/left-aligned
+    }
+  }
+}
+
 .btn {
   border: none;
   border-radius: $border-radius-large;
   line-height: 20px;
   text-transform: uppercase;
   @include transition(box-shadow $swift-ease-out-duration $swift-ease-out-timing-function, background-color $swift-ease-out-duration $swift-ease-out-timing-function);
-  &.disabled, &[disabled] {
+  &.disabled, &[disabled], &.btn-flat.disabled, &[disabled].btn-flat {
     @include opacity(100);
     color: $text-color-secondary;
     cursor: not-allowed;
@@ -47,18 +78,21 @@ $button-fab-padding: 1.60rem !default;
 .btn-flat {
   background-color: transparent;
   &.btn-primary {
+    background-color: transparent;
     color: $brand-primary;
     .icon {
       fill: $brand-primary;
     }
   }
   &.btn-success {
+    background-color: transparent;
     color: $brand-success;
     .icon {
       fill: $brand-success;
     }
   }
   &.btn-danger {
+    background-color: transparent;
     color: $brand-danger;
     .icon {
       fill: $brand-danger;
