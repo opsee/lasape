@@ -87,7 +87,6 @@ module.exports = function(grunt) {
             'ngActivityIndicator/ngActivityIndicator.min',
             'angular-sanitize/angular-sanitize.min',
             'angular-validation-match/dist/angular-input-match.min',
-            'angular-material/angular-material.min',
             'angular-animate/angular-animate.min',
             'angular-ui-router/release/angular-ui-router',
             'angular-aria/angular-aria.min',
@@ -99,7 +98,9 @@ module.exports = function(grunt) {
             'angular-gravatar/build/angular-gravatar.min',
             'angular-messages/angular-messages.min',
             'angular-visibility-change/dist/angular-visibility-change.min',
-            'angular-notify/dist/angular-notify.min'
+            'angular-notify/dist/angular-notify.min',
+            'angular-touch/angular-touch.min',
+            'fastclick/lib/fastclick'
           ])
         }
       },
