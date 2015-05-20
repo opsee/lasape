@@ -148,13 +148,6 @@ angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleC
 
 function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check, NotificationSettings){
   $scope.check = new Check(singleCheck).setDefaults();
-  $scope.check.notifications.forEach(function(n){
-    n.channel = _.findWhere(NotificationSettings.channels,{'type':n.channel.type});
-  });
-  $scope.newChannel = function(notif,$index){
-    console.log('moo');
-    console.log(notif,$index);
-  }
   //tell parent ui-view to use close transition
   var timer = true;
   $timeout(function(){
