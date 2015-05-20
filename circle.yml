@@ -1,5 +1,6 @@
 dependencies:
   override:
+    - npm install
     - bundle install
     - bundle exec grunt docker
     - docker info
