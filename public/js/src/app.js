@@ -1,6 +1,6 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMaterial','ngMessages','angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMessages','angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
 
   angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $timeout, $document, Global, Regex, $localStorage, $analytics, $activityIndicator, $state, authService, User, ENDPOINTS, VisibilityChange) {
 
@@ -103,14 +103,11 @@
   });
 
   // Setting HTML5 Location Mode
-  angular.module('opsee').config(function($locationProvider,$mdThemingProvider) {
-      $locationProvider.html5Mode({
-        enabled:true,
-        requireBase:false
-      });
-      $mdThemingProvider.theme('docs-dark', 'default')
-        .primaryPalette('yellow')
-        .dark();
+  angular.module('opsee').config(function($locationProvider) {
+    $locationProvider.html5Mode({
+      enabled:true,
+      requireBase:false
+    });
   });
 
   function opseeInterceptor($routeProvider, $locationProvider, $httpProvider, $provide, $stateProvider) {

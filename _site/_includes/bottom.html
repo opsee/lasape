@@ -9,8 +9,14 @@ ga('create', 'UA-59205908-2', 'auto');
 // ga('send', 'pageview');
 </script>
 
+{%comment%}
+<!--for prod-->
+<script type="text/javascript" src="/public/js/dist/opsee.min.js"></script>
+{%endcomment%}
+
 <script type="text/javascript" src="/public/js/dist/deps.min.js"></script>
 <script type="text/javascript" src="/public/js/src/app.js"></script>
+
 <script type="text/javascript">var api_host="http://{{ site.bartnet_api_host }}:{{ site.bartnet_api_port }}";</script>
 
 {% assign folders = 'global|user|onboard|checks|admin|integrations|aws' | split: '|' %}
@@ -21,5 +27,6 @@ ga('create', 'UA-59205908-2', 'auto');
   <script type="text/javascript" src="/public/js/src/{{folder}}/filters.js"></script>
   <script type="text/javascript" src="/public/js/src/{{folder}}/module.js"></script>
 {% endfor %}
+
 </body>
 </html>

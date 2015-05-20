@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+  require('load-grunt-tasks')(grunt);
+
   var rewrite = require( "connect-modrewrite" );
 
   function addLib(array){
@@ -70,19 +72,14 @@ module.exports = function(grunt) {
           filter:'isFile'
         }
         ]
-      },
-      annotated:{
-        files:[
-        {
-          src:'public/js/**/*.annotated.js',
-          dest:'public/annotated/',
-          filter:'isFile'
-        }
-        ]
-      },
+      }
     },
     uglify:{
       deps:{
+        options:{
+          mangle:false,
+          compress:false
+        },
         files:{
           'public/js/dist/deps.min.js':addLib([
             'angular/angular.min',
@@ -113,16 +110,18 @@ module.exports = function(grunt) {
           ])
         }
       },
-      build: {
+      annotated: {
+        options:{
+          mangle:false,
+          compress:false
+        },
         files:{
-          'public/dist/opsee.min.js':['public/annotated/**/*.annotated.js']
+          'public/js/dist/opsee.min.js':['public/js/dist/deps.min.js','public/js/src/app.app.js','public/**/*.annotated.js']
         }
       },
     },
     clean:{
-      first:['public/js/*/**/*.annotated.js'],
-      second:['public/annotated'],
-      third:['public/js/app.app.js', 'public/js/app.min.js'],
+      annotated:['**/*.annotated.js','**/*.app.js'],
     },
     autoprefixer:{
       single_file:{
@@ -142,8 +141,7 @@ module.exports = function(grunt) {
         files:[
         {
           expand:true,
-          src:['public/js/*/**/*.js'],
-          // src:['public/js/app.js'],
+          src:['public/js/src/**/*.js'],
           ext:'.annotated.js',
           extDot:'last'
         }
@@ -153,7 +151,7 @@ module.exports = function(grunt) {
         files:[
         {
           expand:true,
-          src:['public/js/app.js'],
+          src:['public/js/src/app.js'],
           ext:'.app.js',
           extDot:'last'
         }
@@ -212,20 +210,12 @@ module.exports = function(grunt) {
     },
   });
 
-  // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-compass');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-jekyll');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-shell-spawn');
-  grunt.loadNpmTasks('grunt-autoprefixer');
-
   // Default task(s).
   grunt.registerTask('default', ['shell:bower','compass','build','connect', 'watch']);
-  grunt.registerTask('build', ['uglify','shell:jekyll','copy']);
-  grunt.registerTask('annotate', ['ngAnnotate','copy:annotated', 'clean:first', 'uglify:deps', 'uglify:build', 'uglify:app', 'clean:second','clean:third']);
+  grunt.registerTask('serve', ['connect', 'watch']);
+  grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
+  grunt.registerTask('build', ['uglify:deps','shell:jekyll','copy']);
+  grunt.registerTask('prod', ['uglify:deps','shell:jekyll','copy','annotate']);
   grunt.registerTask('docker', ['shell:bower', 'compass', 'build', 'shell:docker']);
 
 };
