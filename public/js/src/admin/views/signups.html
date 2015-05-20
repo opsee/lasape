@@ -13,20 +13,22 @@
   <div class="container">
     <div class="row">
       <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-        <ul class="list-unstyled">
-          <li ng-repeat="signup in signups | orderBy:'-created_at'" class="col-xs-12 col-sm-6">
-            <h2>{{::signup.name}}</h2>
-            <div>
-              <div>{{::signup.email}}</div>
-              <span class="help-block">#{{::signup.id}} - {{::signup.created_at | date:'mediumDate'}}</span>
+
+        <div ng-repeat="signup in signups | orderBy:'-created_at'" class="col-xs-12 col-sm-6">
+          <div class="md-card">
+            <div class="md-card-content">
+              <h2>{{::signup.name}}</h2>
+              <div>
+                <div><a href="mailto:{{::signup.email}}">{{::signup.email}}</a></div>
+                <span>#{{::signup.id}} - {{::signup.created_at | date:'mediumDate'}}</span>
+              </div>
             </div>
-            <div>
-              <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="activateSignup(signup.email)">
-                <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Activate User
-              </button>
+            <div class="md-actions">
+              <button type="button" class="btn btn-flat btn-primary" ng-click="activateSignup(signup.email)">Activate User</button>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </div><!-- .container -->
