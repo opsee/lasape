@@ -70,7 +70,7 @@
     <div ng-if="assertion.relationship.name && assertion.type.name == 'Status Code'">
       <div class="col-xs-10 col-xs-offset-2">
         <div class="form-group display-flex flex-wrap">
-          <input id="responseBodyCode" name="responseBodyCode" type="text" ng-model="assertion.value" typeahead="c.code as c.code for c in codes | filter:$viewValue" class="form-control flex-order-1" placeholder="Code" ng-required="true" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')">
+          <input id="responseBodyCode" name="responseBodyCode" type="text" ng-model="assertion.value" typeahead="c.code as c.code for c in codes | filter:$viewValue" class="form-control flex-order-1" placeholder="e.g. 200" ng-required="true" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')">
           <label for="responseBodyCode">Code</label>
         </div>
       </div>
@@ -93,7 +93,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
         <button type="submit" class="btn btn-flat btn-success" ng-disabled="checkStep2Form.$invalid">
-          <span ng-if="creating">Actions &amp; Settings</span>
+          <span ng-if="creating">Next: Actions &amp; Settings <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></span>
           <span ng-if="!creating">Save</span>
         </button>
       </div>

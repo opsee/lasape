@@ -24,14 +24,11 @@ $button-fab-padding: 1.60rem !default;
     text-align: right;
   }
   &.btn-container-fixed {
-    bottom: 56px;
+    bottom: 0;
     left: 0;
     position: fixed;
     width: 100%;
     z-index: 2;
-    @include breakpoint($screen-sm){
-      bottom: 0;
-    }
   }
   &.btn-container-bordered {
     border-bottom: 1px solid $gray-800;
@@ -62,6 +59,15 @@ $button-fab-padding: 1.60rem !default;
     &.btn-raised, &.btn-fab {
       background-color: $gray-800;
     }
+    .icon {
+      fill: $text-color-secondary;
+    }
+  }
+}
+.btn-titlebar {
+  .icon {
+    height: 32px;
+    width: 32px;
   }
 }
 

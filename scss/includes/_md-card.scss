@@ -1,6 +1,7 @@
 .md-card {
   @extend .md-shadow-bottom-z-1;
-  background-color: darken($body-bg,3);
+  @include border-radius(2px);
+  background-color: $gray-900;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
