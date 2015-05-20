@@ -303,4 +303,114 @@ function AssertionTest(){
 }
 angular.module('opsee.checks.services').service('AssertionTest',AssertionTest);
 
+
+function Verbs(){
+  return[
+    {
+      name:'GET'
+    },
+    {
+      name:'POST'
+    },
+    {
+      name:'PUT'
+    },
+    {
+      name:'DELETE'
+    },
+    {
+      name:'PATCH'
+    }
+  ]
+}
+angular.module('opsee.global.services').service('Verbs', Verbs);
+
+
+function Protocols(){
+  return[
+    {
+      name:'HTTP'
+    },
+    {
+      name:'MySQL'
+    },
+    {
+      name:'Other'
+    }
+  ]
+}
+angular.module('opsee.global.services').service('Protocols', Protocols);
+
+function StatusCodes($q, $http, _){
+  return function(){
+    var deferred = $q.defer();
+    $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
+      var array = _.chain(res.data).reject(function(n){
+        return n.phrase.match(/\*\*/);
+      }).sortBy(function(n){
+        return n.code;
+      }).value();
+      deferred.resolve(array);
+    }, function(res){
+      deferred.reject(res);
+    });
+    return deferred.promise;
+  }
+}
+angular.module('opsee.global.services').service('StatusCodes', StatusCodes);
+
+function Relationships(){
+  return[
+    {
+      name:'Equal To',
+      title:'Exactly equal to.'
+    },
+    {
+      name:'Not Equal To',
+      title:'Not equal to.'
+    },
+    {
+      name:'Is Empty',
+      title:'Is empty.'
+    },
+    {
+      name:'Is Not Empty',
+      title:'Is not empty.'
+    },
+    // {
+    //   name:'Greater Than'
+    // },
+    // {
+    //   name:'Less Than'
+    // },
+    {
+      name:'Contains',
+      title:'Contains all text.'
+    },
+    {
+      name:'RegExp',
+      title:'^2 etc.'
+    }
+  ]
+}
+angular.module('opsee.global.services').service('Relationships', Relationships);
+
+function AssertionTypes(){
+  return[
+    {
+      name:'Status Code',
+      title:'2XX-5XX'
+    },
+    {
+      name:'Header',
+      title:'Response Header, auth, etc.'
+    },
+    {
+      name:'Response Body',
+      title:'Data from the response'
+    },
+  ]
+}
+angular.module('opsee.global.services').service('AssertionTypes', AssertionTypes);
+
 })();//IIFE

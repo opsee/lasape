@@ -1,21 +1,13 @@
 module.exports = function(grunt) {
 
-  require('load-grunt-tasks')(grunt);
-
-  var rewrite = require( "connect-modrewrite" );
+  var load = require('load-grunt-tasks')(grunt)
+  , rewrite = require( "connect-modrewrite" )
+  ;
 
   function addLib(array){
     var n = [];
     array.forEach(function(a){
       n.push('public/lib/'+a+'.js');
-    });
-    return n;
-  }
-
-  function addSrc(array){
-    var n = [];
-    array.forEach(function(a){
-      n.push('js/src/'+a+'.js');
     });
     return n;
   }
@@ -106,7 +98,8 @@ module.exports = function(grunt) {
             'ngstorage/ngStorage.min',
             'angular-gravatar/build/angular-gravatar.min',
             'angular-messages/angular-messages.min',
-            'angular-visibility-change/dist/angular-visibility-change.min'
+            'angular-visibility-change/dist/angular-visibility-change.min',
+            'angular-notify/dist/angular-notify.min'
           ])
         }
       },
@@ -147,6 +140,8 @@ module.exports = function(grunt) {
         }
         ]
       },
+      //we have two annotate tasks because the app.js needs 
+      //to load in before all the other modules
       app:{
         files:[
         {

@@ -1,6 +1,6 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMessages','angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMessages','angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'cgNotify', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
 
   angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $timeout, $document, Global, Regex, $localStorage, $analytics, $activityIndicator, $state, authService, User, ENDPOINTS, VisibilityChange) {
 
