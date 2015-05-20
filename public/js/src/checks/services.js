@@ -2,7 +2,7 @@
 
 angular.module('opsee.checks.services', []);
 
-function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMAS, moment){
+function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMAS, moment, NotificationSettings){
   var check = $resource(ENDPOINTS.api+'/check',
     {
       checkId:'@_id'
@@ -208,6 +208,7 @@ var checkSchemas = {
   },
   notifications:{
     type:null,
+    options:{},
     value:null
   },
   assertions:{

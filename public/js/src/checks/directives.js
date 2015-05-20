@@ -259,5 +259,19 @@ function checkItem(){
 }
 angular.module('opsee.checks.directives').directive('checkItem', checkItem);
 
+function notificationItem(){
+  return {
+    restrict:'EA',
+    templateUrl:'/public/js/src/checks/partials/notification-item.html',
+    scope:{
+      notif:'='
+    },
+    controller:function($scope,NotificationSettings){
+      $scope.notificationSettings = new NotificationSettings();
+    }
+  }
+}
+angular.module('opsee.checks.directives').directive('notificationItem', notificationItem);
+
 
 })();//IIFE

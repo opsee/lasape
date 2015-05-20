@@ -225,30 +225,45 @@ function Intervals(){
 angular.module('opsee.global.services').service('Intervals', Intervals);
 
 function NotificationSettings(){
-  return{
-    types:[
-      {
-        name:'Email',
-        title:'user@domain.com',
-        placeholder:'user@domain.com'
-      },
-      {
-        name:'Web'
-      },
-      {
-        name:'Webhook',
-        title:'An api service to post to',
-        placeholder:'http://service.com'
-      },
-      {
-        name:'Slack',
-        title:'Slack channel',
-        placeholder:'#notifications'
-      }
-    ]
+  return function(){
+    return {
+      channels:[
+        {
+          name:'Email',
+          type:'email',
+          title:'user@domain.com',
+          placeholder:'user@domain.com'
+        },
+        {
+          name:'Web',
+          type:'web',
+          placeholder:'foo',
+          options:{
+            push:false
+          },
+          optionsMeta:{
+            push:{
+              name:'Push (Chrome Only)',
+            }
+          }
+        },
+        {
+          name:'Webhook',
+          type:'webhook',
+          title:'An api service to post to',
+          placeholder:'http://service.com'
+        },
+        {
+          name:'Slack',
+          type:'slack',
+          title:'Slack channel',
+          placeholder:'#notifications'
+        }
+      ]
+    }
   }
 }
-angular.module('opsee.global.services').service('NotificationSettings', NotificationSettings);
+angular.module('opsee.global.services').factory('NotificationSettings', NotificationSettings);
 
 function PreloadImg($q){
   return function(path){
