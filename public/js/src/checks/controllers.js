@@ -261,7 +261,8 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
       url:'/check-create',
       templateUrl:'/public/js/src/checks/views/create.html',
       controller:'CreateCheckCtrl',
-      title:'Create New Check'
+      title:'Create New Check',
+      hideHeader:true
       // resolve:SingleCheckCtrl.resolve
     })
   }
