@@ -2,22 +2,16 @@
 
 angular.module('opsee.onboard.directives', []);
 
-function domainAvailable($q, $timeout, OnboardService){
+function domainAvailable(OnboardService,$q){
   return {
     restrict:'A',
     require:'ngModel',
     link:function($scope, $element, $attrs, ngModel){
-      ngModel.$parsers.push(function(modelValue){
+      ngModel.$asyncValidators.available = function(modelValue){
         if(modelValue){
-          ngModel.$setValidity('available',false);
-          OnboardService.domainAvailable(modelValue).then(function(){
-            ngModel.$setValidity('available',true);
-          }, function(){
-            ngModel.$setValidity('available',false);
-          });
-          return modelValue;
+          return OnboardService.domainAvailable(modelValue);
         }
-      });
+      }
     }
   }
 }
