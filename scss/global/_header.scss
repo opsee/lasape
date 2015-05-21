@@ -25,7 +25,7 @@
     position:relative;
   }
 }
-.md-navbar {
+.md-navbar{
   @extend .md-shadow-bottom-z-2;
   background-color: $blue-gray-800;
   bottom: 0;
@@ -41,14 +41,12 @@
       vertical-align: text-bottom;
       width: 18px;
     }
-    .md-navbar-link {
-      font-size: 1em;
-      padding: 1em 0 1em 0;
-      text-align: left;
-    }
     .md-navbar-title {
       display: inline;
     }
+  }
+  &.md-navbar-sm{
+    font-size:.8em;
   }
 }
 .md-navbar-icon {
@@ -77,7 +75,7 @@
   display: block;
   font-size: 0.75em;
   overflow: hidden;
-  padding: 0.5em 0;
+  padding: 0.5em;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -94,5 +92,10 @@
     .md-navbar-icon {
       fill: white;
     }
+  }
+  @include breakpoint($screen-sm){
+    font-size: 1em;
+    padding: 1em;
+    text-align: left;
   }
 }

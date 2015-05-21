@@ -104,12 +104,12 @@ function opseeFooter(){
       $scope.entries = [
         {
           title:'Checks',
-          sref:'checks',
+          link:'checks',
           children:[]
         },
         {
           title:'More',
-          sref:'more',
+          link:'more',
           children:[]
         }
       ];

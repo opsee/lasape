@@ -2,18 +2,6 @@
 
 angular.module('opsee.global.controllers', ['opsee.global.services']);
 
-function footerController($scope, Global, $location) {
-  $scope.navbarEntries = [
-    {
-      title: "About",
-      link: "/about",
-      children:[]
-    }
-  ];
-}
-
-angular.module('opsee.global.controllers').controller('FooterController', footerController);
-
 function HomeCtrl($scope, $rootScope, _, $state, Check){
 }
 angular.module('opsee.global.controllers').controller('HomeCtrl',HomeCtrl);

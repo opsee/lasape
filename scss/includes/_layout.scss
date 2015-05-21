@@ -39,6 +39,9 @@ body {
 .justify-content-around{
   @include justify-content(space-around);
 }
+.justify-content-end{
+  @include justify-content(flex-end);
+}
 .flex-75{
   @include flex(1 75%);
 }
