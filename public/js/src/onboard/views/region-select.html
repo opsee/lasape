@@ -1,32 +1,16 @@
 <div>
-  <div class="md-toolbar md-medium-tall">
-    <div class="container">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-        <div class="md-toolbar-tools">
-          <h1>Launch the Opsee bastion host</h1>
-        </div>
-      </div>
-    </div>
-  </div><!-- .md-toolbar -->
+  <md-toolbar title="Launch the Opsee Bastion Host">
+  </md-toolbar>
   <div class="container">
     <div class="row">
       <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-        <form name="teamForm" ng-submit="submit()">
-
-          <div class="form-group display-flex flex-wrap">
-            <input id="teamName" name="teamName" type="text" ng-model="user.account.team_name" placeholder="Initech" class="form-control flex-order-1" ng-required="true" ng-minlength="3"/>
-            <label for="teamName">
-              <span class="form-label">Team Name</span>
-              <span ng-messages="teamForm.teamName.$error">
-                <span class="ng-hide" ng-show="teamForm.teamName.$touched">
-                  <span class="form-message" ng-message="required">is required.</span>
-                </span>
-              </span>
-            </label>
+        <form name="regionSelectForm" ng-submit="submit()">
+          <div ng-repeat="region in regions">
+            <input type="checkbox" ng-model="region.selected" id="{{::region.id}}" ng-required="requiredSelection()">
+            <label for="{{::region.id}}">{{::region.name}} - {{::region.id}}</label>
           </div>
-          <div class="help-block">This name will appear in headings and menus to identify your team. Your company name is probably a good choice, but it doesn't need to be official or anything.</div>
-
-          <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="teamForm.$invalid">Next</button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="selectAll()">Select All</button>
+          <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="regionSelectForm.$invalid">Next</button>
         </form>
       </div>
     </div>

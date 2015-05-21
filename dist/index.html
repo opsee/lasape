@@ -14,14 +14,16 @@
 </head>
 <body>
   <!--[if lt IE 9]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-  <div role="main">
+  <div role="main" id="main">
     <div ng-include="'/public/js/src/global/views/svg-sprite.html'"></div>
     <opsee-header></opsee-header>
     <div class="ui-view-wrap" style="position:relative;">
       <section class="content wrap transition-sibling" ui-view ng-class="$state.current.uiViewClasses"></section>
     </div>
+  </div>
   
 <div id="context-menu"></div>
+<opsee-footer></opsee-footer>
 
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

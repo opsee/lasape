@@ -1,15 +1,7 @@
 <div>
-  <div class="md-toolbar md-medium-tall">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-          <div class="md-toolbar-tools">
-            <h1 class="">Environment</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div><!-- .md-toolbar -->
+  <md-toolbar title="Environment">
+    <button class="btn-fab" ng-click="close()">Close</button>
+  </md-toolbar>
 
   <div class="environment-tabs">
     <div class="container">
@@ -24,39 +16,6 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-
-        <h2 class="md-subheader md-subheader-has-avatars">
-          <span class="md-subheader-content">Running ({{runningChecks.length}})</span>
-        </h2>
-        <ul class="md-list md-list-two-line">
-          <li class="md-list-item" ng-repeat="check in runningChecks">
-            <check-item check="check"></check-item>
-          </li>
-        </ul>
-
-        <h2 class="md-subheader md-subheader-has-avatars">
-          <span class="md-subheader-content">Unmonitored ({{unmonitoredChecks.length}})</span>
-        </h2>
-        <ul class="md-list md-list-two-line">
-          <li class="md-list-item" ng-repeat="check in unmonitoredChecks">
-            <check-item check="check"></check-item>
-          </li>
-        </ul>
-
-        <h2 class="md-subheader md-subheader-has-avatars">
-          <span class="md-subheader-content">Stopped ({{stoppedChecks.length}})</span>
-        </h2>
-        <ul class="md-list md-list-two-line">
-          <li class="md-list-item" ng-repeat="check in stoppedChecks">
-            <check-item check="check"></check-item>
-          </li>
-        </ul>
-
-      </div>
-    </div>
-  </div>
+  <div ui-view></div>
 
 </div>

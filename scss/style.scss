@@ -7,6 +7,8 @@
 @import "checks/module";
 
 body {
+  @include display-flex();
+  @include flex-direction(column);
   background-color: $body-bg;
   ::selection {
     background: $blue-200;
@@ -14,6 +16,10 @@ body {
   ::-moz-selection {
     background: $blue-200;
   }
+}
+
+#main{
+  @extend .flex-1;
 }
 
 .logo-header {

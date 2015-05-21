@@ -66,10 +66,67 @@ angular.module('opsee.global.directives').directive('contextMenu', contextMenu);
 function opseeHeader(){
   return {
     restrict:'EA',
-    templateUrl:'/public/js/src/global/partials/header.html'
+    templateUrl:'/public/js/src/global/partials/header.html',
+    controller:function($scope, $location, $state, $rootScope, Global) {
+      $scope.navbarEntries = [
+        {
+          title:'Checks',
+          sref:'checks',
+          children:[]
+        },
+        {
+          title:'More',
+          sref:'more',
+          children:[]
+        }
+      ];
+      $scope.isActive = function (string) {
+        if($state.current.name == string){
+          return true;
+        }
+        return false;
+      };
+      $scope.navCollapsed = true
+      $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
+        $scope.navCollapsed = true;
+      });
+    }
   }
 }
 angular.module('opsee.global.directives').directive('opseeHeader', opseeHeader);
+
+function opseeFooter(){
+  return {
+    restrict:'EA',
+    templateUrl:'/public/js/src/global/partials/footer.html',
+    controller:function($scope, $location, $state, $rootScope, Global) {
+      // $scope.user = $rootScope.user;
+      $scope.entries = [
+        {
+          title:'Checks',
+          sref:'checks',
+          children:[]
+        },
+        {
+          title:'More',
+          sref:'more',
+          children:[]
+        }
+      ];
+      $scope.isActive = function (string) {
+        if($state.current.name == string){
+          return true;
+        }
+        return false;
+      };
+      $scope.navCollapsed = true
+      $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
+        $scope.navCollapsed = true;
+      });
+    }
+  }
+}
+angular.module('opsee.global.directives').directive('opseeFooter', opseeFooter);
 
 function mdToolbar(){
   return {

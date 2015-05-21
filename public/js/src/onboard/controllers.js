@@ -4,6 +4,7 @@ angular.module('opsee.onboard.controllers', ['opsee.onboard.services','opsee.glo
 
 function OnboardCtrl($rootScope,$scope,$state){
   $scope.user = $rootScope.user;
+  $scope.info = {}
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
@@ -152,29 +153,38 @@ function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, On
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', OnboardTeamCtrl);
 
-function OnboardRegionSelectCtrl($scope, $state, $analytics, AWSRegions){
+function OnboardRegionSelectCtrl($scope, $state, $analytics, _, AWSRegions){
+  $scope.regions = angular.copy(AWSRegions);
+  $scope.requiredSelection = function(){
+    return !_.findWhere($scope.regions, {'selected':true});
+  }
+  $scope.selectAll = function(){
+    $scope.regions.forEach(function(r){
+      r.selected = true;
+    });
+  }
   $scope.submit = function(){
+    $scope.info.regions = _.chain($scope.regions).where({'selected':true}).pluck('id').value();
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
+    $state.go('onboard.credentials');
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardRegionSelectCtrl', OnboardRegionSelectCtrl);
 
 function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSService, AWSRegions){
+  console.log($scope.info);
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
-    var data = {
-      accessKey:$scope.user.aws.accessKey,
-      secretKey:$scope.user.aws.secretKey
-    }
     //test creds
-    data.accessKey = 'AKIAITLC4AUQZLJXBZGQ';
-    data.secretKey = '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';
-    data.regions = ['us-west-1','us-west-2'];
-    data.regions = 
-    AWSService.vpcScan(data).then(function(res){
+    $scope.info.accessKey = 'AKIAITLC4AUQZLJXBZGQ';
+    $scope.info.secretKey = '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';
+    if(!$scope.info.regions){
+      $scope.info.regions = _.pluck(AWSRegions,'id');
+    }
+    console.log($scope.info);
+    AWSService.vpcScan($scope.info).then(function(res){
       console.log(res);
-      }, function(err){
-      console.log(err);
+      }, function(res){
       $scope.error = res.data.error || 'There was an error processing your request.';
       $rootScope.$emit('notify',$scope.error);
     })

@@ -2,34 +2,6 @@
 
 angular.module('opsee.global.controllers', ['opsee.global.services']);
 
-function HeaderCtrl($scope, $location, $state, $rootScope, Global) {
-  // $scope.user = $rootScope.user;
-  $scope.navbarEntries = [
-    {
-      title:'Checks',
-      sref:'checks',
-      children:[]
-    },
-    {
-      title:'More',
-      sref:'more',
-      children:[]
-    }
-  ];
-  $scope.isActive = function (string) {
-    if($state.current.name == string){
-      return true;
-    }
-    return false;
-  };
-  $scope.navCollapsed = true
-  $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
-    $scope.navCollapsed = true;
-  });
-}
-
-angular.module('opsee.global.controllers').controller('HeaderCtrl', HeaderCtrl);
-
 function footerController($scope, Global, $location) {
   $scope.navbarEntries = [
     {
@@ -43,7 +15,11 @@ function footerController($scope, Global, $location) {
 angular.module('opsee.global.controllers').controller('FooterController', footerController);
 
 function HomeCtrl($scope, $rootScope, _, $state, Check){
-  $scope.checks = [
+}
+angular.module('opsee.global.controllers').controller('HomeCtrl',HomeCtrl);
+
+function HomeInstancesCtrl($scope, Check){
+  $scope.instances = [
     {
       name:'Wee a check',
       status:{
@@ -100,15 +76,14 @@ function HomeCtrl($scope, $rootScope, _, $state, Check){
       },
     },
   ];
-  $scope.checks.forEach(function(c,i){
-    $scope.checks[i] = new Check(c);
+  $scope.instances.forEach(function(c,i){
+    $scope.instances[i] = new Check(c);
   });
-  $scope.runningChecks = _.filter($scope.checks, function(c){return c.status.state == 'running'});
-  $scope.unmonitoredChecks = _.filter($scope.checks, function(c){return c.status.state == 'unmonitored'});
-  $scope.stoppedChecks = _.filter($scope.checks, function(c){return c.status.state == 'stopped'});
-  delete $scope.checks;
+  $scope.runningInstances = _.filter($scope.instances, function(c){return c.status.state == 'running'});
+  $scope.unmonitoredInstances = _.filter($scope.instances, function(c){return c.status.state == 'unmonitored'});
+  $scope.stoppedInstances = _.filter($scope.instances, function(c){return c.status.state == 'stopped'});
 }
-angular.module('opsee.global.controllers').controller('HomeCtrl',HomeCtrl);
+angular.module('opsee.global.controllers').controller('HomeInstancesCtrl',HomeInstancesCtrl);
 
 function NotFoundCtrl($scope, $rootScope, _, $state){
 }
@@ -116,10 +91,16 @@ angular.module('opsee.global.controllers').controller('NotFoundCtrl',NotFoundCtr
 
 function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('404');
+  $urlRouterProvider.when('/', '/home/instances');
     $stateProvider.state('home', {
       url:'/',
       controller:'HomeCtrl',
       templateUrl:'/public/js/src/global/views/home.html'
+    })
+    .state('home.instances', {
+      url:'home/instances',
+      controller:'HomeInstancesCtrl',
+      templateUrl:'/public/js/src/global/views/home-instances.html'
     })
     .state('404', {
       url:'/404',
