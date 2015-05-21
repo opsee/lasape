@@ -73,18 +73,18 @@ to prevent collapsing during animation*/
 [ui-view]{
   @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
   &.transition-parent-child {
-    @include transition(all $swift-ease-in-out-duration $swift-ease-in-out-timing-function);
+    @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
   }
   &.ng-enter {
     &.transition-sibling{
       @include transform(translateY(15px));
     }
     &.transition-parent-child{
-      opacity:0;
-      @include transform(scale(0.5));
-      &.close{
-        @include transform(translateY(0));
-      }
+      @include transform(translateX(-500px));
+      // opacity:0;
+      // &.close{
+      //   @include transform(translateY(0));
+      // }
     }
   }
   &.ng-enter,&.ng-leave-active {
@@ -105,7 +105,7 @@ to prevent collapsing during animation*/
     }
     &.transition-parent-child {
       opacity:1;
-      @include transform(none);
+      @include transform(translateX(0));
     }
   }
   &.ng-leave-active {
@@ -114,11 +114,11 @@ to prevent collapsing during animation*/
       opacity:0;
     }
     &.transition-parent-child {
-      opacity:0;
+      // opacity:0;
       @include transform(none);
       &.close{
         opacity:0;
-        @include transform(translateY(150px));
+        @include transform(translateX(500px));
       }
     }
   }

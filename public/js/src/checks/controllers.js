@@ -282,7 +282,7 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
       resolve:EditCheckCtrl.resolve,
       hideHeader:true
     })
-    .state('checkCreate', {
+    .state('check.create', {
       url:'/check-create',
       templateUrl:'/public/js/src/checks/views/create.html',
       controller:'CreateCheckCtrl',
