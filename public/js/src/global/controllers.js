@@ -73,6 +73,37 @@ function HomeInstancesCtrl($scope, Check){
 }
 angular.module('opsee.global.controllers').controller('HomeInstancesCtrl',HomeInstancesCtrl);
 
+function HomeGroupsCtrl($scope, Check){
+  $scope.groups = [
+    {
+      name:'A Group',
+      status:{
+        health:25,
+        state:'running',
+        silence:{
+          startDate:new Date(Date.now()-60000),
+          duration:180000
+        }
+      },
+    },
+    {
+      name:'Another group',
+      status:{
+        health:50,
+        state:'running',
+        silence:{
+          startDate:new Date(Date.now()-100000),
+          duration:500000
+        }
+      },
+    },
+  ];
+  $scope.groups.forEach(function(c,i){
+    $scope.groups[i] = new Check(c);
+  });
+}
+angular.module('opsee.global.controllers').controller('HomeGroupsCtrl',HomeGroupsCtrl);
+
 function NotFoundCtrl($scope, $rootScope, _, $state){
 }
 angular.module('opsee.global.controllers').controller('NotFoundCtrl',NotFoundCtrl);
@@ -89,6 +120,11 @@ function config ($stateProvider, $urlRouterProvider) {
       url:'home/instances',
       controller:'HomeInstancesCtrl',
       templateUrl:'/public/js/src/global/views/home-instances.html'
+    })
+    .state('home.groups', {
+      url:'home/groups',
+      controller:'HomeGroupsCtrl',
+      templateUrl:'/public/js/src/global/views/home-groups.html'
     })
     .state('404', {
       url:'/404',
