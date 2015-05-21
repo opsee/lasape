@@ -116,7 +116,7 @@ to prevent collapsing during animation*/
     &.transition-parent-child {
       opacity:0;
       @include transform(none);
-      &.close{
+      &.transition-reverse{
         opacity:0;
         @include transform(translateY(150px));
       }

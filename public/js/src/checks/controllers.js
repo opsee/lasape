@@ -258,7 +258,8 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
       resolve:EditCheckCtrl.resolve,
       hideHeader:true,
       uiViewClasses:{
-        'transition-parent-child':true
+        'transition-parent-child':true,
+        'transition-reverse':true
       }
     })
     .state('checkCreate', {
