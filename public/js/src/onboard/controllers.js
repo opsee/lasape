@@ -121,16 +121,6 @@ OnboardProfileCtrl.resolve = {
 angular.module('opsee.onboard.controllers').controller('OnboardProfileCtrl', OnboardProfileCtrl);
 
 function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, OnboardService){
-  $scope.fullDomain = null;
-  $scope.$watch(function(){return $scope.user.account.customer_id}, function(newVal,oldVal){
-    $scope.fullDomain = newVal ? newVal+'.opsee.co' : null;
-    OnboardService.domainAvailable(newVal).then(function(res){
-      console.log(res);
-    }, function(res){
-      $rootScope.$emit('notify',res);
-      console.log(res);
-    })
-  })
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Team Form'});
     var data = {

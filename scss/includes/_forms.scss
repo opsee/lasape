@@ -105,10 +105,13 @@
     padding: 0.25em 0.5em;
   }
 }//.form-group
-[ng-message]{
+.form-message{
   color: $brand-danger;
   font-weight: $body-font-weight-bold;
   @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  &.form-message-good{
+    color:$brand-success;
+  }
   &.ng-enter, &.ng-leave.ng-leave-active{
     @include transform(translate(32px,0));
     opacity:0;
