@@ -62,14 +62,7 @@ angular.module('opsee.checks.controllers').controller('CheckCtrl', CheckCtrl);
 function SingleCheckCtrl($scope, $state, $stateParams, $location, $timeout, Check, singleCheck){
   $scope.check = new Check(singleCheck).setDefaults();
   $state.current.title = $scope.check.name;
-  var timer = true;
-  $timeout(function(){
-    if(timer){
-      $scope.info.edit = false;
-    }
-  },1000);
   $scope.edit = function(){
-    timer = false;
     $location.url('/check/'+$stateParams.id+'/edit');
   }
 }
@@ -147,16 +140,8 @@ SingleCheckCtrl.resolve = {
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
 function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check, NotificationSettings){
-  $scope.check = new Check(singleCheck).setDefaults();
-  //tell parent ui-view to use close transition
-  var timer = true;
-  $timeout(function(){
-    if(timer){
-      $scope.info.edit = true;
-    }
-  },1000);
+  $scope.check = new Check(singleCheck).setDefaults(); 
   $scope.close = function(){
-    timer = false;
     $location.url('/check/'+$stateParams.id);
   }
 }
@@ -256,24 +241,25 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
       controller:'AllChecksCtrl',
       title:'Checks'
     })
-    .state('check', {
-      abstract:true,
-      controller:'CheckCtrl',
-      template:'<div ui-view class="transition-parent-child" ng-class="{close:info.edit}"></div>',
-    })
-    .state('check.single', {
+    .state('checkSingle', {
       url:'/check/:id?close',
       templateUrl:'/public/js/src/checks/views/single.html',
       controller:'SingleCheckCtrl',
       resolve:SingleCheckCtrl.resolve,
-      reloadOnSearch:false
+      reloadOnSearch:false,
+      uiViewClasses:{
+        'transition-parent-child':true
+      }
     })
-    .state('check.edit', {
+    .state('checkEdit', {
       url:'/check/:id/edit',
       templateUrl:'/public/js/src/checks/views/edit.html',
       controller:'EditCheckCtrl',
       resolve:EditCheckCtrl.resolve,
-      hideHeader:true
+      hideHeader:true,
+      uiViewClasses:{
+        'transition-parent-child':true
+      }
     })
     .state('checkCreate', {
       url:'/check-create',
@@ -281,7 +267,6 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
       controller:'CreateCheckCtrl',
       title:'Create New Check',
       hideHeader:true
-      // resolve:SingleCheckCtrl.resolve
     })
   }
 angular.module('opsee').config(config);

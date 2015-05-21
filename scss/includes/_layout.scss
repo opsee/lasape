@@ -124,6 +124,10 @@ to prevent collapsing during animation*/
   }
 }
 
+.margin-none{
+  margin:0 !important;
+}
+
 .padding-lr {
   padding-left:1em;
   padding-right:1em;
@@ -131,6 +135,6 @@ to prevent collapsing during animation*/
 .padding-b {
   padding-bottom: 1em;
 }
-.padding-b2 {
+.padding-bx2 {
   padding-bottom: 2em;
 }
