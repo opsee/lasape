@@ -268,6 +268,13 @@ function notificationItem(){
     },
     controller:function($scope,NotificationSettings){
       $scope.notificationSettings = new NotificationSettings();
+      if($scope.notif.channel){
+        $scope.notif.channel = _.findWhere($scope.notificationSettings.channels,{'type':$scope.notif.channel.type});
+      }
+      $scope.newChannel = function(notif,$index){
+        console.log('moo');
+        console.log(notif,$index);
+      }
     }
   }
 }

@@ -121,16 +121,6 @@ OnboardProfileCtrl.resolve = {
 angular.module('opsee.onboard.controllers').controller('OnboardProfileCtrl', OnboardProfileCtrl);
 
 function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, OnboardService){
-  $scope.fullDomain = null;
-  $scope.$watch(function(){return $scope.user.account.customer_id}, function(newVal,oldVal){
-    $scope.fullDomain = newVal ? newVal+'.opsee.co' : null;
-    OnboardService.domainAvailable(newVal).then(function(res){
-      console.log(res);
-    }, function(res){
-      $rootScope.$emit('notify',res);
-      console.log(res);
-    })
-  })
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Team Form'});
     var data = {
@@ -162,7 +152,14 @@ function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, On
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', OnboardTeamCtrl);
 
-function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSService){
+function OnboardRegionSelectCtrl($scope, $state, $analytics, AWSRegions){
+  $scope.submit = function(){
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
+  }
+}
+angular.module('opsee.onboard.controllers').controller('OnboardRegionSelectCtrl', OnboardRegionSelectCtrl);
+
+function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSService, AWSRegions){
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
     var data = {
@@ -173,6 +170,7 @@ function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSServi
     data.accessKey = 'AKIAITLC4AUQZLJXBZGQ';
     data.secretKey = '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';
     data.regions = ['us-west-1','us-west-2'];
+    data.regions = 
     AWSService.vpcScan(data).then(function(res){
       console.log(res);
       }, function(err){
@@ -264,6 +262,13 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/team.html',
       controller:'OnboardTeamCtrl',
       title:'Create Your Team'
+    })
+    .state('onboard.regionSelect', {
+      url:'start/region-select',
+      parent:'onboard',
+      templateUrl:'/public/js/src/onboard/views/region-select.html',
+      controller:'OnboardRegionSelectCtrl',
+      title:'Select AWS Regions'
     })
     .state('onboard.credentials', {
       url:'start/credentials',

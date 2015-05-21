@@ -71,4 +71,17 @@ function opseeHeader(){
 }
 angular.module('opsee.global.directives').directive('opseeHeader', opseeHeader);
 
+function mdToolbar(){
+  return {
+    restrict:'EA',
+    replace:true,
+    transclude:'element',
+    scope:{
+      title:'@'
+    },
+    templateUrl:'/public/js/src/global/partials/md-toolbar.html'
+  }
+}
+angular.module('opsee.global.directives').directive('mdToolbar', mdToolbar);
+
 })();//IIFE

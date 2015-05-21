@@ -1,29 +1,18 @@
 <div>
-  <div class="md-toolbar md-medium-tall">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-          <div class="md-toolbar-tools">
-            <h1 class="">Checks</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <md-toolbar title="Checks">
+    <a ui-sref="checkCreate" class="btn btn-success btn-fab" title="Create New Check" tooltip="Create a Check" tooltip-placement="left">
+      <svg class="btn-fab-icon"><use xlink:href="#ico_add" /></svg>
+    </a>
+  </md-toolbar>
   <!-- <div class="col-xs-12">
     <input type="search" ng-model="search" placeholder="Search" class="form-control"/>
   </div> -->
   <div class="container">
     <div class="row">
       <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-        <a href="/check-create" class="btn btn-success btn-fab btn-fab-bottom-right-toolbar" title="Create New Check" tooltip="Create a Check" tooltip-placement="left">
-          <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
-        </a>
-
         <h2 class="md-subheader md-subheader-has-avatars">
           <span class="md-subheader-content">All Checks ({{checks.length}})</span>
         </h2>
-
         <div ng-show="searching" ng-activity-indicator skip-ng-show="yes"></div>
         <ul class="md-list md-list-two-line" ng-hide="searching || !checks.length">
           <li class="md-list-item" ng-repeat="check in checks">

@@ -1,16 +1,7 @@
 <div class="bg-body" style="position:relative;">
-  <div class="md-toolbar md-medium-tall">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-          <div class="md-toolbar-tools">
-            <h1><button class="btn btn-icon" ng-click="close()"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_close" /></svg></button> Editing {{check.name}}</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <md-toolbar title="Editing {{::check.name}}">
+    <button class="btn-fab" ng-click="close()">Close</button>
+  </md-toolbar>
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">

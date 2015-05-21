@@ -7,7 +7,7 @@ function OnboardService($resource, $q, $http, ENDPOINTS){
     domainAvailable:function(domain){
       var deferred = $q.defer();
       $http.get(ENDPOINTS.api+'/orgs/subdomain/'+domain).then(function(res){
-        deferred.resolve(!!(res.data && res.data.available));
+        !!(res.data && res.data.available) ? deferred.resolve() : deferred.reject();
       }, function(res){
         deferred.reject(res);
       });

@@ -136,6 +136,7 @@ $button-fab-padding: 1.60rem !default;
   width: $button-fab-width;
   height: $button-fab-height;
   vertical-align: middle;
+  position: relative;
 
   @extend .md-shadow-bottom-z-1;
   border-radius: 50%;
