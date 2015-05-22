@@ -4,8 +4,8 @@
     <label for="userEmail">
       <span class="form-label">Email</span>
       <span ng-messages="form.userEmail.$error">
-        <span class="form-message ng-hide" ng-show="form.userEmail.$touched">
-          <span ng-message="required">is required.</span>
+        <span class="ng-hide" ng-show="form.userEmail.$touched">
+          <span ng-message="required" class="form-message">is required.</span>
         </span>
       </span>
     </label>
@@ -16,8 +16,8 @@
     <label for="userFullName">
       <span class="form-label">Name</span>
       <span ng-messages="form.userFullName.$error">
-        <span class="form-message ng-hide" ng-show="form.userFullName.$touched">
-          <span ng-message="required">is required.</span>
+        <span class="ng-hide" ng-show="form.userFullName.$touched">
+          <span ng-message="required" class="form-message">is required.</span>
         </span>
       </span>
     </label>
@@ -28,8 +28,8 @@
     <label for="userPassword">
       <span class="form-label">Password</span>
       <span ng-messages="form.userPassword.$error">
-        <span class="form-message ng-hide" ng-show="form.userPassword.$touched">
-          <span ng-message="required">is required.</span>
+        <span class="ng-hide" ng-show="form.userPassword.$touched">
+          <span ng-message="required" class="form-message">is required.</span>
         </span>
       </span>
     </label>

@@ -7,9 +7,8 @@ front-end
 
 1. Node.js 
   * brew install node
-2. Bower 
-  * npm install -g bower
-3. Dependencies
+  * npm install -g grunt grunt-cli bower
+2. Dependencies
   * npm install
   * bundle install
 
