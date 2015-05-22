@@ -132,6 +132,11 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/global/views/more.html',
       title:'More Links'
     })
+    .state('styleguide', {
+      url:'/styleguide',
+      templateUrl:'/public/js/src/global/views/styleguide.html',
+      title:'Style Guide'
+    })
   }
   angular.module('opsee').config(config);
 

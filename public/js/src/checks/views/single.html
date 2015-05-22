@@ -11,10 +11,12 @@
         <h2>Check Information</h2>
 
         <table class="table">
-          <tr ng-repeat="meta in check.meta">
-            <td><strong>{{meta.key}}</strong></td>
-            <td>{{meta.value}}</td>
-          </tr>
+          <tbody>
+            <tr ng-repeat="meta in check.meta">
+              <td><strong>{{meta.key}}</strong></td>
+              <td>{{meta.value}}</td>
+            </tr>
+          </tbody>
         </table>
 
         <h2>Check Instances</h2>

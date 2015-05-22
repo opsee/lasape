@@ -140,7 +140,7 @@ SingleCheckCtrl.resolve = {
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
 function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check, NotificationSettings){
-  $scope.check = new Check(singleCheck).setDefaults(); 
+  $scope.check = new Check(singleCheck).setDefaults();
   $scope.close = function(){
     $location.url('/check/'+$stateParams.id);
   }
@@ -246,10 +246,7 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
       templateUrl:'/public/js/src/checks/views/single.html',
       controller:'SingleCheckCtrl',
       resolve:SingleCheckCtrl.resolve,
-      reloadOnSearch:false,
-      uiViewClasses:{
-        'transition-parent-child':true
-      }
+      reloadOnSearch:false
     })
     .state('checkEdit', {
       url:'/check/:id/edit',
@@ -262,7 +259,7 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
         'transition-reverse':true
       }
     })
-    .state('check.create', {
+    .state('checkCreate', {
       url:'/check-create',
       templateUrl:'/public/js/src/checks/views/create.html',
       controller:'CreateCheckCtrl',
