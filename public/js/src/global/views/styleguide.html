@@ -1,0 +1,222 @@
+<md-toolbar title="Opsee Styleguide">
+  <a ui-sref="" class="btn btn-success btn-fab" title="Primary Action" tooltip="Create a Check" tooltip-placement="left">
+    <svg class="btn-fab-icon"><use xlink:href="#ico_add" /></svg>
+  </a>
+</md-toolbar>
+
+<div class="environment-tabs">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active"><a href="#">Tab 1</a></li>
+          <li role="presentation"><a href="#">Tab 2</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+    <h1>H1 Element</h1>
+    <h2>H2 Element</h2>
+    <h3>H3 Element</h3>
+
+    <hr>
+
+    <h2 class="md-subheader md-subheader-has-avatars">
+      <span class="md-subheader-content">Subheader - List with icons</span>
+    </h2>
+
+    <ul class="md-list md-list-two-line">
+      <li class="md-list-item">
+        <div class="row">
+          <div class="col-xs-12 display-flex vertical-align">
+            <a href="/check/{{check.id}}" class="flex-1 display-flex vertical-align md-list-link">
+              <div class="md-list-avatar" radial-graph check="check"></div>
+              <div>
+                <div class="md-list-line">List Line 1</div>
+                <div class="md-list-line">List Line 2</div>
+              </div>
+            </a>
+            <button type="button" class="btn btn-icon" ng-click="check.menu()" title="LINK TITLE" tooltip="Secondary action" tooltip-placement="left">
+              <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off"/></svg>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li class="md-list-item">
+        <div class="row">
+          <div class="col-xs-12 display-flex vertical-align">
+            <a href="/check/{{check.id}}" class="flex-1 display-flex vertical-align md-list-link">
+              <div class="md-list-avatar" radial-graph check="check"></div>
+              <div>
+                <div class="md-list-line">List Line 1</div>
+                <div class="md-list-line">List Line 2</div>
+              </div>
+            </a>
+            <button type="button" class="btn btn-icon" ng-click="check.menu()" title="LINK TITLE" tooltip="Secondary action" tooltip-placement="left">
+              <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off"/></svg>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li class="md-list-item">
+        <div class="row">
+          <div class="col-xs-12 display-flex vertical-align">
+            <a href="/check/{{check.id}}" class="flex-1 display-flex vertical-align md-list-link">
+              <div class="md-list-avatar" radial-graph check="check"></div>
+              <div>
+                <div class="md-list-line">List Line 1</div>
+                <div class="md-list-line">List Line 2</div>
+              </div>
+            </a>
+            <button type="button" class="btn btn-icon" ng-click="check.menu()" title="LINK TITLE" tooltip="Secondary action" tooltip-placement="left">
+              <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off"/></svg>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <hr>
+
+    <h2 class="md-subheader">
+      <span class="md-subheader-content">Subheader - List without icons</span>
+    </h2>
+
+    <ul class="md-list md-list-two-line">
+      <li class="md-list-item">
+        <div class="row">
+          <div class="col-xs-12 display-flex vertical-align">
+            <a href="/check/{{check.id}}" class="flex-1 display-flex vertical-align md-list-link">
+              <div>
+                <div class="md-list-line">List Line 1</div>
+                <div class="md-list-line">List Line 2</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="md-list-item">
+        <div class="row">
+          <div class="col-xs-12 display-flex vertical-align">
+            <a href="/check/{{check.id}}" class="flex-1 display-flex vertical-align md-list-link">
+              <div>
+                <div class="md-list-line">List Line 1</div>
+                <div class="md-list-line">List Line 2</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="md-list-item">
+        <div class="row">
+          <div class="col-xs-12 display-flex vertical-align">
+            <a href="/check/{{check.id}}" class="flex-1 display-flex vertical-align md-list-link">
+              <div>
+                <div class="md-list-line">List Line 1</div>
+                <div class="md-list-line">List Line 2</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <hr>
+
+    <h3>Data Tables</h3>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Head1</th>
+          <th>Head1</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Col 1</td>
+          <td>Col 2</td>
+        </tr>
+        <tr>
+          <td>Col 1</td>
+          <td>Col 2</td>
+        </tr>
+        <tr>
+          <td>Col 1</td>
+          <td>Col 2</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h3>Forms</h3>
+
+    <form name="testform" id="testform">
+      <div class="form-group display-flex flex-wrap">
+        <input id="testinput1" name="testinput1" type="text" ng-model="user.account.team_name" placeholder="input placeholder" class="form-control flex-order-1" ng-required="true" ng-minlength="3"/>
+        <label for="testinput1">
+          <span class="form-label">Text Input Label</span>
+          <span ng-messages="testform.testinput1.$error">
+            <span class="ng-hide" ng-show="testform.testinput1.$touched">
+              <span class="form-message" ng-message="required">and error message.</span>
+            </span>
+          </span>
+        </label>
+      </div>
+
+      <div class="form-group display-flex flex-wrap">
+        <input id="testinput2" name="testinput2" type="email" placeholder="email@domain.com" class="form-control has-icon flex-order-1" ng-required="true" ng-pattern="regex.email"/>
+        <label for="testinput2">
+          <span class="form-label">Email (w/icon)</span>
+          <span ng-messages="testform.testinput2.$error">
+            <span class="form-message ng-hide" ng-show="testform.testinput2.$touched">
+              <span ng-message="required">is required.</span>
+            </span>
+          </span>
+        </label>
+        <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg>
+      </div>
+
+      <div class="form-group">
+        <select id="test-group" class="sr-only" ng-required="true"></select>
+        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle> - Select - <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Option 1</a></li>
+          <li><a href="#">Option 2</a></li>
+          <li><a href="#">Option 3</a></li>
+        </ul>
+      </div>
+
+      <h3>Buttons</h3>
+
+      <div class="padding-bx2">
+        <button class="btn btn-raised btn-primary" type="submit">Primary</button>
+
+        <button class="btn btn-raised btn-success" type="submit">Success</button>
+
+        <button class="btn btn-raised btn-danger" type="submit">Success</button>
+
+        <button class="btn btn-raised btn-success" type="submit" ng-disabled="testform.$invalid">Disabled</button>
+
+        <button class="btn btn-raised btn-default btn-block" type="submit">Default / Block</button>
+      </div>
+
+      <div class="padding-bx2">
+        <button class="btn btn-flat btn-primary" type="submit">Flat Primary</button>
+
+        <button class="btn btn-flat btn-success" type="submit">Flat Success</button>
+
+        <button class="btn btn-flat btn-danger" type="submit">Flat Danger</button>
+
+        <button class="btn btn-flat btn-success" type="submit" ng-disabled="testform.$invalid">Disabled Flat</button>
+      </div>
+    </form>
+
+  </div>
+</div><!-- .container -->

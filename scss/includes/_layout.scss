@@ -83,7 +83,7 @@ to prevent collapsing during animation*/
       @include transform(translateY(15px));
     }
     &.transition-parent-child{
-      @include transform(translateX(-500px));
+      @include transform(translateY(-100%));
       // opacity:0;
       // &.close{
       //   @include transform(translateY(0));
@@ -114,7 +114,7 @@ to prevent collapsing during animation*/
     }
     &.transition-parent-child {
       opacity:1;
-      @include transform(translateX(0));
+      @include transform(translateY(0));
     }
     &.transition-push{
       opacity:1;
@@ -131,7 +131,7 @@ to prevent collapsing during animation*/
       @include transform(none);
       &.transition-reverse{
         opacity:0;
-        @include transform(translateX(500px));
+        @include transform(translateY(100%));
       }
     }
     &.transition-push{
