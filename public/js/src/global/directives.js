@@ -134,7 +134,8 @@ function mdToolbar(){
     replace:true,
     transclude:'element',
     scope:{
-      title:'@'
+      title:'@',
+      close:'='
     },
     templateUrl:'/public/js/src/global/partials/md-toolbar.html'
   }
