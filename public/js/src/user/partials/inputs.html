@@ -17,7 +17,7 @@
       <span class="form-label">Name</span>
       <span ng-messages="form.userFullName.$error">
         <span class="ng-hide" ng-show="form.userFullName.$touched">
-          <span ng-include="'error-messages.html'"></span>
+          <span ng-include="'error-messages'"></span>
         </span>
       </span>
     </label>
@@ -29,7 +29,7 @@
       <span class="form-label">Password</span>
       <span ng-messages="form.userPassword.$error">
         <span class="ng-hide" ng-show="form.userPassword.$touched">
-          <span ng-message="required" class="form-message">is required.</span>
+          <span ng-include="'error-messages'"></span>
         </span>
       </span>
     </label>

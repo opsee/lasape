@@ -59,7 +59,7 @@ function User($resource, $rootScope, _, $localStorage, $state, $q, USER_DEFAULTS
     delete $localStorage.user;
     delete $localStorage.authToken;
     $rootScope.user = new User().setDefaults();
-    $state.go('home');
+    $state.go('login');
   }
   return User;
 }

@@ -87,7 +87,7 @@
       if($rootScope.previousRoute){
         $state.go($rootScope.previousRoute);
       }else{
-        $state.go('home');
+        $state.go('home.instances');
       }
     });
 

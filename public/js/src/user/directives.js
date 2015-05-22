@@ -9,10 +9,11 @@ function userInputs(){
     transclude: true,
     require: '^form',
     scope:{
-      user:'=',
-      includes:'@'
+      user:'=?',
+      includes:'@?'
     },
     controller:function($scope, $rootScope){
+      $scope.user = $scope.user || $rootScope.user;
       $scope.regex = $rootScope.regex;
       $scope.includes = $scope.includes.split(',');
       $scope.include = function(string){
