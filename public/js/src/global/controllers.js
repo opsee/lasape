@@ -104,6 +104,71 @@ function HomeGroupsCtrl($scope, Check){
 }
 angular.module('opsee.global.controllers').controller('HomeGroupsCtrl',HomeGroupsCtrl);
 
+
+
+function StyleGuideCtrl($scope, Check){
+  $scope.checks = [
+  {
+    name:'My great check',
+    info:'Fun info here.',
+    id:'foo',
+    status:{
+      health:25,
+      state:'running',
+      silence:{
+        startDate:null,
+        duration:null
+      }
+    },
+  },
+  {
+    name:'My great check2',
+    info:'Fun info here2.',
+    id:'feee',
+    status:{
+      health:50,
+      state:'running',
+      silence:{
+        startDate:null,
+        duration:null
+      }
+    },
+  },
+  {
+    name:'My great check3',
+    info:'Fun info here2.',
+    id:'feee',
+    status:{
+      health:0,
+      state:'unmonitored',
+      silence:{
+        startDate:null,
+        duration:null
+      }
+    },
+  },
+  {
+    name:'My great check3',
+    info:'Fun info here2.',
+    id:'feee',
+    status:{
+      health:0,
+      state:'stopped',
+      silence:{
+        startDate:null,
+        duration:null
+      }
+    },
+  },
+  ];
+  $scope.checks.forEach(function(c,i){
+    $scope.checks[i] = new Check(c);
+  });
+}
+angular.module('opsee.global.controllers').controller('StyleGuideCtrl',StyleGuideCtrl);
+
+
+
 function NotFoundCtrl($scope, $rootScope, _, $state){
 }
 angular.module('opsee.global.controllers').controller('NotFoundCtrl',NotFoundCtrl);
@@ -139,6 +204,7 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('styleguide', {
       url:'/styleguide',
+      controller:'StyleGuideCtrl',
       templateUrl:'/public/js/src/global/views/styleguide.html',
       title:'Style Guide'
     })
