@@ -5,9 +5,7 @@
   left:0;
   width:100%;
   @include transition(all $swift-ease-in-out-duration $swift-ease-in-out-timing-function);
-  // @include transition-delay(all $swift-ease-in-out-duration);
   &.ng-hide-remove, &.ng-hide-add.ng-hide-add-active{
-    // @include transform(translateY(-100px));
     margin-top:-54px;
     opacity:0;
     &.ng-hide{

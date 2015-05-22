@@ -13,13 +13,13 @@ $graphWidth:40px;
     &.running{
       background-color:$red-500;
       .radial-graph-inner{
-        background:$green-300;
+        background:$brand-success;
         &.failing{
           background:$red-500;
         }
       }
       .loader {
-        fill:$green-300;
+        fill:$brand-success;
       }
     }
     &.stopped{
