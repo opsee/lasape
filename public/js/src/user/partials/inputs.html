@@ -1,30 +1,30 @@
 <div>
-  <div class="form-group display-flex flex-wrap" ng-if="!onboarding">
-    <input id="userEmail" name="userEmail" type="email" ng-model="user.account.email" placeholder="email@domain.com" class="form-control has-icon flex-order-1" ng-required="true" ng-pattern="regex.email"/>
+  <div class="form-group display-flex flex-wrap" ng-if="include('email');">
+    <input id="userEmail" name="userEmail" type="text" ng-model="user.account.email" placeholder="email@domain.com" class="form-control has-icon flex-order-1" ng-required="true" ng-pattern="regex.email"/>
     <label for="userEmail">
       <span class="form-label">Email</span>
       <span ng-messages="form.userEmail.$error">
         <span class="ng-hide" ng-show="form.userEmail.$touched">
-          <span ng-message="required" class="form-message">is required.</span>
+          <span ng-include="'error-messages'"></span>
         </span>
       </span>
     </label>
     <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg>
   </div>
-  <div class="form-group display-flex flex-wrap" ng-if="!login">
-    <input id="userFullName" type="text" ng-model="user.bio.name" placeholder="First Last" class="form-control has-icon flex-order-1" ng-required="true" ng-pattern="regex.general"/>
+  <div class="form-group display-flex flex-wrap" ng-if="include('name');">
+    <input id="userFullName" name="userFullName" type="text" ng-model="user.bio.name" placeholder="First Last" class="form-control has-icon flex-order-1" ng-required="true" ng-pattern="regex.general"/>
     <label for="userFullName">
       <span class="form-label">Name</span>
       <span ng-messages="form.userFullName.$error">
         <span class="ng-hide" ng-show="form.userFullName.$touched">
-          <span ng-message="required" class="form-message">is required.</span>
+          <span ng-include="'error-messages.html'"></span>
         </span>
       </span>
     </label>
     <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_person" /></svg>
   </div>
-  <div class="form-group display-flex flex-wrap" ng-if="login && !onboarding">
-    <input id="userPassword" type="password" ng-model="user.account.password" placeholder="Password" class="form-control has-icon flex-order-1" ng-required="true"/>
+  <div class="form-group display-flex flex-wrap" ng-if="include('password');">
+    <input id="userPassword" type="password" name="userPassword" ng-model="user.account.password" placeholder="Password" class="form-control has-icon flex-order-1" ng-required="true"/>
     <label for="userPassword">
       <span class="form-label">Password</span>
       <span ng-messages="form.userPassword.$error">

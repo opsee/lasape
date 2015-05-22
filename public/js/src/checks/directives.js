@@ -137,7 +137,7 @@ function radialGraph(){
     replace:true,
     templateUrl:'/public/js/src/checks/partials/radial-graph.html',
     scope:{
-      check:'='
+      check:'=?'
     },
     controller:function($scope, $element, $timeout, $filter, moment){
       $scope.status = $scope.check.status;

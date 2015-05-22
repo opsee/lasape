@@ -2,8 +2,11 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 md-toolbar-inner" style="position:relative;">
+        <div class="pull-left" ng-if="close">
+          <div ng-transclude></div>
+        </div>
         <h1 class="margin-none">{{title}}</h1>
-        <div class="md-toolbar-bottom-right">
+        <div class="md-toolbar-bottom-right" ng-if="!close">
           <div ng-transclude></div>
         </div>
       </div>

@@ -10,9 +10,14 @@ function userInputs(){
     require: '^form',
     scope:{
       user:'=',
-      login:'=?',
-      onboarding:'=?',
-      starting:'=?'
+      includes:'@'
+    },
+    controller:function($scope, $rootScope){
+      $scope.regex = $rootScope.regex;
+      $scope.includes = $scope.includes.split(',');
+      $scope.include = function(string){
+        return $scope.includes.indexOf(string) > -1;
+      }
     },
     link:function($scope, $element, $attrs, $formCtrl){
       $scope.form = $formCtrl;
