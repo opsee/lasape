@@ -40,7 +40,7 @@
                 <div class="md-list-line">List Line 2</div>
               </div>
             </a>
-            <button type="button" class="btn btn-icon" ng-click="check.menu()" title="Silence check" tooltip="Secondary action" tooltip-placement="left">
+            <button type="button" class="btn btn-icon" ng-click="check.menu()" title="LINK TITLE" tooltip="Secondary action" tooltip-placement="left">
               <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off"/></svg>
             </button>
           </div>
@@ -56,7 +56,7 @@
                 <div class="md-list-line">List Line 2</div>
               </div>
             </a>
-            <button type="button" class="btn btn-icon" ng-click="check.menu()" title="Silence check" tooltip="Secondary action" tooltip-placement="left">
+            <button type="button" class="btn btn-icon" ng-click="check.menu()" title="LINK TITLE" tooltip="Secondary action" tooltip-placement="left">
               <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off"/></svg>
             </button>
           </div>
@@ -72,7 +72,7 @@
                 <div class="md-list-line">List Line 2</div>
               </div>
             </a>
-            <button type="button" class="btn btn-icon" ng-click="check.menu()" title="Silence check" tooltip="Secondary action" tooltip-placement="left">
+            <button type="button" class="btn btn-icon" ng-click="check.menu()" title="LINK TITLE" tooltip="Secondary action" tooltip-placement="left">
               <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off"/></svg>
             </button>
           </div>
@@ -167,6 +167,19 @@
             </span>
           </span>
         </label>
+      </div>
+
+      <div class="form-group display-flex flex-wrap">
+        <input id="testinput2" name="testinput2" type="email" placeholder="email@domain.com" class="form-control has-icon flex-order-1" ng-required="true" ng-pattern="regex.email"/>
+        <label for="testinput2">
+          <span class="form-label">Email (w/icon)</span>
+          <span ng-messages="testform.testinput2.$error">
+            <span class="form-message ng-hide" ng-show="testform.testinput2.$touched">
+              <span ng-message="required">is required.</span>
+            </span>
+          </span>
+        </label>
+        <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg>
       </div>
 
       <div class="form-group">
