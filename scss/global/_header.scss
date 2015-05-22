@@ -7,14 +7,15 @@
   @include transition(all $swift-ease-in-out-duration $swift-ease-in-out-timing-function);
   // @include transition-delay(all $swift-ease-in-out-duration);
   &.ng-hide-remove, &.ng-hide-add.ng-hide-add-active{
-    @include transform(translateY(-100px));
+    // @include transform(translateY(-100px));
+    margin-top:-54px;
     opacity:0;
     &.ng-hide{
       display:block !important;
     }
   }
   &.ng-hide-remove.ng-hide-remove-active, &.ng-hide-add{
-    @include transform(none);
+    margin:0;
     opacity:1;
     &.ng-hide{
       display:block !important;

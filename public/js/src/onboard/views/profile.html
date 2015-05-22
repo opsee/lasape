@@ -3,11 +3,8 @@
   <div class="container">
     <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
       <form name="profileForm" ng-submit="submit()">
-        <user-inputs user="user" onboarding="true"></user-inputs>
-        <div ng-if="!user.integrations.slack.user">
-          <h2>Slack Authorization</h2>
-          <slack-auth></slack-auth>
-        </div>
+        <user-inputs user="user" includes="name"></user-inputs>
+        <slack-auth ng-if="!user.integrations.slack.user"></slack-auth>
         <!-- <slack-test></slack-test> -->
         <profile-img></profile-img>
         <div class="row">

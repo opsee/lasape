@@ -173,13 +173,11 @@ function OnboardRegionSelectCtrl($scope, $state, $analytics, _, AWSRegions){
 angular.module('opsee.onboard.controllers').controller('OnboardRegionSelectCtrl', OnboardRegionSelectCtrl);
 
 function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSService, AWSRegions){
-  console.log($scope.info);
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
     if(!$scope.info.regions){
       $scope.info.regions = _.pluck(AWSRegions,'id');
     }
-    console.log($scope.info);
     $state.go('onboard.vpcSelect');
   }
 }

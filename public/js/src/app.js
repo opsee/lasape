@@ -2,7 +2,13 @@
 
   angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router','ngMessages','angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'cgNotify', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws'])
 
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $location, $timeout, $document, Global, Regex, $localStorage, $analytics, $activityIndicator, $state, authService, User, ENDPOINTS, VisibilityChange) {
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $templateCache, $location, $timeout, $document, $localStorage, $analytics, $activityIndicator, $state, Global, Regex, authService, User, ENDPOINTS, VisibilityChange) {
+
+    $window.FastClick.attach(document.body);
+
+    $http.get('/public/js/src/global/partials/error-messages.html').then(function(res){
+      $templateCache.put('error-messages', res.data);
+    });
 
     $rootScope.$on('$stateChangeStart', function (event, toState, fromState, fromParams) {
       if(toState.name != ('login')){
@@ -17,11 +23,9 @@
       },400);
     });
 
-    $window.FastClick.attach(document.body);
-
     VisibilityChange.onChange(function(visible){
       $analytics.eventTrack('visibility-change', {category:'Global',label:visible ? 'visible' : 'hidden'});
-    })
+    });
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, fromState, fromParams) {
       $analytics.pageTrack(toState.url);
