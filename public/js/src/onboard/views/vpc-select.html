@@ -1,0 +1,29 @@
+<div>
+  <md-toolbar title="Select VPCs"></md-toolbar>
+  <div class="container">
+    <div class="row">
+      <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+        <form name="regionSelectForm" ng-submit="submit()" ng-show="!msg" class="ng-hide">
+          <div ng-repeat="region in regions">
+            <h2>{{region.region}} - {{region.regionName}}</h2>
+            <h3>VPCs</h3>
+            <div ng-repeat="vpc in region.vpcs">
+              <div class="pull-left">
+                <input type="checkbox" ng-model="vpc.selected" id="{{vpc['vpc-id']}}" ng-required="requiredSelection()">
+              </div>
+              <label for="{{vpc['vpc-id']}}">
+                <div>id:{{vpc['vpc-id']}}</div>
+                <div>state:{{vpc.state}}</div>
+              </label>
+            </div>
+          </div>
+          <button type="button" class="btn btn-default btn-sm" ng-click="selectAll()">Select All</button>
+          <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="regionSelectForm.$invalid">Next</button>
+        </form>
+        <div ng-show="msg && msg == 'loading'" class="ng-hide">
+          Finding VPCs....
+        </div>
+      </div>
+    </div>
+  </div><!-- .container -->
+</div>

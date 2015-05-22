@@ -126,6 +126,14 @@ function UserService($q, $resource, $rootScope, $analytics, User, ENDPOINTS){
         return $q.reject({data:{error:'Bad credentials.'}});
       }
     },
+    createOrg:function(user){
+      if(user && user.name && user.subdomain){
+        var path = $resource(ENDPOINTS.api+'/orgs');
+        return path.save(user).$promise;
+      }else{
+        return $q.reject({data:{error:'Bad credentials.'}});
+      }
+    },
     login:function(user){
       $analytics.eventTrack('login', {category:'User'});
       if(user && user.account.email){

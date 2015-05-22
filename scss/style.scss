@@ -2,7 +2,7 @@
 @import "compass/css3/deprecated-support";
 @import "breakpoint";
 @import "includes/module";
-@import "global/header";
+@import "global/module";
 @import "CSS:../public/lib/highlightjs/styles/dark";
 @import "checks/module";
 
@@ -20,6 +20,11 @@ body {
 
 #main{
   @extend .flex-1;
+  > .ui-view-wrap{
+    @include breakpoint($screen-sm){
+      padding-bottom:3em;
+    }
+  }
 }
 
 .logo-header {

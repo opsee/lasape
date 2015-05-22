@@ -262,7 +262,7 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
         'transition-reverse':true
       }
     })
-    .state('check.create', {
+    .state('checkCreate', {
       url:'/check-create',
       templateUrl:'/public/js/src/checks/views/create.html',
       controller:'CreateCheckCtrl',

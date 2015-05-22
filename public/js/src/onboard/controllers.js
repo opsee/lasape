@@ -2,9 +2,14 @@
 
 angular.module('opsee.onboard.controllers', ['opsee.onboard.services','opsee.global.services']);
 
-function OnboardCtrl($rootScope,$scope,$state){
+function OnboardCtrl($rootScope, $scope, $state, AWSRegions){
   $scope.user = $rootScope.user;
   $scope.info = {}
+  //test regions
+  $scope.info.regions = _.pluck(AWSRegions,'id');
+  //test creds
+  $scope.info.accessKey = 'AKIAITLC4AUQZLJXBZGQ';
+  $scope.info.secretKey = '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';
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
@@ -125,13 +130,10 @@ function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, On
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Team Form'});
     var data = {
-      password:$scope.user.account.password,
-      team_name:$scope.user.account.team_name,
-      customer_id:$scope.user.account.customer_id,
-      activationId:$scope.user.activationId,
-      email:$scope.user.account.email
+      name:$scope.user.account.name,
+      subdomain:$scope.user.account.subdomain,
     }
-    UserService.claim(data).then(function(res){
+    UserService.createOrg(data).then(function(res){
       console.log(res);
       $rootScope.$emit('setUser',res.data);
       UserService.login($scope.user).then(function(res){
@@ -164,8 +166,7 @@ function OnboardRegionSelectCtrl($scope, $state, $analytics, _, AWSRegions){
     });
   }
   $scope.submit = function(){
-    $scope.info.regions = _.chain($scope.regions).where({'selected':true}).pluck('id').value();
-    $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'RegionSelect'});
     $state.go('onboard.credentials');
   }
 }
@@ -175,22 +176,37 @@ function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSServi
   console.log($scope.info);
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
-    //test creds
-    $scope.info.accessKey = 'AKIAITLC4AUQZLJXBZGQ';
-    $scope.info.secretKey = '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';
     if(!$scope.info.regions){
       $scope.info.regions = _.pluck(AWSRegions,'id');
     }
     console.log($scope.info);
-    AWSService.vpcScan($scope.info).then(function(res){
-      console.log(res);
-      }, function(res){
-      $scope.error = res.data.error || 'There was an error processing your request.';
-      $rootScope.$emit('notify',$scope.error);
-    })
+    $state.go('onboard.vpcSelect');
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCredentialsCtrl', OnboardCredentialsCtrl);
+
+function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, AWSService, AWSRegions){
+  $scope.msg = 'loading';
+  AWSService.vpcScan($scope.info).then(function(res){
+    console.log(res);
+    $scope.regions = res.data;
+    $scope.regions.forEach(function(r){
+      AWSRegions.forEach(function(ar){
+        if(r.region == ar.id){
+          r.regionName = ar.name;
+        }
+      });
+    })
+    $scope.msg = null;
+    }, function(res){
+    $scope.msg = res.data.error || 'There was an error processing your request.';
+    $rootScope.$emit('notify',$scope.error);
+  })
+  $scope.submit = function(){
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
+  }
+}
+angular.module('opsee.onboard.controllers').controller('OnboardVpcsCtrl', OnboardVpcsCtrl);
 
 
 function config ($stateProvider, $urlRouterProvider) {
@@ -279,6 +295,13 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/region-select.html',
       controller:'OnboardRegionSelectCtrl',
       title:'Select AWS Regions'
+    })
+    .state('onboard.vpcSelect', {
+      url:'start/vpc-select',
+      parent:'onboard',
+      templateUrl:'/public/js/src/onboard/views/vpc-select.html',
+      controller:'OnboardVpcsCtrl',
+      title:'Select VPCs'
     })
     .state('onboard.credentials', {
       url:'start/credentials',

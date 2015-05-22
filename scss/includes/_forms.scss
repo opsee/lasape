@@ -69,7 +69,7 @@
         @include opacity(100);
         @include transform(translate(0,0));
         visibility: visible;
-        color: $text-color-secondary;
+        // color: $text-color-secondary;
       }
     }
     &.has-icon {
@@ -109,6 +109,8 @@
   color: $brand-danger;
   font-weight: $body-font-weight-bold;
   @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function, opacity $swift-ease-out-duration $swift-ease-out-timing-function, visibility $swift-ease-out-duration $swift-ease-out-timing-function);
+  position: absolute;
+  margin-left:.4em;
   &.form-message-good{
     color:$brand-success;
   }

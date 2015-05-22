@@ -89,12 +89,18 @@ to prevent collapsing during animation*/
       //   @include transform(translateY(0));
       // }
     }
+    &.transition-push{
+      @include transform(translateX(-50%));
+    }
   }
   &.ng-enter,&.ng-leave-active {
     position:absolute;
     left:0;
     right:0;
     &.transition-sibling{
+      opacity:0;
+    }
+    &.transition-push{
       opacity:0;
     }
   }
@@ -110,6 +116,10 @@ to prevent collapsing during animation*/
       opacity:1;
       @include transform(translateX(0));
     }
+    &.transition-push{
+      opacity:1;
+      @include transform(none);
+    }
   }
   &.ng-leave-active {
     &.transition-sibling {
@@ -123,6 +133,10 @@ to prevent collapsing during animation*/
         opacity:0;
         @include transform(translateX(500px));
       }
+    }
+    &.transition-push{
+      opacity:0;
+      // @include transform(translateX(100%));
     }
   }
 }
