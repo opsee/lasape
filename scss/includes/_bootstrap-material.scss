@@ -65,7 +65,7 @@ legend {
   li {
     overflow: hidden;
     position: relative;
-    a:hover {
+    *:hover {
       background: rgba(0,0,0,0.08);
     }
   }

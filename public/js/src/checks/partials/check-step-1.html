@@ -2,14 +2,14 @@
 <h2>Choose a Group to Check</h2>
 <div class="row">
   <div class="col-xs-12">
-    <div class="form-group display-flex flex-wrap" dropdown>
+    <div class="form-group display-flex flex-wrap" dropdown is-open="groupDropdownOpen">
         <select id="check-group" class="sr-only" ng-required="true" ng-model="check.group" ng-options="g for g in groups"></select>
         <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
           {{check.group.name || '- Group -'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="g in groups">
-            <button ng-click="check.group = g">
+            <button ng-click="check.group = g;" dropdown-toggle>
               {{g.name}}
             </button>
           </li>
@@ -28,9 +28,9 @@
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="p in protocols">
-          <a href="#" ng-click="check.protocol = p">
+          <button ng-click="check.protocol = p" dropdown-toggle>
             {{p.name}}
-          </a>
+          </button>
         </li>
       </ul>
     </div>
@@ -63,9 +63,9 @@
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="v in verbs">
-          <a href="#" ng-click="check.verb = v">
+          <button ng-click="check.verb = v" dropdown-toggle>
             {{v.name}}
-          </a>
+          </button>
         </li>
       </ul>
     </div>
