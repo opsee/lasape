@@ -96,7 +96,16 @@
     }
   }
   .dropdown-menu {
-    min-width: 70%;
+    width:100%;
+    button{
+      border:0;
+      background:black;
+      width:100%;
+      text-align:left;
+      &:focus,&:active,&:hover{
+        background:$blue-400;
+      }
+    }
   }
   .form-subdomain {
     @include transition(height $swift-ease-out-duration $swift-ease-out-timing-function);
