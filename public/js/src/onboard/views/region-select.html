@@ -6,7 +6,8 @@
       <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
         <form name="regionSelectForm" ng-submit="submit()">
           <div ng-repeat="region in regions">
-            <input type="checkbox" ng-model="region.selected" id="{{::region.id}}" ng-required="requiredSelection()">
+            <input checkbox-toggle type="checkbox" ng-model="region.selected" id="{{::region.id}}" ng-required="requiredSelection()" class="sr-only">
+            <toggle-switch ng-model="region.selected"></toggle-switch>
             <label for="{{::region.id}}">{{::region.name}} - {{::region.id}}</label>
           </div>
           <button type="button" class="btn btn-default btn-sm" ng-click="selectAll()">Select All</button>

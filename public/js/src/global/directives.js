@@ -142,6 +142,18 @@ function mdToolbar(){
 }
 angular.module('opsee.global.directives').directive('mdToolbar', mdToolbar);
 
+function toggleSwitch(){
+  return {
+    restrict:'AE',
+    replace:true,
+    template:'<div class="toggle-switch" ng-class="{active:ngModel == true}" ng-click="ngModel = !ngModel"><div class="knob"></div></div>',
+    scope:{
+      ngModel:'='
+    }
+  }
+}
+angular.module('opsee.global.directives').directive('toggleSwitch', toggleSwitch);
+
 function srOnly(){
   return {
     restrict:'C',

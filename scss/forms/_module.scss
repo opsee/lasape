@@ -1,3 +1,5 @@
+@import './toggle-switch';
+
 .form-group {
   border: none;
   margin-bottom: 32px;
@@ -159,4 +161,8 @@
   -webkit-appearance:none;
   background:none;
   border:0;
+}
+
+label{
+  cursor:pointer;
 }

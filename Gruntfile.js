@@ -100,7 +100,8 @@ module.exports = function(grunt) {
             'angular-visibility-change/dist/angular-visibility-change.min',
             'angular-notify/dist/angular-notify.min',
             'angular-touch/angular-touch.min',
-            'fastclick/lib/fastclick'
+            'fastclick/lib/fastclick',
+            'angular-toggle-switch/angular-toggle-switch.min'
           ])
         }
       },
