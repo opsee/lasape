@@ -2,14 +2,14 @@
 
 angular.module('opsee.onboard.controllers', ['opsee.onboard.services','opsee.global.services']);
 
-function OnboardCtrl($rootScope, $scope, $state, AWSRegions){
+function OnboardCtrl($rootScope, $scope, $state, AWSRegions, TEST_KEYS){
   $scope.user = $rootScope.user;
   $scope.info = {}
   //test regions
   $scope.info.regions = _.pluck(AWSRegions,'id');
   //test creds
-  $scope.info.accessKey = 'AKIAITLC4AUQZLJXBZGQ';
-  $scope.info.secretKey = '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';
+  $scope.info.accessKey = TEST_KEYS['access-key'];
+  $scope.info.secretKey = TEST_KEYS['secret-key'];
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
@@ -206,6 +206,12 @@ function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, AWSService, AWS
 }
 angular.module('opsee.onboard.controllers').controller('OnboardVpcsCtrl', OnboardVpcsCtrl);
 
+function OnboardBastionCtrl($scope, $rootScope, $state, $analytics, AWSService){
+  var stream = AWSService.bastionInstall();
+  console.log(stream);
+}
+angular.module('opsee.onboard.controllers').controller('OnboardBastionCtrl', OnboardBastionCtrl);
+
 
 function config ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('/tutorial', '/tutorial/1');
@@ -300,6 +306,13 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/vpc-select.html',
       controller:'OnboardVpcsCtrl',
       title:'Select VPCs'
+    })
+    .state('onboard.bastion', {
+      url:'start/bastion',
+      parent:'onboard',
+      templateUrl:'/public/js/src/onboard/views/bastion.html',
+      controller:'OnboardBastionCtrl',
+      title:'Bastion Installation'
     })
     .state('onboard.credentials', {
       url:'start/credentials',

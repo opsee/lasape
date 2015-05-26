@@ -2,7 +2,13 @@
 
 angular.module('opsee.aws.services', []);
 
-function AWSService($http, $localStorage, ENDPOINTS){
+var TEST_KEYS = {
+  'access-key':'AKIAITLC4AUQZLJXBZGQ',
+  'secret-ket':'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'
+}
+angular.module('opsee.aws.services').constant('TEST_KEYS',TEST_KEYS);
+
+function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS){
   return {
     vpcScan:function(data){
       return $http.post(ENDPOINTS.vpcScan, {
@@ -11,6 +17,34 @@ function AWSService($http, $localStorage, ENDPOINTS){
         // regions:JSON.stringify(data.regions)
         regions:data.regions
       });
+    },
+    bastionInstall:function(data){
+      console.log($rootScope.user);
+      data = data || {};
+      _.defaults(data, {
+        hmac:$rootScope.user.token,
+        cmd:'launch',
+        'instance-size': "t2.micro",
+        regions: [
+          {
+            region: "us-east-1",
+            vpcs: [
+              {
+                id: "vpc-31a0cc54"
+              }
+            ]
+          }
+        ]
+      }, TEST_KEYS);
+      console.log(data);
+      if(!data){
+      }
+      var stream = $websocket('ws://staging.opsy.co/stream/');
+      stream.send(JSON.stringify(data));
+      stream.onMessage(function(message){
+        console.log(message);
+      });
+      return stream;
     }
   }
 }

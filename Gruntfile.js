@@ -101,7 +101,8 @@ module.exports = function(grunt) {
             'angular-notify/dist/angular-notify.min',
             'angular-touch/angular-touch.min',
             'fastclick/lib/fastclick',
-            'angular-toggle-switch/angular-toggle-switch.min'
+            'angular-toggle-switch/angular-toggle-switch.min',
+            'angular-websocket/angular-websocket.min'
           ])
         }
       },
