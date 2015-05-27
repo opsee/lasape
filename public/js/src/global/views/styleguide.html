@@ -138,14 +138,16 @@
       </div>
 
       <div class="form-group">
-        <select id="test-group" class="sr-only" ng-required="true"></select>
-        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle> - Select - <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Option 1</a></li>
-          <li><a href="#">Option 2</a></li>
-          <li><a href="#">Option 3</a></li>
-        </ul>
+        <div dropdown>
+          <select id="test-group" class="sr-only" ng-required="true"></select>
+          <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle>{{dropdownSelected || 'Select'}}<svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
+          </button>
+          <ul class="dropdown-menu">
+            <li ng-repeat="o in [1,2,3]">
+              <button type="button" dropdown-toggle ng-click="selectDropdown(o)">Option {{o}}</button>
+              </li>
+          </ul>
+        </div>
       </div>
 
       <h3>Buttons</h3>

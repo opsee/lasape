@@ -164,6 +164,9 @@ function StyleGuideCtrl($scope, Check){
   $scope.checks.forEach(function(c,i){
     $scope.checks[i] = new Check(c);
   });
+  $scope.selectDropdown = function(num){
+    $scope.dropdownSelected = 'Option '+num;
+  }
 }
 angular.module('opsee.global.controllers').controller('StyleGuideCtrl',StyleGuideCtrl);
 
