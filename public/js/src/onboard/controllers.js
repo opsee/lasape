@@ -20,7 +20,11 @@ function OnboardStartCtrl($scope, $state, $analytics, UserService, Global){
       $scope.state = res.statusText || $scope.options.success;
       $state.go('onboard.thanks',{email:$scope.user.account.email});
     }, function(res){
-      $scope.error = res.data.error || 'There was an error processing your request.';
+      if(res.data){
+        $scope.error = res.data.error;
+      }else{
+        $scope.error = 'There was an error processing your request.';
+      }
       $scope.state = $scope.options.error;
       $rootScope.$emit('notify',$scope.error);
     });

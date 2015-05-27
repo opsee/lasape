@@ -109,14 +109,15 @@
   });
 
   // Setting HTML5 Location Mode
-  angular.module('opsee').config(function($locationProvider, $tooltipProvider) {
+  angular.module('opsee').config(function($locationProvider, $tooltipProvider, $activityIndicatorProvider) {
     $locationProvider.html5Mode({
       enabled:true,
       requireBase:false
     });
     $tooltipProvider.options({
       placement:'left'
-    })
+    });
+    $activityIndicatorProvider.setActivityIndicatorStyle('DottedWhite');
   });
 
   function opseeInterceptor($routeProvider, $locationProvider, $httpProvider, $provide, $stateProvider) {

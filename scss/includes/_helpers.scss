@@ -12,6 +12,10 @@
   background-color: $body-bg;
 }
 
+.user-select-none{
+  @include user-select(none);
+}
+
 // .css-two-col{
 //   @include breakpoint(600px){
 //     @include column-count(2);

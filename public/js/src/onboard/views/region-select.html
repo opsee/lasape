@@ -8,7 +8,7 @@
           <div ng-repeat="region in regions">
             <input checkbox-toggle type="checkbox" ng-model="region.selected" id="{{::region.id}}" ng-required="requiredSelection()" class="sr-only">
             <toggle-switch ng-model="region.selected"></toggle-switch>
-            <label for="{{::region.id}}">{{::region.name}} - {{::region.id}}</label>
+            <label class="user-select-none" for="{{::region.id}}">{{::region.name}} - {{::region.id}}</label>
           </div>
           <button type="button" class="btn btn-default btn-sm" ng-click="selectAll()">Select All</button>
           <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="regionSelectForm.$invalid">Next</button>

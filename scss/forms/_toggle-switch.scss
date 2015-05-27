@@ -10,7 +10,7 @@
   position: relative;
   &.active{
     .knob{
-      @include transform(scale(1.2) translateX(90%));
+      @include transform(scale(1.2) translateX(85%));
     }
     background: $brand-success;
   }

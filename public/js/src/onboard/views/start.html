@@ -4,7 +4,7 @@
     <div class="row">
       <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
         <form name="signupForm" ng-submit="submit()" user-signup novalidate>
-          <user-inputs includes="password"></user-inputs>
+          <user-inputs includes="name,email"></user-inputs>
           <button ng-disabled="state == options.inProgress || signupForm.$invalid" type="submit" class="btn btn-success btn-raised btn-block" disabled="disabled">
             <span>{{state}}</span>
             <span class="ng-hide" ng-show="state == options.inProgress">A spinner</span>
