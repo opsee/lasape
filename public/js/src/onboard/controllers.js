@@ -7,9 +7,8 @@ function OnboardCtrl($rootScope, $scope, $state, AWSRegions, TEST_KEYS){
   $scope.info = {}
   //test regions
   $scope.info.regions = _.pluck(AWSRegions,'id');
-  //test creds
-  $scope.info.accessKey = TEST_KEYS['access-key'];
-  $scope.info.secretKey = TEST_KEYS['secret-key'];
+  //test keys
+  _.defaults($scope.info,TEST_KEYS);
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
@@ -198,7 +197,7 @@ function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, AWSService, AWS
     $scope.msg = null;
     }, function(res){
     $scope.msg = res.data.error || 'There was an error processing your request.';
-    $rootScope.$emit('notify',$scope.error);
+    $rootScope.$emit('notify',$scope.msg);
   })
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});

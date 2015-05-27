@@ -4,19 +4,16 @@ angular.module('opsee.aws.services', []);
 
 var TEST_KEYS = {
   'access-key':'AKIAITLC4AUQZLJXBZGQ',
-  'secret-ket':'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'
+  'secret-key':'iLT9yuQLusvmhq/fTnOquSHQfnXQOJiaenc0oEWR'
 }
 angular.module('opsee.aws.services').constant('TEST_KEYS',TEST_KEYS);
 
-function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS){
+function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS, TEST_KEYS){
   return {
     vpcScan:function(data){
-      return $http.post(ENDPOINTS.vpcScan, {
-        'access-key':data.accessKey,
-        'secret-key':data.secretKey,
-        // regions:JSON.stringify(data.regions)
-        regions:data.regions
-      });
+      data = data || {};
+      _.defaults(data,TEST_KEYS);
+      return $http.post(ENDPOINTS.vpcScan, data);
     },
     bastionInstall:function(data){
       console.log($rootScope.user);
