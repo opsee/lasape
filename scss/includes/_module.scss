@@ -3,6 +3,10 @@
 @import "./ngActivityIndicator";
 @import "./opsee-variables";
 @import "./bootstrap";
+//compass should come after bootstrap for this reason:
+//https://github.com/Compass/compass/issues/289#issuecomment-81999241
+@import "compass";
+@import "compass/css3/deprecated-support";
 @import "./typography";
 @import "./layout";
 @import "./helpers";
