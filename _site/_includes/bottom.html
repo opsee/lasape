@@ -20,7 +20,7 @@ ga('create', 'UA-59205908-2', 'auto');
 
 <script type="text/javascript">var api_host="http://{{ site.bartnet_api_host }}:{{ site.bartnet_api_port }}";</script>
 
-{% assign folders = 'global|user|onboard|checks|admin|integrations|aws' | split: '|' %}
+{% assign folders = 'global|user|onboard|checks|admin|integrations|aws|docs' | split: '|' %}
 {% for folder in folders %}
   <script type="text/javascript" src="/public/js/src/{{folder}}/controllers.js"></script>
   <script type="text/javascript" src="/public/js/src/{{folder}}/services.js"></script>

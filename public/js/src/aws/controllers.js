@@ -59,6 +59,16 @@ InstanceSingleCtrl.resolve = {
 }
 angular.module('opsee.aws.controllers').controller('InstanceSingleCtrl',InstanceSingleCtrl);
 
+function SystemCtrl($scope, bastion){
+  $scope.bastion = bastion;
+}
+SystemCtrl.resolve = {
+  bastion:function($stateParams, Check){
+    return true;
+  }
+}
+angular.module('opsee.aws.controllers').controller('SystemCtrl',SystemCtrl);
+
 function config ($stateProvider, $urlRouterProvider) {
     $stateProvider
     .state('instanceSingle', {
@@ -66,6 +76,12 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/aws/views/single-instance.html',
       controller:'InstanceSingleCtrl',
       resolve:InstanceSingleCtrl.resolve
+    })
+    .state('system', {
+      url:'/system',
+      templateUrl:'/public/js/src/aws/views/system.html',
+      controller:'SystemCtrl',
+      resolve:SystemCtrl.resolve
     })
   }
 angular.module('opsee').config(config);
