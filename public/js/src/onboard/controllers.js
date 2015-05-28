@@ -168,6 +168,11 @@ function OnboardRegionSelectCtrl($scope, $state, $analytics, _, AWSRegions){
       r.selected = true;
     });
   }
+  $scope.deselectAll = function(){
+    $scope.regions.forEach(function(r){
+      r.selected = false;
+    });
+  }
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'RegionSelect'});
     $state.go('onboard.credentials');
