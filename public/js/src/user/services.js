@@ -106,17 +106,10 @@ function UserService($q, $resource, $rootScope, $analytics, User, ENDPOINTS){
       return deferred.promise;
     },
     create:function(user){
-      if(user && user.account.email){
-        var data = {
-          name:user.bio.name,
-          email:user.account.email
-        }
-        var path = $resource(ENDPOINTS.api+'/signups');
-        saved = path.save(data);
-        return saved.$promise;
-      }else{
-        return $q.reject();
-      }
+      var path = $resource(ENDPOINTS.api+'/signups');
+      // saved = path.save(user);
+      return path.save(user).$promise;
+      return saved.$promise;
     },
     claim:function(user){
       if(user && user.password && user.activationId){

@@ -16,7 +16,10 @@ function OnboardStartCtrl($scope, $state, $analytics, UserService, Global){
   $scope.submit = function(){
     $scope.state = $scope.options.inProgress;
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Start Form'});
-    UserService.create($scope.user).then(function(res){
+    UserService.create({
+      name:$scope.user.bio.name,
+      email:$scope.user.account.email
+    }).then(function(res){
       $scope.state = res.statusText || $scope.options.success;
       $state.go('onboard.thanks',{email:$scope.user.account.email});
     }, function(res){
@@ -191,8 +194,15 @@ function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSServi
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCredentialsCtrl', OnboardCredentialsCtrl);
 
-function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, AWSService, AWSRegions){
+function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, AWSRegions){
   $scope.msg = 'loading';
+  $scope.regions = [];
+  $scope.selectAll = function(){
+    _.chain($scope.regions).pluck('vpcs').flatten().map(function(vpc){
+      vpc.selected = true;
+      return vpc;
+    }).value();
+  }
   AWSService.vpcScan($scope.info).then(function(res){
     console.log(res);
     $scope.regions = res.data;

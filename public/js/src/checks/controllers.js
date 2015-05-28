@@ -139,10 +139,21 @@ SingleCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
-function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check, NotificationSettings){
+function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check, NotificationSettings, $notification){
   $scope.check = new Check(singleCheck).setDefaults();
   $scope.close = function(){
     $location.url('/check/'+$stateParams.id);
+  }
+  $scope.testNotif = function(){
+    var notif = $notification('New Message', {
+      body:'hello',
+      data:'moo'
+    });
+    console.log(notif);
+    notif.$on('click', function(e,a){
+      console.log(e,a);
+      console.log('click');
+    });
   }
 }
 EditCheckCtrl.resolve = {
@@ -175,7 +186,7 @@ EditCheckCtrl.resolve = {
     },
     {
       channel:{
-        type:"web",
+        type:"desktop",
       },
       options:{
         push:true

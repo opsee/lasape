@@ -98,11 +98,12 @@ module.exports = function(grunt) {
             'angular-gravatar/build/angular-gravatar.min',
             'angular-messages/angular-messages.min',
             'angular-visibility-change/dist/angular-visibility-change.min',
-            'angular-notify/dist/angular-notify.min',
             'angular-touch/angular-touch.min',
             'fastclick/lib/fastclick',
             'angular-toggle-switch/angular-toggle-switch.min',
-            'angular-websocket/angular-websocket.min'
+            'angular-websocket/angular-websocket.min',
+            'angular-notification/angular-notification.min',
+            'swagger-angular-client/dist/swagger-angular-client.min'
           ])
         }
       },
