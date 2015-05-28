@@ -122,7 +122,7 @@ function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $analytics
 OnboardProfileCtrl.resolve = {
   slackProfile:function($localStorage,$rootScope){
     if($rootScope.user.integrations.slack.user){
-      return true; 
+      return true;
     }else if($localStorage.slackAccessToken){
       return $rootScope.user.populateSlack();
     }else{
@@ -304,14 +304,16 @@ function config ($stateProvider, $urlRouterProvider) {
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/region-select.html',
       controller:'OnboardRegionSelectCtrl',
-      title:'Select AWS Regions'
+      title:'Select AWS Regions',
+      hideHeader:true
     })
     .state('onboard.vpcSelect', {
       url:'start/vpc-select',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/vpc-select.html',
       controller:'OnboardVpcsCtrl',
-      title:'Select VPCs'
+      title:'Select VPCs',
+      hideHeader:true
     })
     .state('onboard.bastion', {
       url:'start/bastion',
@@ -325,7 +327,8 @@ function config ($stateProvider, $urlRouterProvider) {
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/credentials.html',
       controller:'OnboardCredentialsCtrl',
-      title:'Enter your AWS Credentials'
+      title:'Enter your AWS Credentials',
+      hideHeader:true
     })
   }
 angular.module('opsee').config(config);

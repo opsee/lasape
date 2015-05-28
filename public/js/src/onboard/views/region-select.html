@@ -1,17 +1,39 @@
 <div>
-  <md-toolbar title="Launch the Opsee Bastion Host">
+  <md-toolbar title="Region(s) to launch Bastions">
   </md-toolbar>
   <div class="container">
     <div class="row">
       <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+
+        <p>Choose the region(s) you'd like to launch an Opsee bastion host in. We're not going to install anything yet, we're first looking for active VPCs and subnets in the regions you select.</p>
+
+        <h2 class="md-subheader">
+          <span class="md-subheader-content">All AWS regions - <a href="#" ng-click="selectAll()">Select All</a></span>
+        </h2>
+
         <form name="regionSelectForm" ng-submit="submit()">
-          <div ng-repeat="region in regions">
-            <input checkbox-toggle type="checkbox" ng-model="region.selected" id="{{::region.id}}" ng-required="requiredSelection()" class="sr-only">
-            <toggle-switch ng-model="region.selected"></toggle-switch>
-            <label class="user-select-none" for="{{::region.id}}">{{::region.name}} - {{::region.id}}</label>
+
+          <ul ng-repeat="region in regions" class="md-sll">
+            <li class="md-sll-item display-flex flex-wrap">
+              <div class="md-sll-select">
+                <input checkbox-toggle type="checkbox" ng-model="region.selected" id="{{::region.id}}" ng-required="requiredSelection()" class="sr-only">
+                <toggle-switch ng-model="region.selected"></toggle-switch>
+              </div>
+              <div class="md-sll-title flex-1">
+                <label class="user-select-none" for="{{::region.id}}">{{::region.id}} ({{::region.name}})</label>
+              </div>
+            </li>
+          </ul>
+
+          <div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+                  <button class="btn btn-flat btn-success" type="submit" ng-disabled="regionSelectForm.$invalid">Next <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></button>
+                </div>
+              </div>
+            </div>
           </div>
-          <button type="button" class="btn btn-default btn-sm" ng-click="selectAll()">Select All</button>
-          <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="regionSelectForm.$invalid">Next</button>
         </form>
       </div>
     </div>
