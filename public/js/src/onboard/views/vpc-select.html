@@ -1,39 +1,39 @@
 <div>
-  <md-toolbar title="Select VPCs"></md-toolbar>
+  <md-toolbar title="Install Bastions in VPCs"></md-toolbar>
   <div class="container">
     <div class="row">
       <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+
+        <p>Here are the active VPCs Opsee found in the regions you chose. Choose which VPCs you'd like to install bastions in.</p>
+
+        <h2 class="md-subheader">
+          <span class="md-subheader-content">Your active VPCs - <a href="#" ng-click="selectAll()">Select All</a></span>
+        </h2>
+
         <form name="regionSelectForm" ng-submit="submit()" ng-show="!msg" class="ng-hide">
+
           <div ng-repeat="region in regions">
-            <h2>{{region.region}} ({{region.regionName}})</h2>
-
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>State</th>
-                  <th>Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="vpc in region.vpcs">
-                  <td>
-                    <input type="checkbox" ng-model="vpc.selected" id="{{vpc['vpc-id']}}" ng-required="requiredSelection()">
-                  </td>
-                  <td>{{vpc.state}}</td>
-                  <td><label for="{{vpc['vpc-id']}}">{{vpc['vpc-id']}}</label></td>
-                </tr>
-              </tbody>
-            </table>
+            <h2 class="md-subheader">
+              <span class="md-subheader-content">{{region.region}} ({{region.regionName}})</span>
+            </h2>
+            <ul class="md-sll">
+              <li ng-repeat="vpc in region.vpcs" class="md-sll-item display-flex flex-wrap">
+                <div class="md-sll-select">
+                  <input checkbox-toggle type="checkbox" ng-model="vpc.selected" id="{{vpc['vpc-id']}}" ng-required="requiredSelection()" class="sr-only">
+                  <toggle-switch ng-model="vpc.selected"></toggle-switch>
+                </div>
+                <div class="md-sll-title flex-1">
+                  <label for="{{vpc['vpc-id']}}">{{vpc['vpc-id']}} ({{vpc.state}})</label>
+                </div>
+              </li>
+            </ul>
           </div>
-
 
           <div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
             <div class="container">
               <div class="row">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-                  <button type="button" class="btn btn-flat pull-left" ng-click="selectAll()">Select All</button>
-                  <button class="btn btn-flat btn-success" type="submit" ng-disabled="regionSelectForm.$invalid">Next <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></button>
+                  <button class="btn btn-flat btn-success" type="submit" ng-disabled="regionSelectForm.$invalid">Install bastions <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></button>
                 </div>
               </div>
             </div>
