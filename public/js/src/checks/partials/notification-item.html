@@ -7,10 +7,7 @@
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="channel in notificationSettings.channels track by $index">
-            <!-- <a href="#" ng-click="notif.channel = channel" title="{{channel.title}}">
-              {{channel.name}}
-            </a> -->
-            <button type="button" ng-click="notif.channel = channel" title="{{channel.title}}">
+            <button type="button" ng-click="notif.channel = channel" title="{{channel.title}}" dropdown-toggle>
               {{channel.name}}
             </button>
           </li>
@@ -19,12 +16,13 @@
     </div>
     <div class="col-xs-8">
       <div class="form-group">
-        <input type="text" ng-model="notif.value" class="form-control" ng-required="true" ng-if="notif.channel.placeholder" placeholder="{{notif.channel.placeholder || 'Pick notifcation type'}}"/>
+        <input type="text" ng-model="notif.value" class="ng-hide form-control" ng-required="true" ng-show="notif.channel.placeholder" placeholder="{{notif.channel.placeholder || 'Pick notifcation type'}}"/>
         <div ng-if="notif.channel.options">
           <div ng-repeat="(key,val) in notif.channel.options">
             <div class="form-group">
             <label for="{{key}}-{{notifIndex}}">{{::notif.channel.optionsMeta[key].name}}</label>
-            <input id="{{key}}-{{notifIndex}}" type="checkbox" ng-model="notif.channel.options[key]">
+            <input class="sr-only" id="{{key}}-{{notifIndex}}" type="checkbox" ng-model="notif.channel.options[key]">
+            <toggle-switch ng-model="notif.channel.options[key]"></toggle-switch>
             </div>
           </div>
         </div>

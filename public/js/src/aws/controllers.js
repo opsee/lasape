@@ -81,6 +81,7 @@ function config ($stateProvider, $urlRouterProvider) {
       url:'/system',
       templateUrl:'/public/js/src/aws/views/system.html',
       controller:'SystemCtrl',
+      title:'System Status',
       resolve:SystemCtrl.resolve
     })
   }

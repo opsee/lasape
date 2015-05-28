@@ -134,10 +134,13 @@ function mdToolbar(){
     replace:true,
     transclude:'element',
     scope:{
-      title:'@',
+      title:'@?',
       close:'='
     },
-    templateUrl:'/public/js/src/global/partials/md-toolbar.html'
+    templateUrl:'/public/js/src/global/partials/md-toolbar.html',
+    controller:function($scope, $state){
+      $scope.title = $scope.title || $state.current.title;
+    }
   }
 }
 angular.module('opsee.global.directives').directive('mdToolbar', mdToolbar);

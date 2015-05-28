@@ -1,6 +1,6 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router', 'ngMessages', 'ngWebSocket', 'angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'cgNotify', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws', 'opsee.docs'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router', 'ngMessages', 'ngWebSocket', 'angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'notification', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws', 'opsee.docs'])
 
   angular.module('opsee').run(function ($rootScope, $window, $q, $http, $templateCache, $location, $timeout, $document, $localStorage, $analytics, $activityIndicator, $state, Global, Regex, authService, User, ENDPOINTS, VisibilityChange) {
 
@@ -109,7 +109,7 @@
   });
 
   // Setting HTML5 Location Mode
-  angular.module('opsee').config(function($locationProvider, $tooltipProvider, $activityIndicatorProvider) {
+  angular.module('opsee').config(function($locationProvider, $tooltipProvider, $activityIndicatorProvider, $notificationProvider){
     $locationProvider.html5Mode({
       enabled:true,
       requireBase:false
@@ -118,6 +118,7 @@
       placement:'left'
     });
     $activityIndicatorProvider.setActivityIndicatorStyle('DottedWhite');
+    $notificationProvider.setOptions({icon: '/public/img/apple-touch-icon-144x144.png'});
   });
 
   function opseeInterceptor($routeProvider, $locationProvider, $httpProvider, $provide, $stateProvider) {

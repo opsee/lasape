@@ -235,9 +235,8 @@ function NotificationSettings(){
           placeholder:'user@domain.com'
         },
         {
-          name:'Web',
-          type:'web',
-          placeholder:'foo',
+          name:'Desktop',
+          type:'desktop',
           options:{
             push:false
           },

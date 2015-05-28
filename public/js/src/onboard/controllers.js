@@ -16,7 +16,10 @@ function OnboardStartCtrl($scope, $state, $analytics, UserService, Global){
   $scope.submit = function(){
     $scope.state = $scope.options.inProgress;
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Start Form'});
-    UserService.create($scope.user).then(function(res){
+    UserService.create({
+      name:$scope.user.bio.name,
+      email:$scope.user.account.email
+    }).then(function(res){
       $scope.state = res.statusText || $scope.options.success;
       $state.go('onboard.thanks',{email:$scope.user.account.email});
     }, function(res){

@@ -67,16 +67,13 @@ to prevent collapsing during animation*/
   position: relative;
 }
 
-[ui-view] {
-  &.no-transition{
-    @include transition(none);
-  }
-}
-
 [ui-view]{
   @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
   &.transition-parent-child {
     @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
+  }
+  &.no-transition{
+    @include transition(none !important);
   }
   &.ng-enter {
     &.transition-sibling{
