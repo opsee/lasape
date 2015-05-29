@@ -138,6 +138,25 @@ to prevent collapsing during animation*/
   }
 }
 
+.transition-msg{
+  @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
+  // @include transition(all 5s $swift-ease-out-timing-function);
+  &.ng-enter {
+    @include transform(translateY(15px));
+  }
+  &.ng-enter,&.ng-leave-active {
+    opacity:0;
+  }
+  &.ng-enter-active,&.ng-leave {
+    opacity:1;
+    @include transform(none);
+  }
+  &.ng-leave-active {
+    @include transform(translateY(-15px));
+    opacity:0;
+  }
+}
+
 .margin-none{
   margin:0 !important;
 }

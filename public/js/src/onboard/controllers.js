@@ -219,9 +219,36 @@ function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, 
 }
 angular.module('opsee.onboard.controllers').controller('OnboardVpcsCtrl', OnboardVpcsCtrl);
 
-function OnboardBastionCtrl($scope, $rootScope, $state, $analytics, AWSService){
-  var stream = AWSService.bastionInstall();
-  console.log(stream);
+function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, AWSService){
+  $scope.messages = [];
+  $scope.launch = function(){
+    $scope.launched = true;
+    $scope.stream = AWSService.bastionInstall();
+    $scope.stream.onMessage(function(e){
+      var msg = JSON.parse(e.data).Message;
+      if(msg.ResourceStatus == 'CREATE_IN_PROGRESS'){
+        if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
+          $scope.started = true;
+        }else{
+          $scope.messages.push(msg);  
+        }
+      }else if(msg.ResourceStatus == 'CREATE_COMPLETE'){
+        if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
+          $scope.complete = true;
+        }else{
+          $scope.messages.push(msg);
+        }
+      }else{
+        $scope.messages.push(msg);
+      }
+    });
+    $scope.stream.onError(function(err){
+      console.log(err);
+    });
+    $scope.stream.onClose(function(msg){
+      console.log('close',msg);
+    });
+  }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardBastionCtrl', OnboardBastionCtrl);
 

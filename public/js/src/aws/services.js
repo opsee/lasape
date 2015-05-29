@@ -19,7 +19,7 @@ function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS, 
       console.log($rootScope.user);
       data = data || {};
       _.defaults(data, {
-        hmac:$rootScope.user.token,
+        hmac:$rootScope.user.token.replace('HMAC ',''),
         cmd:'launch',
         'instance-size': "t2.micro",
         regions: [
@@ -33,14 +33,9 @@ function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS, 
           }
         ]
       }, TEST_KEYS);
-      console.log(data);
-      if(!data){
-      }
-      var stream = $websocket('ws://staging.opsy.co/stream/');
+      if(!data){}
+      var stream = $websocket('ws://api-beta.opsee.co/stream/');
       stream.send(JSON.stringify(data));
-      stream.onMessage(function(message){
-        console.log(message);
-      });
       return stream;
     }
   }
