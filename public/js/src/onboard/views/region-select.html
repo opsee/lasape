@@ -13,7 +13,7 @@
 
         <form name="regionSelectForm" ng-submit="submit()">
 
-          <ul ng-repeat="region in regions" class="md-sll">
+          <ul ng-repeat="region in info.regions" class="md-sll">
             <li class="md-sll-item display-flex flex-wrap">
               <div class="md-sll-select">
                 <input checkbox-toggle type="checkbox" ng-model="region.selected" id="{{::region.id}}" ng-required="requiredSelection()" class="sr-only">

@@ -6,7 +6,7 @@ function OnboardCtrl($rootScope, $scope, $state, AWSRegions, TEST_KEYS){
   $scope.user = $rootScope.user;
   $scope.info = {}
   //test regions
-  $scope.info.regions = _.pluck(AWSRegions,'id');
+  $scope.info.regions = angular.copy(AWSRegions);
   //test keys
   _.defaults($scope.info,TEST_KEYS);
 }
@@ -162,17 +162,16 @@ function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, On
 angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', OnboardTeamCtrl);
 
 function OnboardRegionSelectCtrl($scope, $state, $analytics, _, AWSRegions){
-  $scope.regions = angular.copy(AWSRegions);
   $scope.requiredSelection = function(){
-    return !_.findWhere($scope.regions, {'selected':true});
+    return !_.findWhere($scope.info.regions, {'selected':true});
   }
   $scope.selectAll = function(){
-    $scope.regions.forEach(function(r){
+    $scope.info.regions.forEach(function(r){
       r.selected = true;
     });
   }
   $scope.deselectAll = function(){
-    $scope.regions.forEach(function(r){
+    $scope.info.regions.forEach(function(r){
       r.selected = false;
     });
   }
@@ -203,7 +202,10 @@ function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, 
       return vpc;
     }).value();
   }
-  AWSService.vpcScan($scope.info).then(function(res){
+  var data = angular.copy($scope.info);
+  data.regions = _.pluck(data.regions,'id');
+  console.log(data);
+  AWSService.vpcScan(data).then(function(res){
     console.log(res);
     $scope.regions = res.data;
     $scope.regions.forEach(function(r){
