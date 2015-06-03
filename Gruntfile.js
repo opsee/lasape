@@ -212,7 +212,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('swagger', 'Generate Angular Swagger Code', function(){
     var done = this.async();
-    var json = request('https://dl.dropboxusercontent.com/u/3344985/swagger.json', function(error,response,body){
+    var json = request('http://api-beta.opsee.co/api/swagger.json', function(error,response,body){
       if(error){
         grunt.log.error(error);
         done();
@@ -224,10 +224,10 @@ module.exports = function(grunt) {
     });
   });
 
-  grunt.registerTask('default', ['shell:bower','compass','build','swagger','connect', 'watch']);
+  grunt.registerTask('default', ['shell:bower','compass','build','connect', 'watch']);
   grunt.registerTask('serve', ['connect', 'watch']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
-  grunt.registerTask('build', ['uglify:deps','shell:jekyll','copy']);
+  grunt.registerTask('build', ['uglify:deps','shell:jekyll','copy','swagger']);
   grunt.registerTask('prod', ['uglify:deps','shell:jekyll','copy','annotate']);
   grunt.registerTask('docker', ['shell:bower', 'compass', 'build', 'shell:docker']);
 

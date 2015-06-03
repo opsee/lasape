@@ -5,7 +5,7 @@ angular.module('opsee', [])
         'use strict';
 
         /**
-         * Own Your Availability.
+         * 
          * @class api
          * @param {(string|object)} [domainOrOptions] - The project domain or options object. If object, see the object's optional properties.
          * @param {string} [domainOrOptions.domain] - The project domain
@@ -16,7 +16,7 @@ angular.module('opsee', [])
         var api = (function() {
             function api(options, cache) {
                 var domain = (typeof options === 'object') ? options.domain : options;
-                this.domain = typeof(domain) === 'string' ? domain : 'http://api-beta.opsee.co/';
+                this.domain = typeof(domain) === 'string' ? domain : '';
                 if (this.domain.length === 0) {
                     throw new Error('Domain parameter must be specified as a string.');
                 }
@@ -55,20 +55,427 @@ angular.module('opsee', [])
             };
 
             /**
-             * Returns a single AWS Instance
+             * 
              * @method
-             * @name api#get
-             * @param {integer} id - ID of instance to fetch
+             * @name api#postVerificationsByIdActivate
+             * @param {string} id - 
              * 
              */
-            api.prototype.get = function(parameters) {
+            api.prototype.postVerificationsByIdActivate = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
                 var deferred = $q.defer();
 
                 var domain = this.domain;
-                var path = '/instances/{id}';
+                var path = '/verifications/{id}/activate';
+
+                var body;
+                var queryParameters = {};
+                var headers = {};
+                var form = {};
+
+                path = path.replace('{id}', parameters['id']);
+
+                if (parameters['id'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: id'));
+                    return deferred.promise;
+                }
+
+                if (parameters.$queryParameters) {
+                    Object.keys(parameters.$queryParameters)
+                        .forEach(function(parameterName) {
+                            var parameter = parameters.$queryParameters[parameterName];
+                            queryParameters[parameterName] = parameter;
+                        });
+                }
+
+                var url = domain + path;
+                var options = {
+                    timeout: parameters.$timeout,
+                    method: 'POST',
+                    url: url,
+                    params: queryParameters,
+                    data: body,
+                    headers: headers
+                };
+                if (Object.keys(form).length > 0) {
+                    options.data = form;
+                    options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                    options.transformRequest = api.transformRequest;
+                }
+                $http(options)
+                    .success(function(data, status, headers, config) {
+                        deferred.resolve(data);
+                        if (parameters.$cache !== undefined) {
+                            parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        deferred.reject({
+                            status: status,
+                            headers: headers,
+                            config: config,
+                            body: data
+                        });
+                    });
+
+                return deferred.promise;
+            };
+            /**
+             * 
+             * @method
+             * @name api#getInstanceById
+             * @param {string} id - 
+             * 
+             */
+            api.prototype.getInstanceById = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+
+                var domain = this.domain;
+                var path = '/instance/{id}';
+
+                var body;
+                var queryParameters = {};
+                var headers = {};
+                var form = {};
+
+                path = path.replace('{id}', parameters['id']);
+
+                if (parameters['id'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: id'));
+                    return deferred.promise;
+                }
+
+                if (parameters.$queryParameters) {
+                    Object.keys(parameters.$queryParameters)
+                        .forEach(function(parameterName) {
+                            var parameter = parameters.$queryParameters[parameterName];
+                            queryParameters[parameterName] = parameter;
+                        });
+                }
+
+                var url = domain + path;
+                var cached = parameters.$cache && parameters.$cache.get(url);
+                if (cached !== undefined && parameters.$refresh !== true) {
+                    deferred.resolve(cached);
+                    return deferred.promise;
+                }
+                var options = {
+                    timeout: parameters.$timeout,
+                    method: 'GET',
+                    url: url,
+                    params: queryParameters,
+                    data: body,
+                    headers: headers
+                };
+                if (Object.keys(form).length > 0) {
+                    options.data = form;
+                    options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                    options.transformRequest = api.transformRequest;
+                }
+                $http(options)
+                    .success(function(data, status, headers, config) {
+                        deferred.resolve(data);
+                        if (parameters.$cache !== undefined) {
+                            parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        deferred.reject({
+                            status: status,
+                            headers: headers,
+                            config: config,
+                            body: data
+                        });
+                    });
+
+                return deferred.promise;
+            };
+            /**
+             * 
+             * @method
+             * @name api#getHealth_check
+             * 
+             */
+            api.prototype.getHealth_check = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+
+                var domain = this.domain;
+                var path = '/health_check';
+
+                var body;
+                var queryParameters = {};
+                var headers = {};
+                var form = {};
+
+                if (parameters.$queryParameters) {
+                    Object.keys(parameters.$queryParameters)
+                        .forEach(function(parameterName) {
+                            var parameter = parameters.$queryParameters[parameterName];
+                            queryParameters[parameterName] = parameter;
+                        });
+                }
+
+                var url = domain + path;
+                var cached = parameters.$cache && parameters.$cache.get(url);
+                if (cached !== undefined && parameters.$refresh !== true) {
+                    deferred.resolve(cached);
+                    return deferred.promise;
+                }
+                var options = {
+                    timeout: parameters.$timeout,
+                    method: 'GET',
+                    url: url,
+                    params: queryParameters,
+                    data: body,
+                    headers: headers
+                };
+                if (Object.keys(form).length > 0) {
+                    options.data = form;
+                    options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                    options.transformRequest = api.transformRequest;
+                }
+                $http(options)
+                    .success(function(data, status, headers, config) {
+                        deferred.resolve(data);
+                        if (parameters.$cache !== undefined) {
+                            parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        deferred.reject({
+                            status: status,
+                            headers: headers,
+                            config: config,
+                            body: data
+                        });
+                    });
+
+                return deferred.promise;
+            };
+            /**
+             * 
+             * @method
+             * @name api#getOrgsSubdomainBySubdomain
+             * @param {string} subdomain - 
+             * 
+             */
+            api.prototype.getOrgsSubdomainBySubdomain = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+
+                var domain = this.domain;
+                var path = '/orgs/subdomain/{subdomain}';
+
+                var body;
+                var queryParameters = {};
+                var headers = {};
+                var form = {};
+
+                path = path.replace('{subdomain}', parameters['subdomain']);
+
+                if (parameters['subdomain'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: subdomain'));
+                    return deferred.promise;
+                }
+
+                if (parameters.$queryParameters) {
+                    Object.keys(parameters.$queryParameters)
+                        .forEach(function(parameterName) {
+                            var parameter = parameters.$queryParameters[parameterName];
+                            queryParameters[parameterName] = parameter;
+                        });
+                }
+
+                var url = domain + path;
+                var cached = parameters.$cache && parameters.$cache.get(url);
+                if (cached !== undefined && parameters.$refresh !== true) {
+                    deferred.resolve(cached);
+                    return deferred.promise;
+                }
+                var options = {
+                    timeout: parameters.$timeout,
+                    method: 'GET',
+                    url: url,
+                    params: queryParameters,
+                    data: body,
+                    headers: headers
+                };
+                if (Object.keys(form).length > 0) {
+                    options.data = form;
+                    options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                    options.transformRequest = api.transformRequest;
+                }
+                $http(options)
+                    .success(function(data, status, headers, config) {
+                        deferred.resolve(data);
+                        if (parameters.$cache !== undefined) {
+                            parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        deferred.reject({
+                            status: status,
+                            headers: headers,
+                            config: config,
+                            body: data
+                        });
+                    });
+
+                return deferred.promise;
+            };
+            /**
+             * 
+             * @method
+             * @name api#postActivationsByIdActivate
+             * @param {string} id - 
+             * 
+             */
+            api.prototype.postActivationsByIdActivate = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+
+                var domain = this.domain;
+                var path = '/activations/{id}/activate';
+
+                var body;
+                var queryParameters = {};
+                var headers = {};
+                var form = {};
+
+                path = path.replace('{id}', parameters['id']);
+
+                if (parameters['id'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: id'));
+                    return deferred.promise;
+                }
+
+                if (parameters.$queryParameters) {
+                    Object.keys(parameters.$queryParameters)
+                        .forEach(function(parameterName) {
+                            var parameter = parameters.$queryParameters[parameterName];
+                            queryParameters[parameterName] = parameter;
+                        });
+                }
+
+                var url = domain + path;
+                var options = {
+                    timeout: parameters.$timeout,
+                    method: 'POST',
+                    url: url,
+                    params: queryParameters,
+                    data: body,
+                    headers: headers
+                };
+                if (Object.keys(form).length > 0) {
+                    options.data = form;
+                    options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                    options.transformRequest = api.transformRequest;
+                }
+                $http(options)
+                    .success(function(data, status, headers, config) {
+                        deferred.resolve(data);
+                        if (parameters.$cache !== undefined) {
+                            parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        deferred.reject({
+                            status: status,
+                            headers: headers,
+                            config: config,
+                            body: data
+                        });
+                    });
+
+                return deferred.promise;
+            };
+            /**
+             * 
+             * @method
+             * @name api#postOrgs
+             * 
+             */
+            api.prototype.postOrgs = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+
+                var domain = this.domain;
+                var path = '/orgs';
+
+                var body;
+                var queryParameters = {};
+                var headers = {};
+                var form = {};
+
+                if (parameters.$queryParameters) {
+                    Object.keys(parameters.$queryParameters)
+                        .forEach(function(parameterName) {
+                            var parameter = parameters.$queryParameters[parameterName];
+                            queryParameters[parameterName] = parameter;
+                        });
+                }
+
+                var url = domain + path;
+                var options = {
+                    timeout: parameters.$timeout,
+                    method: 'POST',
+                    url: url,
+                    params: queryParameters,
+                    data: body,
+                    headers: headers
+                };
+                if (Object.keys(form).length > 0) {
+                    options.data = form;
+                    options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                    options.transformRequest = api.transformRequest;
+                }
+                $http(options)
+                    .success(function(data, status, headers, config) {
+                        deferred.resolve(data);
+                        if (parameters.$cache !== undefined) {
+                            parameters.$cache.put(url, data, parameters.$cacheItemOpts ? parameters.$cacheItemOpts : {});
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        deferred.reject({
+                            status: status,
+                            headers: headers,
+                            config: config,
+                            body: data
+                        });
+                    });
+
+                return deferred.promise;
+            };
+            /**
+             * 
+             * @method
+             * @name api#getActivationsById
+             * @param {string} id - 
+             * 
+             */
+            api.prototype.getActivationsById = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+
+                var domain = this.domain;
+                var path = '/activations/{id}';
 
                 var body;
                 var queryParameters = {};
