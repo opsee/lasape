@@ -2,6 +2,8 @@ module.exports = function(grunt) {
 
   var load = require('load-grunt-tasks')(grunt)
   , rewrite = require( "connect-modrewrite" )
+  , request = require('request')
+  , CodeGen = require('swagger-js-codegen').CodeGen
   ;
 
   function addLib(array){
@@ -102,8 +104,7 @@ module.exports = function(grunt) {
             'fastclick/lib/fastclick',
             'angular-toggle-switch/angular-toggle-switch.min',
             'angular-websocket/angular-websocket.min',
-            'angular-notification/angular-notification.min',
-            'swagger-angular-client/dist/swagger-angular-client.min'
+            'angular-notification/angular-notification.min'
           ])
         }
       },
@@ -209,8 +210,21 @@ module.exports = function(grunt) {
     },
   });
 
-  // Default task(s).
-  grunt.registerTask('default', ['shell:bower','compass','build','connect', 'watch']);
+  grunt.registerTask('swagger', 'Generate Angular Swagger Code', function(){
+    var done = this.async();
+    var json = request('https://dl.dropboxusercontent.com/u/3344985/swagger.json', function(error,response,body){
+      if(error){
+        grunt.log.error(error);
+        done();
+      }else{
+        var code = CodeGen.getAngularCode({moduleName:'opsee', className:'api', swagger:JSON.parse(body)});
+        grunt.file.write('public/js/src/swagger.js',code);
+        done();
+      }
+    });
+  });
+
+  grunt.registerTask('default', ['shell:bower','compass','build','swagger','connect', 'watch']);
   grunt.registerTask('serve', ['connect', 'watch']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
   grunt.registerTask('build', ['uglify:deps','shell:jekyll','copy']);
