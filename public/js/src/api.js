@@ -1,20 +1,20 @@
 /*jshint -W069 */
 /*global angular:false */
-angular.module('opsee', [])
-    .factory('api', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
+angular.module('opsee.api', [])
+    .factory('opseeAPI', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
         'use strict';
 
         /**
          * 
-         * @class api
+         * @class opseeAPI
          * @param {(string|object)} [domainOrOptions] - The project domain or options object. If object, see the object's optional properties.
          * @param {string} [domainOrOptions.domain] - The project domain
          * @param {string} [domainOrOptions.cache] - An angularjs cache implementation
          * @param {object} [domainOrOptions.token] - auth token - object with value property and optional headerOrQueryName and isQuery properties
          * @param {string} [cache] - An angularjs cache implementation
          */
-        var api = (function() {
-            function api(options, cache) {
+        var opseeAPI = (function() {
+            function opseeAPI(options, cache) {
                 var domain = (typeof options === 'object') ? options.domain : options;
                 this.domain = typeof(domain) === 'string' ? domain : '';
                 if (this.domain.length === 0) {
@@ -24,7 +24,7 @@ angular.module('opsee', [])
                 this.cache = cache;
             }
 
-            api.prototype.$on = function($scope, path, handler) {
+            opseeAPI.prototype.$on = function($scope, path, handler) {
                 var url = domain + path;
                 $scope.$on(url, function() {
                     handler();
@@ -32,14 +32,14 @@ angular.module('opsee', [])
                 return this;
             };
 
-            api.prototype.$broadcast = function(path) {
+            opseeAPI.prototype.$broadcast = function(path) {
                 var url = domain + path;
                 //cache.remove(url);
                 $rootScope.$broadcast(url);
                 return this;
             };
 
-            api.transformRequest = function(obj) {
+            opseeAPI.transformRequest = function(obj) {
                 var str = [];
                 for (var p in obj) {
                     var val = obj[p];
@@ -57,11 +57,11 @@ angular.module('opsee', [])
             /**
              * 
              * @method
-             * @name api#postVerificationsByIdActivate
+             * @name opseeAPI#postVerificationsByIdActivate
              * @param {string} id - 
              * 
              */
-            api.prototype.postVerificationsByIdActivate = function(parameters) {
+            opseeAPI.prototype.postVerificationsByIdActivate = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -102,7 +102,7 @@ angular.module('opsee', [])
                 if (Object.keys(form).length > 0) {
                     options.data = form;
                     options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-                    options.transformRequest = api.transformRequest;
+                    options.transformRequest = opseeAPI.transformRequest;
                 }
                 $http(options)
                     .success(function(data, status, headers, config) {
@@ -125,11 +125,11 @@ angular.module('opsee', [])
             /**
              * 
              * @method
-             * @name api#getInstanceById
+             * @name opseeAPI#getInstanceById
              * @param {string} id - 
              * 
              */
-            api.prototype.getInstanceById = function(parameters) {
+            opseeAPI.prototype.getInstanceById = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -175,7 +175,7 @@ angular.module('opsee', [])
                 if (Object.keys(form).length > 0) {
                     options.data = form;
                     options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-                    options.transformRequest = api.transformRequest;
+                    options.transformRequest = opseeAPI.transformRequest;
                 }
                 $http(options)
                     .success(function(data, status, headers, config) {
@@ -198,10 +198,10 @@ angular.module('opsee', [])
             /**
              * 
              * @method
-             * @name api#getHealth_check
+             * @name opseeAPI#getHealth_check
              * 
              */
-            api.prototype.getHealth_check = function(parameters) {
+            opseeAPI.prototype.getHealth_check = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -240,7 +240,7 @@ angular.module('opsee', [])
                 if (Object.keys(form).length > 0) {
                     options.data = form;
                     options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-                    options.transformRequest = api.transformRequest;
+                    options.transformRequest = opseeAPI.transformRequest;
                 }
                 $http(options)
                     .success(function(data, status, headers, config) {
@@ -263,11 +263,11 @@ angular.module('opsee', [])
             /**
              * 
              * @method
-             * @name api#getOrgsSubdomainBySubdomain
+             * @name opseeAPI#getOrgsSubdomainBySubdomain
              * @param {string} subdomain - 
              * 
              */
-            api.prototype.getOrgsSubdomainBySubdomain = function(parameters) {
+            opseeAPI.prototype.getOrgsSubdomainBySubdomain = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -313,7 +313,7 @@ angular.module('opsee', [])
                 if (Object.keys(form).length > 0) {
                     options.data = form;
                     options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-                    options.transformRequest = api.transformRequest;
+                    options.transformRequest = opseeAPI.transformRequest;
                 }
                 $http(options)
                     .success(function(data, status, headers, config) {
@@ -336,11 +336,11 @@ angular.module('opsee', [])
             /**
              * 
              * @method
-             * @name api#postActivationsByIdActivate
+             * @name opseeAPI#postActivationsByIdActivate
              * @param {string} id - 
              * 
              */
-            api.prototype.postActivationsByIdActivate = function(parameters) {
+            opseeAPI.prototype.postActivationsByIdActivate = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -381,7 +381,7 @@ angular.module('opsee', [])
                 if (Object.keys(form).length > 0) {
                     options.data = form;
                     options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-                    options.transformRequest = api.transformRequest;
+                    options.transformRequest = opseeAPI.transformRequest;
                 }
                 $http(options)
                     .success(function(data, status, headers, config) {
@@ -404,10 +404,10 @@ angular.module('opsee', [])
             /**
              * 
              * @method
-             * @name api#postOrgs
+             * @name opseeAPI#postOrgs
              * 
              */
-            api.prototype.postOrgs = function(parameters) {
+            opseeAPI.prototype.postOrgs = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -441,7 +441,7 @@ angular.module('opsee', [])
                 if (Object.keys(form).length > 0) {
                     options.data = form;
                     options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-                    options.transformRequest = api.transformRequest;
+                    options.transformRequest = opseeAPI.transformRequest;
                 }
                 $http(options)
                     .success(function(data, status, headers, config) {
@@ -464,11 +464,11 @@ angular.module('opsee', [])
             /**
              * 
              * @method
-             * @name api#getActivationsById
+             * @name opseeAPI#getActivationsById
              * @param {string} id - 
              * 
              */
-            api.prototype.getActivationsById = function(parameters) {
+            opseeAPI.prototype.getActivationsById = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -514,7 +514,7 @@ angular.module('opsee', [])
                 if (Object.keys(form).length > 0) {
                     options.data = form;
                     options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-                    options.transformRequest = api.transformRequest;
+                    options.transformRequest = opseeAPI.transformRequest;
                 }
                 $http(options)
                     .success(function(data, status, headers, config) {
@@ -535,8 +535,8 @@ angular.module('opsee', [])
                 return deferred.promise;
             };
 
-            return api;
+            return opseeAPI;
         })();
 
-        return api;
+        return opseeAPI;
     }]);

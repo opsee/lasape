@@ -52,6 +52,17 @@ function AllChecksCtrl($scope, $state, $stateParams, $timeout, $analytics, Check
 }//ChecksCtrl
 angular.module('opsee.checks.controllers').controller('AllChecksCtrl', AllChecksCtrl);
 
+AllChecksCtrl.resolve = {
+  allChecks:function($timeout, $q){
+    return true;
+    // var d = $q.defer();
+    // $timeout(function(){
+    //   d.resolve();
+    // },10000);
+    // return d.promise;
+  }
+}
+
 function CheckCtrl($scope){
   $scope.info = {
     edit:false
@@ -250,6 +261,7 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
       url:'/checks',
       templateUrl:'/public/js/src/checks/views/index.html',
       controller:'AllChecksCtrl',
+      resolve:AllChecksCtrl.resolve,
       title:'Checks'
     })
     .state('checkSingle', {

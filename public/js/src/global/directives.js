@@ -52,6 +52,14 @@ function preventDefaultA(){
 }
 angular.module('opsee.global.directives').directive('preventDefaultA', preventDefaultA);
 
+function opseeActivityIndicator(){
+  return {
+    restrict: 'AE',
+    template:new Array(6).join('<i></i>')
+ };
+}
+angular.module('opsee.global.directives').directive('opseeActivityIndicator', opseeActivityIndicator);
+
 function contextMenu(){
   return {
     restrict:'EA',

@@ -2,7 +2,7 @@
 
 angular.module('opsee.onboard.directives', []);
 
-function domainAvailable(OnboardService,$q){
+function domainAvailable(OnboardService, $q){
   return {
     restrict:'A',
     require:'ngModel',

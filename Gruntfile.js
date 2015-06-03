@@ -161,7 +161,7 @@ module.exports = function(grunt) {
     watch:{
       grunt:{
         files:['Gruntfile.js'],
-        tasks:['uglify:deps']
+        tasks:['uglify:deps','swagger']
       },
       j:{
         options:{
@@ -217,8 +217,10 @@ module.exports = function(grunt) {
         grunt.log.error(error);
         done();
       }else{
-        var code = CodeGen.getAngularCode({moduleName:'opsee', className:'api', swagger:JSON.parse(body)});
-        grunt.file.write('public/js/src/swagger.js',code);
+        var code = CodeGen.getAngularCode({moduleName:'opsee.api', className:'opseeAPI', swagger:JSON.parse(body)});
+        var output = 'public/js/src/api.js'
+        grunt.file.write(output,code);
+        grunt.log.ok(output+' created.');
         done();
       }
     });

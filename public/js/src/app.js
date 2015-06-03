@@ -1,12 +1,8 @@
 (function(){
 
-  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router', 'swagger-client', 'ngMessages', 'ngWebSocket', 'angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'notification', 'ui.gravatar', 'opsee.global', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws', 'opsee.docs'])
+  angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router', 'ngMessages', 'ngWebSocket', 'angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'notification', 'ui.gravatar', 'opsee.global', 'opsee.api', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws', 'opsee.docs'])
 
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $templateCache, $location, $timeout, $document, $localStorage, $analytics, $activityIndicator, $state, Global, Regex, authService, User, ENDPOINTS, VisibilityChange, swaggerClient) {
-
-    console.log($window.swaggerSchema);
-    var api = swaggerClient($window.swaggerSchema);
-    console.dir(api);
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $templateCache, $location, $timeout, $document, $localStorage, $analytics, $activityIndicator, $state, Global, Regex, authService, User, ENDPOINTS, VisibilityChange, opseeAPI) {
 
     $window.FastClick.attach(document.body);
 
@@ -25,6 +21,13 @@
           $activityIndicator.startAnimating();
         }
       },400);
+    });
+
+    $rootScope.api = new opseeAPI({domain:'http://api-beta.opsee.co'});
+    $rootScope.api.getOrgsSubdomainBySubdomain({subdomain:'foo'}).then(function(res){
+      console.log(res);
+    }).catch(function(err){
+      console.log(err);
     });
 
     VisibilityChange.onChange(function(visible){
