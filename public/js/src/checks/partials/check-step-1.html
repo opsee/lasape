@@ -9,7 +9,7 @@
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="g in groups">
-            <button ng-click="check.group = g;" dropdown-toggle>
+            <button ng-click="check.group = g;" class="btn" dropdown-toggle>
               {{g.name}}
             </button>
           </li>
@@ -28,7 +28,7 @@
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="p in protocols">
-          <button ng-click="check.protocol = p" dropdown-toggle>
+          <button ng-click="check.protocol = p"  class="btn" dropdown-toggle>
             {{p.name}}
           </button>
         </li>
@@ -63,7 +63,7 @@
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="v in verbs">
-          <button ng-click="check.verb = v" dropdown-toggle>
+          <button ng-click="check.verb = v" class="btn" dropdown-toggle>
             {{v.name}}
           </button>
         </li>

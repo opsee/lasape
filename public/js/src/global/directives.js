@@ -135,7 +135,7 @@ function mdToolbar(){
     transclude:'element',
     scope:{
       title:'@?',
-      close:'='
+      btnPosition:'@?'
     },
     templateUrl:'/public/js/src/global/partials/md-toolbar.html',
     controller:function($scope, $state){

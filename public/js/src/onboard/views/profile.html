@@ -1,9 +1,9 @@
 <div>
   <md-toolbar title="Fill Out Your Profile"></md-toolbar>
   <div class="container">
-    <div class="content-pad col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
       <form name="profileForm" ng-submit="submit()">
-        <user-inputs user="user" includes="name"></user-inputs>
+        <user-inputs user="user" include="name"></user-inputs>
         <slack-auth ng-if="!user.integrations.slack.user"></slack-auth>
         <!-- <slack-test></slack-test> -->
         <profile-img></profile-img>

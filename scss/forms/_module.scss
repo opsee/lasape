@@ -78,7 +78,7 @@
       text-indent: 32px;
     }
   }// > input
-  .dropdown-toggle {
+  .dropdown-toggle, [dropdown-toggle]{
     @include border-radius(0);
     background-color: transparent;
     font-weight: $body-font-weight;

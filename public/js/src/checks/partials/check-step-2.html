@@ -20,7 +20,7 @@
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="type in assertionTypes">
-            <button ng-click="changeAssertionType(type,assertionIndex)" title="{{type.title}}" dropdown-toggle>
+            <button class="btn" ng-click="changeAssertionType(type,assertionIndex)" title="{{type.title}}" dropdown-toggle>
               {{type.name}}
             </button>
           </li>
@@ -35,7 +35,7 @@
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="relationship in relationships">
-            <button ng-click="changeAssertionRelationship(relationship,assertion)" title="{{relationship.title}}" dropdown-toggle>
+            <button  class="btn" ng-click="changeAssertionRelationship(relationship,assertion)" title="{{relationship.title}}" dropdown-toggle>
               {{relationship.name}}
             </button>
           </li>

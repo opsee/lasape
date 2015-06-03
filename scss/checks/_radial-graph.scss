@@ -11,11 +11,11 @@ $graphWidth:40px;
     min-width:$graphWidth;
     min-height:$graphWidth;
     &.running{
-      background-color:$red-500;
+      background-color:$brand-danger;
       .radial-graph-inner{
         background:$brand-success;
         &.failing{
-          background:$red-500;
+          background:$brand-danger;
         }
       }
       .loader {
@@ -33,13 +33,13 @@ $graphWidth:40px;
       }
     }
     &.unmonitored{
-      background-color:$yellow-800;
+      background-color:$brand-warning;
       .radial-graph-inner{
-        background-color:$yellow-800;
+        background-color:$brand-warning;
         border:0;
       }
       .loader{
-        fill:$yellow-800;
+        fill:$brand-warning;
       }
     }
     &.silenced{

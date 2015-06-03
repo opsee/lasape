@@ -10,14 +10,14 @@ function userInputs(){
     require: '^form',
     scope:{
       user:'=?',
-      includes:'@?'
+      include:'@?'
     },
     controller:function($scope, $rootScope){
       $scope.user = $scope.user || $rootScope.user;
       $scope.regex = $rootScope.regex;
-      $scope.includes = $scope.includes.split(',');
-      $scope.include = function(string){
-        return $scope.includes.indexOf(string) > -1;
+      $scope.include = $scope.include ? $scope.include.split(',') : null;
+      $scope.display = function(string){
+        return $scope.include ? $scope.include.indexOf(string) > -1 : true;
       }
     },
     link:function($scope, $element, $attrs, $formCtrl){

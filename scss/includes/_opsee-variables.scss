@@ -36,10 +36,22 @@ $brand-success: #2baf2b; //$green-400
 $brand-info:    #afbfff; //$blue-200
 $brand-warning: #ffa726; //$orange-400
 $brand-danger:  #e51c23; //$red-400
+$brand-danger:  #FF5F5F;
 
 $btn-default-color:              $text-color;
 $btn-default-bg:                 $gray-900;
 $btn-default-border:             transparent;
+
+//== Bootstrap Widths
+$grid-gutter-width:30px;
+$container-tablet:             ((720px + $grid-gutter-width));
+$container-sm:                 $container-tablet;
+// Medium screen / desktop
+$container-desktop:            ((800px + $grid-gutter-width));
+$container-md:                 $container-desktop;
+// Large screen / wide desktop
+$container-large-desktop:      ((1020px + $grid-gutter-width));
+$container-lg:                 $container-large-desktop;
 
 //** Global background color for active items (e.g., navs or dropdowns).
 $component-active-bg:       $brand-primary;

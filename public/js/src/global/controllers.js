@@ -167,6 +167,9 @@ function StyleGuideCtrl($scope, Check){
   $scope.selectDropdown = function(num){
     $scope.dropdownSelected = 'Option '+num;
   }
+  $scope.notify = function(){
+    $scope.$emit('notify', 'A global notification.');
+  }
 }
 angular.module('opsee.global.controllers').controller('StyleGuideCtrl',StyleGuideCtrl);
 
