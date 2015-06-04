@@ -2,13 +2,13 @@
 
 angular.module('opsee.onboard.services', []);
 
-function OnboardService($resource, $q, $http, ENDPOINTS){
+function OnboardService($resource, $q, $rootScope, $http, ENDPOINTS){
   return {
     domainAvailable:function(domain){
       var deferred = $q.defer();
-      $http.get(ENDPOINTS.api+'/orgs/subdomain/'+domain).then(function(res){
+      $rootScope.api.getOrgsSubdomainBySubdomain({subdomain:domain}).then(function(res){
         !!(res.data && res.data.available) ? deferred.resolve() : deferred.reject();
-      }, function(res){
+      }).catch(function(err){
         deferred.reject(res);
       });
       return deferred.promise;

@@ -24,11 +24,6 @@
     });
 
     $rootScope.api = new opseeAPI({domain:'http://api-beta.opsee.co'});
-    $rootScope.api.getOrgsSubdomainBySubdomain({subdomain:'foo'}).then(function(res){
-      console.log(res);
-    }).catch(function(err){
-      console.log(err);
-    });
 
     VisibilityChange.onChange(function(visible){
       $analytics.eventTrack('visibility-change', {category:'Global',label:visible ? 'visible' : 'hidden'});
