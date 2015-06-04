@@ -3,9 +3,7 @@
     <div ng-repeat="action in item.actions" ng-hide="action.hidden">
       <!-- <div ng-hide="item.hasChildrenActive()"> -->
       <div>
-        <h2 class="md-subheader">
-          <span class="md-subheader-content">{{action.title}}</span>
-        </h2>
+        <h2 class="h3">{{action.title}}</h2>
       </div>
       <ul class="md-bottom-sheet">
         <li ng-repeat="childAction in action.actions" class="md-bottom-sheet-item">

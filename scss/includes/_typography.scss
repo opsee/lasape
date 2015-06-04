@@ -89,6 +89,14 @@ $caption-font-size-base:   1.200rem;
   letter-spacing: 0.010em;
 }
 
+h3,.h3{
+  font-family: $font-family-sans-serif;
+  font-size: 1.4rem;
+  font-weight: $body-font-weight-med;
+  line-height: 1.6rem;
+  color: $text-color-secondary;
+}
+
 // .text-gray{
 //   color:$gray !important;
 //   &:visited,&:hover{
