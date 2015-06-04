@@ -1,6 +1,8 @@
 .nav-tabs {
   border-bottom: 0;
+  @include display-flex;
   > li {
+    @extend .flex-1;
     > a {
       @include transition(color $swift-ease-out-duration $swift-ease-out-timing-function, border-color $swift-ease-out-duration $swift-ease-out-timing-function);
       border: none;
@@ -8,6 +10,11 @@
       color: $text-color-secondary;
       font-weight: $body-font-weight-med;
       text-transform: uppercase;
+      display: block;
+      overflow: hidden;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       &:hover,
       &:active,
       &:focus {
@@ -35,19 +42,19 @@
     }
   }
 }
-.environment-tabs {
-  background-color: $gray-900;
-  .nav-tabs {
-    white-space: nowrap;
-    > li {
-      width: 50%;
-      > a {
-        display: block;
-        overflow: hidden;
-        text-align: center;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-  }
-}
+// .environment-tabs {
+//   background-color: $gray-900;
+//   .nav-tabs {
+//     white-space: nowrap;
+//     > li {
+//       width: 50%;
+//       > a {
+//         display: block;
+//         overflow: hidden;
+//         text-align: center;
+//         text-overflow: ellipsis;
+//         white-space: nowrap;
+//       }
+//     }
+//   }
+// }
