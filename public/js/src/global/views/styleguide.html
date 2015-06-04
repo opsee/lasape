@@ -67,7 +67,23 @@
       </li>
     </ul>
 
-    <hr>
+    <hr/>
+
+    <h3>Toggle Switches</h3>
+
+    <ul class="md-sll">
+      <li class="md-sll-item display-flex flex-wrap" ng-repeat="o in [{},{},{}]">
+        <div class="md-sll-select">
+          <input type="checkbox" ng-model="o.selected" id="toggle-{{$index}}" class="sr-only">
+          <toggle-switch ng-model="o.selected"></toggle-switch>
+        </div>
+        <div class="md-sll-title flex-1">
+          <label class="user-select-none" for="toggle-{{$index}}">Item {{$index}}</label>
+        </div>
+      </li>
+    </ul>
+
+    <hr/>
 
     <h3>Data Tables</h3>
 
