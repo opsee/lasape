@@ -4,6 +4,8 @@ module.exports = function(grunt) {
   , rewrite = require( "connect-modrewrite" )
   , request = require('request')
   , CodeGen = require('swagger-js-codegen').CodeGen
+  , jsDiff = require('diff')
+  , colors = require('colors')
   ;
 
   function addLib(array){
@@ -33,6 +35,9 @@ module.exports = function(grunt) {
     shell:{
       jekyll:{
         command:'jekyll build --source _site --destination dist --config _config.yml'
+      },
+      npm:{
+        command:'npm install'
       },
       bower:{
         command:'bower install'
@@ -210,27 +215,44 @@ module.exports = function(grunt) {
     },
   });
 
-  grunt.registerTask('swagger', 'Generate Angular Swagger Code', function(){
+  grunt.registerTask('swagger', 'Generate Angular Swagger Code, Notify of Changes', function(){
     var done = this.async();
     var json = request('http://api-beta.opsee.co/api/swagger.json', function(error,response,body){
       if(error){
         grunt.log.error(error);
         done();
       }else{
-        var code = CodeGen.getAngularCode({moduleName:'opsee.api', className:'opseeAPI', swagger:JSON.parse(body)});
-        var output = 'public/js/src/api.js'
-        grunt.file.write(output,code);
+        var newCode = CodeGen.getAngularCode({moduleName:'opsee.api', className:'opseeAPI', swagger:JSON.parse(body)});
+        var output = 'public/js/src/api.js';
+        var oldCode = grunt.file.read(output);
+        var lines = jsDiff.diffLines(oldCode,newCode);
+        var changed = false;
+        lines.forEach(function(line, i){
+          if(line.removed){
+            grunt.log.write(colors.gray('removed: ')+line.value);
+            changed = true;
+          }
+          if(line.added){
+            grunt.log.write(colors.cyan('added: ')+line.value);
+            changed = true;
+          }
+        });
+        if(!changed){
+         grunt.log.ok('No changes.'); 
+        }
+        grunt.file.write(output,newCode);
         grunt.log.ok(output+' created.');
         done();
       }
     });
   });
 
-  grunt.registerTask('default', ['shell:bower','compass','build','connect', 'watch']);
+  grunt.registerTask('install', ['shell:npm','shell:bower']);
+  grunt.registerTask('default', ['install','compass','build','connect', 'watch']);
   grunt.registerTask('serve', ['connect', 'watch']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
   grunt.registerTask('build', ['uglify:deps','shell:jekyll','copy','swagger']);
   grunt.registerTask('prod', ['uglify:deps','shell:jekyll','copy','annotate']);
-  grunt.registerTask('docker', ['shell:bower', 'compass', 'build', 'shell:docker']);
+  grunt.registerTask('docker', ['install', 'compass', 'build', 'shell:docker']);
 
 };
