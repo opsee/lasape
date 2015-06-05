@@ -8,14 +8,6 @@ module.exports = function(grunt) {
   , colors = require('colors')
   ;
 
-  function addLib(array){
-    var n = [];
-    array.forEach(function(a){
-      n.push('public/lib/'+a+'.js');
-    });
-    return n;
-  }
-
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -80,7 +72,7 @@ module.exports = function(grunt) {
           compress:false
         },
         files:{
-          'public/js/dist/deps.min.js':addLib([
+          'public/js/dist/deps.min.js':[
             'angular/angular.min',
             'angular-cookies/angular-cookies.min',
             'angular-resource/angular-resource.min',
@@ -110,7 +102,9 @@ module.exports = function(grunt) {
             'angular-toggle-switch/angular-toggle-switch.min',
             'angular-websocket/angular-websocket.min',
             'angular-notification/angular-notification.min'
-          ])
+          ].map(function(f){
+            return 'public/lib/'+f+'.js';
+          })
         }
       },
       annotated: {
