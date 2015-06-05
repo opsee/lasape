@@ -27,6 +27,10 @@
   background-color: $body-bg;
 }
 
+.fill-white{
+  fill:white;
+}
+
 .user-select-none{
   @include user-select(none);
 }

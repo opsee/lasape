@@ -1,15 +1,14 @@
 <div>
   <div class="modal-body container-fluid">
     <div ng-repeat="action in item.actions" ng-hide="action.hidden">
-      <!-- <div ng-hide="item.hasChildrenActive()"> -->
-      <div>
+      <div class="container-fluid">
         <h2 class="h3">{{action.title}}</h2>
       </div>
-      <ul class="md-bottom-sheet">
-        <li ng-repeat="childAction in action.actions" class="md-bottom-sheet-item">
-          <button ng-click="run(childAction,item)" class="btn-none">
-            <svg class="md-bottom-sheet-avatar" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off" /></svg>
-            <span class="md-bottom-sheet-title">{{childAction.title}}</span>
+      <ul class="list-unstyled">
+        <li ng-repeat="childAction in action.actions">
+          <button ng-click="run(childAction,item)" class="btn btn-block btn-lg btn-default text-left">
+            <svg class="fill-white icon" viewBox="0 0 24 24"><use xlink:href="#ico_alarm_off" /></svg>
+            <span>&nbsp;{{childAction.title}}</span>
           </button>
         </li>
       </ul>

@@ -141,20 +141,32 @@
       <h3>Buttons</h3>
 
       <div class="padding-bx2">
-        <button class="btn btn-raised btn-primary" type="submit">Primary</button>
-        <button class="btn btn-raised btn-success" type="submit">Success</button>
-        <button class="btn btn-raised btn-danger" type="submit">Danger</button>
-        <button class="btn btn-raised btn-default" type="submit">Default</button>
-        <button class="btn btn-raised btn-success" type="submit" ng-disabled="testform.$invalid">Disabled</button>
+        <button class="btn btn-raised btn-primary" type="submit">PRIMARY</button>
+        <button class="btn btn-raised btn-success" type="submit">SUCCESS</button>
+        <button class="btn btn-raised btn-danger" type="submit">DANGER</button>
+        <button class="btn btn-raised btn-default" type="submit">DEFAULT</button>
+        <button class="btn btn-raised btn-success" type="submit" ng-disabled="testform.$invalid">DISABLED</button>
         <div><br/></div>
-        <button class="btn btn-raised btn-default btn-block" type="submit">Block</button>
+        <button class="btn btn-raised btn-default btn-block" type="submit">BLOCK</button>
       </div>
 
       <div class="padding-bx2">
-        <button class="btn btn-flat btn-primary" type="submit">Flat Primary</button>
-        <button class="btn btn-flat btn-success" type="submit">Flat Success</button>
-        <button class="btn btn-flat btn-danger" type="submit">Flat Danger</button>
-        <button class="btn btn-flat btn-success" type="submit" ng-disabled="testform.$invalid">Disabled Flat</button>
+        <button class="btn btn-raised btn-primary btn-lg" type="submit">PRIMARY LG</button>
+        <div><br/></div>
+        <button class="btn btn-raised btn-default btn-lg btn-block" type="submit">BLOCK LG</button>
+      </div>
+
+      <div class="padding-bx2">
+        <button class="btn btn-flat btn-primary" type="submit">FLAT PRIMARY</button>
+        <button class="btn btn-flat btn-success" type="submit">FLAT SUCCESS</button>
+        <button class="btn btn-flat btn-danger" type="submit">FLAT DANGER</button>
+        <button class="btn btn-flat btn-success" type="submit" ng-disabled="testform.$invalid">DISABLED FLAT</button>
+      </div>
+
+      <div class="padding-bx2">
+        <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('http.headers')"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg>
+          <span>NO PAD</span>
+        </button>
       </div>
     </form>
 
@@ -162,6 +174,6 @@
     <div opsee-loader></div>
 
     <h3>Notifcations</h3>
-    <button class="btn btn-primary" ng-click="notify()">Global Notification</button>
+    <button class="btn btn-primary" ng-click="notify()">GLOBAL NOTIFICATION</button>
   </div>
 </div><!-- .container -->

@@ -48,9 +48,10 @@ $button-fab-padding: 1.60rem !default;
 .btn {
   border: none;
   border-radius: $border-radius-large;
-  line-height: 20px;
-  text-transform: uppercase;
-  @include transition(box-shadow $swift-ease-out-duration $swift-ease-out-timing-function, background-color $swift-ease-out-duration $swift-ease-out-timing-function);
+  line-height: 1.2em;
+  padding:$grid-gutter-width/4 $grid-gutter-width/2;
+  @include transition(box-shadow $swift-ease-out-duration $swift-ease-out-timing-function, 
+    background-color $swift-ease-out-duration $swift-ease-out-timing-function);
   &.disabled, &[disabled], &.btn-flat.disabled, &[disabled].btn-flat {
     @include opacity(100);
     color: $text-color-secondary;
@@ -62,6 +63,10 @@ $button-fab-padding: 1.60rem !default;
     .icon {
       fill: $text-color-secondary;
     }
+  }
+  &.btn-lg{
+    font-size:1em;
+    padding:$grid-gutter-width/2 $grid-gutter-width/2;
   }
 }
 .btn-titlebar {
@@ -110,14 +115,14 @@ $button-fab-padding: 1.60rem !default;
 }
 .btn-block {
   display: block;
+  border-radius:0;
 }
 .icon {
-  // .transition(fill 400ms cubic-bezier(0.23, 1, 0.32, 1));
-  display: inline;
+  display: inline-block;
   fill: white;
-  height: 20px;
+  height:1.3em;
+  width:1.3em;
   vertical-align: text-bottom;
-  width: 20px;
 }
 .btn-fab {
   @include fab-position(bottom-right, auto, ($button-fab-width - $button-fab-padding)/2, ($button-fab-height - $button-fab-padding)/2, auto);
@@ -176,7 +181,11 @@ $button-fab-padding: 1.60rem !default;
   top: 50%;
   width: 24px;
 }
-
+.btn-default{
+  &:hover{
+    background:$gray-800;
+  }
+}
 .dropdown-menu {
   @extend .md-shadow-bottom-z-1;
   border: none;
