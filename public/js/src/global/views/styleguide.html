@@ -112,23 +112,15 @@
         <input id="testinput1" name="testinput1" type="text" ng-model="user.account.team_name" placeholder="input placeholder" class="form-control flex-order-1" ng-required="true" ng-minlength="3"/>
         <label for="testinput1">
           <span class="form-label">Text Input Label</span>
-          <span ng-messages="testform.testinput1.$error">
-            <span class="ng-hide" ng-show="testform.testinput1.$touched">
-              <span class="form-message" ng-message="required">and error message.</span>
-            </span>
-          </span>
+          <default-messages ng-model="testform.testinput1"></default-messages>
         </label>
       </div>
 
       <div class="form-group display-flex flex-wrap">
-        <input id="testinput2" name="testinput2" type="email" placeholder="email@domain.com" class="form-control has-icon flex-order-1" ng-required="true" ng-pattern="regex.email"/>
+        <input id="testinput2" name="testinput2" type="text" placeholder="email@domain.com" class="form-control has-icon flex-order-1" ng-required="true" ng-pattern="regex.email" ng-model="testinput2"/>
         <label for="testinput2">
           <span class="form-label">Email (w/icon)</span>
-          <span ng-messages="testform.testinput2.$error">
-            <span class="form-message ng-hide" ng-show="testform.testinput2.$touched">
-              <span ng-message="required">is required.</span>
-            </span>
-          </span>
+          <default-messages ng-model="testform.testinput2"></default-messages>
         </label>
         <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg>
       </div>

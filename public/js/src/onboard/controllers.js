@@ -204,7 +204,6 @@ function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, 
   }
   var data = angular.copy($scope.info);
   data.regions = _.pluck(data.regions,'id');
-  console.log(data);
   AWSService.vpcScan(data).then(function(res){
     console.log(res);
     $scope.regions = res.data;

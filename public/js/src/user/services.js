@@ -2,7 +2,7 @@
 
 angular.module('opsee.user.services', []);
 
-function User($resource, $rootScope, _, $localStorage, $state, $q, USER_DEFAULTS, ENDPOINTS, SlackService, gravatarService){
+function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, USER_DEFAULTS, ENDPOINTS, SlackService, gravatarService){
   var User = $resource(ENDPOINTS.user,
     {
       id:'@_id'
@@ -56,6 +56,7 @@ function User($resource, $rootScope, _, $localStorage, $state, $q, USER_DEFAULTS
     return !!this.id;
   }
   User.prototype.logout = function(){
+    $analytics.eventTrack('logout', {category:'User'});
     delete $localStorage.user;
     delete $localStorage.authToken;
     $rootScope.user = new User().setDefaults();
@@ -140,12 +141,6 @@ function UserService($q, $resource, $rootScope, $analytics, User, ENDPOINTS){
       }else{
         return $q.reject();
       }
-    },
-    logout:function(user,$localStorage){
-      $analytics.eventTrack('logout', {category:'User'});
-      delete $localStorage.user;
-      delete $localStorage.authToken;
-      $rootScope.user = new User().setDefaults();
     },
     passwordForgot:function(user){
       var path = $resource(ENDPOINTS.api+'/password-forgot');

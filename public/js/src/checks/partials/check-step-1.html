@@ -42,11 +42,7 @@
           <input id="checkPort" name="checkPort" type="text" ng-model="check.http.port" class="form-control flex-order-1" placeholder="e.g. 80" ng-required="true"/>
           <label for="checkPort">
             <span class="form-label">Port</span>
-            <span ng-messages="checkStep1Form.checkPort.$error">
-              <span class="form-message ng-hide" ng-show="checkStep1Form.checkPort.$touched">
-                <span ng-message="required">is required.</span>
-              </span>
-            </span>
+            <default-messages ng-model="checkStep1Form.checkPort"></default-messages>
           </label>
         </div>
       </div>
@@ -75,11 +71,7 @@
       <input id="checkURL" class="form-control flex-order-1" name="checkURL" type="text" ng-model="check.url" placeholder="e.g. /healthcheck" ng-required="true"/>
       <label class="flex-1" for="checkURL">
         <span class="form-label">URL</span>
-        <span ng-messages="checkStep1Form.checkURL.$error">
-          <span class="form-message ng-hide" ng-show="checkStep1Form.checkURL.$touched">
-            <span ng-message="required">is required.</span>
-          </span>
-        </span>
+        <default-messages ng-model="checkStep1Form.checkURL"></default-messages>
       </label>
     </div>
   </div>

@@ -6,11 +6,13 @@
 
     $window.FastClick.attach(document.body);
 
-    $http.get('/public/js/src/global/partials/error-messages.html').then(function(res){
-      $templateCache.put('error-messages', res.data);
-    });
-
     $rootScope.$on('$stateChangeStart', function (event, toState, fromState, fromParams) {
+      // doing some pre-emptive code for when bastion is installing
+      // if(!toState.name.match('styleguide')){
+      //   console.log(toState);
+      //   event.preventDefault();
+      //   return $state.go('styleguide');
+      // }
       if(toState.name != ('login')){
         $rootScope.previousRoute = toState.name;
       }
@@ -22,8 +24,6 @@
         }
       },400);
     });
-
-    $rootScope.api = new opseeAPI({domain:'http://api-beta.opsee.co'});
 
     VisibilityChange.onChange(function(visible){
       $analytics.eventTrack('visibility-change', {category:'Global',label:visible ? 'visible' : 'hidden'});

@@ -128,83 +128,13 @@ function ENDPOINTS(){
 }
 angular.module('opsee.global.services').constant('ENDPOINTS', ENDPOINTS());
 
-function Credentials(ENDPOINTS, $resource) {
-  return $resource(ENDPOINTS.api + '/environments/:envId/credentials');
-};
-angular.module('opsee.global.services').factory('Credentials', Credentials)
-
-function Environments(ENDPOINTS, $resource) {
-  return $resource(ENDPOINTS.api + '/environments/:envId', {}, {
-    'update': {method: "PUT"},
-    'query': {method: "GET", isArray:true}
-  });
-}
-angular.module('opsee.global.services').factory('Environments', Environments)
-
-function Discovery(ENDPOINTS, $resource) {
-  return $resource(ENDPOINTS.api + '/discovery', {}, {
-    'update': {method: "PUT"},
-    'query': {method: "GET"}
-  });
-}
-angular.module('opsee.global.services').factory('Discovery', Discovery)
-
-
-function Bastion(wsHost, wsPort, $q, $rootScope) {
-  var Service = {};
-
-  var callbacks = {};
-
-  var currentCallbackId = 0;
-
-  var connWs, disconnWs, discoveryWs;
-
-  Service.onConnected = function(event) {}
-  Service.onDisconnected = function(event) {}
-  Service.onDiscovery = function(event) {}
-  Service.onDiscoveryEnd = function(event) {}
-
-  Service.connect = function() {
-    var url = "ws://" + wsHost + ":" + wsPort + "/pubsub/";
-    connWs = new WebSocket(url + "connect?query=true");
-    disconnWs = new WebSocket(url + "disconnect?query=true");
-    discoveryWs = new WebSocket(url + "discovery?query=true");
-
-    // connWs.onopen = function() {
-    //  console.log("connect ws has been opened")
-    // }
-
-    connWs.onmessage = function(message) {
-      Service.onConnected(JSON.parse(message.data));
-    }
-
-    connWs.onerror = function(evt) {console.log(evt);}
-
-    // disconnWs.onopen = function() {
-    //  console.log("disconnect ws has been opened")
-    // }
-
-    disconnWs.onmessage = function(message) {
-      Service.onDisconnected(JSON.parse(message.data));
-    }
-
-    // discoveryWs.onopen = function() {
-    //  console.log("discovery ws has been opened")
-    // }
-
-    discoveryWs.onmessage = function(message) {
-      var msg = JSON.parse(message.data);
-      if (msg.state == 'end') {
-        Service.onDiscoveryEnd(msg);
-      } else {
-        Service.onDiscovery(msg);
-      }
-    }
+function api($rootScope, opseeAPI){
+  if(!$rootScope.api){
+   $rootScope.api = new opseeAPI({domain:'http://api-beta.opsee.co'}); 
   }
-
-  return Service;
+  return $rootScope.api;
 }
-angular.module('opsee.global.services').factory('Bastion', Bastion)
+angular.module('opsee.global.services').service('api',api);
 
 function Intervals(){
   return[

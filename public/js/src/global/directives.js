@@ -175,6 +175,16 @@ function srOnly(){
 }
 angular.module('opsee.global.directives').directive('srOnly', srOnly);
 
+function defaultMessages(){
+  return {
+    restrict:'EA',
+    scope:{
+      ngModel:'='
+    },
+    templateUrl:'/public/js/src/global/partials/default-messages.html'
+  }
+}
+angular.module('opsee.global.directives').directive('defaultMessages', defaultMessages);
 
 //we are shimming bootstrap dropdowns to support multiple [dropdown-toggle]
 // see https://github.com/angular-ui/bootstrap/issues/796

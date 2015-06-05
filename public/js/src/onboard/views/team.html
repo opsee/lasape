@@ -8,11 +8,7 @@
             <input id="teamName" name="teamName" type="text" ng-model="user.account.name" placeholder="Initech" class="form-control flex-order-1" ng-required="true" ng-minlength="3"/>
             <label for="teamName">
               <span class="form-label">Team Name</span>
-              <span ng-messages="teamForm.teamName.$error">
-                <span class="ng-hide" ng-show="teamForm.teamName.$touched">
-                  <span class="form-message" ng-message="required">is required.</span>
-                </span>
-              </span>
+              <default-messages ng-model="teamForm.teamName"></default-messages>
             </label>
           </div>
           <div class="help-block">This name will appear in headings and menus to identify your team. Your company name is probably a good choice, but it doesn't need to be official or anything.</div>
@@ -22,18 +18,12 @@
             <div class="form-subdomain flex-order-3">.opsee.co</div>
             <label class="flex-order-1 flex-1" for="teamDomain" for="domain" style="min-width: 100%;">
               <span class="form-label">Team Domain</span>
-              <span ng-messages="teamForm.teamDomain.$error">
-                <span class="ng-hide" ng-show="teamForm.teamDomain.$touched">
-                  <span ng-message="required" class="form-message">is required.</span>
-                  <span ng-message="pattern" class="form-message">is not valid.</span>
-                  <span ng-message="available" class="form-message">is not available.</span>
-                </span>
-              </span>
+              <default-messages ng-model="teamForm.teamDomain"></default-messages>
             </label>
           </div>
           <div class="help-block">The web address you'll use to access your team's account. Keep it short and memorable. Only lowercase letters, numbers, and dashes are allowed, and it must start with a letter.</div>
 
-          <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="teamForm.$invalid">Next</button>
+          <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="teamForm.$invalid || teamForm.$pending">Next</button>
         </form>
       </div>
     </div>
