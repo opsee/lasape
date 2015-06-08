@@ -10,15 +10,15 @@
   <meta name="viewport" content="width=device-width">
   <link rel="shortcut icon" href="/public/favicon.ico">
   <link rel="stylesheet" href="/public/css/src/style.css">
-  <!--<script src="components/modernizr/modernizr.js"></script>-->
 </head>
-<body>
-  <!--[if lt IE 9]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-  <div role="main" id="main">
-    <div ng-include="'/public/js/src/global/views/svg-sprite.html'"></div>
-    <opsee-header></opsee-header>
-    <div class="ui-view-wrap" style="position:relative;">
-      <div opsee-loader global ng-show="AILoading" class="ng-hide"></div>
-      <section class="content wrap transition-sibling" ui-view ng-class="$state.current.uiViewClasses"></section>
+<html>
+  <body>
+    <!--[if lt IE 9]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <div role="main" id="main">
+      <div ng-include="'/public/js/src/global/views/svg-sprite.html'"></div>
+      <opsee-header></opsee-header>
+      <div class="ui-view-wrap" style="position:relative;">
+        <div opsee-loader global ng-show="AILoading" class="ng-hide"></div>
+        <section class="content wrap transition-sibling" ui-view ng-class="$state.current.uiViewClasses"></section>
+      </div>
     </div>
-  </div>

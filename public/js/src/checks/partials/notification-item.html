@@ -20,8 +20,7 @@
         <div ng-if="notif.channel.options">
           <div ng-repeat="(key,val) in notif.channel.options">
             <div class="form-group">
-            <label for="{{key}}-{{notifIndex}}">{{::notif.channel.optionsMeta[key].name}}</label>
-            <input class="sr-only" id="{{key}}-{{notifIndex}}" type="checkbox" ng-model="notif.channel.options[key]">
+            <label ng-click="notif.channel.options[key] = !notif.channel.options[key]">{{::notif.channel.optionsMeta[key].name}}</label>
             <toggle-switch ng-model="notif.channel.options[key]"></toggle-switch>
             </div>
           </div>

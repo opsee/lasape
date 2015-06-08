@@ -143,7 +143,7 @@ function mdToolbar(){
     transclude:'element',
     scope:{
       title:'@?',
-      btnPosition:'@?'
+      btnPosition:'@?',
     },
     templateUrl:'/public/js/src/global/partials/md-toolbar.html',
     controller:function($scope, $state){
@@ -157,10 +157,11 @@ function toggleSwitch(){
   return {
     restrict:'AE',
     replace:true,
-    template:'<div class="toggle-switch" ng-class="{active:ngModel == true}" ng-click="ngModel = !ngModel" ng-swipe-left="ngModel = false" ng-swipe-right="ngModel = true"><div class="knob"></div></div>',
+    templateUrl:'/public/js/src/global/partials/toggle-switch.html',
     scope:{
-      ngModel:'='
-    }
+      ngModel:'=',
+      ngRequired:'='
+    },
   }
 }
 angular.module('opsee.global.directives').directive('toggleSwitch', toggleSwitch);

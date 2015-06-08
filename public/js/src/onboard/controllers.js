@@ -202,6 +202,9 @@ function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, 
       return vpc;
     }).value();
   }
+  $scope.requiredSelection = function(){
+    return !_.chain($scope.regions).pluck('vpcs').flatten().where({'selected':true}).value().length;
+  }
   var data = angular.copy($scope.info);
   data.regions = _.pluck(data.regions,'id');
   AWSService.vpcScan(data).then(function(res){
