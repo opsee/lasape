@@ -34,7 +34,7 @@
 
     <hr>
 
-    <h2 class="h3">Subheader - List with icons</h2>
+    <h2 class="h3">.md-list md-list-two-line</h2>
     <ul class="md-list md-list-two-line">
       <li class="md-list-item" ng-repeat="check in checks">
         <check-item check="check"></check-item>
@@ -42,6 +42,13 @@
     </ul>
 
     <hr>
+
+    <h2 class="h3">List without md-list</h2>
+    <ul class="list-unstyled">
+      <li ng-repeat="check in checks">
+        <check-item check="check"></check-item>
+      </li>
+    </ul>
 
     <h2 class="h3">Subheader - List without icons</h2>
 
