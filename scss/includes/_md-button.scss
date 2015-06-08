@@ -50,7 +50,8 @@ $button-fab-padding: 1.60rem !default;
   border-radius: $border-radius-large;
   line-height: 1.2em;
   padding:$grid-gutter-width/4 $grid-gutter-width/2;
-  @include transition(box-shadow $swift-ease-out-duration $swift-ease-out-timing-function, 
+  text-transform: uppercase;
+  @include transition(box-shadow $swift-ease-out-duration $swift-ease-out-timing-function,
     background-color $swift-ease-out-duration $swift-ease-out-timing-function);
   &.disabled, &[disabled], &.btn-flat.disabled, &[disabled].btn-flat {
     @include opacity(100);
@@ -63,10 +64,6 @@ $button-fab-padding: 1.60rem !default;
     .icon {
       fill: $text-color-secondary;
     }
-  }
-  &.btn-lg{
-    font-size:1em;
-    padding:$grid-gutter-width/2 $grid-gutter-width/2;
   }
 }
 .btn-titlebar {
