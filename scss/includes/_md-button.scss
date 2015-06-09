@@ -51,15 +51,21 @@ $button-fab-padding: 1.60rem !default;
   line-height: 1.2em;
   padding:$grid-gutter-width/4 $grid-gutter-width/2;
   text-transform: uppercase;
+  @extend .md-shadow-bottom-z-1;
   @include transition(box-shadow $swift-ease-out-duration $swift-ease-out-timing-function,
     background-color $swift-ease-out-duration $swift-ease-out-timing-function);
-  &.disabled, &[disabled], &.btn-flat.disabled, &[disabled].btn-flat {
+  &.btn-flat{
+    box-shadow:none;
+  }
+  &[disabled]{
     @include opacity(100);
-    color: $text-color-secondary;
+    color: $text-color-secondary !important;
     cursor: not-allowed;
     pointer-events: none;
-    &.btn-raised, &.btn-fab {
-      background-color: $gray-800;
+    box-shadow:none;
+    background-color: $gray-800;
+    &.btn-flat{
+      background-color:none;
     }
     .icon {
       fill: $text-color-secondary;
@@ -73,11 +79,6 @@ $button-fab-padding: 1.60rem !default;
   }
 }
 
-.btn-raised {
-  &:not([disabled]) {
-    @extend .md-shadow-bottom-z-1;
-  }
-}
 .btn-nopad {
   @include border-radius(0);
   padding-left: 0;
@@ -99,11 +100,25 @@ $button-fab-padding: 1.60rem !default;
       fill: $brand-success;
     }
   }
+  &.btn-warning {
+    background-color: transparent;
+    color: $brand-warning;
+    .icon {
+      fill: $brand-warning;
+    }
+  }
   &.btn-danger {
     background-color: transparent;
     color: $brand-danger;
     .icon {
       fill: $brand-danger;
+    }
+  }
+  &.btn-info {
+    background-color: transparent;
+    color: $brand-info;
+    .icon {
+      fill: $brand-info;
     }
   }
   &:hover {

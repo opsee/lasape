@@ -22,6 +22,10 @@
 <div class="container">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div><br/></div>
+    <div>
+      <img src="/public/img/logo-color-border-light.svg" width="150"/>
+    </div>
+    <div><br/></div>
     <div class="clearfix">
       <div ng-repeat="o in ['brand-primary','brand-success','brand-info','brand-warning','brand-danger']" class="clearfix">
         <div class="bg-{{o}} pull-left" style="width:45px;height:45px;"></div>
@@ -31,6 +35,8 @@
     <h1>Header Level 1: Instance Passing, Started Three Hours</h1>
     <h2>Header Level 2: Resource Restarted, Checking Availability</h2>
     <h3>Header Level 3: Check Currently Unmonitored</h3>
+
+    <p>Paragraph. Wornall Homestead pork spare ribs maple mild BB's Lawnside smoked turkey Jack Stack mixed plate Crossroads hog heaven <span class="text-info">West Side strawberry soda</span> smoker drop. Entire loaf of white bread team Novel Restaurant chicken wings fun KC Strip chorizo Arthur Bryant's works ham River Market short end sandwiches baby back ribs rarely.</p>
 
     <hr>
 
@@ -172,7 +178,7 @@
       <div class="form-group display-flex flex-wrap">
         <input id="testinput1" name="testinput1" type="text" ng-model="user.account.team_name" placeholder="input placeholder" class="form-control flex-order-1" ng-required="true" ng-minlength="3"/>
         <label for="testinput1">
-          <span class="form-label">Text Input Label</span>
+          <span>Text Input Label</span>
           <default-messages ng-model="testform.testinput1"></default-messages>
         </label>
       </div>
@@ -180,7 +186,7 @@
       <div class="form-group display-flex flex-wrap">
         <input id="testinput2" name="testinput2" type="text" placeholder="email@domain.com" class="form-control has-icon flex-order-1" ng-required="true" ng-pattern="regex.email" ng-model="testinput2"/>
         <label for="testinput2">
-          <span class="form-label">Email (w/icon)</span>
+          <span>Email (w/icon)</span>
           <default-messages ng-model="testform.testinput2"></default-messages>
         </label>
         <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_mail" /></svg>
@@ -202,20 +208,27 @@
       <h3>Buttons</h3>
 
       <div class="padding-bx2">
-        <button class="btn btn-raised btn-primary" type="submit">Primary</button>
-        <button class="btn btn-raised btn-success" type="submit">Success</button>
-        <button class="btn btn-raised btn-danger" type="submit">Danger</button>
-        <button class="btn btn-raised btn-default" type="submit">Default</button>
-        <button class="btn btn-raised btn-success" type="submit" ng-disabled="testform.$invalid">Disabled</button>
+        <div class="padding pull-left" ng-repeat="b in ['primary','success','warning','danger','info','default']">
+          <button class="btn btn-{{b}}">{{b}}</button>
+        </div>
+        <div class="padding pull-left">
+          <button class="btn btn-success" ng-disabled="testform.$invalid">Disabled</button>
+        </div>
         <div><br/></div>
-        <button class="btn btn-raised btn-default btn-block" type="submit">Block</button>
+        <button class="btn btn-default btn-block" type="submit">Block</button>
       </div>
 
+      <h3>Flat Buttons</h3>
+
       <div class="padding-bx2">
-        <button class="btn btn-flat btn-primary" type="submit">FLAT PRIMARY</button>
-        <button class="btn btn-flat btn-success" type="submit">FLAT SUCCESS</button>
-        <button class="btn btn-flat btn-danger" type="submit">FLAT DANGER</button>
-        <button class="btn btn-flat btn-success" type="submit" ng-disabled="testform.$invalid">DISABLED FLAT</button>
+        <div class="padding pull-left" ng-repeat="b in ['primary','success','warning','danger','info','default']">
+          <button class="btn btn-{{b}} btn-flat">{{b}}</button>
+        </div>
+        <div class="padding pull-left">
+          <button class="btn btn-flat btn-success" ng-disabled="testform.$invalid">Disabled</button>
+        </div>
+        <div><br/></div>
+        <button class="btn btn-flat btn-default btn-block" type="submit">Block</button>
       </div>
 
       <div class="padding-bx2">
