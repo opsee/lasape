@@ -38,6 +38,7 @@
     $rootScope.$on('$stateChangeError', function (event, toState, fromState, fromParams) {
       $activityIndicator.timer = false;
       $activityIndicator.stopAnimating();
+      console.log(event);
       $state.go('404');
     });
 

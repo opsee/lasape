@@ -8,9 +8,9 @@
 
         <h2 class="h3">Your active VPCs - <a href="#" ng-click="selectAll()">Select All</a></h2>
 
-        <form name="regionSelectForm" ng-submit="submit()" ng-show="!msg" class="ng-hide">
+        <form name="regionSelectForm" ng-submit="submit()">
 
-          <div ng-repeat="region in regions">
+          <div ng-repeat="region in user.info.regions">
             <h2 class="h3">{{region.region}} ({{region.regionName}})</h2>
             <ul class="md-sll">
               <li ng-repeat="vpc in region.vpcs" class="md-sll-item display-flex flex-wrap">
@@ -33,9 +33,7 @@
               </div>
             </div>
           </div>
-
         </form>
-        <div ng-show="msg && msg == 'loading'" class="ng-hide" opsee-loader global></div>
       </div>
     </div>
   </div><!-- .container -->

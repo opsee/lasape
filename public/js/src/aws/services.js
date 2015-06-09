@@ -16,7 +16,6 @@ function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS, 
       return $http.post(ENDPOINTS.vpcScan, data);
     },
     bastionInstall:function(data){
-      console.log($rootScope.user);
       data = data || {};
       _.defaults(data, {
         hmac:$rootScope.user.token.replace('HMAC ',''),
@@ -33,7 +32,6 @@ function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS, 
           }
         ]
       }, TEST_KEYS);
-      if(!data){}
       var stream = $websocket('ws://api-beta.opsee.co/stream/');
       stream.send(JSON.stringify(data));
       return stream;

@@ -18,7 +18,7 @@
       <div ng-include="'/public/js/src/global/views/svg-sprite.html'"></div>
       <opsee-header></opsee-header>
       <div class="ui-view-wrap" style="position:relative;">
-        <div opsee-loader global ng-show="AILoading" class="ng-hide"></div>
+        <opsee-loader global ng-show="AILoading" class="ng-hide"></opsee-loader>
         <section class="content wrap transition-sibling" ui-view ng-class="$state.current.uiViewClasses"></section>
       </div>
     </div>

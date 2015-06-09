@@ -4,11 +4,13 @@ angular.module('opsee.onboard.controllers', ['opsee.onboard.services','opsee.glo
 
 function OnboardCtrl($rootScope, $scope, $state, AWSRegions, TEST_KEYS){
   $scope.user = $rootScope.user;
-  $scope.info = {}
   //test regions
-  $scope.info.regions = angular.copy(AWSRegions);
+  $scope.user.info = {
+    regions:angular.copy(AWSRegions)
+  };
   //test keys
-  _.defaults($scope.info,TEST_KEYS);
+  _.defaults($scope.user.info.regions,TEST_KEYS);
+  console.log($scope.user);
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
@@ -163,15 +165,15 @@ angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', Onboar
 
 function OnboardRegionSelectCtrl($scope, $state, $analytics, _, AWSRegions){
   $scope.requiredSelection = function(){
-    return !_.findWhere($scope.info.regions, {'selected':true});
+    return !_.findWhere($scope.user.info.regions, {'selected':true});
   }
   $scope.selectAll = function(){
-    $scope.info.regions.forEach(function(r){
+    $scope.user.info.regions.forEach(function(r){
       r.selected = true;
     });
   }
   $scope.deselectAll = function(){
-    $scope.info.regions.forEach(function(r){
+    $scope.user.info.regions.forEach(function(r){
       r.selected = false;
     });
   }
@@ -185,54 +187,68 @@ angular.module('opsee.onboard.controllers').controller('OnboardRegionSelectCtrl'
 function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSService, AWSRegions){
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
-    if(!$scope.info.regions){
-      $scope.info.regions = _.pluck(AWSRegions,'id');
+    if(!$scope.user.info.regions){
+      $scope.user.info.regions = _.pluck(AWSRegions,'id');
     }
     $state.go('onboard.vpcSelect');
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCredentialsCtrl', OnboardCredentialsCtrl);
 
-function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, AWSRegions){
+function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, AWSRegions, regionsWithVpcs){
   $scope.msg = 'loading';
-  $scope.regions = [];
+  $scope.user.info.regions = regionsWithVpcs;
   $scope.selectAll = function(){
-    _.chain($scope.regions).pluck('vpcs').flatten().map(function(vpc){
+    _.chain($scope.user.info.regions).pluck('vpcs').flatten().map(function(vpc){
       vpc.selected = true;
       return vpc;
     }).value();
   }
   $scope.requiredSelection = function(){
-    return !_.chain($scope.regions).pluck('vpcs').flatten().where({'selected':true}).value().length;
+    return !_.chain($scope.user.info.regions).pluck('vpcs').flatten().where({'selected':true}).value().length;
   }
-  var data = angular.copy($scope.info);
-  data.regions = _.pluck(data.regions,'id');
-  AWSService.vpcScan(data).then(function(res){
-    console.log(res);
-    $scope.regions = res.data;
-    $scope.regions.forEach(function(r){
-      AWSRegions.forEach(function(ar){
-        if(r.region == ar.id){
-          r.regionName = ar.name;
-        }
-      });
-    })
-    $scope.msg = null;
-    }, function(res){
-    $scope.msg = res.data.error || 'There was an error processing your request.';
-    $rootScope.$emit('notify',$scope.msg);
-  })
   $scope.submit = function(){
-    $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'VPCS Select'});
+    $state.go('onboard.bastion');
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardVpcsCtrl', OnboardVpcsCtrl);
+
+OnboardVpcsCtrl.resolve = {
+  regionsWithVpcs:function(AWSService, AWSRegions, $q, $rootScope, _){
+    var deferred = $q.defer();
+    var data = angular.copy($rootScope.user.info);
+    data.regions = _.pluck(data.regions,'id');
+    AWSService.vpcScan(data).then(function(res){
+      var regions = res.data;
+      regions.forEach(function(r){
+        AWSRegions.forEach(function(ar){
+          if(r.region == ar.id){
+            r.regionName = ar.name;
+          }
+        });
+      })
+      deferred.resolve(regions);
+    });
+    return deferred.promise;
+  }
+}
 
 function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, AWSService){
   $scope.messages = [];
   $scope.launch = function(){
     $scope.launched = true;
-    $scope.stream = AWSService.bastionInstall();
+    try{
+      $scope.user.info.regions.map(function(a){
+        a.vpcs.map(function(v){
+          v.id = v['vpc-id'];return v;
+        });
+        return a;
+      });
+    }catch(err){
+      console.log(err);
+    }
+    $scope.stream = AWSService.bastionInstall($scope.user.info);
     $scope.stream.onMessage(function(e){
       var msg = JSON.parse(e.data).Message;
       if(msg.ResourceStatus == 'CREATE_IN_PROGRESS'){
@@ -356,7 +372,8 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/vpc-select.html',
       controller:'OnboardVpcsCtrl',
       title:'Select VPCs',
-      hideHeader:true
+      hideHeader:true,
+      resolve:OnboardVpcsCtrl.resolve
     })
     .state('onboard.bastion', {
       url:'start/bastion',

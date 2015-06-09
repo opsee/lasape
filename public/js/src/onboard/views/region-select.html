@@ -11,7 +11,7 @@
 
         <form name="regionSelectForm" ng-submit="submit()">
 
-          <ul ng-repeat="region in info.regions" class="md-sll">
+          <ul ng-repeat="region in user.info.regions" class="md-sll">
             <li class="md-sll-item display-flex flex-wrap">
               <div class="md-sll-select">
                 <toggle-switch ng-model="region.selected" ng-required="requiredSelection()"></toggle-switch>
