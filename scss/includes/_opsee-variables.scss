@@ -31,17 +31,17 @@ $btn-font-weight:         $body-font-weight-med;
 $body-bg:               #303030;
 $text-color:            rgba(white, 0.85);
 $text-color-secondary:  rgba(white, 0.54);
-$brand-primary: #738ffe; //$blue-400
-$brand-success: #2baf2b; //$green-400
-$brand-info:    #afbfff; //$blue-200
-$brand-warning: #ffa726; //$orange-400
-$brand-danger:  #e51c23; //$red-400
-$brand-danger:  #FF5F5F;
+$brand-primary: $blue-400;
+$brand-success: $light-green-600;
+$brand-info:    $light-blue-300;
+$brand-warning: $orange-400;
+$brand-danger:  $red-500;
+$brand-error:   $yellow-A700;
 
-$brand-danger: #f05223;
-$brand-warning: #fcb215;
-$brand-info: #8567FF;
-$brand-success: #7DB248;
+// $brand-danger: #f05223;
+// $brand-warning: #fcb215;
+// $brand-info: #8567FF;
+// $brand-success: #7DB248;
 
 $btn-default-color:              $text-color;
 $btn-default-bg:                 $gray-900;
