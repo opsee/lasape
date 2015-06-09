@@ -148,16 +148,17 @@
     <h3>Cards</h3>
     <div class="row">
       <div ng-repeat="o in [1,2,3,4]" class="col-xs-12 col-sm-6 padding-tb">
-        <div class="bg-gray-900 padding">
-          <div class="">
-            <h2 class="no-margin">A title goes here</h2>
+        <div class="bg-gray-900 md-shadow-bottom-z-1">
+          <div class="padding">
+            <h2 class="margin-none">A title goes here</h2>
             <div>
               <div><a href="mailto:{{::signup.email}}">test@opsee.co</a></div>
               <span>#352346 - Created on 12/05/15</span>
             </div>
           </div>
           <div class="">
-            <button type="button" class="btn btn-flat btn-primary">Activate User</button>
+            <button type="button" class="btn btn-flat btn-default">Delete</button>
+            <button type="button" class="btn btn-flat btn-primary pull-right">Activate</button>
           </div>
         </div>
       </div>
