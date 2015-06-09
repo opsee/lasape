@@ -4,7 +4,7 @@
   border: none;
   margin-bottom: 32px;
   position: relative;
-  background-color: $gray-800;
+  background-color: $gray-900;
   // &.has-error {
   //   label {
   //     color: $brand-danger;
@@ -42,9 +42,9 @@
       @include box-shadow(none);
     }
     &:focus {
-      background-color: $blue-gray-800;
+      background-color: black; //blue-gray-800
       ~ label {
-        background-color: $blue-gray-800;
+        background-color: black; //blue-gray-800
       }
       ~ .input-icon {
         fill: $brand-info;
@@ -90,7 +90,7 @@
     }
     &:active, &:focus {
       @include box-shadow(none);
-      background-color: $blue-gray-800;
+      background-color: black; //blue-gray-800
       outline: none;
     }
     .icon {
@@ -106,7 +106,7 @@
       width:100%;
       text-align:left;
       &:focus,&:active,&:hover{
-        background:$blue-400;
+        background:$brand-primary;
       }
     }
   }

@@ -10,10 +10,10 @@ body {
   @include flex-direction(column);
   background-color: $body-bg;
   ::selection {
-    background: $blue-200;
+    background: #90CAF9; //blue-200
   }
   ::-moz-selection {
-    background: $blue-200;
+    background: #90CAF9; //$blue-200
   }
 }
 

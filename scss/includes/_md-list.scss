@@ -54,17 +54,17 @@
     margin:1em 0 1em 1em;
   }
   &.running {
-    background-color: $red-500;
+    background-color: $brand-danger;
     .avatar-inner {
-      background-color: $green-300;
+      background-color: $brand-success;
       border-color: $body-bg;
     }
     #loader {
-      fill: $green-300;
+      fill: $brand-success;
     }
   }
-  &.stopped { background-color: $red-500;}
-  &.unmonitored { background-color: $yellow-800;}
+  &.stopped { background-color: $brand-danger;}
+  &.unmonitored { background-color: $brand-error;}
 }
 .md-list-avatar-small {
   height: 18px;
