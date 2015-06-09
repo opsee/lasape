@@ -38,9 +38,30 @@ $brand-warning: #ffa726; //$orange-400
 $brand-danger:  #e51c23; //$red-400
 $brand-danger:  #FF5F5F;
 
+$brand-danger: #f05223;
+$brand-warning: #fcb215;
+$brand-info: #8567FF;
+$brand-success: #7DB248;
+
 $btn-default-color:              $text-color;
 $btn-default-bg:                 $gray-900;
 $btn-default-border:             transparent;
+
+$state-success-text:             $brand-success;
+$state-success-bg:               darken($brand-success,5%);
+$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+
+$state-info-text:             $brand-info;
+$state-info-bg:               darken($brand-info,5%);
+$state-info-border:           darken(adjust-hue($state-info-bg, -10), 5%) !default;
+
+$state-warning-text:             $brand-warning;
+$state-warning-bg:               darken($brand-warning,5%);
+$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+
+$state-danger-text:             $brand-danger;
+$state-danger-bg:               darken($brand-danger,5%);
+$state-danger-border:           darken(adjust-hue($state-danger-bg, -10), 5%) !default;
 
 //== Bootstrap Widths
 $grid-gutter-width:30px;
