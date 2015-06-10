@@ -185,17 +185,20 @@ function config ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('home', {
       url:'/',
       controller:'HomeCtrl',
-      templateUrl:'/public/js/src/global/views/home.html'
+      templateUrl:'/public/js/src/global/views/home.html',
+      title:'Your AWS Environment'
     })
     .state('home.instances', {
       url:'home/instances',
       controller:'HomeInstancesCtrl',
-      templateUrl:'/public/js/src/global/views/home-instances.html'
+      templateUrl:'/public/js/src/global/views/home-instances.html',
+      title:'AWS Instances'
     })
     .state('home.groups', {
       url:'home/groups',
       controller:'HomeGroupsCtrl',
-      templateUrl:'/public/js/src/global/views/home-groups.html'
+      templateUrl:'/public/js/src/global/views/home-groups.html',
+      title:'AWS Groups'
     })
     .state('404', {
       url:'/404',

@@ -6,11 +6,12 @@
   padding: 0.25em;
   position: relative;
   &.success {
-    .progress_bar { background: $green-200; }
+    .progress_bar { background: $brand-success; }
+
   }
   .progress_bar {
     @include transition(width $swift-ease-out-duration $swift-ease-out-timing-function);
-    background: $blue-300;
+    background: $brand-primary;
     border-radius: 1em;
     height: 1em;
     max-width: 100%;
@@ -39,8 +40,8 @@
   }
 }
 .progress_counter {
-  color: $blue-300;
+  color: $brand-primary;
   &.success {
-    color: $green-200;
+    color: $brand-success;
   }
 }

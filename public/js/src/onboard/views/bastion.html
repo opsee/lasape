@@ -3,19 +3,32 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-        <div>
-          <button type="button" ng-click="launch()" class="btn btn-primary">Install</button>
+        <div class="padding-bx2">
+          <button type="button" ng-click="launch()" class="btn btn-primary btn-flat btn-block">Install</button>
           <button type="button" ng-click="exampleLaunch()" class="btn btn-warning">Example Install</button>
         </div>
-        <h2 ng-if="launched">Setting Up...</h2>
-        <h2 ng-if="started" class="transition-msg">Installing Bastion</h2>
-        <ul>
-          <li ng-repeat="msg in messages" class="transition-msg">
-            <p>{{msg.ResourceType}}</p>
-          </li>
+
+        <div class="progress" ng-class="{success: activeScanStep > 2}">
+          <div class="progress_bar" ng-style="{ 'width' : 20 + '%' }"></div>
+          <div class="ticks">
+            <div class="tick"></div>
+            <div class="tick large"></div>
+            <div class="tick"></div>
+            <div class="tick large"></div>
+            <div class="tick"></div>
+            <div class="tick large"></div>
+            <div class="tick"></div>
+          </div>
+        </div>
+
+        <h2 ng-if="launched" class="transition-msg">Installation Progress</h2>
+
+        <ul class="md-sll">
+          <li ng-if="launched" class="md-sll-item transition-msg">Setting Up... <img style="float: right; height: 32px; width: 32px;" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon"></li>
+          <li ng-repeat="msg in messages" class="md-sll-item transition-msg">{{msg.ResourceType}} <img style="float: right; height: 32px; width: 32px;" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon"></li>
+          <li ng-if="complete" class="md-sll-item transition-msg">Complete!</li>
         </ul>
-        <div ng-show="launched && !complete" ng-activity-indicator skip-ng-show="yes"></div>
-        <h2 ng-if="complete" class="transition-msg">Complete</h2>
+        <!-- <div ng-show="launched && !complete" ng-activity-indicator skip-ng-show="yes"></div> -->
       </div>
     </div>
   </div><!-- .container -->
