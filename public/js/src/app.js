@@ -2,7 +2,7 @@
 
   angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router', 'ngMessages', 'ngWebSocket', 'angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'notification', 'ui.gravatar', 'opsee.global', 'opsee.api', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws', 'opsee.docs'])
 
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $templateCache, $location, $timeout, $document, $localStorage, $analytics, $activityIndicator, $state, Global, Regex, authService, User, ENDPOINTS, VisibilityChange, opseeAPI) {
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $templateCache, $location, $timeout, $document, $localStorage, $analytics, $websocket, $activityIndicator, $state, Global, Regex, authService, User, ENDPOINTS, VisibilityChange, opseeAPI) {
 
     $window.FastClick.attach(document.body);
 
@@ -84,6 +84,49 @@
       Global.notify(msg);
     });
 
+    $rootScope.messages = [];
+
+    $rootScope.$on('startSocket', function(event,token){
+      if($rootScope.stream){
+        return false;
+      }
+      $rootScope.stream = $websocket('ws://api-beta.opsee.co/stream/');
+      $rootScope.stream.onOpen(function(){
+        var auth = JSON.stringify({
+          command:'authenticate',
+          attributes:{
+            hmac:$rootScope.user.token.replace('HMAC ','')
+          }
+        });
+        $rootScope.stream.send(auth);
+      });
+      $rootScope.stream.onMessage(function(event){
+        try{
+          var data = JSON.parse(event.data)
+        }catch(err){
+          console.log(err);
+          return false;
+        }
+        if(data.command == 'authenticate'){
+          if(data.state == 'ok'){
+            var subscribe = JSON.stringify({
+              "command":"subscribe",
+              "attributes":{"subscribe_to": data.attributes.customer_id + ".launch-bastion"}
+            });
+            $rootScope.stream.send(subscribe);
+          }else{
+            $analytics.eventTrack('error',{category:'Websocket',label:'Auth failed'});
+          }
+        }else{
+          $rootScope.messages.push(data);
+          console.log(data);
+        }
+      });
+    });
+    if($rootScope.user.token){
+      $rootScope.$broadcast('startSocket');
+    }
+
     $rootScope.$on('setAuth', function(event,token){
       $localStorage.authToken = token || null;
       // authService.loginConfirmed();
@@ -92,6 +135,7 @@
       }else{
         $state.go('home.instances');
       }
+      $rootScope.$broadcast('startSocket');
     });
 
     $rootScope.$on('setUser', function(event,user){

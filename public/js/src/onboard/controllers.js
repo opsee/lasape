@@ -234,10 +234,9 @@ OnboardVpcsCtrl.resolve = {
   }
 }
 
-function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, AWSService){
+function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $http, AWSService){
   $scope.messages = [];
   $scope.launch = function(){
-    $scope.launched = true;
     try{
       $scope.user.info.regions.map(function(a){
         a.vpcs.map(function(v){
@@ -248,31 +247,41 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, AW
     }catch(err){
       console.log(err);
     }
-    $scope.stream = AWSService.bastionInstall($scope.user.info);
-    $scope.stream.onMessage(function(e){
-      var msg = JSON.parse(e.data).Message;
-      if(msg.ResourceStatus == 'CREATE_IN_PROGRESS'){
-        if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
-          $scope.started = true;
-        }else{
-          $scope.messages.push(msg);  
+    AWSService.bastionInstall($scope.user.info).then(function(){
+      $scope.launched = true;
+    }, function(err){
+      $scope.$emit('notify',err);
+    });
+    // $scope.stream.onMessage(function(e){
+    //   var msg = JSON.parse(e.data).Message;
+    //   if(msg.ResourceStatus == 'CREATE_IN_PROGRESS'){
+    //     if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
+    //       $scope.started = true;
+    //     }else{
+    //       $scope.messages.push(msg);  
+    //     }
+    //   }else if(msg.ResourceStatus == 'CREATE_COMPLETE'){
+    //     if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
+    //       $scope.complete = true;
+    //     }else{
+    //       $scope.messages.push(msg);
+    //     }
+    //   }else{
+    //     $scope.messages.push(msg);
+    //   }
+    // });
+  }
+  $scope.exampleLaunch = function(){
+    $http.get('/public/js/src/aws/bastion-install-messages-example.json').then(function(res){
+      res.data.forEach(function(d,i){
+        if(d.command != 'launch-bastion'){
+          return false;
         }
-      }else if(msg.ResourceStatus == 'CREATE_COMPLETE'){
-        if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
-          $scope.complete = true;
-        }else{
-          $scope.messages.push(msg);
-        }
-      }else{
-        $scope.messages.push(msg);
-      }
-    });
-    $scope.stream.onError(function(err){
-      console.log(err);
-    });
-    $scope.stream.onClose(function(msg){
-      console.log('close',msg);
-    });
+        $timeout(function(){
+          $scope.messages.push(d.attributes);
+        },i*2000);
+      })
+    })
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardBastionCtrl', OnboardBastionCtrl);

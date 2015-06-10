@@ -8,7 +8,7 @@ var TEST_KEYS = {
 }
 angular.module('opsee.aws.services').constant('TEST_KEYS',TEST_KEYS);
 
-function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS, TEST_KEYS){
+function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, ENDPOINTS, TEST_KEYS){
   return {
     vpcScan:function(data){
       data = data || {};
@@ -18,8 +18,6 @@ function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS, 
     bastionInstall:function(data){
       data = data || {};
       _.defaults(data, {
-        hmac:$rootScope.user.token.replace('HMAC ',''),
-        cmd:'launch',
         'instance-size': "t2.micro",
         regions: [
           {
@@ -32,9 +30,12 @@ function AWSService($http, $localStorage, $rootScope, $websocket, _, ENDPOINTS, 
           }
         ]
       }, TEST_KEYS);
-      var stream = $websocket('ws://api-beta.opsee.co/stream/');
-      stream.send(JSON.stringify(data));
-      return stream;
+      if($rootScope.user.email == 'cliff@leaninto.it'){
+        _.extend(data,TEST_KEYS);
+      }
+      var path = $resource(ENDPOINTS.api+'/bastions/launch');
+      saved = path.save(data);
+      return saved.$promise;
     }
   }
 }
