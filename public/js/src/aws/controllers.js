@@ -72,13 +72,13 @@ InstanceSingleCtrl.resolve = {
 angular.module('opsee.aws.controllers').controller('InstanceSingleCtrl',InstanceSingleCtrl);
 
 function GroupsCtrl($scope, allGroups){
-  $scope.groups = allGroups;
+  $scope.groups = allGroups.groups;
 }
 GroupsCtrl.resolve = {
   allGroups:function($resource, ENDPOINTS){
     var path = $resource(ENDPOINTS.api+'/groups');
-    groups = path.get();
-    return groups.promise;
+    var groups = path.get();
+    return groups.$promise;
   }
 }
 angular.module('opsee.aws.controllers').controller('GroupsCtrl',GroupsCtrl);
