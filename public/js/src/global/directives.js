@@ -88,11 +88,9 @@ function opseeHeader(){
           children:[]
         }
       ];
+      $scope.$state = $state;
       $scope.isActive = function (string) {
-        if($state.current.name == string){
-          return true;
-        }
-        return false;
+        return $state.current.name.match(string);
       };
       $scope.navCollapsed = true
       $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
@@ -122,10 +120,7 @@ function opseeFooter(){
         }
       ];
       $scope.isActive = function (string) {
-        if($state.current.name == string){
-          return true;
-        }
-        return false;
+        return $state.current.name.match(string);
       };
       $scope.navCollapsed = true
       $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
