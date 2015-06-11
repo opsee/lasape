@@ -17,9 +17,9 @@
 
   <div class="btn-group">
     <select class="sr-only" ng-required="true" ng-model="check.interval" ng-options="i for i in intervals"></select>
-    <label class="btn btn-raised btn-default" ng-model="check.interval" btn-radio="int" uncheckable ng-repeat="int in intervals">
+    <button type="button" class="btn" ng-click="check.interval = int" ng-repeat="int in intervals" ng-class="{'btn-primary':check.interval.name == int.name, 'btn-default':check.interval.name != int.name}">
       {{int.name}}
-    </label>
+    </button>
   </div>
 
 

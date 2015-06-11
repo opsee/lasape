@@ -234,10 +234,10 @@ OnboardVpcsCtrl.resolve = {
   }
 }
 
-function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, AWSService){
+function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $http, AWSService, BastionInstaller, BastionInstallationItems){
   $scope.messages = [];
+  $scope.bastions = [];
   $scope.launch = function(){
-    $scope.launched = true;
     try{
       $scope.user.info.regions.map(function(a){
         a.vpcs.map(function(v){
@@ -248,31 +248,66 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, AW
     }catch(err){
       console.log(err);
     }
-    $scope.stream = AWSService.bastionInstall($scope.user.info);
-    $scope.stream.onMessage(function(e){
-      var msg = JSON.parse(e.data).Message;
-      if(msg.ResourceStatus == 'CREATE_IN_PROGRESS'){
-        if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
-          $scope.started = true;
-        }else{
-          $scope.messages.push(msg);  
+    AWSService.bastionInstall($scope.user.info).then(function(){
+      $scope.launched = true;
+    }, function(err){
+      $scope.$emit('notify',err);
+    });
+  }
+
+    function getBastion(data){
+      if(data.command == 'launch-bastion'){
+        var bastion = _.findWhere($scope.bastions,{instance_id:data.instance_id});
+        if(!bastion){
+          $scope.bastions.push(new BastionInstaller({
+            instance_id:data.instance_id
+          }));
+          bastion = _.last($scope.bastions);
         }
-      }else if(msg.ResourceStatus == 'CREATE_COMPLETE'){
-        if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
-          $scope.complete = true;
-        }else{
-          $scope.messages.push(msg);
-        }
+        return bastion;
       }else{
-        $scope.messages.push(msg);
+        return false;
       }
+    }
+
+    $scope.$watch(function(){return $scope.messages}, function(newVal,oldVal){
+      if(newVal && newVal != oldVal){
+        var msg = _.last(newVal);
+        var bastion = getBastion(msg);
+        bastion ? bastion.parseMsg(msg) : null;
+      }
+    },true);
+
+    $rootScope.stream.onMessage(function(event){
+      try{
+        var data = JSON.parse(event.data)
+      }catch(err){
+        console.log(err);
+        return false;
+      }
+      $scope.messages.push(data);
     });
-    $scope.stream.onError(function(err){
-      console.log(err);
-    });
-    $scope.stream.onClose(function(msg){
-      console.log('close',msg);
-    });
+
+  $scope.exampleLaunch = function(){
+    $http.get('/public/js/src/aws/bastion-install-messages-example.json').then(function(res){
+      res.data.forEach(function(d,i){
+        if(d.command != 'launch-bastion'){
+          return false;
+        }
+        $timeout(function(){
+          $scope.messages.push(d);
+        },i*1000);
+      })
+    })
+  }
+  $scope.bastionsComplete = function(){
+    var allComplete = !_.reject($scope.bastions,function(b){
+      return b.status == 'complete';
+    }).length;
+    return allComplete && $scope.bastions.length;
+  }
+  $scope.submit = function(){
+    $state.go('home');
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardBastionCtrl', OnboardBastionCtrl);
@@ -290,27 +325,31 @@ function config ($stateProvider, $urlRouterProvider) {
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/start.html',
       controller:'OnboardStartCtrl',
-      title:'Start'
+      title:'Start',
+      hideHeader:true
     })
     .state('onboard.email', {
       url:'start/email?email',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/email.html',
       controller:'OnboardEmailCtrl',
-      title:'Email'
+      title:'Email',
+      hideHeader:true
     })
     .state('onboard.thanks', {
       url:'start/thanks?email',
       parent:'onboard',
       controller:'OnboardThanksCtrl',
       templateUrl:'/public/js/src/onboard/views/thanks.html',
-      title:'Thank You'
+      title:'Thank You',
+      hideHeader:true
     })
     .state('onboard.tutorial', {
       parent:'onboard',
       controller:'OnboardTutorialCtrl',
       title:'Tutorial',
       templateUrl:'/public/js/src/onboard/views/tutorial.html',
+      hideHeader:true
     })
     .state('onboard.tutorial.1', {
       url:'intro/1',
@@ -318,7 +357,8 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/tutorial-1.html',
       controller:'OnboardTutorial1Ctrl',
       title:'Tutorial Step 1',
-      resolve:OnboardTutorial1Ctrl.resolve
+      resolve:OnboardTutorial1Ctrl.resolve,
+      hideHeader:true
     })
     .state('onboard.tutorial.2', {
       url:'intro/2',
@@ -326,7 +366,8 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/tutorial-2.html',
       controller:'OnboardTutorial2Ctrl',
       title:'Tutorial Step 2',
-      resolve:OnboardTutorial2Ctrl.resolve
+      resolve:OnboardTutorial2Ctrl.resolve,
+      hideHeader:true
     })
     .state('onboard.tutorial.3', {
       url:'intro/3',
@@ -334,7 +375,8 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/tutorial-3.html',
       controller:'OnboardTutorial3Ctrl',
       title:'Tutorial Step 3',
-      resolve:OnboardTutorial3Ctrl.resolve
+      resolve:OnboardTutorial3Ctrl.resolve,
+      hideHeader:true
     })
     .state('onboard.password', {
       url:'start/password?email&token',
@@ -342,6 +384,7 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/user/views/password.html',
       controller:'OnboardPasswordCtrl',
       title:'Set Your Password',
+      hideHeader:true
     })
     .state('onboard.profile', {
       url:'start/profile',
@@ -349,14 +392,16 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/profile.html',
       controller:'OnboardProfileCtrl',
       title:'Fill Out Your Profile',
-      resolve:OnboardProfileCtrl.resolve
+      resolve:OnboardProfileCtrl.resolve,
+      hideHeader:true
     })
     .state('onboard.team', {
       url:'start/team',
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/team.html',
       controller:'OnboardTeamCtrl',
-      title:'Create Your Team'
+      title:'Create Your Team',
+      hideHeader:true
     })
     .state('onboard.regionSelect', {
       url:'start/region-select',
@@ -380,7 +425,8 @@ function config ($stateProvider, $urlRouterProvider) {
       parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/bastion.html',
       controller:'OnboardBastionCtrl',
-      title:'Bastion Installation'
+      title:'Bastion Installation',
+      hideHeader:true
     })
     .state('onboard.credentials', {
       url:'start/credentials',

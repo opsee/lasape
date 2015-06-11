@@ -85,6 +85,7 @@
     font-weight: $body-font-weight;
     text-align: left;
     text-transform: none;
+    position: relative;
     &:hover {
       background-color: transparent;
     }
@@ -95,7 +96,11 @@
     }
     .icon {
       fill: $text-color-secondary;
-      float: right;
+      position: absolute;
+      right: 0.3em;
+      top: 0;
+      width: 1.6em;
+      height: 2.1em;
     }
   }
   .dropdown-menu {

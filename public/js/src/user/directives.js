@@ -31,7 +31,7 @@ function userLogin(){
   return {
     restrict:'EA',
     templateUrl:'/public/js/src/user/partials/user-login.html',
-    controller:function($scope,$rootScope,$state,UserService,authService){
+    controller:function($scope, $rootScope, $state, UserService, authService){
       $scope.options = {
         original:'Create Account',
         inProgress:'Creating your account...',
