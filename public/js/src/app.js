@@ -87,9 +87,6 @@
     $rootScope.messages = [];
 
     $rootScope.$on('startSocket', function(event,token){
-      if($rootScope.stream){
-        return false;
-      }
       $rootScope.stream = $websocket('ws://api-beta.opsee.co/stream/');
       $rootScope.stream.onOpen(function(){
         var auth = JSON.stringify({
@@ -122,7 +119,16 @@
           console.log(data);
         }
       });
+      $rootScope.stream.onClose(function(evt){
+        console.log('socket close',evt);
+        //reopen stream
+        $rootScope.$broadcast('startSocket');
+      });
+      $rootScope.stream.onError(function(evt){
+        console.log('socket error',evt);
+      })
     });
+
     if($rootScope.user.token){
       $rootScope.$broadcast('startSocket');
     }

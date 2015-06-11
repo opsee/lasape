@@ -234,8 +234,9 @@ OnboardVpcsCtrl.resolve = {
   }
 }
 
-function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $http, AWSService){
+function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $http, AWSService, BastionInstaller, BastionInstallationItems){
   $scope.messages = [];
+  $scope.bastions = [];
   $scope.launch = function(){
     try{
       $scope.user.info.regions.map(function(a){
@@ -252,25 +253,41 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $h
     }, function(err){
       $scope.$emit('notify',err);
     });
-    // $scope.stream.onMessage(function(e){
-    //   var msg = JSON.parse(e.data).Message;
-    //   if(msg.ResourceStatus == 'CREATE_IN_PROGRESS'){
-    //     if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
-    //       $scope.started = true;
-    //     }else{
-    //       $scope.messages.push(msg);  
-    //     }
-    //   }else if(msg.ResourceStatus == 'CREATE_COMPLETE'){
-    //     if(msg.ResourceType == 'AWS::CloudFormation::Stack'){
-    //       $scope.complete = true;
-    //     }else{
-    //       $scope.messages.push(msg);
-    //     }
-    //   }else{
-    //     $scope.messages.push(msg);
-    //   }
-    // });
   }
+
+    function getBastion(data){
+      if(data.command == 'launch-bastion'){
+        var bastion = _.findWhere($scope.bastions,{instance_id:data.instance_id});
+        if(!bastion){
+          $scope.bastions.push(new BastionInstaller({
+            instance_id:data.instance_id
+          }));
+          bastion = _.last($scope.bastions);
+        }
+        return bastion;
+      }else{
+        return false;
+      }
+    }
+
+    $scope.$watch(function(){return $scope.messages}, function(newVal,oldVal){
+      if(newVal && newVal != oldVal){
+        var msg = _.last(newVal);
+        var bastion = getBastion(msg);
+        bastion ? bastion.parseMsg(msg) : null;
+      }
+    },true);
+
+    $rootScope.stream.onMessage(function(event){
+      try{
+        var data = JSON.parse(event.data)
+      }catch(err){
+        console.log(err);
+        return false;
+      }
+      $scope.messages.push(data);
+    });
+
   $scope.exampleLaunch = function(){
     $http.get('/public/js/src/aws/bastion-install-messages-example.json').then(function(res){
       res.data.forEach(function(d,i){
@@ -278,7 +295,7 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $h
           return false;
         }
         $timeout(function(){
-          $scope.messages.push(d.attributes);
+          $scope.messages.push(d);
         },i*2000);
       })
     })
