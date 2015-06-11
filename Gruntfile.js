@@ -177,7 +177,11 @@ module.exports = function(grunt) {
       },
       sass:{
         files:['scss/**/*.scss'],
-        tasks:['compass']
+        tasks:['compass:dist']
+      },
+      sassEmail:{
+        files:['scss-email/**/*.scss'],
+        tasks:['compass:email']
       },
       css:{
         options:{
@@ -201,6 +205,16 @@ module.exports = function(grunt) {
           fontsPath:'fonts',
           require:['breakpoint','sass-css-importer', 'compass-flexbox'],
           httpPath:'',
+          relativeAssets:true,
+          noLineComments:true,
+          outputStyle:'compact'
+        }
+      },
+      email:{
+        options:{
+          cssDir:'_site/_includes',
+          sassDir:'scss-email',
+          require:['breakpoint','sass-css-importer', 'compass-flexbox'],
           relativeAssets:true,
           noLineComments:true,
           outputStyle:'compact'

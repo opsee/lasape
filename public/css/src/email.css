@@ -1,0 +1,40 @@
+.md-shadow-bottom-z-1 { box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+
+.md-shadow-bottom-z-2 { box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4); }
+
+.md-shadow-animated.md-shadow { transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1); }
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+
+.ng-hide { display: none; }
+
+.bg-gray-900 { background-color: #212121; }
+
+.bg-brand-primary { background-color: #42A5F5; }
+
+.bg-brand-success { background-color: #7CB342; }
+
+.bg-brand-info { background-color: #9575CD; }
+
+.bg-brand-warning { background-color: #FFA726; }
+
+.bg-brand-danger { background-color: #f05223; }
+
+.bg-body { background-color: #303030; }
+
+.fill-white { fill: white; }
+
+.user-select-none { -moz-user-select: -moz-none; -ms-user-select: none; -webkit-user-select: none; user-select: none; }
+
+/* ==|== Example ===================================================================================
+@include keyframes(slide-down) { 0% { opacity: 1; } 90% { opacity: 0; }
+}
+
+.element { width: 100px; height: 100px; background: black; @include animation('slide-down 5s 3');
+}
+================================================================================================= */
+.md-shadow-bottom-z-1 { box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+
+.md-shadow-bottom-z-2 { box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4); }
+
+.md-shadow-animated.md-shadow { transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1); }
