@@ -18,17 +18,7 @@ function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, 
     bastionInstall:function(data){
       data = data || {};
       _.defaults(data, {
-        'instance-size': "t2.micro",
-        regions: [
-          {
-            region: "us-east-1",
-            vpcs: [
-              {
-                id: "vpc-31a0cc54"
-              }
-            ]
-          }
-        ]
+        'instance-size': "t2.micro"
       }, TEST_KEYS);
       if($rootScope.user.email == 'cliff@leaninto.it'){
         _.extend(data,TEST_KEYS);
@@ -93,11 +83,11 @@ function BastionInstaller(BastionInstallationItems){
         }
       ]
     }
-    function installer(obj){
+    function bastionInstaller(obj){
       _.extend(this,obj);
       _.defaults(this,defaults);
     }
-    installer.prototype.parseMsg = function(msg){
+    bastionInstaller.prototype.parseMsg = function(msg){
       var item = _.findWhere(BastionInstallationItems,{id:msg.attributes.ResourceType});
       var status = 'progress';
       switch(msg.attributes.ResourceStatus){
@@ -116,15 +106,15 @@ function BastionInstaller(BastionInstallationItems){
         this.status = 'complete';
       }
     }
-    installer.prototype.getInProgressItem = function(){
+    bastionInstaller.prototype.getInProgressItem = function(){
       var index = _.findLastIndex(this.items,{status:'complete'}) + 1;
       return (index > 0 && index < this.items.length) ? this.items[index] : {name:'group'};
     }
-    installer.prototype.getPercentComplete = function(){
+    bastionInstaller.prototype.getPercentComplete = function(){
       var complete = _.where(this.items,{status:'complete'}).length;
       return (complete/this.items.length)*100;
     }
-    return new installer(obj);
+    return new bastionInstaller(obj);
   }
 }
 angular.module('opsee.aws.services').factory('BastionInstaller', BastionInstaller);
