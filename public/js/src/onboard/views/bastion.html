@@ -30,7 +30,7 @@
 
         <h2 ng-if="launched" class="transition-msg">Installation Progress</h2>
 
-        <button type="submit" class="btn btn-block" ng-disabled="!bastionsComplete()" ng-class="{'btn-default':!bastionsComplete(),'btn-primary':bastionsComplete()}">
+        <button type="submit" class="btn btn-block btn-primary" ng-disabled="!bastionsComplete()">
           <span ng-if="!bastionsComplete()">Installing...</span>
           <span ng-if="bastionsComplete()">Go to Dashboard</span>
         </button>
