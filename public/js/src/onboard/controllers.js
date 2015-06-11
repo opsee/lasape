@@ -296,9 +296,18 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $h
         }
         $timeout(function(){
           $scope.messages.push(d);
-        },i*2000);
+        },i*1000);
       })
     })
+  }
+  $scope.bastionsComplete = function(){
+    var allComplete = !_.reject($scope.bastions,function(b){
+      return b.status == 'complete';
+    }).length;
+    return allComplete && $scope.bastions.length;
+  }
+  $scope.submit = function(){
+    $state.go('home');
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardBastionCtrl', OnboardBastionCtrl);

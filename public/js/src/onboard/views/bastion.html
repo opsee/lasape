@@ -1,6 +1,6 @@
 <div>
   <md-toolbar title="Bastion Installation"></md-toolbar>
-  <div class="container">
+  <form class="container" ng-submit="submit()">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
         <div class="padding-bx2">
@@ -30,6 +30,11 @@
 
         <h2 ng-if="launched" class="transition-msg">Installation Progress</h2>
 
+        <button type="submit" class="btn btn-block" ng-disabled="!bastionsComplete()" ng-class="{'btn-default':!bastionsComplete(),'btn-primary':bastionsComplete()}">
+          <span ng-if="!bastionsComplete()">Installing...</span>
+          <span ng-if="bastionsComplete()">Go to Dashboard</span>
+        </button>
+
 <!--         <ul class="md-sll">
           <li ng-if="launched" class="md-sll-item transition-msg">Setting Up... <img style="float: right; height: 32px; width: 32px;" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon"></li>
           <li ng-repeat="msg in messages" class="md-sll-item transition-msg">{{msg.ResourceType}} <img style="float: right; height: 32px; width: 32px;" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon"></li>
@@ -38,5 +43,5 @@
         <!-- <div ng-show="launched && !complete" ng-activity-indicator skip-ng-show="yes"></div> -->
       </div>
     </div>
-  </div><!-- .container -->
+  </form><!-- .container -->
 </div>
