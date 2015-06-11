@@ -4,18 +4,16 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
         <div class="padding-bx2">
-          <button type="button" ng-click="launch()" class="btn btn-primary btn-flat btn-block">Install</button>
-          <button type="button" ng-click="exampleLaunch()" class="btn btn-warning">Example Install</button>
+          <!-- <button type="button" ng-click="launch()" class="btn btn-primary btn-flat btn-block">Install</button> -->
+          <button type="button" ng-click="exampleLaunch()" class="btn btn-primary btn-flat btn-block">Example Install</button>
         </div>
 
-        <div ng-repeat="bastion in bastions">
-          <div ng-if="bastion.status == 'progress'">Setting up {{bastion.getInProgressItem().name}}</div>
-          <div ng-if="bastion.status == 'complete'">Complete.</div>
+        <div ng-repeat="bastion in bastions" class="padding-bx2">
           <!-- <div ng-repeat="item in bastion.items">
             {{item.name}} - {{item.status}}
           </div> -->
-          <div class="progress" ng-class="{success: activeScanStep > 2}">
-            <div class="progress_bar" ng-style="{ 'width' : bastion.getPercentComplete() + '%' }"></div>
+          <div class="progress">
+            <div class="progress_bar" ng-class="{complete: bastionsComplete()}" ng-style="{ 'width' : bastion.getPercentComplete() + '%' }"></div>
             <div class="ticks">
               <div class="tick"></div>
               <div class="tick large"></div>
@@ -26,14 +24,13 @@
               <div class="tick"></div>
             </div>
           </div>
+          <div style="text-align: center;">
+            <div ng-if="bastion.status == 'progress'"><img style="height: 24px; width: 24px; margin-right: 12px;" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon"> Setting up {{bastion.getInProgressItem().name}}</div>
+            <div ng-if="bastion.status == 'complete'"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg> Complete</div>
+          </div>
         </div>
 
-        <h2 ng-if="launched" class="transition-msg">Installation Progress</h2>
-
-        <button type="submit" class="btn btn-block btn-primary" ng-disabled="!bastionsComplete()">
-          <span ng-if="!bastionsComplete()">Installing...</span>
-          <span ng-if="bastionsComplete()">Go to Dashboard</span>
-        </button>
+        <button ng-if="bastionsComplete()" type="submit" class="btn btn-raised btn-block btn-primary">Go to Your Dashboard <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></button>
 
 <!--         <ul class="md-sll">
           <li ng-if="launched" class="md-sll-item transition-msg">Setting Up... <img style="float: right; height: 32px; width: 32px;" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon"></li>
