@@ -179,4 +179,27 @@ var BastionInstallationItems = [
 ]
 angular.module('opsee.aws.services').constant('BastionInstallationItems', BastionInstallationItems);
 
+function Group($resource, $rootScope, _, $localStorage, $state, $q, $analytics, USER_DEFAULTS, ENDPOINTS, SlackService, gravatarService){
+  var Group = $resource(ENDPOINTS.api+'/group/:id',
+    {
+      id:'@_id'
+    },
+    {
+      update:{
+        method:'PATCH'
+      }
+    });
+  Group.prototype.setDefaults = function(){
+    _.defaults(this, USER_DEFAULTS);
+    return this;
+  }
+  return Group;
+}
+angular.module('opsee.aws.services').factory('Group', Group);
+
+var groupDefaults = {
+}
+angular.module('opsee.aws.services').constant('GROUP_DEFAULTS', groupDefaults);
+
+
 })();
