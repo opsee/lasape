@@ -2,14 +2,14 @@
 
 angular.module('opsee.aws.controllers', []);
 
-function InstancesCtrl($scope, allGroups){
-  $scope.groups = allGroups;
+function InstancesCtrl($scope, allInstances){
+  $scope.instances = allInstances.instances;
 }
 InstancesCtrl.resolve = {
-  allGroups:function($resource, ENDPOINTS){
+  allInstances:function($resource, ENDPOINTS){
     var path = $resource(ENDPOINTS.api+'/instances');
     groups = path.get();
-    return groups.promise;
+    return groups.$promise;
   }
 }
 angular.module('opsee.aws.controllers').controller('InstancesCtrl',InstancesCtrl);
@@ -18,51 +18,8 @@ function InstanceSingleCtrl($scope, singleInstance){
   $scope.instance = singleInstance;
 }
 InstanceSingleCtrl.resolve = {
-  singleInstance:function($stateParams, Check){
-    var instance = {
-      name:'a-q8r-309fo (US-West-1)',
-      lastChecked:new Date(),
-      created:new Date(),
-      info:'Fun info here.',
-      id:'foo',
-      size:'t2.micro',
-      status:{
-        health:25,
-        state:'running',
-        silence:{
-          startDate:null,
-          duration:null
-        }
-      },
-      checks:[
-        {
-        name:'My great check',
-        info:'Fun info here.',
-        id:'foo',
-        status:{
-          health:25,
-          state:'running',
-          silence:{
-            startDate:null,
-            duration:null
-          }
-        },
-      },
-      {
-        name:'My great check2',
-        info:'Fun info here2.',
-        id:'feee',
-        status:{
-          health:50,
-          state:'running',
-          silence:{
-            startDate:null,
-            duration:null
-          }
-        },
-      }
-      ]
-    }//instance
+  singleInstance:function($stateParams, Check, Instance){
+    return Instance.get({id:$stateParams.id}).$promise;
     instance.checks.forEach(function(c,i){
       instance.checks[i] = new Check(c);
     });
@@ -88,7 +45,6 @@ function GroupSingleCtrl($scope, singleGroup){
 }
 GroupSingleCtrl.resolve = {
   singleGroup:function(Group, $stateParams){
-    console.log($stateParams)
     return Group.get({id:$stateParams.id}).$promise;
   }
 }

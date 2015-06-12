@@ -179,7 +179,7 @@ var BastionInstallationItems = [
 ]
 angular.module('opsee.aws.services').constant('BastionInstallationItems', BastionInstallationItems);
 
-function Group($resource, $rootScope, _, $localStorage, $state, $q, $analytics, USER_DEFAULTS, ENDPOINTS, SlackService, gravatarService){
+function Group($resource, _, GROUP_DEFAULTS, ENDPOINTS){
   var Group = $resource(ENDPOINTS.api+'/group/:id',
     {
       id:'@_id'
@@ -190,7 +190,7 @@ function Group($resource, $rootScope, _, $localStorage, $state, $q, $analytics, 
       }
     });
   Group.prototype.setDefaults = function(){
-    _.defaults(this, USER_DEFAULTS);
+    _.defaults(this, GROUP_DEFAULTS);
     return this;
   }
   return Group;
@@ -200,6 +200,28 @@ angular.module('opsee.aws.services').factory('Group', Group);
 var groupDefaults = {
 }
 angular.module('opsee.aws.services').constant('GROUP_DEFAULTS', groupDefaults);
+
+function Instance($resource, _, INSTANCE_DEFAULTS, ENDPOINTS){
+  var Instance = $resource(ENDPOINTS.api+'/instance/:id',
+    {
+      id:'@_id'
+    },
+    {
+      update:{
+        method:'PATCH'
+      }
+    });
+  Instance.prototype.setDefaults = function(){
+    _.defaults(this, INSTANCE_DEFAULTS);
+    return this;
+  }
+  return Instance;
+}
+angular.module('opsee.aws.services').factory('Instance', Instance);
+
+var INSTANCE_DEFAULTS = {
+}
+angular.module('opsee.aws.services').constant('INSTANCE_DEFAULTS', INSTANCE_DEFAULTS);
 
 
 })();
