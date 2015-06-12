@@ -25,7 +25,9 @@ layout: email
         </tr>
         <tr>
           <td class="content-block text-center">
-            <a href="http://www.mailgun.com" class="btn btn-primary">Create an Account Now</a>
+            {%raw%}
+            <a href="http://localhost:8000/start/password?email={{email}}&token={{id}}" class="btn btn-primary">Create an Account Now</a>
+            {%endraw%}
           </td>
         </tr>
       </table>

@@ -413,7 +413,7 @@ to prevent collapsing during animation*/
 
 .md-shadow-animated.md-shadow { transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1); }
 
-* { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+* { margin: 0 !important; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 img { max-width: 100%; }
 
@@ -429,7 +429,5 @@ table td { vertical-align: top; }
 .container { display: block !important; max-width: 600px !important; margin: 0 auto !important; /* makes it centered */ clear: both !important; }
 
 .content { max-width: 600px; margin: 0 auto; display: block; padding: 20px; }
-
-h1, h2, h3, h4, h5, h6 { margin: 0 !important; }
 
 h1 { font-weight: 900; }
