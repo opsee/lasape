@@ -7,7 +7,7 @@
           <user-inputs include="name,email"></user-inputs>
           <button ng-disabled="state == options.inProgress || signupForm.$invalid" type="submit" class="btn btn-success btn-raised btn-block" disabled="disabled">
             <span>{{state}}</span>
-            <span class="ng-hide" ng-show="state == options.inProgress">A spinner</span>
+            <img class="ng-hide" ng-show="state == options.inProgress" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon">
           </button>
         </form>
         <div class="padding-tb">
