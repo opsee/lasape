@@ -77,7 +77,8 @@ function config ($stateProvider, $urlRouterProvider) {
       url:'/login',
       templateUrl:'/public/js/src/user/views/login.html',
       controller:'LoginCtrl',
-      title:'Login'
+      title:'Login',
+      hideHeader:true
     })
     .state('passwordForgot', {
       url:'/password-forgot',
