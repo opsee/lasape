@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
         <div class="padding-bx2">
-          <!-- <button type="button" ng-click="launch()" class="btn btn-primary btn-flat btn-block">Install</button> -->
+          <button type="button" ng-click="launch()" class="btn btn-primary btn-flat btn-block">Install</button>
           <button type="button" ng-click="exampleLaunch()" class="btn btn-primary btn-flat btn-block">Example Install</button>
         </div>
 
@@ -15,13 +15,7 @@
           <div class="progress">
             <div class="progress_bar" ng-class="{complete: bastionsComplete()}" ng-style="{ 'width' : bastion.getPercentComplete() + '%' }"></div>
             <div class="ticks">
-              <div class="tick"></div>
-              <div class="tick large"></div>
-              <div class="tick"></div>
-              <div class="tick large"></div>
-              <div class="tick"></div>
-              <div class="tick large"></div>
-              <div class="tick"></div>
+              <div class="tick" ng-repeat="o in [1,2,3,4,5,6,7]"></div>
             </div>
           </div>
           <div style="text-align: center;">

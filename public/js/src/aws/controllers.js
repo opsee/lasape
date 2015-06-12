@@ -2,20 +2,12 @@
 
 angular.module('opsee.aws.controllers', []);
 
-function InstancesCtrl($scope, allInstances){
-  $scope.instances = allInstances.instances;
-}
-InstancesCtrl.resolve = {
-  allInstances:function($resource, ENDPOINTS){
-    var path = $resource(ENDPOINTS.api+'/instances');
-    groups = path.get();
-    return groups.$promise;
-  }
-}
-angular.module('opsee.aws.controllers').controller('InstancesCtrl',InstancesCtrl);
-
-function InstanceSingleCtrl($scope, singleInstance){
-  $scope.instance = singleInstance;
+function InstanceSingleCtrl($scope, singleInstance, Group){
+  $scope.instance = singleInstance.setDefaults();
+  $scope.instance.meta.created = new Date(Date.parse($scope.instance.meta.created));
+  $scope.instance.groups = _.map($scope.instance.groups, function(i){
+    return new Group(i).setDefaults();
+  });
 }
 InstanceSingleCtrl.resolve = {
   singleInstance:function($stateParams, Check, Instance){
@@ -28,20 +20,11 @@ InstanceSingleCtrl.resolve = {
 }
 angular.module('opsee.aws.controllers').controller('InstanceSingleCtrl',InstanceSingleCtrl);
 
-function GroupsCtrl($scope, allGroups){
-  $scope.groups = allGroups.groups;
-}
-GroupsCtrl.resolve = {
-  allGroups:function($resource, ENDPOINTS){
-    var path = $resource(ENDPOINTS.api+'/groups');
-    var groups = path.get();
-    return groups.$promise;
-  }
-}
-angular.module('opsee.aws.controllers').controller('GroupsCtrl',GroupsCtrl);
-
-function GroupSingleCtrl($scope, singleGroup){
+function GroupSingleCtrl($scope, _, singleGroup, Instance){
   $scope.group = singleGroup;
+  $scope.group.instances = _.map($scope.group.instances, function(i){
+    return new Instance(i).setDefaults();
+  });
 }
 GroupSingleCtrl.resolve = {
   singleGroup:function(Group, $stateParams){
@@ -62,23 +45,11 @@ angular.module('opsee.aws.controllers').controller('SystemCtrl',SystemCtrl);
 
 function config ($stateProvider, $urlRouterProvider) {
     $stateProvider
-    .state('instances', {
-      url:'/instances',
-      templateUrl:'/public/js/src/aws/views/instances.html',
-      controller:'InstancesCtrl',
-      resolve:InstancesCtrl.resolve
-    })
     .state('instanceSingle', {
       url:'/instance/:id',
       templateUrl:'/public/js/src/aws/views/single-instance.html',
       controller:'InstanceSingleCtrl',
       resolve:InstanceSingleCtrl.resolve
-    })
-    .state('groups', {
-      url:'/groups',
-      templateUrl:'/public/js/src/aws/views/groups.html',
-      controller:'GroupsCtrl',
-      resolve:GroupsCtrl.resolve
     })
     .state('groupSingle', {
       url:'/group/:id',

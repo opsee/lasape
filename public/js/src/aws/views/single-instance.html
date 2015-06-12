@@ -1,6 +1,5 @@
-<md-toolbar title="Instance: {{instance.id}}"></md-toolbar>
+<md-toolbar title="Instance: {{instance.name || instance.id}}"></md-toolbar>
 <div class="container">
-  {{instance}}
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
       <table class="table">
         <tr>
@@ -13,13 +12,21 @@
         </tr>
         <tr>
           <td><strong>Created</strong></td>
-          <td><span am-time-ago="instance.created"></span></td>
+          <td><span am-time-ago="instance.meta.created"></span></td>
         </tr>
         <tr>
           <td><strong>Instance Size</strong></td>
-          <td>{{instance.size}}</td>
+          <td>{{instance.meta.instanceSize}}</td>
         </tr>
       </table>
+
+      <h2>Groups - ( {{instance.groups.length}} )</h2>
+      <ul class="list-unstyled">
+        <li ng-repeat="group in instance.groups">
+          <group-item group="group"></group-item>
+        </li>
+      </ul>
+
 
       <h2>{{instance.checks.length}} Checks</h2>
       <ul class="md-list md-list-two-line">

@@ -210,12 +210,14 @@ function radialGraph(){
         }
       });
 
-      $scope.$watch(function(){return $scope.status.silence.startDate}, function(newVal,oldVal){
-        //we don't need to regen of we are adding time to instantiated silence
-        if(!$scope.status.silence.remaining){
-          regenGraphSilence(true);
-        }
-      });
+      if($scope.status && $scope.status.silence){
+        $scope.$watch(function(){return $scope.status.silence.startDate}, function(newVal,oldVal){
+          //we don't need to regen of we are adding time to instantiated silence
+          if(!$scope.status.silence.remaining){
+            regenGraphSilence(true);
+          }
+        });
+      }
 
       function regenGraphHealth(){
         $scope.bool = $scope.status.health < 50 ? 'failing' : 'passing';
@@ -237,9 +239,9 @@ function radialGraph(){
         }
       }
 
-      if($scope.status.silence && $scope.status.silence.startDate){
+      if($scope.status && $scope.status.silence && $scope.status.silence.startDate){
         regenGraphSilence(true);
-      }else{
+      }else if($scope.status){
         regenGraphHealth();
       }
 
@@ -272,7 +274,6 @@ function notificationItem(){
         $scope.notif.channel = _.findWhere($scope.notificationSettings.channels,{'type':$scope.notif.channel.type});
       }
       $scope.newChannel = function(notif,$index){
-        console.log('moo');
         console.log(notif,$index);
       }
     }

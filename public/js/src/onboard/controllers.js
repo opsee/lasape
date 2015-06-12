@@ -239,7 +239,7 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $h
   $scope.bastions = [];
   $scope.launch = function(){
     try{
-      $scope.user.info.regions.map(function(a){
+      $rootScope.user.info.regions.map(function(a){
         a.vpcs.map(function(v){
           v.id = v['vpc-id'];return v;
         });
@@ -248,26 +248,28 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $h
     }catch(err){
       console.log(err);
     }
-    AWSService.bastionInstall($scope.user.info).then(function(){
-      $scope.launched = true;
+    AWSService.bastionInstall($scope.user.info).then(function(res){
+      setLaunchedBastions(res);
     }, function(err){
       $scope.$emit('notify',err);
     });
   }
 
+    function setLaunchedBastions(bastions){
+      $rootScope.user.info.launchedRegions = bastions;
+      $scope.launched = true;
+      $rootScope.user.info.launchedRegions.forEach(function(r){
+        r.vpcs.forEach(function(v){
+          $scope.bastions.push(new BastionInstaller(v));
+        })
+      })
+    }
+
     function getBastion(data){
       if(data.command == 'launch-bastion'){
-        var bastion = _.findWhere($scope.bastions,{instance_id:data.instance_id});
-        if(!bastion){
-          $scope.bastions.push(new BastionInstaller({
-            instance_id:data.instance_id
-          }));
-          bastion = _.last($scope.bastions);
-        }
-        return bastion;
-      }else{
-        return false;
+        return _.findWhere($scope.bastions,{instance_id:data.instance_id});
       }
+      return false;
     }
 
     $scope.$watch(function(){return $scope.messages}, function(newVal,oldVal){
@@ -289,6 +291,7 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $h
     });
 
   $scope.exampleLaunch = function(){
+    setLaunchedBastions([{"region":"us-east-1","vpcs":[{"instance_id":"2wTXE45a1xuuA06sW3vPtp","id":"vpc-31a0cc54"}]},{"region":"ap-southeast-1","vpcs":[{"instance_id":"cws3M2eziWt8P0gw1Kjg","id":"vpc-22e51a47"}]}]);
     $http.get('/public/js/src/aws/bastion-install-messages-example.json').then(function(res){
       res.data.forEach(function(d,i){
         if(d.command != 'launch-bastion'){

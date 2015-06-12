@@ -13,4 +13,15 @@ function instanceItem(){
 }
 angular.module('opsee.aws.directives').directive('instanceItem',instanceItem);
 
+function groupItem(){
+  return {
+    restrict:'EA',
+    scope:{
+      group:'='
+    },
+    templateUrl:'/public/js/src/aws/partials/group-item.html'
+  }
+}
+angular.module('opsee.aws.directives').directive('groupItem',groupItem);
+
 })();//IIFE

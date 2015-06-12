@@ -197,9 +197,17 @@ function Group($resource, _, GROUP_DEFAULTS, ENDPOINTS){
 }
 angular.module('opsee.aws.services').factory('Group', Group);
 
-var groupDefaults = {
+var GROUP_DEFAULTS = {
+  status:{
+    state:'running',
+    health:100,
+    silence:{
+      startDate:null,
+      duration:null
+    }
+  }
 }
-angular.module('opsee.aws.services').constant('GROUP_DEFAULTS', groupDefaults);
+angular.module('opsee.aws.services').constant('GROUP_DEFAULTS', GROUP_DEFAULTS);
 
 function Instance($resource, _, INSTANCE_DEFAULTS, ENDPOINTS){
   var Instance = $resource(ENDPOINTS.api+'/instance/:id',
@@ -220,6 +228,14 @@ function Instance($resource, _, INSTANCE_DEFAULTS, ENDPOINTS){
 angular.module('opsee.aws.services').factory('Instance', Instance);
 
 var INSTANCE_DEFAULTS = {
+  status:{
+    state:'running',
+    health:100,
+    silence:{
+      startDate:null,
+      duration:null
+    }
+  }
 }
 angular.module('opsee.aws.services').constant('INSTANCE_DEFAULTS', INSTANCE_DEFAULTS);
 
