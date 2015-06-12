@@ -167,7 +167,7 @@ module.exports = function(grunt) {
           livereload:true
         },
         files:['_site/**/*.**'],
-        tasks:['shell:jekyll','copy']
+        tasks:['shell:jekyll','copy','emailBuilder:inline']
       },
       srcScripts:{
         options:{
@@ -181,7 +181,7 @@ module.exports = function(grunt) {
       },
       sassEmail:{
         files:['scss-email/**/*.scss'],
-        tasks:['compass:email']
+        tasks:['compass:email','emailBuilder:inline']
       },
       css:{
         options:{
@@ -221,6 +221,16 @@ module.exports = function(grunt) {
         }
       }
     },
+    emailBuilder:{
+      inline:{
+        files:[{
+          expand:true,
+          src:['dist/email/*.html'],
+          dest:'',
+          ext:'.html'
+        }]
+      }
+    }
   });
 
   grunt.registerTask('swagger', 'Generate Angular Swagger Code, Notify of Changes', function(){

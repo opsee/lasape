@@ -60,7 +60,6 @@ function Global($rootScope, $log, $q, $modal, $document, $compile, _) {
         $log.warn('No parent item');
         return $q.reject('No parent item');
       }
-      console.log(parentItem);
       var modalInstance = $modal.open({
         templateUrl:templateUrl,
         size:'context',

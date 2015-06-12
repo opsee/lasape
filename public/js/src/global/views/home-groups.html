@@ -1,15 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-      <div ng-repeat="group in ['running','unmonitored','stopped','restarting']">
+      <div ng-repeat="category in ['running','unmonitored','stopped','restarting']" ng-if="groups.length">
         <div ng-hide="!filteredGroups.length">
-          <h2 class="h3">{{group | capitalize}} ({{filteredGroups.length}})</h2>
+          <h2 class="h3">{{category | capitalize}} ({{filteredGroups.length}})</h2>
           <ul class="md-list md-list-two-line">
-            <li class="md-list-item" ng-repeat="group in filteredGroups = (groups | filter:{status:{state:group}})">
+            <li class="md-list-item" ng-repeat="group in filteredGroups = (groups | filter:{status:{state:category}})">
               <group-item group="group"></group-item>
             </li>
           </ul>
         </div>
+      </div>
+      <div ng-if="!groups.length" class="padding-tb">
+        No groups.
       </div>
     </div>
   </div>

@@ -103,7 +103,26 @@ function OnboardPasswordCtrl($scope, $state, $rootScope, $stateParams, $analytic
   $scope.user.account.email = $stateParams.email;
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Password Form'});
-    $state.go('onboard.profile');
+    UserService.claim({
+      password:$scope.user.account.password,
+      activationId:$scope.user.activationId
+    }).then(function(res){
+      console.log(res);
+      $rootScope.$emit('setUser',res.data);
+      UserService.login($rootScope.user).then(function(res){
+        console.log(res);
+        if(res.token){
+          $rootScope.$emit('setAuth',res.token);
+        }
+        $state.go('onboard.profile');
+      }, function(err){
+        console.log(err);
+        $scope.error = res.data.error || 'There was an error processing your request.';
+        $rootScope.$emit('notify',$scope.error);
+      })
+    }, function(err){
+      $rootScope.$emit('notify',err);
+    })
   }
 }
 angular.module('opsee.onboard.controllers').controller('OnboardPasswordCtrl', OnboardPasswordCtrl);
@@ -143,17 +162,6 @@ function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, On
     }
     UserService.createOrg(data).then(function(res){
       console.log(res);
-      $rootScope.$emit('setUser',res.data);
-      UserService.login($scope.user).then(function(res){
-        console.log(res);
-        if(res.token){
-          $rootScope.$emit('setAuth',res.token);
-        }
-      }, function(err){
-        console.log(err);
-        $scope.error = res.data.error || 'There was an error processing your request.';
-        $rootScope.$emit('notify',$scope.error);
-      })
     }, function(res){
       console.log(res);
       $scope.error = res.data && res.data.error || 'There was an error processing your request.';

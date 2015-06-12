@@ -323,8 +323,6 @@ to prevent collapsing during animation*/
 
 .padding { padding: 1em; }
 
-.padding-x2 { padding: 2em; }
-
 .padding-lr { padding-left: 1em; padding-right: 1em; }
 
 .padding-tb { padding-top: 1em; padding-bottom: 1em; }
@@ -400,8 +398,6 @@ to prevent collapsing during animation*/
 .margin-none { margin: 0 !important; }
 
 .padding { padding: 1em; }
-
-.padding-x2 { padding: 2em; }
 
 .padding-lr { padding-left: 1em; padding-right: 1em; }
 

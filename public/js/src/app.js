@@ -125,9 +125,12 @@
       $rootScope.stream.onClose(function(evt){
         console.log('socket close',evt);
         //reopen stream
-        $rootScope.$broadcast('startSocket');
+        if(!$rootScope.stream.error){
+          $rootScope.$broadcast('startSocket');
+        }
       });
       $rootScope.stream.onError(function(evt){
+        $rootScope.stream.error = true;
         console.log('socket error',evt);
       })
     });

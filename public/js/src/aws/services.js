@@ -34,10 +34,10 @@ function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, 
                 ]
               },
               {
-                region: 'ap-southeast-1',
+                region: 'us-west-1',
                 vpcs: [
                   {
-                    id:'vpc-22e51a47'
+                    id:'vpc-79b1491c'
                   }
                 ]
               }

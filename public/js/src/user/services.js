@@ -117,7 +117,9 @@ function UserService($q, $resource, $rootScope, $analytics, User, ENDPOINTS){
         var path = $resource(ENDPOINTS.api+'/activations/'+user.activationId+'/activate');
         return path.save(user).$promise;
       }else{
-        return $q.reject({data:{error:'Bad credentials.'}});
+        var d = $q.defer();
+        d.reject({data:{error:'Bad credentials.'}});
+        return d.promise;
       }
     },
     createOrg:function(user){
