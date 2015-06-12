@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-      <div ng-repeat="group in ['running','unmonitored','stopped']">
+      <div ng-repeat="group in ['running','unmonitored','stopped','restarting']">
         <div ng-hide="!filteredInstances.length">
           <h2 class="h3">{{group | capitalize}} ({{filteredInstances.length}})</h2>
           <ul class="md-list md-list-two-line">
@@ -11,7 +11,6 @@
           </ul>
         </div>
       </div>
-
     </div>
   </div>
 </div>

@@ -179,7 +179,7 @@ var BastionInstallationItems = [
 ]
 angular.module('opsee.aws.services').constant('BastionInstallationItems', BastionInstallationItems);
 
-function Group($resource, _, GROUP_DEFAULTS, ENDPOINTS){
+function Group($resource, _, GROUP_DEFAULTS, ENDPOINTS, Global, Instance){
   var Group = $resource(ENDPOINTS.api+'/group/:id',
     {
       id:'@_id'
@@ -189,15 +189,17 @@ function Group($resource, _, GROUP_DEFAULTS, ENDPOINTS){
         method:'PATCH'
       }
     });
+  Group.prototype = Object.create(Instance.prototype);
+  Group.prototype.constructor = Group;
   Group.prototype.setDefaults = function(){
-    _.defaults(this, GROUP_DEFAULTS);
-    return this;
+    return _.defaults(this, angular.copy(GROUP_DEFAULTS));
   }
   return Group;
 }
 angular.module('opsee.aws.services').factory('Group', Group);
 
 var GROUP_DEFAULTS = {
+  itemName:'group',
   status:{
     state:'running',
     health:100,
@@ -209,7 +211,7 @@ var GROUP_DEFAULTS = {
 }
 angular.module('opsee.aws.services').constant('GROUP_DEFAULTS', GROUP_DEFAULTS);
 
-function Instance($resource, _, INSTANCE_DEFAULTS, ENDPOINTS){
+function Instance($resource, $q, $timeout, _, INSTANCE_DEFAULTS, ENDPOINTS, Check){
   var Instance = $resource(ENDPOINTS.api+'/instance/:id',
     {
       id:'@_id'
@@ -219,8 +221,64 @@ function Instance($resource, _, INSTANCE_DEFAULTS, ENDPOINTS){
         method:'PATCH'
       }
     });
+  Instance.prototype = Object.create(Check.prototype);
+  var self = this;
+  _.remove(Instance.prototype.actions, function(a){
+    return a.id == 'delete'
+  });
+  Instance.prototype.start = function(){
+    var d = $q.defer();
+    d.resolve();
+    this.status.state = 'running';
+    return d.promise;
+  }
+  Instance.prototype.restart = function(){
+    var d = $q.defer();
+    d.resolve();
+    this.status.state = 'restarting';
+    var self = this;
+    $timeout(function(){
+      self.status.state = 'running'
+    },5000);
+    return d.promise;
+  }
+  Instance.prototype.stop = function(){
+    var d = $q.defer();
+    d.resolve();
+    this.status.state = 'stopped';
+    return d.promise;
+  }
+  Instance.prototype.actions.push({
+    id:'management',
+    title:'Manage',
+    childrenActive:true,
+    run:function(){
+      this.childrenActive = true;
+    },
+    actions:[
+      {
+        title:'Start',
+        run:function(){
+          return this.start();
+        }
+      },
+      {
+        title:'Restart',
+        run:function(){
+          return this.restart();
+        }
+      },
+      {
+        title:'Stop',
+        run:function(){
+          return this.stop();
+        }
+      }
+    ]
+  })
+  Instance.prototype.constructor = Instance;
   Instance.prototype.setDefaults = function(){
-    _.defaults(this, INSTANCE_DEFAULTS);
+    _.defaults(this, angular.copy(INSTANCE_DEFAULTS));
     return this;
   }
   return Instance;
@@ -228,6 +286,7 @@ function Instance($resource, _, INSTANCE_DEFAULTS, ENDPOINTS){
 angular.module('opsee.aws.services').factory('Instance', Instance);
 
 var INSTANCE_DEFAULTS = {
+  itemName:'instance',
   status:{
     state:'running',
     health:100,

@@ -65,7 +65,7 @@ function HomeInstancesCtrl($scope, Instance, instances){
   //   },
   // ];
   $scope.instances = _.map(instances.instances, function(i){
-    return new Instance({id:i}).setDefaults();
+    return new Instance(i).setDefaults();
   });
   $scope.runningInstances = _.filter($scope.instances, function(c){return c.status.state == 'running'});
   $scope.unmonitoredInstances = _.filter($scope.instances, function(c){return c.status.state == 'unmonitored'});
@@ -107,7 +107,7 @@ function HomeGroupsCtrl($scope, Group){
   //   },
   // ];
   $scope.groups = _.map(groups.groups, function(i){
-    return new Group({id:i}).setDefaults();
+    return new Group(i).setDefaults();
   });
 }
 angular.module('opsee.global.controllers').controller('HomeGroupsCtrl',HomeGroupsCtrl);

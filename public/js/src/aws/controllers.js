@@ -12,16 +12,12 @@ function InstanceSingleCtrl($scope, singleInstance, Group){
 InstanceSingleCtrl.resolve = {
   singleInstance:function($stateParams, Check, Instance){
     return Instance.get({id:$stateParams.id}).$promise;
-    instance.checks.forEach(function(c,i){
-      instance.checks[i] = new Check(c);
-    });
-    return instance;
   }
 }
 angular.module('opsee.aws.controllers').controller('InstanceSingleCtrl',InstanceSingleCtrl);
 
 function GroupSingleCtrl($scope, _, singleGroup, Instance){
-  $scope.group = singleGroup;
+  $scope.group = singleGroup.setDefaults();
   $scope.group.instances = _.map($scope.group.instances, function(i){
     return new Instance(i).setDefaults();
   });

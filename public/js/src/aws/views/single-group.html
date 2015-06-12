@@ -7,6 +7,10 @@
       <table class="table">
         <tbody>
           <tr>
+            <td><strong>Status</strong></td>
+            <td>{{group.status.state}}</td>
+          </tr>
+          <tr>
             <td><strong>id</strong></td>
             <td>{{group.id}}</td>
           </tr>
@@ -21,7 +25,7 @@
         </tbody>
       </table>
 
-      <h2>Instances</h2>
+      <h2>Instances - ( {{group.instances.length}} )</h2>
       <ul class="list-unstyled">
         <li ng-repeat="instance in group.instances">
           <instance-item instance="instance"></instance-item>

@@ -84,8 +84,6 @@
       Global.notify(msg);
     });
 
-    $rootScope.messages = [];
-
     $rootScope.$on('startSocket', function(event,token){
       $rootScope.stream = $websocket('ws://api-beta.opsee.co/stream/');
       $rootScope.stream.onOpen(function(){
@@ -104,7 +102,8 @@
           console.log(err);
           return false;
         }
-        if(data.command == 'authenticate'){
+        switch(data.command){
+          case 'authenticate':
           if(data.state == 'ok'){
             var subscribe = JSON.stringify({
               "command":"subscribe",
@@ -114,9 +113,13 @@
           }else{
             $analytics.eventTrack('error',{category:'Websocket',label:'Auth failed'});
           }
-        }else{
-          $rootScope.messages.push(data);
-          console.log(data);
+          break;
+          case 'heartbeat':
+          break;
+          default:
+          !$rootScope.stream.messages ? $rootScope.stream.messages = [] : null;
+          $rootScope.stream.messages.push(data);
+          break;
         }
       });
       $rootScope.stream.onClose(function(evt){

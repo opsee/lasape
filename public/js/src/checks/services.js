@@ -44,7 +44,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
         title:'Edit',
         actions:[
           {
-            title:'Delete Check',
+            title:'Delete Item',
             run:function(){
               return console.log('delete');
             }
@@ -63,6 +63,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
     check.prototype.setSilence = function(length,unit){
       var deferred = $q.defer();
       var c = this;
+      c.name = 'foo';
       c.status.silence.startDate = new Date();
       c.status.silence.duration = moment.duration(length,unit).asMilliseconds();
       if($rootScope.user.hasUser()){
@@ -89,11 +90,14 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
         return 'Running for X minutes';
       }
       break;
+      case 'restarting':
+      return 'This '+self.itemName+' is currently restarting.';
+      break;
       case 'unmonitored':
-      return 'This check is currently unmonitored.';
+      return 'This '+self.itemName+' is currently unmonitored.';
       break;
       case 'stopped':
-      return 'This check is stopped in AWS.';
+      return 'This '+self.itemName+' is stopped in AWS.';
       break;
      }
     return self.info;

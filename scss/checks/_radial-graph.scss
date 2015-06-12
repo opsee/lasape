@@ -24,13 +24,23 @@ $graphWidth:40px;
       }
     }
     &.stopped{
-      background-color:$gray-700;
+      background-color:$gray-700 !important;
       .radial-graph-inner{
-        background-color:$gray-700;
+        background-color:$gray-700 !important;
         border:0;
       }
       .loader{
-        fill:$gray-700;
+        fill:$gray-700 !important;
+      }
+    }
+    &.restarting{
+      background-color:$brand-info;
+      .radial-graph-inner{
+        background-color:$brand-info;
+        border:0;
+      }
+      .loader{
+        fill:$brand-info;
       }
     }
     &.unmonitored{
