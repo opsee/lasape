@@ -189,12 +189,6 @@ function StyleGuideCtrl($scope, Check){
 }
 angular.module('opsee.global.controllers').controller('StyleGuideCtrl',StyleGuideCtrl);
 
-
-
-function NotFoundCtrl($scope, $rootScope, _, $state){
-}
-angular.module('opsee.global.controllers').controller('NotFoundCtrl',NotFoundCtrl);
-
 function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('404');
   $urlRouterProvider.when('/', '/home/instances');
@@ -220,9 +214,13 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('404', {
       url:'/404',
-      controller:'NotFoundCtrl',
       templateUrl:'/public/js/src/global/views/404.html',
       title:'404'
+    })
+    .state('500', {
+      url:'/500',
+      templateUrl:'/public/js/src/global/views/500.html',
+      title:'500'
     })
     .state('more', {
       url:'/more',

@@ -9,7 +9,7 @@ function OnboardService($resource, $q, $rootScope, $http, api, ENDPOINTS){
       api.getOrgsSubdomainBySubdomain({subdomain:domain}).then(function(res){
         !!res.available ? deferred.resolve() : deferred.reject();
       }).catch(function(err){
-        deferred.reject(res);
+        deferred.reject(err);
       });
       return deferred.promise;
     }

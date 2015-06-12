@@ -104,7 +104,8 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/user/views/profile-edit.html',
       controller:'UserProfileEditCtrl',
       title:'Edit Your Profile',
-      resolve:UserProfileCtrl.resolve
+      resolve:UserProfileCtrl.resolve,
+      hideHeader:true
     })
   }
 angular.module('opsee').config(config);

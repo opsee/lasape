@@ -12,6 +12,7 @@
           <!-- <div ng-repeat="item in bastion.items">
             {{item.name}} - {{item.status}}
           </div> -->
+          <h2>{{bastion.id}}</h2>
           <div class="progress">
             <div class="progress_bar" ng-class="{complete: bastionsComplete()}" ng-style="{ 'width' : bastion.getPercentComplete() + '%' }"></div>
             <div class="ticks">
@@ -19,8 +20,10 @@
             </div>
           </div>
           <div style="text-align: center;">
-            <div ng-if="bastion.status == 'progress'"><img style="height: 24px; width: 24px; margin-right: 12px;" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon"> Setting up {{bastion.getInProgressItem().name}}</div>
-            <div ng-if="bastion.status == 'complete'"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg> Complete</div>
+            <div ng-if="bastion.status == 'progress'"><img style="height: 24px; width: 24px; margin-right: 12px;" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon"> Setting up {{bastion.getInProgressItem().name}}.</div>
+            <div ng-if="bastion.status == 'deleting'"><img style="height: 24px; width: 24px; margin-right: 12px;" src="/public/img/tailspin_icon.svg" class="status_icon tailspin" alt="loading icon">Failed, cleaning up.</div>
+            <div ng-if="bastion.status == 'rollback'">Failed. Cleanup complete.</div>
+            <div ng-if="bastion.status == 'complete'"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg> Complete.</div>
           </div>
         </div>
 

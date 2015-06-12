@@ -45,9 +45,7 @@ function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, 
           }
         )
       }
-      var path = $resource(ENDPOINTS.api+'/bastions/launch');
-      saved = path.save(data);
-      return saved.$promise;
+      return $http.post(ENDPOINTS.api+'/bastions/launch', data);
     }
   }
 }
@@ -96,6 +94,15 @@ function BastionInstaller(BastionInstallationItems){
         break;
         case 'CREATE_IN_PROGRESS':
         break;
+        case 'CREATE_FAILED':
+        status = 'failed';
+        break;
+        case 'DELETE_COMPLETE':
+        status = 'deleted';
+        break;
+        case 'ROLLBACK_COMPLETE':
+        status = 'rollback';
+        break;
       }
       var item = _.findWhere(this.items, {name:item.name});
       item.status = status;
@@ -104,6 +111,14 @@ function BastionInstaller(BastionInstallationItems){
       });
       if(!inProgressItems.length){
         this.status = 'complete';
+      }else{
+        var rollback = _.findWhere(this.items,{status:'rollback'});
+        var deleting = _.findWhere(this.items,{status:'deleted'});
+        if(rollback){
+          this.status = 'rollback';
+        }else if(deleting){
+          this.status = 'deleting';
+        }
       }
     }
     bastionInstaller.prototype.getInProgressItem = function(){

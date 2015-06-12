@@ -14,7 +14,7 @@ function OnboardCtrl($rootScope, $scope, $state, AWSRegions, TEST_KEYS){
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
-function OnboardStartCtrl($scope, $state, $analytics, UserService, Global){
+function OnboardStartCtrl($scope, $rootScope, $state, $analytics, UserService, Global){
   $scope.submit = function(){
     $scope.state = $scope.options.inProgress;
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Start Form'});
@@ -25,7 +25,7 @@ function OnboardStartCtrl($scope, $state, $analytics, UserService, Global){
       $scope.state = res.statusText || $scope.options.success;
       $state.go('onboard.thanks',{email:$scope.user.account.email});
     }, function(res){
-      if(res.data){
+      if(res.data && res.data.error){
         $scope.error = res.data.error;
       }else{
         $scope.error = 'There was an error processing your request.';
@@ -88,7 +88,7 @@ angular.module('opsee.onboard.controllers').controller('OnboardTutorial2Ctrl', O
 
 function OnboardTutorial3Ctrl($scope, preImg){
   $scope.step.text = 'Finish';
-  $scope.step.link = 'home';
+  $scope.step.link = 'onboard.team';
   $scope.step.img = preImg;
 }
 OnboardTutorial3Ctrl.resolve = {
@@ -108,18 +108,8 @@ function OnboardPasswordCtrl($scope, $state, $rootScope, $stateParams, $analytic
       activationId:$scope.user.activationId
     }).then(function(res){
       console.log(res);
-      $rootScope.$emit('setUser',res.data);
-      UserService.login($rootScope.user).then(function(res){
-        console.log(res);
-        if(res.token){
-          $rootScope.$emit('setAuth',res.token);
-        }
-        $state.go('onboard.profile');
-      }, function(err){
-        console.log(err);
-        $scope.error = res.data.error || 'There was an error processing your request.';
-        $rootScope.$emit('notify',$scope.error);
-      })
+      $rootScope.$emit('setUser',res);
+      $state.go('onboard.tutorial.1');
     }, function(err){
       $rootScope.$emit('notify',err);
     })
@@ -162,6 +152,7 @@ function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, On
     }
     UserService.createOrg(data).then(function(res){
       console.log(res);
+      $state.go('onboard.regionSelect');
     }, function(res){
       console.log(res);
       $scope.error = res.data && res.data.error || 'There was an error processing your request.';
@@ -205,7 +196,7 @@ angular.module('opsee.onboard.controllers').controller('OnboardCredentialsCtrl',
 
 function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, AWSRegions, regionsWithVpcs){
   $scope.msg = 'loading';
-  $scope.user.info.regions = regionsWithVpcs;
+  $scope.user.info.regionsWithVpcs = regionsWithVpcs;
   $scope.selectAll = function(){
     _.chain($scope.user.info.regions).pluck('vpcs').flatten().map(function(vpc){
       vpc.selected = true;
@@ -226,8 +217,8 @@ OnboardVpcsCtrl.resolve = {
   regionsWithVpcs:function(AWSService, AWSRegions, $q, $rootScope, _){
     var deferred = $q.defer();
     var data = angular.copy($rootScope.user.info);
-    data.regions = _.pluck(data.regions,'id');
-    AWSService.vpcScan(data).then(function(res){
+    var regions = _.chain(data.regions).where({selected:true}).pluck('id').value();
+    AWSService.vpcScan(regions).then(function(res){
       var regions = res.data;
       regions.forEach(function(r){
         AWSRegions.forEach(function(ar){
@@ -247,7 +238,7 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $h
   $scope.bastions = [];
   $scope.launch = function(){
     try{
-      $rootScope.user.info.regions.map(function(a){
+      $rootScope.user.info.regionsWithVpcs.map(function(a){
         a.vpcs.map(function(v){
           v.id = v['vpc-id'];return v;
         });
@@ -257,7 +248,7 @@ function OnboardBastionCtrl($scope, $rootScope, $state, $timeout, $analytics, $h
       console.log(err);
     }
     AWSService.bastionInstall($scope.user.info).then(function(res){
-      setLaunchedBastions(res);
+      setLaunchedBastions(res.data);
     }, function(err){
       $scope.$emit('notify',err);
     });

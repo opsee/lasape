@@ -13,7 +13,7 @@
       //   event.preventDefault();
       //   return $state.go('styleguide');
       // }
-      if(toState.name != ('login')){
+      if(!toState.name.match('login|start')){
         $rootScope.previousRoute = toState.name;
       }
       $rootScope.hideHeader = !!(toState.hideHeader);
@@ -140,7 +140,12 @@
     }
 
     $rootScope.$on('setAuth', function(event,token){
-      $localStorage.authToken = token || null;
+      if(token){
+        if(!token.match('HMAC ')){
+          token = 'HMAC '+token;
+        }
+        $localStorage.authToken = token
+      }
       // authService.loginConfirmed();
       if($rootScope.previousRoute){
         $state.go($rootScope.previousRoute);
@@ -199,6 +204,7 @@
         },
          responseError: function(res) {
           if([500].indexOf(res.status) > -1){
+            // $injector.get('$state').go('500');
           }else if([404].indexOf(res.status) > -1){
             $injector.get('$state').go('404');
           }
