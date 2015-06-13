@@ -13,37 +13,41 @@ function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, 
     vpcScan:function(data){
       data = data || {};
       _.defaults(data,TEST_KEYS);
+      if(data['access-key'].length == 5){
+        _.extend(data,TEST_KEYS);
+      }
       return $http.post(ENDPOINTS.vpcScan, data);
     },
     bastionInstall:function(data){
       data = data || {};
+      if(data.regionsWithVpcs && data.regionsWithVpcs.length){
+        data.regions = data.regionsWithVpcs;
+      }
+      var testRegions = {
+        regions:[
+            {
+              region: "us-east-1",
+              vpcs: [
+                {
+                  id: "vpc-31a0cc54"
+                },
+              ]
+            },
+            {
+              region: 'us-west-1',
+              vpcs: [
+                {
+                  id:'vpc-79b1491c'
+                }
+              ]
+            }
+          ]
+        }
       _.defaults(data, {
         'instance-size': "t2.micro"
-      }, TEST_KEYS);
+      }, TEST_KEYS, testRegions);
       if($rootScope.user.email == 'cliff@leaninto.it'){
         _.extend(data,TEST_KEYS);
-        _.extend(data,
-          {
-            regions: [
-              {
-                region: "us-east-1",
-                vpcs: [
-                  {
-                    id: "vpc-31a0cc54"
-                  },
-                ]
-              },
-              {
-                region: 'us-west-1',
-                vpcs: [
-                  {
-                    id:'vpc-79b1491c'
-                  }
-                ]
-              }
-            ]
-          }
-        )
       }
       return $http.post(ENDPOINTS.api+'/bastions/launch', data);
     }
@@ -52,82 +56,78 @@ function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, 
 
 angular.module('opsee.aws.services').service('AWSService', AWSService);
 
-function BastionInstaller(BastionInstallationItems){
+function BastionInstaller(){
   return function(obj){
     var defaults = {
       instance_id:null,
       status:'progress',
-      msg:null,
-      items:[
-        {
-          name:'group',
-          status:null
-        },
-        {
-          name:'role',
-          status:null
-        },
-        {
-          name:'profile',
-          status:null
-        },
-        {
-          name:'instance',
-          status:null
-        },
-        {
-          name:'stack',
-          status:null
-        }
-      ]
+      items:['AWS::CloudFormation::Stack','AWS::EC2::SecurityGroup','AWS::IAM::Role','AWS::IAM::InstanceProfile','AWS::EC2::Instance'].map(function(i){
+        return {id:i,msgs:[]}
+      })
     }
     function bastionInstaller(obj){
       _.extend(this,obj);
       _.defaults(this,defaults);
     }
     bastionInstaller.prototype.parseMsg = function(msg){
-      var item = _.findWhere(BastionInstallationItems,{id:msg.attributes.ResourceType});
-      var status = 'progress';
-      switch(msg.attributes.ResourceStatus){
-        case 'CREATE_COMPLETE':
-        status = 'complete';
-        break;
-        case 'CREATE_IN_PROGRESS':
-        break;
-        case 'CREATE_FAILED':
-        status = 'failed';
-        break;
-        case 'DELETE_COMPLETE':
-        status = 'deleted';
-        break;
-        case 'ROLLBACK_COMPLETE':
-        status = 'rollback';
-        break;
+      var self = this;
+      var item = _.findWhere(self.items,{id:msg.attributes.ResourceType});
+      if(!item){
+        self.items.push({
+          id:msg.attributes.ResourceType,
+          msgs:[]
+        });
       }
-      var item = _.findWhere(this.items, {name:item.name});
-      item.status = status;
-      var inProgressItems = _.reject(this.items, function(i){
-        return i.status == 'complete';
+      item = _.findWhere(self.items,{id:msg.attributes.ResourceType});
+      item.msgs.push(msg.attributes);
+      item.msgs = item.msgs.sort(function(a,b){
+        return Date.parse(a.Timestamp) - Date.parse(b.Timestamp)
       });
-      if(!inProgressItems.length){
+    }
+    bastionInstaller.prototype.getItemStatuses = function(){
+      var statuses = this.items.map(function(i){
+        var last = _.last(i.msgs);
+        if(last){
+          return last;
+        }else{
+          return {ResourceStatus:'CREATE_IN_PROGRESS', ResourceType:i.id};
+        }
+      });
+      return _.compact(statuses);
+    }
+    bastionInstaller.prototype.getStatus = function(){
+      var statuses = this.getItemStatuses();
+      var progressItems = _.reject(statuses, {ResourceStatus:'CREATE_COMPLETE'});
+      if(!progressItems.length && statuses.length){
         this.status = 'complete';
-      }else{
-        var rollback = _.findWhere(this.items,{status:'rollback'});
-        var deleting = _.findWhere(this.items,{status:'deleted'});
+      }else if(statuses.length){
+        var rollback = _.findWhere(statuses,{ResourceStatus:'ROLLBACK_COMPLETE'});
+        var deleting = _.findWhere(statuses,{ResourceStatus:'DELETE_COMPLETE'});
         if(rollback){
           this.status = 'rollback';
         }else if(deleting){
           this.status = 'deleting';
+        }else{
+          this.status = 'progress';
         }
+      }else{
+        this.status = 'progress';
       }
+      return this.status;
     }
     bastionInstaller.prototype.getInProgressItem = function(){
-      var index = _.findLastIndex(this.items,{status:'complete'}) + 1;
-      return (index > 0 && index < this.items.length) ? this.items[index] : {name:'group'};
+      var statuses = this.getItemStatuses();
+      var index = _.findLastIndex(statuses,{ResourceStatus:'CREATE_COMPLETE'}) + 1;
+      return (index > 0 && index < statuses.length) ? statuses[index] : {ResourceType:'AWS::EC2::SecurityGroup'};
     }
     bastionInstaller.prototype.getPercentComplete = function(){
-      var complete = _.where(this.items,{status:'complete'}).length;
-      return (complete/this.items.length)*100;
+      var statuses = this.getItemStatuses();
+      var complete = _.where(statuses,{ResourceStatus:'CREATE_COMPLETE'}).length;
+      var num = (complete/this.items.length)*100;
+      if(this.id == "vpc-22e51a47"){
+        // console.log(num,statuses);
+      }
+      return num;
     }
     return new bastionInstaller(obj);
   }
@@ -169,30 +169,6 @@ var AWSRegions = [
   }
 ]
 angular.module('opsee.aws.services').constant('AWSRegions', AWSRegions);
-
-var BastionInstallationItems = [
-  {
-    id:'AWS::EC2::SecurityGroup',
-    name:'group'
-  },
-  {
-    id:'AWS::IAM::InstanceProfile',
-    name:'profile'
-  },
-  {
-    id:'AWS::CloudFormation::Stack',
-    name:'stack'
-  },
-  {
-    id:'AWS::IAM::Role',
-    name:'role'
-  },
-  {
-    id:'AWS::EC2::Instance',
-    name:'instance'
-  }
-]
-angular.module('opsee.aws.services').constant('BastionInstallationItems', BastionInstallationItems);
 
 function Group($resource, _, GROUP_DEFAULTS, ENDPOINTS, Global, Instance){
   var Group = $resource(ENDPOINTS.api+'/group/:id',
