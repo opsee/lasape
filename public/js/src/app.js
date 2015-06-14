@@ -6,7 +6,7 @@
 
     $window.FastClick.attach(document.body);
 
-    $rootScope.$on('$stateChangeStart', function (event, toState, fromState, fromParams) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams , error) {
       // doing some pre-emptive code for when bastion is installing
       // if(!toState.name.match('styleguide')){
       //   console.log(toState);
@@ -35,11 +35,14 @@
       $activityIndicator.stopAnimating();
     });
 
-    $rootScope.$on('$stateChangeError', function (event, toState, fromState, fromParams) {
+    $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams , error) {
       $activityIndicator.timer = false;
       $activityIndicator.stopAnimating();
-      console.log(event);
-      $state.go('404');
+      if(error && error.status == 401){
+        event.preventDefault();
+        return $state.go('login');
+      }
+      return $state.go('404');
     });
 
     $rootScope.localStorage = $localStorage;
@@ -136,6 +139,7 @@
     });
 
     if($rootScope.user.token){
+      console.log($rootScope.user);
       $rootScope.$broadcast('startSocket');
     }
 
@@ -216,5 +220,6 @@
     $httpProvider.interceptors.push('opseeInterceptor');
   }
   angular.module('opsee').config(opseeInterceptor);
+
 
 })();//IIFE

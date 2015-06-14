@@ -78,6 +78,9 @@ HomeInstancesCtrl.resolve = {
     var path = $resource(ENDPOINTS.api+'/instances');
     groups = path.get();
     return groups.$promise;
+  },
+  auth:function($rootScope){
+    return $rootScope.user.hasUser(true);
   }
 }
 
@@ -117,6 +120,9 @@ HomeGroupsCtrl.resolve = {
     var path = $resource(ENDPOINTS.api+'/groups');
     groups = path.get();
     return groups.$promise;
+  },
+  auth:function($rootScope){
+    return $rootScope.user.hasUser(true);
   }
 }
 
@@ -196,7 +202,7 @@ function config ($stateProvider, $urlRouterProvider) {
       url:'/',
       controller:'HomeCtrl',
       templateUrl:'/public/js/src/global/views/home.html',
-      title:'Your AWS Environment'
+      title:'Your AWS Environment',
     })
     .state('home.instances', {
       url:'home/instances',

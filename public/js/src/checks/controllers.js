@@ -53,14 +53,6 @@ function AllChecksCtrl($scope, $state, $stateParams, $timeout, $analytics, Check
 angular.module('opsee.checks.controllers').controller('AllChecksCtrl', AllChecksCtrl);
 
 AllChecksCtrl.resolve = {
-  allChecks:function($timeout, $q){
-    return true;
-    // var d = $q.defer();
-    // $timeout(function(){
-    //   d.resolve();
-    // },10000);
-    // return d.promise;
-  }
 }
 
 function CheckCtrl($scope){
@@ -256,22 +248,30 @@ function CreateCheckCtrl($scope, $state, Check){
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 
-function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
-    $stateProvider.state('checks', {
+function config ($stateProvider) {
+    $stateProvider.state('check', {
+      template:'<div ui-view class="transition-sibling"></div>',
+      resolve:{
+        auth:function($rootScope){
+          return $rootScope.user.hasUser(true);
+        }
+      }
+    })
+    .state('check.all', {
       url:'/checks',
       templateUrl:'/public/js/src/checks/views/index.html',
       controller:'AllChecksCtrl',
       resolve:AllChecksCtrl.resolve,
       title:'Checks'
     })
-    .state('checkSingle', {
+    .state('check.single', {
       url:'/check/:id?close',
       templateUrl:'/public/js/src/checks/views/single.html',
       controller:'SingleCheckCtrl',
       resolve:SingleCheckCtrl.resolve,
       reloadOnSearch:false
     })
-    .state('checkEdit', {
+    .state('check.edit', {
       url:'/check/:id/edit',
       templateUrl:'/public/js/src/checks/views/edit.html',
       controller:'EditCheckCtrl',
@@ -282,7 +282,7 @@ function config ($stateProvider, $urlRouterProvider, ENDPOINTS) {
         'transition-reverse':true
       }
     })
-    .state('checkCreate', {
+    .state('check.create', {
       url:'/check-create',
       templateUrl:'/public/js/src/checks/views/create.html',
       controller:'CreateCheckCtrl',

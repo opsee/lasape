@@ -52,7 +52,13 @@ function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, U
   // User.prototype.hasPermission = function(string){
   //   return this.permissions.indexOf(string) > -1;
   // }
-  User.prototype.hasUser = function(){
+  User.prototype.hasUser = function(promise){
+    var test = !!this.id;
+    if(promise){
+      var d = $q.defer();
+      test ? d.resolve() : d.reject({status:401});
+      return d.promise;
+    }
     return !!this.id;
   }
   User.prototype.logout = function(){

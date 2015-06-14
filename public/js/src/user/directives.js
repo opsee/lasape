@@ -31,21 +31,31 @@ function userLogin(){
   return {
     restrict:'EA',
     templateUrl:'/public/js/src/user/partials/user-login.html',
-    controller:function($scope, $rootScope, $state, UserService, authService){
+    controller:function($scope, $rootScope, $state, $activityIndicator, UserService, authService){
       $scope.options = {
         original:'Create Account',
         inProgress:'Creating your account...',
         error:'Create Account'
       }
       $scope.state = $scope.options.original;
+      $scope.submitting = false;
       $scope.submit = function(){
         if($scope.user && $scope.user.account.password){
+          $activityIndicator.startAnimating();
+          $scope.submitting = true;
           UserService.login($scope.user).then(function(res){
             $rootScope.$emit('setUser',res);
-            $scope.state = res.statusText || $scope.options.success;
+            $activityIndicator.stopAnimating();
+            $scope.submitting = false;
           }, function(res){
             console.log(res);
-            $scope.error = res.data.error || 'There was an error processing your request.';
+            $activityIndicator.stopAnimating();
+            $scope.submitting = false;
+            try{
+              $scope.error = res.data.error;
+            }catch(err){
+              $scope.error = 'There was an error processing your request.';
+            }
             $scope.state = $scope.options.error;
             $rootScope.$emit('notify',$scope.error);
           })

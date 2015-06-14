@@ -231,6 +231,9 @@ OnboardVpcsCtrl.resolve = {
       $rootScope.$emit('notify',err);
     });
     return deferred.promise;
+  },
+  auth:function($rootScope){
+    return $rootScope.user.hasUser(true);
   }
 }
 
@@ -288,15 +291,17 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
       }
     },true);
 
-    $rootScope.stream.onMessage(function(event){
-      try{
-        var data = JSON.parse(event.data)
-      }catch(err){
-        console.log(err);
-        return false;
-      }
-      $scope.messages.push(data);
-    });
+    if($rootScope.stream){
+      $rootScope.stream.onMessage(function(event){
+        try{
+          var data = JSON.parse(event.data)
+        }catch(err){
+          console.log(err);
+          return false;
+        }
+        $scope.messages.push(data);
+      });
+    }
 
   $scope.exampleLaunch = function(){
     setLaunchedBastions([{"region":"us-east-1","vpcs":[{"instance_id":"5tRx0JWEOQgGVdLoKj1W3Z","id":"vpc-31a0cc54"}]},{"region":"ap-southeast-1","vpcs":[{"instance_id":"1r6k6YRB3Uzh0Bk5vmZsFU","id":"vpc-22e51a47"}]}]);
@@ -333,7 +338,6 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('onboard.start', {
       url:'start',
-      parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/start.html',
       controller:'OnboardStartCtrl',
       title:'Start',
@@ -341,7 +345,6 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('onboard.email', {
       url:'start/email?email',
-      parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/email.html',
       controller:'OnboardEmailCtrl',
       title:'Email',
@@ -349,14 +352,12 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('onboard.thanks', {
       url:'start/thanks?email',
-      parent:'onboard',
       controller:'OnboardThanksCtrl',
       templateUrl:'/public/js/src/onboard/views/thanks.html',
       title:'Thank You',
       hideHeader:true
     })
     .state('onboard.tutorial', {
-      parent:'onboard',
       controller:'OnboardTutorialCtrl',
       title:'Tutorial',
       templateUrl:'/public/js/src/onboard/views/tutorial.html',
@@ -364,7 +365,6 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('onboard.tutorial.1', {
       url:'intro/1',
-      parent:'onboard.tutorial',
       templateUrl:'/public/js/src/onboard/views/tutorial-1.html',
       controller:'OnboardTutorial1Ctrl',
       title:'Tutorial Step 1',
@@ -373,7 +373,6 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('onboard.tutorial.2', {
       url:'intro/2',
-      parent:'onboard.tutorial',
       templateUrl:'/public/js/src/onboard/views/tutorial-2.html',
       controller:'OnboardTutorial2Ctrl',
       title:'Tutorial Step 2',
@@ -382,7 +381,6 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('onboard.tutorial.3', {
       url:'intro/3',
-      parent:'onboard.tutorial',
       templateUrl:'/public/js/src/onboard/views/tutorial-3.html',
       controller:'OnboardTutorial3Ctrl',
       title:'Tutorial Step 3',
@@ -391,40 +389,49 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('onboard.password', {
       url:'start/password?email&token',
-      parent:'onboard',
       templateUrl:'/public/js/src/user/views/password.html',
       controller:'OnboardPasswordCtrl',
       title:'Set Your Password',
       hideHeader:true
     })
-    .state('onboard.profile', {
-      url:'start/profile',
-      parent:'onboard',
-      templateUrl:'/public/js/src/onboard/views/profile.html',
-      controller:'OnboardProfileCtrl',
-      title:'Fill Out Your Profile',
-      resolve:OnboardProfileCtrl.resolve,
-      hideHeader:true
-    })
     .state('onboard.team', {
       url:'start/team',
-      parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/team.html',
       controller:'OnboardTeamCtrl',
       title:'Create Your Team',
-      hideHeader:true
+      hideHeader:true,
+      resolve:{
+        auth:function($rootScope){
+          return $rootScope.user.hasUser(true);
+        }
+      }
+    })
+    .state('onboard.credentials', {
+      url:'start/credentials',
+      templateUrl:'/public/js/src/onboard/views/credentials.html',
+      controller:'OnboardCredentialsCtrl',
+      title:'Enter your AWS Credentials',
+      hideHeader:true,
+      resolve:{
+        auth:function($rootScope){
+          return $rootScope.user.hasUser(true);
+        }
+      }
     })
     .state('onboard.regionSelect', {
       url:'start/region-select',
-      parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/region-select.html',
       controller:'OnboardRegionSelectCtrl',
       title:'Select AWS Regions',
-      hideHeader:true
+      hideHeader:true,
+      resolve:{
+        auth:function($rootScope){
+          return $rootScope.user.hasUser(true);
+        }
+      }
     })
     .state('onboard.vpcSelect', {
       url:'start/vpc-select',
-      parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/vpc-select.html',
       controller:'OnboardVpcsCtrl',
       title:'Select VPCs',
@@ -433,19 +440,28 @@ function config ($stateProvider, $urlRouterProvider) {
     })
     .state('onboard.bastion', {
       url:'start/bastion',
-      parent:'onboard',
       templateUrl:'/public/js/src/onboard/views/bastion.html',
       controller:'OnboardBastionCtrl',
       title:'Bastion Installation',
-      hideHeader:true
+      hideHeader:true,
+      resolve:{
+        auth:function($rootScope){
+          return $rootScope.user.hasUser(true);
+        }
+      }
     })
-    .state('onboard.credentials', {
-      url:'start/credentials',
-      parent:'onboard',
-      templateUrl:'/public/js/src/onboard/views/credentials.html',
-      controller:'OnboardCredentialsCtrl',
-      title:'Enter your AWS Credentials',
-      hideHeader:true
+    .state('onboard.profile', {
+      url:'start/profile',
+      templateUrl:'/public/js/src/onboard/views/profile.html',
+      controller:'OnboardProfileCtrl',
+      title:'Fill Out Your Profile',
+      resolve:OnboardProfileCtrl.resolve,
+      hideHeader:true,
+      resolve:{
+        auth:function($rootScope){
+          return $rootScope.user.hasUser(true);
+        }
+      }
     })
   }
 angular.module('opsee').config(config);
