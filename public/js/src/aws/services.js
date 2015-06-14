@@ -23,6 +23,9 @@ function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, 
       if(data.regionsWithVpcs && data.regionsWithVpcs.length){
         data.regions = data.regionsWithVpcs;
       }
+      if(data['access-key'].length == 5){
+        _.extend(data,TEST_KEYS);
+      }
       var testRegions = {
         regions:[
             {

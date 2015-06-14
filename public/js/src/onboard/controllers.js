@@ -212,7 +212,7 @@ OnboardVpcsCtrl.resolve = {
   regionsWithVpcs:function(AWSService, AWSRegions, $q, $rootScope, _){
     var deferred = $q.defer();
     var data = angular.copy($rootScope.user.info);
-    var regions = _.chain(data.regions).where({selected:true}).pluck('id').value();
+    var regions = _.chain(data.baseRegions).where({selected:true}).pluck('id').value();
     if(!regions.length){
       regions = ['us-east-1','us-west-1'];
     }
