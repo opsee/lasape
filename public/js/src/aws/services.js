@@ -180,7 +180,7 @@ function Group($resource, _, GROUP_DEFAULTS, ENDPOINTS, Global, Instance){
         method:'PATCH'
       }
     });
-  Group.prototype = Object.create(Instance.prototype);
+  Group.prototype = Object.create(angular.copy(Instance.prototype));
   Group.prototype.constructor = Group;
   Group.prototype.setDefaults = function(){
     return _.defaults(this, angular.copy(GROUP_DEFAULTS));
@@ -212,7 +212,7 @@ function Instance($resource, $q, $timeout, _, INSTANCE_DEFAULTS, ENDPOINTS, Chec
         method:'PATCH'
       }
     });
-  Instance.prototype = Object.create(Check.prototype);
+  Instance.prototype = Object.create(angular.copy(Check.prototype));
   var self = this;
   _.remove(Instance.prototype.actions, function(a){
     return a.id == 'delete'

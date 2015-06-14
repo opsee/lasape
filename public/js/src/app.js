@@ -139,7 +139,6 @@
     });
 
     if($rootScope.user.token){
-      console.log($rootScope.user);
       $rootScope.$broadcast('startSocket');
     }
 

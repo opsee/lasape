@@ -45,10 +45,12 @@ function checkInputs(){
         $scope.checkResponse.dataString = typeof $scope.checkResponse.data == 'object' ? $filter('json')($scope.checkResponse.data) : $scope.checkResponse.data;
         $scope.checkResponse.language = null;
         var type = res.headers()['content-type'];
-        if(type.match('css')){
-          $scope.checkResponse.language = 'css';
-        }else if(type.match('html')){
-          $scope.checkResponse.language = 'html';
+        if(type && typeof type == 'string'){
+          if(type.match('css')){
+            $scope.checkResponse.language = 'css';
+          }else if(type.match('html')){
+            $scope.checkResponse.language = 'html';
+          }
         }
       }
       $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
