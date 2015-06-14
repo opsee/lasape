@@ -243,7 +243,7 @@ function CreateCheckCtrl($scope, $state, Check){
   $scope.checkStep = 1;
   $scope.dropdownStatus = {};
   $scope.close = function() {
-    $state.go('checks');
+    $state.go('check.all');
   }
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
