@@ -307,13 +307,13 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
         }
         $timeout(function(){
           $scope.messages.push(d);
-        },i*1000);
+        },i*500);
       })
     })
   }
   $scope.bastionsComplete = function(){
     var allComplete = !_.reject($scope.bastions,function(b){
-      return b.status == 'complete';
+      return b.status == 'complete' || b.status == 'rollback';
     }).length;
     return allComplete && $scope.bastions.length;
   }
