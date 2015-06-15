@@ -110,7 +110,7 @@
           if(data.state == 'ok'){
             var subscribe = JSON.stringify({
               "command":"subscribe",
-              "attributes":{"subscribe_to": data.attributes.customer_id + ".launch-bastion"}
+              "attributes":{"subscribe_to": (data.attributes.customer_id || $rootScope.user.customer_id) + ".launch-bastion"}
             });
             $rootScope.stream.send(subscribe);
           }else{
