@@ -41,23 +41,19 @@ body {
   width: 100%;
 }
 
-.container {
+#container {
   display: block !important;
   max-width: 600px !important;
   margin: 0 auto !important;
-  /* makes it centered */
   clear: both !important;
 }
 
-.content {
-  max-width: 600px;
-  margin: 0 auto;
-  display: block;
-  padding: 20px;
-}
 #{headings(all)}{
   
 }
 h1{
   font-weight:900;
+}
+.text-sm{
+  font-size:13px;
 }

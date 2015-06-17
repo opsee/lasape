@@ -1,3 +1,74 @@
-{% include email-top.html %}
-  {{ content }}
-{% include email-bottom.html %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{page.title}}</title>
+<style type="text/css">
+  {% include email.css %}
+</style>
+</head>
+<body itemscope itemtype="http://schema.org/EmailMessage">
+<table class="body-wrap">
+  <tr>
+    <td>
+    <table width="600" id="container">
+
+      <!--header-->
+      <tr>
+        <td>
+          <table id="header" width="600">
+            <tr>
+              <td height="20"></td>
+            </tr>
+            <tr>
+              <td class="padding">
+                <h1>{{page.title}}</h1>
+              </td>
+            </tr>
+            <tr>
+              <td height="2" class="bg-brand-success"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <!--content-->
+      <tr>
+        <td>
+          {{ content }}
+        </td>
+      </tr>
+
+
+    <!--footer-->
+      <tr>
+        <td>
+          <table id="footer" width="600">
+            <tr>
+              <td height="40"></td>
+            </tr>
+            <tr>
+              <td height="2" class="bg-gray-500"></td>
+            </tr>
+            <tr>
+              <td height="10"></td>
+            </tr>
+            <tr>
+              <td class="text-sm"><a href="http://opsee.co">Unsubscribe</a> from these emails.</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+    </table>
+    <!--end container-->
+
+
+  </td>
+</tr>
+</table>
+<!--end .body-wrap-->
+
+</body>
+</html>
