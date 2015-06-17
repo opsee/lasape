@@ -229,8 +229,24 @@ module.exports = function(grunt) {
           dest:'',
           ext:'.html'
         }]
+      },
+      litmus: {
+        files: { 'dest/output.html' : 'src/input.html' },
+        options: {
+          encodeSpecialChars: true,
+          litmus: {
+            username: 'username',
+            password: 'password',
+            url: 'https://yoursite.litmus.com',
+            applications: ['gmailnew', 'ffgmail', 'chromegmail']
+          }
+        }
       }
-    }
+    },
+    concurrent:{
+      setup:['shell:npm','shell:bower','swagger'],
+      build:['uglify:deps','buildJekyll','compass:dist']
+    },
   });
 
   grunt.registerTask('swagger', 'Generate Angular Swagger Code, Notify of Changes', function(){
@@ -265,12 +281,12 @@ module.exports = function(grunt) {
     });
   });
 
-  grunt.registerTask('install', ['shell:npm','shell:bower']);
-  grunt.registerTask('default', ['install','compass','build','connect', 'watch']);
+  grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
+  grunt.registerTask('init', ['concurrent:setup','concurrent:build']);
   grunt.registerTask('serve', ['connect', 'watch']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
-  grunt.registerTask('build', ['uglify:deps','shell:jekyll','copy','swagger']);
-  grunt.registerTask('prod', ['uglify:deps','shell:jekyll','copy','annotate']);
+  grunt.registerTask('prod', ['concurrent:setup','concurrent:build','annotate']);
   grunt.registerTask('docker', ['install', 'compass', 'build', 'shell:docker']);
+  grunt.registerTask('default', ['init','serve']);
 
 };

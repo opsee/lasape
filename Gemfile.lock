@@ -98,3 +98,6 @@ DEPENDENCIES
   jekyll (= 2.4.0)
   sass (= 3.4.9)
   sass-css-importer (= 1.0.0.beta.0)
+
+BUNDLED WITH
+   1.10.3

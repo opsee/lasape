@@ -10,6 +10,7 @@ front-end
   * npm install -g grunt grunt-cli bower
 2. Dependencies
   * npm install
+  * sudo gem install bundler
   * bundle install
 
 ### Compiling
