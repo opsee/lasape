@@ -47,13 +47,20 @@ body {
   margin: 0 auto !important;
   clear: both !important;
 }
+.logo {
+  background-color: #01579B;
+}
 
 #{headings(all)}{
-  
+
 }
 h1{
   font-weight:900;
+  text-align: center;
 }
 .text-sm{
   font-size:13px;
+}
+#footer-inner {
+  background-color: black;
 }
