@@ -1,5 +1,5 @@
 .assertion-counter {
-  @include border-radius(18px);
+  border-radius:18px;
   @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
   background-color: $gray-600;
   color: $body-bg;
@@ -21,7 +21,7 @@
 }
 .assertion-validation {
   @extend .md-shadow-bottom-z-1;
-  @include border-radius(50%);
+  border-radius:50%;
   @include opacity(0);
   @include transition(transform $swift-ease-out-duration $swift-ease-out-timing-function,
                       opacity $swift-ease-out-duration $swift-ease-out-timing-function,
