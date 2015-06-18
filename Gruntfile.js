@@ -289,7 +289,7 @@ module.exports = function(grunt) {
   grunt.registerTask('serve', ['connect', 'watch']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
   grunt.registerTask('prod', ['concurrent:setup','concurrent:build','annotate']);
-  grunt.registerTask('docker', ['install', 'compass', 'build', 'shell:docker']);
+  grunt.registerTask('docker', ['init','shell:docker']);
   grunt.registerTask('default', ['init','serve']);
 
 };
