@@ -1,5 +1,5 @@
 <md-toolbar title="Opsee Styleguide">
-  <a class="btn btn-success btn-fab" title="Primary Action" tooltip="Create a Check" tooltip-placement="left">
+  <a class="btn btn-success btn-fab" title="Primary Action" tooltip="A Test Button" tooltip-placement="left">
     <svg class="btn-fab-icon"><use xlink:href="#ico_add" /></svg>
   </a>
 </md-toolbar>
@@ -40,55 +40,21 @@
 
     <hr>
 
-    <h2 class="h3">.md-list md-list-two-line</h2>
-    <ul class="md-list md-list-two-line">
-      <li class="md-list-item" ng-repeat="check in checks">
-        <check-item check="check"></check-item>
-      </li>
-    </ul>
-
-    <hr>
-
-    <h2 class="h3">List without md-list</h2>
-    <ul class="list-unstyled">
-      <li ng-repeat="check in checks">
-        <check-item check="check"></check-item>
-      </li>
-    </ul>
-
-    <h2 class="h3">Subheader - List without icons</h2>
-
-    <ul class="md-list md-list-two-line">
-      <li class="md-list-item" ng-repeat="a in [1,2,3,4]">
-        <div class="row">
-          <div class="col-xs-12 display-flex vertical-align">
-            <div class="flex-1 display-flex vertical-align md-list-link">
-              <div>
-                <div class="md-list-line">List Line 1</div>
-                <div class="md-list-line">List Line 2</div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <h2 class="h3">Unordered List</h2>
+    <ul>
+      <li ng-repeat="a in [1,2,3,4]">
+        List Item {{a}}
       </li>
     </ul>
 
     <hr/>
 
-    <h3>Toggle Switches .md-sll</h3>
-
-    <ul class="md-sll">
-      <li class="md-sll-item display-flex flex-wrap" ng-repeat="o in [{},{},{}]">
-        <div class="md-sll-select">
-          <toggle-switch ng-model="o.selected"></toggle-switch>
-        </div>
-        <div class="md-sll-title flex-1">
-          <label class="user-select-none" ng-click="o.selected = !o.selected">Item {{$index}}</label>
-        </div>
+    <h2 class="h3">Ordered List</h2>
+    <ol>
+      <li ng-repeat="a in [1,2,3,4]">
+        List Item {{a}}
       </li>
-    </ul>
-
-    <hr/>
+    </ol>
 
     <h3>Toggle Switches</h3>
     <ul class="list-unstyled">
@@ -129,25 +95,12 @@
 
     <hr/>
 
-    <h3>Cards .md-card</h3>
-    <div class="row">
-      <div ng-repeat="o in [1,2,3,4]" class="col-xs-12 col-sm-6">
-        <div class="md-card">
-          <div class="md-card-content">
-            <h2>A title goes here</h2>
-            <div>
-              <div><a href="mailto:{{::signup.email}}">test@opsee.co</a></div>
-              <span>#352346 - Created on 12/05/15</span>
-            </div>
-          </div>
-          <div class="md-actions">
-            <button type="button" class="btn btn-flat btn-primary">Activate User</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div><br/></div>
+    <h2 class="h3">Checks</h2>
+    <ul class="list-unstyled">
+      <li ng-repeat="check in checks">
+        <check-item check="check"></check-item>
+      </li>
+    </ul>
 
     <hr/>
 
@@ -162,7 +115,7 @@
               <span>#352346 - Created on 12/05/15</span>
             </div>
           </div>
-          <div class="">
+          <div>
             <button type="button" class="btn btn-flat btn-default">Delete</button>
             <button type="button" class="btn btn-flat btn-primary pull-right">Activate</button>
           </div>

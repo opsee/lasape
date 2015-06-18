@@ -10,7 +10,8 @@ $graphWidth:40px;
     width: $graphWidth;
     min-width:$graphWidth;
     min-height:$graphWidth;
-    margin: 1em 1em 1em 0;
+    margin: 0 1em 0 0;
+    font-family: $headings-font-family;
     &.running{
       background-color:$brand-danger;
       .radial-graph-inner{

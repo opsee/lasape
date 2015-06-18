@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-xs-12 display-flex vertical-align">
     <a href="/instance/{{instance.id}}" class="flex-1 display-flex vertical-align md-list-link" title="Go to this Instance">
-      <div class="md-list-avatar" radial-graph check="instance"></div>
-      <div>
-        <div class="md-list-line">{{instance.name || instance.id}}</div>
-        <div class="md-list-line">{{instance.getInfo()}}</div>
+      <div radial-graph item="instance"></div>
+      <div class="padding-tb line-height-1">
+        <div>{{instance.name || instance.id}}</div>
+        <div class="text-secondary">{{instance.getInfo()}}</div>
       </div>
     </a>
     <button type="button" class="btn btn-icon btn-flat" ng-click="instance.menu()" title="Menu">
