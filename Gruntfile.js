@@ -32,7 +32,7 @@ module.exports = function(grunt) {
         command:'npm install'
       },
       bower:{
-        command:'bower install'
+        command:'bower cache clean && bower install'
       },
       seedling:{
         command:'bower update seedling'
