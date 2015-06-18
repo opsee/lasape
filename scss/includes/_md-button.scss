@@ -80,7 +80,7 @@ $button-fab-padding: 1.60rem !default;
 }
 
 .btn-nopad {
-  @include border-radius(0);
+  border-radius:0;
   padding-left: 0;
   padding-right: 0;
 }

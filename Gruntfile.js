@@ -34,6 +34,9 @@ module.exports = function(grunt) {
       bower:{
         command:'bower install'
       },
+      seedling:{
+        command:'bower update seedling'
+      },
       docker:{
         command:'docker build -t opsee/lasape .'
       }
@@ -193,7 +196,7 @@ module.exports = function(grunt) {
         options:{
           livereload:true
         },
-        files:['public/**/*.html']
+        files:['public/js/**/*.html']
       }
     },
     compass:{
@@ -244,8 +247,8 @@ module.exports = function(grunt) {
       }
     },
     concurrent:{
-      setup:['shell:npm','shell:bower','swagger'],
-      build:['uglify:deps','buildJekyll','compass:dist']
+      setup:['shell:npm','shell:bower','shell:seedling','swagger'],
+      build:['uglify:deps','buildJekyll']
     },
   });
 
@@ -282,7 +285,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
-  grunt.registerTask('init', ['concurrent:setup','concurrent:build']);
+  grunt.registerTask('init', ['concurrent:setup','concurrent:build','compass:dist']);
   grunt.registerTask('serve', ['connect', 'watch']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
   grunt.registerTask('prod', ['concurrent:setup','concurrent:build','annotate']);

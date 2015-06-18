@@ -17,7 +17,7 @@
   }
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    @include border-radius(3px);
+    border-radius:3px;
     background: $gray-600;
     cursor: pointer;
   }

@@ -7,75 +7,32 @@
   &::-webkit-input-placeholder  { color: $color; }
 }
 
-// @mixin triangle($direction, $color, $size) {
-//         @if $direction == "left" {
-//                 border-bottom: $size solid transparent;
-//                 border-right: $size solid $color;
-//                 border-top: $size solid transparent;
-//         }
-//         @else if $direction == "right" {
-//                 border-bottom: $size solid transparent;
-//                 border-left: $size solid $color;
-//                 border-top: $size solid transparent;
-//         }
-//         @else if $direction == "up" {
-//                 border-bottom: $size solid $color;
-//                 border-left: $size solid transparent;
-//                 border-right: $size solid transparent;
-//         }
-//         @else if $direction == "down" {
-//                 border-right: $size solid transparent;
-//                 border-left: $size solid transparent;
-//                 border-top: $size solid $color;
-//         }
-//         content:'';
-//         display: block;
-//         height: 0;
-//         width: 0;
-// }
-
-// @mixin visual(){
-//    border: 0; clip: auto; height: auto; margin: auto; overflow: visible; padding: 0; position: static;
-//   width: auto; &.focusable { &:active, &:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width:
-//   auto; } }
-// }
-
-// @mixin cf(){
-//    &:before { content: ""; display: table; } &:after { content: ""; display: table; clear: both; } *zoom: 1;
-// }
-
-// @mixin ir(){
-//    font: 0 / 0 a; text-shadow: none; color: transparent; display: block; overflow: hidden; text-indent: -100%;
-// }
-
-// @mixin placeholder {
-//   &::-webkit-input-placeholder {@content}
-//   &:-moz-placeholder           {@content}
-//   &::-moz-placeholder          {@content}
-//   &:-ms-input-placeholder      {@content}
-// }
-
-// @mixin stripes($colors, $direction: "to bottom") {
-//     $stripes   : 100% / length($colors);
-//     $auto      : not(type-of(nth($colors, 1)) == list);
-//     $gradient  : ();
-//     @for $i from 1 through length($colors) {
-//       $item : nth($colors, $i);
-//       $dump : ();
-//       @if $auto == true {
-//         $dump : $item $stripes * ($i - 1), $item $stripes * $i;
-//       }
-//       @else {
-//         @if $i > 1 {
-//           $prev : nth($colors, $i - 1);
-//           $dump : append($dump, nth($item, 1) nth($prev, 2));
-//         }
-//         $dump : append($dump, $item);
-//       }
-//       $gradient : join($gradient, $dump, comma);
-//     }
-//     @include background-image(linear-gradient($direction, $gradient));
-// }
+@mixin triangle($direction, $color, $size) {
+  @if $direction == "left" {
+          border-bottom: $size solid transparent;
+          border-right: $size solid $color;
+          border-top: $size solid transparent;
+  }
+  @else if $direction == "right" {
+          border-bottom: $size solid transparent;
+          border-left: $size solid $color;
+          border-top: $size solid transparent;
+  }
+  @else if $direction == "up" {
+          border-bottom: $size solid $color;
+          border-left: $size solid transparent;
+          border-right: $size solid transparent;
+  }
+  @else if $direction == "down" {
+          border-right: $size solid transparent;
+          border-left: $size solid transparent;
+          border-top: $size solid $color;
+  }
+  content:'';
+  display: block;
+  height: 0;
+  width: 0;
+}
 
 @mixin animation($str) {
   -webkit-animation: #{$str};
