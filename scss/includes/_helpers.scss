@@ -5,6 +5,7 @@
   display: none;
 }
 
+//color helpers
 .bg-gray-300{
   background-color: $gray-300;
 }
@@ -32,7 +33,6 @@
 .bg-body{
   background-color: $body-bg;
 }
-
 .fill-white{
   fill:white;
 }
@@ -41,30 +41,9 @@
   @include user-select(none);
 }
 
-// .css-two-col{
-//   @include breakpoint(600px){
-//     @include column-count(2);
-//     > *{
-//       display: inline-block;
-//       width:100%;
-//     }
-//   }
-// }
-
-// .padding{
-//   padding:1rem;
-// }
-// .padding-sm{
-//   padding:.3rem;
-// }
-// .padding-tb{
-//   padding-top:1rem;
-//   padding-bottom:1rem;
-// }
-// .padding-tb-md{
-//   padding-top:2rem;
-//   padding-bottom:2rem;
-// }
-// .padding-none{
-//   padding:0;
-// }
+.text-cutoff{
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

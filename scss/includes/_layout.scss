@@ -2,10 +2,6 @@ body {
   min-height:100vh;
 }
 
-.content-pad {
-  padding-top: 32px;
-}
-
 .display-flex{
   @include display-flex;
 }
@@ -81,10 +77,6 @@ to prevent collapsing during animation*/
     }
     &.transition-parent-child{
       @include transform(translateY(-100%));
-      // opacity:0;
-      // &.close{
-      //   @include transform(translateY(0));
-      // }
     }
     &.transition-push{
       @include transform(translateX(-50%));
@@ -133,14 +125,12 @@ to prevent collapsing during animation*/
     }
     &.transition-push{
       opacity:0;
-      // @include transform(translateX(100%));
     }
   }
 }
 
 .transition-msg{
   @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
-  // @include transition(all 5s $swift-ease-out-timing-function);
   &.ng-enter {
     @include transform(translateY(15px));
   }

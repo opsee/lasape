@@ -1,0 +1,14 @@
+.link-style-1{
+    @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function, color $swift-ease-out-duration $swift-ease-out-timing-function);
+  color: inherit;
+  text-decoration: none;
+  &:active, &:focus {
+    background-color: $gray-800;
+    color: inherit;
+    text-decoration: none;
+  }
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
