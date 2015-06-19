@@ -4,8 +4,8 @@
       <div ng-repeat="category in ['running','unmonitored','stopped','restarting']">
         <div ng-hide="!filteredInstances.length">
           <h2 class="h3">{{category | capitalize}} ({{filteredInstances.length}})</h2>
-          <ul class="md-list md-list-two-line">
-            <li class="md-list-item" ng-repeat="instance in filteredInstances = (instances | filter:{status:{state:category}})">
+          <ul class="list-unstyled">
+            <li ng-repeat="instance in filteredInstances = (instances | filter:{status:{state:category}})">
               <instance-item instance="instance"></instance-item>
             </li>
           </ul>

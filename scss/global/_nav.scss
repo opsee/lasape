@@ -1,0 +1,116 @@
+.md-navbar{
+  @extend .md-shadow-bottom-z-2;
+  background-color: #37474F; //$blue-gray-800
+  bottom: 0;
+  margin: 0;
+  width: 100%;
+  @include breakpoint($screen-sm) {
+    .md-navbar-item {
+      width: auto;
+    }
+    .md-navbar-icon {
+      display: inline-block;
+      height: 18px;
+      vertical-align: text-bottom;
+      width: 18px;
+    }
+    .md-navbar-title {
+      display: inline;
+    }
+  }
+  &.md-navbar-sm{
+    font-size:.8em;
+  }
+}
+.md-navbar-icon {
+  @include transition(fill $swift-ease-out-duration $swift-ease-out-timing-function);
+  display: block;
+  fill: $text-color-secondary;
+  height: 24px;
+  margin: 0 auto;
+  width: 24px;
+}
+.md-navbar-list {
+  margin: 0 0;
+  padding: 0 0;
+}
+.md-navbar-item {
+  display: inline-block;
+  width: 25%;
+}
+.md-navbar-title {
+  display: block;
+  margin-top: 0.25em;
+}
+.md-navbar-link {
+  @include transition(color $swift-ease-out-duration $swift-ease-out-timing-function);
+  color: $text-color-secondary;
+  display: block;
+  font-size: 0.75em;
+  overflow: hidden;
+  padding: 0.5em;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:hover, &:active, &:focus {
+    color: $text-color;
+    background-color: transparent !important;
+    text-decoration: none;
+    .md-navbar-icon {
+      fill: $text-color;
+    }
+  }
+  &:active, &.active {
+    color: white;
+    .md-navbar-icon {
+      fill: white;
+    }
+  }
+  @include breakpoint($screen-sm){
+    font-size: 1em;
+    padding: 1em;
+    text-align: left;
+  }
+}
+
+.nav-tabs {
+  border-bottom: 0;
+  @include display-flex;
+  > li {
+    @extend .flex-1;
+    > a {
+      @include transition(color $swift-ease-out-duration $swift-ease-out-timing-function, border-color $swift-ease-out-duration $swift-ease-out-timing-function);
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: $text-color-secondary;
+      font-weight: $body-font-weight-med;
+      text-transform: uppercase;
+      display: block;
+      @extend .text-cutoff;
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: transparent;
+        border-color: transparent;
+        color: $text-color;
+        text-decoration: none;
+      }
+    }
+
+    // Active state, and its :hover to override normal :hover
+    &.active > a {
+      &,
+      &:hover,
+      &:active,
+      &:focus {
+        color: $brand-primary;
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid $brand-primary;
+        color: $text-color;
+        cursor: default;
+        outline: none;
+      }
+    }
+  }
+}

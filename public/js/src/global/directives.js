@@ -529,5 +529,54 @@ function radialGraph(){
 }
 angular.module('opsee.global.directives').directive('radialGraph', radialGraph);
 
+function keypressEvents($document, $rootScope, $timeout){
+  return {
+    restrict: 'A',
+    link: function() {
+      $document.bind('keydown', function(e) {
+        $timeout(function(){
+          $rootScope.$broadcast('keydown', e);
+          $rootScope.$broadcast('keydown:' + e.which, e);
+        },1);
+        if(e.which == 191 && e.srcElement && (e.srcElement.nodeName == 'BODY' || e.srcElement.id == 'searchBoxInput')){
+          $timeout(function(){
+            $rootScope.$broadcast('searchBox');
+          },1);
+          e.preventDefault();
+          return false;
+        }
+      });
+    }
+  };
+}
+angular.module('opsee.global.directives').directive('keypressEvents', keypressEvents);
+
+function searchBox(){
+  return {
+    restrict: 'EA',
+    templateUrl:'/public/js/src/global/partials/search-box.html',
+    controller:function($scope, $rootScope, $timeout, $window){
+      $scope.visible = false;
+      $scope.$on('searchBox', function(onEvent, e){
+        $scope.visible = !$scope.visible;
+        var el = $window.document.getElementById('searchBoxInput');
+        if($scope.visible && el){
+          setTimeout(function(){
+            el.focus();
+          },0);
+        }else if(el){
+          el.blur();
+        }
+      });
+      $scope.$on('keydown:27', function(onEvent, e){
+        $scope.visible = false;
+      });
+      $scope.submit = function(){
+        console.log('submit');
+      }
+    }
+  };
+}
+angular.module('opsee.global.directives').directive('searchBox', searchBox);
 
 })();//IIFE

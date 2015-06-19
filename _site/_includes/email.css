@@ -272,6 +272,8 @@ address { margin-bottom: 22px; font-style: normal; line-height: 1.42857; }
 
 .user-select-none { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
+.text-cutoff { overflow: hidden; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+
 /* ==|== Example ===================================================================================
 @include keyframes(slide-down) { 0% { opacity: 1; } 90% { opacity: 0; }
 }
@@ -280,8 +282,6 @@ address { margin-bottom: 22px; font-style: normal; line-height: 1.42857; }
 }
 ================================================================================================= */
 body { min-height: 100vh; }
-
-.content-pad { padding-top: 32px; }
 
 .display-flex { display: -webkit-flex; display: flex; }
 
@@ -356,8 +356,6 @@ to prevent collapsing during animation*/
 .padding-bx2 { padding-bottom: 2em; }
 
 body { min-height: 100vh; }
-
-.content-pad { padding-top: 32px; }
 
 .display-flex { display: -webkit-flex; display: flex; }
 

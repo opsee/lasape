@@ -12,8 +12,8 @@
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
         <h2 class="h3">All Checks ({{checks.length}})</h2>
         <div ng-show="searching" ng-activity-indicator skip-ng-show="yes"></div>
-        <ul class="md-list md-list-two-line" ng-hide="searching || !checks.length">
-          <li class="md-list-item" ng-repeat="check in checks">
+        <ul class="list-unstyled" ng-hide="searching || !checks.length">
+          <li ng-repeat="check in checks">
             <check-item check="check"></check-item>
           </li>
         </ul>
