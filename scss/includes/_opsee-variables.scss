@@ -29,15 +29,17 @@ $btn-font-weight:         $body-font-weight-med;
 
 //== Colors
 //
-$body-bg:               #303030;
-$text-color:            rgba(white, 0.85);
-$text-color-secondary:  rgba(white, 0.54);
-$brand-primary: #42A5F5; //$blue-400
-$brand-success: #7CB342; //$light-green-600
-$brand-info: #9575CD; //$deep-purple-300
-$brand-warning: #FFA726; //$orange-400
-$brand-danger: #f05223; //custom color
-$brand-error:   #FFD600; //$yellow-A700
+$body-bg:                     #303030;
+$text-color:                  rgba(white, 0.85);
+$text-color-secondary:        rgba(white, 0.54);
+$text-color-light:            rgba(black, 0.85);
+$text-color-secondary-light:  rgba(black, 0.54);
+$brand-primary:               #42A5F5; //$blue-400
+$brand-success:               #7CB342; //$light-green-600
+$brand-info:                  #9575CD; //$deep-purple-300
+$brand-warning:               #FFA726; //$orange-400
+$brand-danger:                #f05223; //custom color
+$brand-error:                 #FFD600; //$yellow-A700
 
 $btn-default-color:              $text-color;
 $btn-default-bg:                 $gray-900;
