@@ -248,9 +248,9 @@ module.exports = function(grunt) {
       }
     },
     concurrent:{
-      setup:['shell:npm','shell:bower','shell:seedling','swagger'],
-      build:['uglify:deps','buildJekyll']
-    },
+      npmBower:['shell:npm','shell:bower'],
+      build:['shell:seedling','swagger','compass:dist']
+    }
   });
 
   grunt.registerTask('swagger', 'Generate Angular Swagger Code, Notify of Changes', function(){
@@ -285,11 +285,30 @@ module.exports = function(grunt) {
     });
   });
 
+  grunt.registerTask('packageCache', 'Generate packageCache file to avoid unnecessary npm install and bower install', function(){
+    var done = this.async();
+    var bower = grunt.file.readJSON('bower.json');
+    var npm = grunt.file.readJSON('package.json');
+    var combined = JSON.stringify({npm:npm,bower:bower});
+    try{
+      var cache = grunt.file.read('packageCache.json');
+    }catch(err){
+      grunt.file.write('packageCache.json',JSON.stringify(combined));
+      grunt.task.run(['concurrent:npmBower','uglify:deps']);
+      done();
+    }
+    if(cache){
+      grunt.log.ok('package.json and bower.json up to date.');
+      done();
+      return true;
+    }
+  });
+
   grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
-  grunt.registerTask('init', ['concurrent:setup','concurrent:build','compass:dist']);
-  grunt.registerTask('serve', ['connect', 'watch']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
-  grunt.registerTask('prod', ['concurrent:setup','concurrent:build','annotate']);
+  grunt.registerTask('init', ['packageCache','concurrent:build']);
+  grunt.registerTask('serve', ['connect', 'watch']);
+  grunt.registerTask('prod', ['init','annotate']);
   grunt.registerTask('docker', ['init','shell:docker']);
   grunt.registerTask('default', ['init','serve']);
 

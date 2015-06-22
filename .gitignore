@@ -17,6 +17,8 @@ public/css/src/style.css.map
 public/css/src/style.css
 *.min.js
 
+packageCache.json
+
 public/lib/
 rawdata/
 .sass-cache/
