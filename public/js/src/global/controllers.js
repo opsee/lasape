@@ -195,6 +195,17 @@ function StyleGuideCtrl($scope, Check){
 }
 angular.module('opsee.global.controllers').controller('StyleGuideCtrl',StyleGuideCtrl);
 
+function ErrorCtrl($scope, $stateParams){
+  console.log($stateParams);
+  if($stateParams.res){
+    try{
+      $scope.res = JSON.parse($stateParams.res);
+    }catch(err){
+      console.log(err);
+    }
+  }
+}
+
 function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('404');
   $urlRouterProvider.when('/', '/home/instances');
@@ -224,9 +235,10 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'404'
     })
     .state('500', {
-      url:'/500',
+      url:'/500?res',
       templateUrl:'/public/js/src/global/views/500.html',
-      title:'500'
+      title:'500',
+      controller:ErrorCtrl
     })
     .state('more', {
       url:'/more',

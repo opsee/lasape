@@ -555,8 +555,11 @@ function searchBox(){
   return {
     restrict: 'EA',
     templateUrl:'/public/js/src/global/partials/search-box.html',
-    controller:function($scope, $rootScope, $timeout, $window){
+    controller:function($scope, $rootScope, $timeout, $window, $state){
       $scope.visible = false;
+      $scope.states = _.filter($state.get(),function(s){
+        return s.url && s.url != '/';
+      });
       $scope.$on('searchBox', function(onEvent, e){
         $scope.visible = !$scope.visible;
         var el = $window.document.getElementById('searchBoxInput');
@@ -565,14 +568,26 @@ function searchBox(){
             el.focus();
           },0);
         }else if(el){
+          $scope.search = null;
           el.blur();
         }
       });
-      $scope.$on('keydown:27', function(onEvent, e){
+      function clear(){
         $scope.visible = false;
+        $scope.search = null;
+      }
+      //esc key
+      $scope.$on('keydown:27', function(onEvent, e){
+        clear();
       });
       $scope.submit = function(){
         console.log('submit');
+      }
+      $scope.select = function(){
+        if($scope.search && $scope.search.name){
+          $state.go($scope.search.name);
+          clear();
+        }
       }
     }
   };

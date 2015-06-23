@@ -42,6 +42,7 @@
         event.preventDefault();
         return $state.go('login');
       }
+      console.log('stateError');
       return $state.go('404');
     });
 
@@ -206,8 +207,8 @@
           return res || $q.when(res);
         },
          responseError: function(res) {
-          if([500].indexOf(res.status) > -1){
-            // $injector.get('$state').go('500');
+          if([0].indexOf(res.status) > -1){
+            $injector.get('$state').go('500',{res:JSON.stringify(res)});
           }else if([404].indexOf(res.status) > -1){
             $injector.get('$state').go('404');
           }

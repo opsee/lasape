@@ -17,56 +17,6 @@
     padding: 0.5em;
     width: 100%;
   }
-  > input[type='text'], [type='email'], [type='password'], textarea  {
-    @include box-shadow(none);
-    @include placeholder($text-color-secondary);
-    @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
-    background-color: transparent;
-    border: none;
-    color: $text-color;
-    padding: 0.5em;
-    &:hover {
-      & ~ .input-icon {
-        fill: $gray-400;
-      }
-    }
-    &:focus, &.has-content, &.error {
-      @include box-shadow(none);
-    }
-    &:focus {
-      background-color: black; //blue-gray-800
-      ~ label {
-        background-color: black; //blue-gray-800
-      }
-      ~ .input-icon {
-        fill: $brand-info;
-      }
-    }
-    &.ng-invalid.ng-touched {
-        ~ label {
-          @include opacity(100);
-          @include transform(translate(0,0));
-          color: $brand-danger;
-          visibility: visible;
-        }
-        ~ .input-icon { fill: $brand-danger; }
-        ~ .input-error-text {
-          @include opacity(100);
-          @include transform(translate(0,0));
-          visibility: visible;
-        }
-    }
-    &.ng-valid.ng-touched {
-      ~ label {
-        @include opacity(100);
-        @include transform(translate(0,0));
-        visibility: visible;
-      }
-    }
-    &.has-icon {
-      text-indent: 32px;
-    }
-  }// > input
   .dropdown-toggle, [dropdown-toggle]{
     border-radius:0;
     background-color: transparent;
@@ -113,6 +63,58 @@
     padding: 0.25em 0.5em;
   }
 }//.form-group
+
+.form-control{
+  box-shadow:none;
+  @include placeholder($text-color-secondary);
+  @include transition(background-color $swift-ease-out-duration $swift-ease-out-timing-function);
+  background-color: transparent;
+  border: none;
+  color: $text-color;
+  padding: 0.5em;
+  &:hover {
+    & ~ .input-icon {
+      fill: $gray-400;
+    }
+  }
+  &:focus, &.has-content, &.error {
+    @include box-shadow(none);
+  }
+  &:focus {
+    background-color: black; //blue-gray-800
+    ~ label {
+      background-color: black; //blue-gray-800
+    }
+    ~ .input-icon {
+      fill: $brand-info;
+    }
+  }
+  &.ng-invalid.ng-touched {
+      ~ label {
+        @include opacity(100);
+        @include transform(translate(0,0));
+        color: $brand-danger;
+        visibility: visible;
+      }
+      ~ .input-icon { fill: $brand-danger; }
+      ~ .input-error-text {
+        @include opacity(100);
+        @include transform(translate(0,0));
+        visibility: visible;
+      }
+  }
+  &.ng-valid.ng-touched {
+    ~ label {
+      @include opacity(100);
+      @include transform(translate(0,0));
+      visibility: visible;
+    }
+  }
+  &.has-icon {
+    text-indent: 32px;
+  }
+}
+
 .form-message{
   color: $brand-danger;
   font-weight: $body-font-weight-bold;
