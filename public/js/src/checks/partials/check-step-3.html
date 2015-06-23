@@ -15,16 +15,17 @@
     <em>This will appear in the notification to help recipients.</em>
   </div>
 
-  <h2>Check Interval</h2>
-
-  <div class="btn-group">
-    <select class="sr-only" ng-required="true" ng-model="check.interval" ng-options="i for i in intervals"></select>
-    <button type="button" class="btn" ng-click="check.interval = int" ng-repeat="int in intervals" ng-class="{'btn-primary':check.interval.name == int.name, 'btn-default':check.interval.name != int.name}">
-      {{int.name}}
-    </button>
+  <div class="padding-tb">
+    <h2>Check Interval</h2>
+    <div class="btn-group">
+      <select class="sr-only" ng-required="true" ng-model="check.interval" ng-options="i for i in intervals"></select>
+      <button type="button" class="btn" ng-click="check.interval = int" ng-repeat="int in intervals" ng-class="{'btn-primary':check.interval.name == int.name, 'btn-default':check.interval.name != int.name}">
+        {{int.name}}
+      </button>
+    </div>
   </div>
 
-
+<div class="padding-tb">
   <h2>Notifications</h2>
   <div ng-repeat="notif in check.notifications" class="row" ng-init="notifIndex = $index">
     <notification-item notif="notif"></notification-item>
@@ -51,5 +52,6 @@
       </div>
     </div>
   </div>
+</div>
 
 </form>

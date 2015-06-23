@@ -1,15 +1,15 @@
 <form name="checkStep2Form" class="ng-hide" ng-show="!checkStep || checkStep == 2" ng-submit="forward(3)">
 <h2>Add Assertions</h2>
-<p>Define the conditions required for this check to pass. Your response and request are shown for context.</p>
+<p>Define the conditions required for this check to pass. Your response and request are shown for context. You must have at least one assertion per check.</p>
 <br />
 
-<div ng-repeat="assertion in check.assertions" ng-init="assertionIndex = $index">
+<div ng-repeat="assertion in check.assertions">
   <div class="row">
-    <div class="col-xs-2"><div class="assertion-counter" ng-class="{success: assertionPassing(assertionIndex) == true, danger: assertionPassing(assertionIndex) == false && assertion.relationship}">
-      {{assertionIndex+1}}
+    <div class="col-xs-2"><div class="assertion-counter" ng-class="{success: assertionPassing($index) == true, danger: assertionPassing($index) == false && assertion.relationship}">
+      {{$index+1}}
       <div class="assertion-validation" ng-class="{active: assertion.relationship}">
-        <svg class="assertion-icon success" ng-show="assertionPassing(assertionIndex) == true" class="" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg>
-        <svg class="assertion-icon danger" ng-show="assertionPassing(assertionIndex) == false" class="" viewBox="0 0 24 24"><use xlink:href="#ico_close" /></svg>
+        <svg class="assertion-icon success" ng-show="assertionPassing($index) == true" class="" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg>
+        <svg class="assertion-icon danger" ng-show="assertionPassing($index) == false" class="" viewBox="0 0 24 24"><use xlink:href="#ico_close" /></svg>
       </div>
     </div></div>
     <div class="col-xs-10 col-sm-4">
@@ -20,7 +20,7 @@
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="type in assertionTypes">
-            <button class="btn" ng-click="changeAssertionType(type,assertionIndex)" title="{{type.title}}" dropdown-toggle>
+            <button class="btn" ng-click="changeAssertionType(type,$parent.$index)" title="{{type.title}}" dropdown-toggle>
               {{type.name}}
             </button>
           </li>
@@ -76,7 +76,7 @@
       </div>
     </div>
     <div class="col-xs-10 col-xs-offset-2">
-      <button type="button" class="btn btn-flat btn-nopad btn-danger" ng-click="check.removeItem('assertions',assertionIndex,'Remove this assertion?')" ng-hide="assertionIndex === 0" analytics-on analytics-event="assertion-remove" analytics-category="Checks"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_delete" /></svg> Remove</button>
+      <button type="button" class="btn btn-flat btn-nopad btn-danger" ng-click="check.removeItem('assertions',$index,'Remove this assertion?')" ng-hide="$index === 0" analytics-on analytics-event="assertion-remove" analytics-category="Checks"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_delete" /></svg> Remove</button>
     </div>
   </div>
   <br />
