@@ -9,14 +9,11 @@
 
         <h2 class="h3">All AWS regions - <a href="#" ng-click="selectAll()">Select All</a> - <a href="#" ng-click="deselectAll()">Deselect All</a></h2>
 
-        <form name="regionSelectForm" ng-submit="submit()">
-
-          <ul ng-repeat="region in user.info.baseRegions" class="md-sll">
-            <li class="md-sll-item display-flex flex-wrap">
-              <div class="md-sll-select">
+        <form name="regionSelectForm" ng-submit="submit()" class="padding-tb">
+          <ul ng-repeat="region in user.info.baseRegions" class="list-unstyled">
+            <li class="display-flex flex-wrap padding-tb-sm">
                 <toggle-switch ng-model="region.selected" ng-required="requiredSelection()"></toggle-switch>
-              </div>
-              <div class="md-sll-title flex-1">
+              <div class="flex-1">
                 <label class="user-select-none" ng-click="region.selected = !region.selected">{{::region.id}} ({{::region.name}})</label>
               </div>
             </li>

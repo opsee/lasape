@@ -8,12 +8,10 @@
           <h2 class="h3">Your active VPCs - <a href="#" ng-click="selectAll()">Select All</a></h2>
           <div ng-repeat="region in user.info.regionsWithVpcs">
             <h2 class="h3">{{region.region}} ({{region.regionName}})</h2>
-            <ul class="md-sll">
-              <li ng-repeat="vpc in region.vpcs" class="md-sll-item display-flex flex-wrap">
-                <div class="md-sll-select">
+            <ul class="list-unstyled">
+              <li ng-repeat="vpc in region.vpcs" class="display-flex flex-wrap padding-tb-sm">
                   <toggle-switch ng-model="vpc.selected" ng-required="requiredSelection()"></toggle-switch>
-                </div>
-                <div class="md-sll-title flex-1">
+                <div class="flex-1">
                   <label ng-click="vpc.selected = !vpc.selected">{{vpc['vpc-id']}} ({{vpc.state}})</label>
                 </div>
               </li>

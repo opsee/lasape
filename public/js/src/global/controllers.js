@@ -7,63 +7,6 @@ function HomeCtrl($scope, $rootScope, _, $state, Check){
 angular.module('opsee.global.controllers').controller('HomeCtrl',HomeCtrl);
 
 function HomeInstancesCtrl($scope, Instance, instances){
-  // $scope.instances = [
-  //   {
-  //     name:'Wee a check',
-  //     status:{
-  //       health:25,
-  //       state:'running',
-  //       silence:{
-  //         startDate:new Date(Date.now()-60000),
-  //         duration:180000
-  //       }
-  //     },
-  //   },
-  //   {
-  //     name:'Another check',
-  //     status:{
-  //       health:50,
-  //       state:'running',
-  //       silence:{
-  //         startDate:new Date(Date.now()-100000),
-  //         duration:500000
-  //       }
-  //     },
-  //   },
-  //   {
-  //     name:'Third check.',
-  //     status:{
-  //       health:70,
-  //       state:'running',
-  //       silence:{
-  //         startDate:new Date(Date.now()-10000).toString(),
-  //         duration:20000
-  //       }
-  //     },
-  //   },
-  //   {
-  //     name:'A check that needs attention',
-  //     status:{
-  //       health:null,
-  //       state:'unmonitored',
-  //       silence:{
-  //         startDate:null,
-  //         duration:null
-  //       }
-  //     },
-  //   },
-  //   {
-  //     name:'Another',
-  //     status:{
-  //       health:null,
-  //       state:'stopped',
-  //       silence:{
-  //         startDate:null,
-  //         duration:null
-  //       }
-  //     },
-  //   },
-  // ];
   $scope.instances = _.map(instances.instances, function(i){
     return new Instance(i).setDefaults();
   });
@@ -85,30 +28,6 @@ HomeInstancesCtrl.resolve = {
 }
 
 function HomeGroupsCtrl($scope, Group){
-  // $scope.groups = [
-  //   {
-  //     name:'A Group',
-  //     status:{
-  //       health:25,
-  //       state:'running',
-  //       silence:{
-  //         startDate:new Date(Date.now()-60000),
-  //         duration:180000
-  //       }
-  //     },
-  //   },
-  //   {
-  //     name:'Another group',
-  //     status:{
-  //       health:50,
-  //       state:'running',
-  //       silence:{
-  //         startDate:new Date(Date.now()-100000),
-  //         duration:500000
-  //       }
-  //     },
-  //   },
-  // ];
   $scope.groups = _.map(groups.groups, function(i){
     return new Group(i).setDefaults();
   });

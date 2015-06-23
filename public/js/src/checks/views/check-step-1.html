@@ -98,19 +98,19 @@
     <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('http.headers')"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add a Header</button>
   </div>
 </div>
-<br />
-<br />
-<div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-        <button type="submit" class="btn btn-flat btn-success" ng-disabled="checkStep1Form.$invalid">
-          <span ng-if="creating">Next: Test This Request <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></span>
-          <span ng-if="!creating">Continue</span>
-        </button>
+
+<div ng-if="info">
+  <div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+          <a href="/check-create/step-2" class="btn btn-flat btn-success" ng-disabled="checkStep1Form.$invalid">
+            <span>Next: Test This Request <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<br />
+
 </form>
