@@ -40,9 +40,6 @@
 .flex-25{
  @include flex(1 25%);
 }
-.flex-order-0{
-  @include order(0);
-}
 .flex-order-1{
   @include order(1);
 }
@@ -67,6 +64,10 @@
 .padding-tb{
   padding-top:1em;
   padding-bottom:1em;
+}
+.padding-tb-sm{
+  padding-top:.5em;
+  padding-bottom:.5em;
 }
 .padding-b {
   padding-bottom: 1em;

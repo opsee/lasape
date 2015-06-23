@@ -142,21 +142,10 @@ SingleCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
-function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check, NotificationSettings, $notification){
+function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check){
   $scope.check = new Check(singleCheck).setDefaults();
   $scope.close = function(){
     $location.url('/check/'+$stateParams.id);
-  }
-  $scope.testNotif = function(){
-    var notif = $notification('New Message', {
-      body:'hello',
-      data:'moo'
-    });
-    console.log(notif);
-    notif.$on('click', function(e,a){
-      console.log(e,a);
-      console.log('click');
-    });
   }
 }
 EditCheckCtrl.resolve = {
@@ -220,7 +209,8 @@ EditCheckCtrl.resolve = {
     }
     ],
     "group": {
-      "name": "US Group 1"
+      "name": "cluster1",
+      "id": "sg-4821a42d"
     },
     "protocol": {
       "name": "HTTP"
@@ -234,13 +224,15 @@ EditCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('EditCheckCtrl', EditCheckCtrl);
 
-function CreateCheckCtrl($scope, $state, Check){
+function CreateCheckCtrl($scope, $state, Check, $http, $filter, _, $analytics, $notification, NotificationSettings, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes, AssertionTest){
   $scope.check = new Check().setDefaults();
   $scope.submit = function(){
     $analytics.eventTrack('create', {category:'Checks'});
     console.log($scope.check);
   }
-  $scope.checkStep = 1;
+  $scope.info = {
+    checkStep:1
+  }
   $scope.dropdownStatus = {};
   $scope.close = function() {
     $state.go('check.all');
@@ -248,7 +240,104 @@ function CreateCheckCtrl($scope, $state, Check){
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 
-function config ($stateProvider) {
+function CheckStep1Ctrl($scope, $state, Check, StatusCodes, Protocols, Verbs, groups){
+  if($scope.info){
+    $scope.info.checkStep = 1;
+  }
+  StatusCodes().then(function(res){
+    $scope.codes = res;
+  });
+  $scope.groups = groups;
+  $scope.protocols = Protocols;
+  $scope.verbs = Verbs;
+}
+angular.module('opsee.checks.controllers').controller('CheckStep1Ctrl', CheckStep1Ctrl);
+CheckStep1Ctrl.resolve = {
+  groups:function($resource, $q, ENDPOINTS){
+    var deferred = $q.defer();
+    var path = $resource(ENDPOINTS.api+'/groups');
+    path.get().$promise.then(function(res){
+      if(res && res.groups){
+        return deferred.resolve(res.groups);
+      }
+      return deferred.reject();
+    });
+    return deferred.promise;
+  }
+}
+
+function CheckStep2Ctrl($scope, $state, $http, $filter, Check, Relationships, AssertionTypes, AssertionTest){
+  if($scope.info){
+    $scope.info.checkStep = 2;
+    $scope.check.addItem('assertions');
+  }
+  $scope.relationships = Relationships;
+  $scope.assertionTypes = AssertionTypes;
+  function genCheckResponse(res){
+    $scope.checkResponse = res;
+    $scope.checkResponse.responseHeaders = _.pairs(res.headers());
+    $scope.checkResponse.dataString = typeof $scope.checkResponse.data == 'object' ? $filter('json')($scope.checkResponse.data) : $scope.checkResponse.data;
+    $scope.checkResponse.language = null;
+    var type = res.headers()['content-type'];
+    if(type && typeof type == 'string'){
+      if(type.match('css')){
+        $scope.checkResponse.language = 'css';
+      }else if(type.match('html')){
+        $scope.checkResponse.language = 'html';
+      }
+    }
+  }
+  $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
+  // $http.get('/public/js/src/user/partials/inputs.html').then(function(res){
+  // $http.get('/public/css/src/style.css').then(function(res){
+    genCheckResponse(res);
+  }, function(res){
+    genCheckResponse(res);
+  })
+
+  $scope.changeAssertionType = function(type,$index){
+    $scope.check.assertions[$index].type = type;
+    $scope.check.assertions[$index].value = null;
+  }
+  $scope.changeAssertionRelationship = function(relationship,assertion){
+    assertion.relationship = relationship;
+    if(relationship.name.match('Is Empty|Is Not Empty') && assertion.type && assertion.type.name != 'Header'){
+     assertion.value = '';
+    }
+  }
+  $scope.assertionPassing = function($index){
+    return AssertionTest($scope.check.assertions[$index],$scope.checkResponse);
+  }
+}
+angular.module('opsee.checks.controllers').controller('CheckStep2Ctrl', CheckStep2Ctrl);
+
+function CheckStep3Ctrl($scope, $state, $analytics, $notification, Check, Intervals){
+  if($scope.info){
+    $scope.info.checkStep = 3;
+    $scope.check.addItem('notifications');
+  }
+  $scope.intervals = Intervals;
+  $scope.save = function(){
+    $analytics.eventTrack('create', {category:'Checks'});
+    console.log('create',$scope.check);
+  }
+  $scope.testNotif = function(){
+    var notif = $notification('New Message', {
+      body:'hello'
+    });
+    notif.$on('click', function(e){
+      console.log('click');
+    });
+  }
+  $scope.sendTestNotification = function(){
+    $analytics.eventTrack('notification-test', {category:'Checks'});
+    console.log($scope.check);
+  }
+}
+angular.module('opsee.checks.controllers').controller('CheckStep3Ctrl', CheckStep3Ctrl);
+
+function config ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.when('/check-create', '/check-create/step-1');
     $stateProvider.state('check', {
       template:'<div ui-view class="transition-sibling"></div>',
       resolve:{
@@ -271,23 +360,64 @@ function config ($stateProvider) {
       resolve:SingleCheckCtrl.resolve,
       reloadOnSearch:false
     })
-    .state('check.edit', {
-      url:'/check/:id/edit',
-      templateUrl:'/public/js/src/checks/views/edit.html',
-      controller:'EditCheckCtrl',
-      resolve:EditCheckCtrl.resolve,
-      hideHeader:true,
-      uiViewClasses:{
-        'transition-parent-child':true,
-        'transition-reverse':true
-      }
-    })
     .state('check.create', {
       url:'/check-create',
       templateUrl:'/public/js/src/checks/views/create.html',
       controller:'CreateCheckCtrl',
       title:'Create New Check',
+      resolve:CreateCheckCtrl.resolve,
       hideHeader:true
+    })
+    .state('check.create.1', {
+      url:'/step-1',
+      templateUrl:'/public/js/src/checks/views/check-step-1.html',
+      controller:'CheckStep1Ctrl',
+      title:'Check Step 1',
+      resolve:CheckStep1Ctrl.resolve,
+    })
+    .state('check.create.2', {
+      url:'/step-2',
+      templateUrl:'/public/js/src/checks/views/check-step-2.html',
+      controller:'CheckStep2Ctrl',
+      title:'Check Step 2',
+    })
+    .state('check.create.3', {
+      url:'/step-3',
+      templateUrl:'/public/js/src/checks/views/check-step-3.html',
+      controller:'CheckStep3Ctrl',
+      title:'Check Step 3',
+    })
+    .state('check.editParent', {
+      abstract:true,
+      templateUrl:'/public/js/src/checks/views/edit.html',
+      hideHeader:true,
+      uiViewClasses:{
+        'transition-parent-child':true,
+        'transition-reverse':true
+      },
+      controller:'EditCheckCtrl',
+      resolve:EditCheckCtrl.resolve
+    })
+    .state('check.edit', {
+      parent:'check.editParent',
+      url:'/check/:id/edit',
+      views:{
+        step1:{
+          templateUrl:'/public/js/src/checks/views/check-step-1.html',
+          controller:'CheckStep1Ctrl',
+          resolve:CheckStep1Ctrl.resolve
+        },
+        step2:{
+          templateUrl:'/public/js/src/checks/views/check-step-2.html',
+          controller:'CheckStep2Ctrl',
+          resolve:CheckStep2Ctrl.resolve
+        },
+        step3:{
+          templateUrl:'/public/js/src/checks/views/check-step-3.html',
+          controller:'CheckStep3Ctrl',
+          resolve:CheckStep3Ctrl.resolve
+        }
+      },
     })
   }
 angular.module('opsee').config(config);

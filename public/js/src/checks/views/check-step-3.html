@@ -1,6 +1,6 @@
-<form name="checkStep3Form" class="ng-hide" ng-show="!checkStep || checkStep == 3" ng-submit="forward(4)">
+<form name="checkStep3Form">
 
-  <h2>Check Name & Message</h2>
+  <h2>Check Name &amp; Message</h2>
 
   <div class="form-group display-flex flex-wrap">
     <input id="checkName" name="checkName" type="text" ng-model="check.name" class="form-control flex-order-1" placeholder="e.g. HTTP Health Check" ng-required="true"/>
@@ -35,19 +35,20 @@
     <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('notifications')"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add another Notification</button>
   </div>
 
-  <!-- <div class="clearfix">
-    <button type="button" ng-click="testNotif()">Test Desktop Notif</button>
-  </div> -->
+  <div class="clearfix padding-tb">
+    <button type="button" class="btn btn-primary" ng-click="testNotif()">Test Desktop Notif</button>
+  </div>
 
-  <div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-          <button type="button" class="btn btn-flat" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send a test</button>
-          <button type="submit" class="btn btn-flat btn-success" ng-disabled="checkStep3Form.$invalid">
-            <span ng-if="creating">Finish <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg></span>
-            <span ng-if="!creating">Save</span>
-          </button>
+  <div ng-if="info">
+    <div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <button type="button" class="btn btn-flat" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send a test</button>
+            <button type="button" ng-click="save()" class="btn btn-flat btn-success" ng-disabled="checkStep3Form.$invalid">
+              <span>Finish <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg></span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

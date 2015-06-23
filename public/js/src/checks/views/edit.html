@@ -1,4 +1,4 @@
-<div class="bg-body" style="position:relative;">
+<div>
   <md-toolbar title="Editing {{::check.name}}" btn-position="left">
     <button class="btn btn-icon btn-flat" ng-click="close()">
       <svg class="btn-fab-icon" viewBox="0 0 24 24"><use xlink:href="#ico_close" /></svg>
@@ -7,8 +7,25 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-        <check-inputs check="check"></check-inputs>
+        <div ng-form="editForm">
+          <div ui-view="step1" class="padding-tb"></div>
+          <div ui-view="step2" class="padding-tb"></div>
+          <div ui-view="step3" class="padding-tb"></div>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <button type="button" class="btn btn-flat" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send a test</button>
+            <button type="button" ng-click="save()" class="btn btn-flat btn-success" ng-disabled="editForm.$invalid">
+              <span>Finish <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

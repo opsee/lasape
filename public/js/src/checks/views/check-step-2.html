@@ -1,4 +1,4 @@
-<form name="checkStep2Form" class="ng-hide" ng-show="!checkStep || checkStep == 2" ng-submit="forward(3)">
+<form name="checkStep2Form" ng-submit="forward(3)">
 <h2>Add Assertions</h2>
 <p>Define the conditions required for this check to pass. Your response and request are shown for context. You must have at least one assertion per check.</p>
 <br />
@@ -88,76 +88,68 @@
   </div>
 </div>
 
-<div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-        <button type="submit" class="btn btn-flat btn-success" ng-disabled="checkStep2Form.$invalid">
-          <span ng-if="creating">Next: Actions &amp; Settings <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></span>
-          <span ng-if="!creating">Save</span>
-        </button>
+  <div class="row">
+    <div class="col-xs-12">
+
+      <h2>Your Response & Request</h2>
+      <p>We're including the content of your response and your request to help you define assertions.</p>
+      <br/>
+
+      <tabset>
+        <tab heading="Headers">
+          <br>
+          <table class="table">
+            <tr>
+              <td><strong><code>Status Code</code></strong></td>
+              <td><code>{{checkResponse.status}} - {{checkResponse.statusText}}</code></td>
+            </tr>
+            <tr ng-repeat="h in checkResponse.responseHeaders">
+              <td><strong><code>{{h[0]}}</code></strong></h4></td>
+              <td><code>{{h[1]}}</code></td>
+            </tr>
+          </table>
+        </tab>
+        <tab heading="Body">
+          <br>
+          <div hljs source="checkResponse.dataString" language="{{checkResponse.language}}">
+          </div>
+        </tab>
+        <tab heading="Request">
+          <br>
+          <table class="table">
+            <tr>
+              <td><strong><code>URL</code></strong></td>
+              <td><code>{{checkResponse.config.url}}</code></td>
+            </tr>
+            <tr>
+              <td><strong><code>Verb</code></strong></td>
+              <td><code>{{checkResponse.config.method}}</code></td>
+            </tr>
+            <tr>
+              <td colspan="2"><strong><code>Headers</code></strong></td>
+            </tr>
+            <tr ng-repeat="(key,val) in checkResponse.config.headers">
+              <td><strong><code>{{key}}</code></strong></td>
+              <td><code>{{val}}</code></td>
+            </tr>
+          </table>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+
+  <div ng-if="info">
+    <div class="btn-container btn-container-fixed btn-container-bordered-top btn-container-righty">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <a href="/check-create/step-3" class="btn btn-flat btn-success" ng-disabled="checkStep2Form.$invalid">
+              <span>Next: Actions &amp; Settings <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_chevron_right" /></svg></span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <div class="form-group">
-
-    </div>
-  </div>
-</div>
-<br />
-<br />
-
-<div class="row">
-  <div class="col-xs-12">
-
-    <h2>Your Response & Request</h2>
-    <p>We're including the content of your response and your request to help you define assertions.</p>
-    <br/>
-
-    <tabset>
-      <tab heading="Headers">
-        <br>
-        <table class="table">
-          <tr>
-            <td><strong><code>Status Code</code></strong></td>
-            <td><code>{{checkResponse.status}} - {{checkResponse.statusText}}</code></td>
-          </tr>
-          <tr ng-repeat="h in checkResponse.responseHeaders">
-            <td><strong><code>{{h[0]}}</code></strong></h4></td>
-            <td><code>{{h[1]}}</code></td>
-          </tr>
-        </table>
-      </tab>
-      <tab heading="Body">
-        <br>
-        <div hljs source="checkResponse.dataString" language="{{checkResponse.language}}">
-        </div>
-      </tab>
-      <tab heading="Request">
-        <br>
-        <table class="table">
-          <tr>
-            <td><strong><code>URL</code></strong></td>
-            <td><code>{{checkResponse.config.url}}</code></td>
-          </tr>
-          <tr>
-            <td><strong><code>Verb</code></strong></td>
-            <td><code>{{checkResponse.config.method}}</code></td>
-          </tr>
-          <tr>
-            <td colspan="2"><strong><code>Headers</code></strong></td>
-          </tr>
-          <tr ng-repeat="(key,val) in checkResponse.config.headers">
-            <td><strong><code>{{key}}</code></strong></td>
-            <td><code>{{val}}</code></td>
-          </tr>
-        </table>
-      </tab>
-    </tabset>
-  </div>
-</div>
 </form>
