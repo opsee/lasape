@@ -1,0 +1,29 @@
+@include keyframes('indicator'){
+  33%{
+    @include transform(rotate(20deg));
+  }
+  66%{
+    @include transform(rotate(-20deg));
+  }
+}
+
+opsee-loader, [opsee-loader]{
+  border:5px solid white;
+  border-radius:10px;
+  overflow:hidden;
+  width:40px;
+  height:40px;
+  position: relative;
+  @include animation-name(indicator);
+  @include animation-iteration-count(infinite);
+  @include animation-duration(1000ms);
+  @include animation-timing-function($swift-ease-in-out-timing-function);
+  @include background-image(linear-gradient(#DC2328, #DC2328 20%, #EA3C1C 20%, #EA3C1C 40%, #E6571B 40%, #E6571B 60%, #F17719 60%, #F17719 80%, #F9A513 80%, #F9A513 100%));
+  &[global]{
+    position:fixed;
+    top:50%;
+    left:50%;
+    margin:-20px 0 0 -20px;
+    z-index:100;
+  }
+}

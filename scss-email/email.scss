@@ -1,13 +1,11 @@
 @import "breakpoint";
 @import "compass";
 @import "compass/css3/deprecated-support";
-@import '../scss/includes/opsee-variables';
+@import '../public/lib/seedling/scss/module.scss';
 @import "bootstrap-email";
 @import '../scss/includes/helpers';
 @import "../scss/includes/mixins";
 @import "../scss/includes/layout";
-@import "../scss/includes/layout";
-@import "../scss/includes/opsee-variables";
 
 * {
   margin: 0 !important;

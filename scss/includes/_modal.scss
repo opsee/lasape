@@ -1,6 +1,9 @@
 .modal-content {
   @extend .md-shadow-bottom-z-2;
   border: none;
+  @include breakpoint($screen-sm) {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  }
 }
 .modal[size="notify"] {
   &.fade .modal-dialog { @include translate(0, 100px) }
@@ -65,11 +68,5 @@
 .modal-backdrop{
   &.notify{
     background:none;
-  }
-}
-
-@include breakpoint($screen-sm) {
-  .modal-content {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
   }
 }

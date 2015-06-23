@@ -277,9 +277,10 @@ module.exports = function(grunt) {
         });
         if(!changed){
          grunt.log.ok('No changes.'); 
+        }else{
+          grunt.file.write(output,newCode);
+          grunt.log.ok(output+' created.');
         }
-        grunt.file.write(output,newCode);
-        grunt.log.ok(output+' created.');
         done();
       }
     });
@@ -310,7 +311,7 @@ module.exports = function(grunt) {
     }
   });
 
-  
+
 
   grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);

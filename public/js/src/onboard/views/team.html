@@ -11,7 +11,9 @@
               <default-messages ng-model="teamForm.teamName"></default-messages>
             </label>
           </div>
-          <div class="help-block">This name will appear in headings and menus to identify your team. Your company name is probably a good choice, but it doesn't need to be official or anything.</div>
+          <div class="text-sm text-secondary padding-b">
+            <em>This name will appear in headings and menus to identify your team. Your company name is probably a good choice, but it doesn't need to be official or anything.</em>
+          </div>
 
           <div class="form-group display-flex flex-wrap">
             <input id="teamDomain" name="teamDomain" type="text" ng-model="user.account.subdomain" placeholder="initech[.opsee.co]" class="form-control flex-1 flex-order-2" ng-required="true" ng-pattern="regex.subdomain" name="domain" ng-model-options="{debounce:300}" domain-available/>
@@ -21,7 +23,9 @@
               <default-messages ng-model="teamForm.teamDomain"></default-messages>
             </label>
           </div>
-          <div class="help-block">The web address you'll use to access your team's account. Keep it short and memorable. Only lowercase letters, numbers, and dashes are allowed, and it must start with a letter.</div>
+          <div class="text-sm text-secondary padding-b">
+            <em>The web address you'll use to access your team's account. Keep it short and memorable. Only lowercase letters, numbers, and dashes are allowed, and it must start with a letter.</em>
+          </div>
 
           <button class="btn btn-raised btn-success btn-block" type="submit" ng-disabled="teamForm.$invalid || teamForm.$pending">Next</button>
         </form>
