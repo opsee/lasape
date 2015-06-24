@@ -89,9 +89,6 @@ body {
 #main{
   padding-bottom:5em;
   @extend .flex-1;
-  @include breakpoint($screen-sm){
-    padding-bottom:2em;
-  }
 }
 
 /* Have to set height explicity on ui-view

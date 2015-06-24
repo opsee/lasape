@@ -52,7 +52,7 @@ function UserProfileCtrl($scope, $rootScope, $state, profile) {
 UserProfileCtrl.resolve = {
   profile:function($rootScope, $q, User){
     if($rootScope.user.hasUser()){
-      return User.get({id:$rootScope.user.id}).$promise;
+      return $rootScope.user;
     }else{
       return $q.reject();
     }

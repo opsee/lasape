@@ -37,6 +37,21 @@
 .fill-white{
   fill:white;
 }
+.fill-primary{
+  fill:$brand-primary;
+}
+.fill-success{
+  fill:$brand-success;
+}
+.fill-info{
+  fill:$brand-info;
+}
+.fill-warning{
+  fill:$brand-warning;
+}
+.fill-danger{
+  fill:$brand-danger;
+}
 
 .user-select-none{
   @include user-select(none);
