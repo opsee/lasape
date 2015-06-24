@@ -4,6 +4,11 @@ angular.module('opsee.admin.controllers', []);
 
 function SignupsCtrl($scope,$rootScope,signups,AdminService, Global){
   $scope.signups = signups;
+  $scope.groups = {
+    unapproved: _.filter(signups,function(s){return !s.activation_id;}),
+    approved: _.filter(signups,function(s){return !!s.activation_id && !s.activation_used;}),
+    users: _.filter(signups,function(s){return !!s.activation_id && s.activation_used;})
+  }
   $scope.activateSignup = function(email){
     AdminService.activateSignup(email).then(function(){
       $rootScope.$emit('notify','User activated.');
@@ -14,8 +19,8 @@ function SignupsCtrl($scope,$rootScope,signups,AdminService, Global){
   }
 }
 SignupsCtrl.resolve = {
-  signups:function(AdminService){
-    return AdminService.signups();
+  signups:function(AdminService, api){
+    return api.getSignups();
   }
 }
 angular.module('opsee.admin.controllers').controller('SignupsCtrl', SignupsCtrl);

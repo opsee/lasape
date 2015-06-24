@@ -2,8 +2,9 @@
   <md-toolbar></md-toolbar>
   <div class="container">
 
-    <div class="row">
-      <div ng-repeat="signup in signups | orderBy:'-created_at'" class="col-xs-12 col-sm-6 padding-tb">
+    <div class="row" ng-repeat="category in ['unapproved','approved','users']">
+      <h2>{{category | capitalize}}</h2>
+      <div ng-repeat="signup in groups[category]" class="col-xs-12 col-sm-6 padding-tb">
         <div class="bg-gray-900 md-shadow-bottom-z-1">
           <div class="padding">
             <h2 class="margin-none">

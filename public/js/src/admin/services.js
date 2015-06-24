@@ -4,15 +4,6 @@ angular.module('opsee.admin.services', []);
 
 function AdminService($q, $resource, $rootScope, $http, ENDPOINTS, User){
   return{
-    signups:function(){
-      var deferred = $q.defer();
-      $http.get(ENDPOINTS.api+'/signups').then(function(res){
-        deferred.resolve(res.data);
-      }, function(res){
-        deferred.reject(res);
-      });
-      return deferred.promise;
-    },
     activateSignup:function(email){
       if(email){
         var path = $resource(ENDPOINTS.api+'/signups/send-activation?email='+email);
