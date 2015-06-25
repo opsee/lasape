@@ -2,7 +2,7 @@
 
   angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router', 'ngMessages', 'ngWebSocket', 'angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'notification', 'ui.gravatar', 'opsee.global', 'opsee.api', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws', 'opsee.docs'])
 
-  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $templateCache, $location, $timeout, $document, $localStorage, $analytics, $websocket, $activityIndicator, $state, $history, Global, Regex, authService, User, ENDPOINTS, VisibilityChange, opseeAPI) {
+  angular.module('opsee').run(function ($rootScope, $window, $q, $http, $templateCache, $location, $timeout, $document, $localStorage, $analytics, $websocket, $activityIndicator, $state, Global, Regex, authService, User, ENDPOINTS, VisibilityChange, opseeAPI) {
 
     $window.FastClick.attach(document.body);
 
@@ -33,9 +33,6 @@
       $analytics.pageTrack(toState.url);
       $activityIndicator.timer = false;
       $activityIndicator.stopAnimating();
-      if (!fromState.abstract) {
-        $history.push(fromState, fromParams);
-      }
     });
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams , error) {
@@ -76,7 +73,6 @@
     }
 
     $rootScope.$state = $state;
-    $history.push($state.current, $state.params);
 
     $rootScope.$on('notify', function(event,msg){
       $analytics.eventTrack('notify', {category:'Global',label:msg});
