@@ -25,9 +25,7 @@ function notificationItem(){
   return {
     restrict:'EA',
     templateUrl:'/public/js/src/checks/partials/notification-item.html',
-    scope:{
-      notif:'='
-    },
+    transclude:true,
     controller:function($scope,NotificationSettings){
       $scope.notificationSettings = new NotificationSettings();
       if($scope.notif.channel){

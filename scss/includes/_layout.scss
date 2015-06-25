@@ -1,3 +1,7 @@
+.container-fluid{
+  width:100%;
+}
+
 .display-flex{
   @include display-flex;
 }
@@ -6,11 +10,11 @@
     @include display-flex;
   }
 }
-.vertical-align{
+.flex-vertical-align{
   @include display-flex;
   @include align-items(center);
 }
-.vertical-align-sm{
+.flex-vertical-align-sm{
   @include breakpoint($screen-sm){
     @include display-flex;
     @include align-items(center);

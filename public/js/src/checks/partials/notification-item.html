@@ -1,30 +1,38 @@
   <div>
-    <div class="col-xs-4">
-      <div class="form-group" dropdown is-open="status['notificationSettings.channels'+$index]">
-        <select class="sr-only" ng-required="true" ng-model="notif.channel" ng-options="channel.name for channel in notificationSettings.channels track by channel.type"></select>
-        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{notif.type.title || 'Pick your notification type'">
-          {{notif.channel.name || 'Type'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
-        </button>
-        <ul class="dropdown-menu">
-          <li ng-repeat="channel in notificationSettings.channels track by $index">
-            <button type="button" ng-click="notif.channel = channel" title="{{channel.title}}" dropdown-toggle>
-              {{channel.name}}
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="form-group">
-        <input type="text" ng-model="notif.value" class="ng-hide form-control" ng-required="true" ng-show="notif.channel.placeholder" placeholder="{{notif.channel.placeholder || 'Pick notifcation type'}}"/>
-        <div ng-if="notif.channel.options">
-          <div ng-repeat="(key,val) in notif.channel.options">
+    <div class="display-flex">
+      <div class="container-fluid flex-1">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <div class="form-group" dropdown is-open="status['notificationSettings.channels'+$index]">
+              <select class="sr-only" ng-required="true" ng-model="notif.channel" ng-options="channel.name for channel in notificationSettings.channels track by channel.type"></select>
+              <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{notif.type.title || 'Pick your notification type'">
+                {{notif.channel.name || 'Type'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
+              </button>
+              <ul class="dropdown-menu">
+                <li ng-repeat="channel in notificationSettings.channels track by $index">
+                  <button type="button" ng-click="notif.channel = channel" title="{{channel.title}}" dropdown-toggle>{{channel.name}}</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-8">
             <div class="form-group">
-            <label ng-click="notif.channel.options[key] = !notif.channel.options[key]">{{::notif.channel.optionsMeta[key].name}}</label>
-            <toggle-switch ng-model="notif.channel.options[key]"></toggle-switch>
+              <input type="text" ng-model="notif.value" class="ng-hide form-control" ng-required="true" ng-show="notif.channel.placeholder" placeholder="{{notif.channel.placeholder || 'Pick notifcation type'}}"/>
+              <div ng-if="notif.channel.options" ng-repeat="(key,val) in notif.channel.options" class="form-group">
+                <label ng-click="notif.channel.options[key] = !notif.channel.options[key]">{{::notif.channel.optionsMeta[key].name}}</label>
+                <toggle-switch ng-model="notif.channel.options[key]"></toggle-switch>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="padding-lr">
+        <button type="button" class="btn btn-icon btn-flat" ng-click="check.removeItem('notifications', $index)" title="Remove this Notification">
+          <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_close" /></svg>
+        </button>
+      </div>
     </div>
-  </div>
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-warning btn-flat">Test Notification #{{$index+1}}</button>
+    </div>
+</div>

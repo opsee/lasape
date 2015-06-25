@@ -27,8 +27,15 @@
 
 <div class="padding-tb">
   <h2>Notifications</h2>
-  <div ng-repeat="notif in check.notifications" class="row" ng-init="notifIndex = $index">
-    <notification-item notif="notif"></notification-item>
+  <div ng-repeat="notif in check.notifications" class="row padding-tb">
+    <div class="col-xs-12">
+      <h3>Notification {{$index+1}}</h3>
+    </div>
+    <div class="col-xs-12">
+      <div class="row">
+        <notification-item></notification-item>
+      </div>
+    </div>
   </div>
 
   <div class="padding-bx2">
@@ -44,7 +51,6 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-            <button type="button" class="btn btn-flat" ng-click="sendTestNotification()" ng-disabled="checkStep3Form.$invalid">Send a test</button>
             <button type="button" ng-click="save()" class="btn btn-flat btn-success" ng-disabled="checkStep3Form.$invalid">
               <span>Finish <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg></span>
             </button>

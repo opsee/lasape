@@ -277,7 +277,7 @@ function AssertionTest(){
 angular.module('opsee.checks.services').service('AssertionTest',AssertionTest);
 
 
-function Verbs(){
+function Methods(){
   return[
     {
       name:'GET'
@@ -296,7 +296,7 @@ function Verbs(){
     }
   ]
 }
-angular.module('opsee.global.services').service('Verbs', Verbs);
+angular.module('opsee.global.services').service('Methods', Methods);
 
 
 function Protocols(){

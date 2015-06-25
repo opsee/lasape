@@ -215,7 +215,7 @@ EditCheckCtrl.resolve = {
     "protocol": {
       "name": "HTTP"
     },
-    "verb": {
+    "method": {
       "name": "POST"
     },
     // "url": "http://foobar.com/fo/clowns"
@@ -224,7 +224,7 @@ EditCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('EditCheckCtrl', EditCheckCtrl);
 
-function CreateCheckCtrl($scope, $state, Check, $http, $filter, _, $analytics, $notification, NotificationSettings, Verbs, Protocols, StatusCodes, Relationships, AssertionTypes, AssertionTest){
+function CreateCheckCtrl($scope, $state, Check, $http, $filter, _, $analytics, $notification, NotificationSettings, Methods, Protocols, StatusCodes, Relationships, AssertionTypes, AssertionTest){
   $scope.check = new Check().setDefaults();
   $scope.submit = function(){
     $analytics.eventTrack('create', {category:'Checks'});
@@ -240,7 +240,7 @@ function CreateCheckCtrl($scope, $state, Check, $http, $filter, _, $analytics, $
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 
-function CheckStep1Ctrl($scope, $state, Check, StatusCodes, Protocols, Verbs, groups){
+function CheckStep1Ctrl($scope, $state, Check, StatusCodes, Protocols, Methods, groups){
   if($scope.info){
     $scope.info.checkStep = 1;
   }
@@ -249,7 +249,7 @@ function CheckStep1Ctrl($scope, $state, Check, StatusCodes, Protocols, Verbs, gr
   });
   $scope.groups = groups;
   $scope.protocols = Protocols;
-  $scope.verbs = Verbs;
+  $scope.methods = Methods;
 }
 angular.module('opsee.checks.controllers').controller('CheckStep1Ctrl', CheckStep1Ctrl);
 CheckStep1Ctrl.resolve = {
