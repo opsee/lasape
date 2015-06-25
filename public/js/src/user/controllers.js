@@ -80,18 +80,6 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'Login',
       hideHeader:true
     })
-    .state('passwordForgot', {
-      url:'/password-forgot',
-      templateUrl:'/public/js/src/user/views/password-forgot.html',
-      controller:'PasswordForgotCtrl',
-      title:'Forgot Password'
-    })
-    .state('passwordChange', {
-      url:'/password-change?resetToken',
-      templateUrl:'/public/js/src/user/views/password-change.html',
-      controller:'PasswordChangeCtrl',
-      title:'Change Password'
-    })
     .state('profile', {
       url:'/profile',
       templateUrl:'/public/js/src/user/views/profile.html',
@@ -105,6 +93,19 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'UserProfileEditCtrl',
       title:'Edit Your Profile',
       resolve:UserProfileCtrl.resolve,
+      hideHeader:true
+    })
+    .state('passwordForgot', {
+      url:'/password-forgot',
+      templateUrl:'/public/js/src/user/views/password-forgot.html',
+      controller:'PasswordForgotCtrl',
+      title:'Forgot Password'
+    })
+    .state('passwordChange', {
+      url:'/profile/password-change?resetToken',
+      templateUrl:'/public/js/src/user/views/password-change.html',
+      controller:'PasswordChangeCtrl',
+      title:'Change Password',
       hideHeader:true
     })
   }
