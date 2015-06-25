@@ -151,13 +151,15 @@ function config ($stateProvider, $urlRouterProvider) {
     .state('404', {
       url:'/404',
       templateUrl:'/public/js/src/global/views/404.html',
-      title:'404'
+      title:'404',
+      hideInSearch:true
     })
     .state('500', {
       url:'/500?res',
       templateUrl:'/public/js/src/global/views/500.html',
       title:'500',
-      controller:ErrorCtrl
+      controller:ErrorCtrl,
+      hideInSearch:true
     })
     .state('more', {
       url:'/more',

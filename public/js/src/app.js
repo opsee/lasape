@@ -49,12 +49,16 @@
     $rootScope.localStorage = $localStorage;
     $rootScope.global = Global;
     $rootScope.regex = Regex;
+    $rootScope.opseeNotifs = [1,2,3];
     $rootScope.pageInfo = {
       title: function(){
+        var string = null;
         if(!$state.current.title){
-          return 'Opsee';
+          string = 'Opsee';
+        }else{
+          string = $state.current.title + ' - Opsee';
         }
-        return $state.current.title == 'Opsee' ? 'Opsee' : $state.current.title + ' - Opsee'
+        return $rootScope.opseeNotifs.length ? '['+$rootScope.opseeNotifs.length+'] '+string : string;
       }
     }
 
@@ -67,19 +71,6 @@
     }else{
       $rootScope.user = new User().setDefaults();
     }
-
-    $window.addEventListener('popstate', function(event){
-      event.stopPropagation();
-      event.preventDefault();
-      $rootScope.$broadcast('popstate',event);
-    });
-
-    $rootScope.$on('popstate', function(e,data){
-      $rootScope.popstate = true;
-      $timeout(function(){
-        $rootScope.popstate = false;
-      },500);
-    })
 
     $rootScope.$state = $state;
 

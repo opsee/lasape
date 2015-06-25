@@ -374,18 +374,21 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'CheckStep1Ctrl',
       title:'Check Step 1',
       resolve:CheckStep1Ctrl.resolve,
+      hideInSearch:true
     })
     .state('check.create.2', {
       url:'/step-2',
       templateUrl:'/public/js/src/checks/views/check-step-2.html',
       controller:'CheckStep2Ctrl',
       title:'Check Step 2',
+      hideInSearch:true
     })
     .state('check.create.3', {
       url:'/step-3',
       templateUrl:'/public/js/src/checks/views/check-step-3.html',
       controller:'CheckStep3Ctrl',
       title:'Check Step 3',
+      hideInSearch:true
     })
     .state('check.editParent', {
       abstract:true,

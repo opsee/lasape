@@ -557,9 +557,12 @@ function searchBox(){
     templateUrl:'/public/js/src/global/partials/search-box.html',
     controller:function($scope, $rootScope, $timeout, $window, $state){
       $scope.visible = false;
-      $scope.states = _.filter($state.get(),function(s){
-        return s.url && s.url != '/';
-      });
+      $scope.states = _.chain($state.get()).filter(function(s){
+        return s.url && s.url != '/' && !s.hideInSearch;
+      }).map(function(s){
+        s.url = s.url.replace('^','');
+        return s;
+      }).value();
       $scope.$on('searchBox', function(onEvent, e){
         $scope.visible = !$scope.visible;
         var el = $window.document.getElementById('searchBoxInput');

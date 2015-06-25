@@ -21,13 +21,13 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'Docs'
     })
     .state('docs.nav', {
-      url:'/nav',
+      url:'^/docs/nav',
       templateUrl:'/public/js/src/docs/views/nav.html',
       controller:'DocsNavCtrl',
       title:'Documents'
     })
     .state('docs.bastion', {
-      url:'/bastion',
+      url:'^/docs/bastion',
       templateUrl:'/public/js/src/docs/views/bastion.html',
       title:'The Bastion'
     })

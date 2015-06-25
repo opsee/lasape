@@ -348,14 +348,16 @@ function config ($stateProvider, $urlRouterProvider) {
       templateUrl:'/public/js/src/onboard/views/email.html',
       controller:'OnboardEmailCtrl',
       title:'Email',
-      hideHeader:true
+      hideHeader:true,
+      hideInSearch:true
     })
     .state('onboard.thanks', {
       url:'start/thanks?email',
       controller:'OnboardThanksCtrl',
       templateUrl:'/public/js/src/onboard/views/thanks.html',
       title:'Thank You',
-      hideHeader:true
+      hideHeader:true,
+      hideInSearch:true
     })
     .state('onboard.tutorial', {
       controller:'OnboardTutorialCtrl',
@@ -369,7 +371,8 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'OnboardTutorial1Ctrl',
       title:'Tutorial Step 1',
       resolve:OnboardTutorial1Ctrl.resolve,
-      hideHeader:true
+      hideHeader:true,
+      hideInSearch:true
     })
     .state('onboard.tutorial.2', {
       url:'intro/2',
@@ -377,7 +380,8 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'OnboardTutorial2Ctrl',
       title:'Tutorial Step 2',
       resolve:OnboardTutorial2Ctrl.resolve,
-      hideHeader:true
+      hideHeader:true,
+      hideInSearch:true
     })
     .state('onboard.tutorial.3', {
       url:'intro/3',
@@ -385,7 +389,8 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'OnboardTutorial3Ctrl',
       title:'Tutorial Step 3',
       resolve:OnboardTutorial3Ctrl.resolve,
-      hideHeader:true
+      hideHeader:true,
+      hideInSearch:true
     })
     .state('onboard.password', {
       url:'start/password?email&token',

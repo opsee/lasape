@@ -2,9 +2,10 @@
 
 angular.module('opsee.aws.controllers', []);
 
-function InstanceSingleCtrl($scope, singleInstance, Group){
+function InstanceSingleCtrl($scope, $state, singleInstance, Group){
   $scope.instance = singleInstance.setDefaults();
   $scope.instance.meta.created = new Date(Date.parse($scope.instance.meta.created));
+  $state.current.title = 'Instance: '+($scope.instance.name || $scope.instance.id);
   $scope.instance.groups = _.map($scope.instance.groups, function(i){
     return new Group(i).setDefaults();
   });
@@ -16,8 +17,9 @@ InstanceSingleCtrl.resolve = {
 }
 angular.module('opsee.aws.controllers').controller('InstanceSingleCtrl',InstanceSingleCtrl);
 
-function GroupSingleCtrl($scope, _, singleGroup, Instance){
+function GroupSingleCtrl($scope, $state, _, singleGroup, Instance){
   $scope.group = singleGroup.setDefaults();
+  $state.current.title = 'Group: '+($scope.group.name || $scope.group.id);
   $scope.group.instances = _.map($scope.group.instances, function(i){
     return new Instance(i).setDefaults();
   });
