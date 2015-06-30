@@ -45,9 +45,6 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 8000,
-          base: '',
-          hostname:'localhost',
-          open:true,
           middleware: function(connect, options, middlewares) {
             var rules = [
                 "!\\.html|\\.js|\\.css|\\.svg|\\.jp(e?)g|\\.png|\\.woff|\\.tiff|\\.gif$ /index.html"
@@ -56,6 +53,11 @@ module.exports = function(grunt) {
             return middlewares;
           }
         }
+      }
+    },
+    open:{
+      dev:{
+        path:'http://localhost:8000'
       }
     },
     copy:{
@@ -316,7 +318,7 @@ module.exports = function(grunt) {
   grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
   grunt.registerTask('init', ['packageCache','concurrent:build']);
-  grunt.registerTask('serve', ['connect', 'watch']);
+  grunt.registerTask('serve', ['connect', 'open','watch']);
   grunt.registerTask('prod', ['init','annotate']);
   grunt.registerTask('docker', ['init','shell:docker']);
   grunt.registerTask('default', ['init','serve']);
