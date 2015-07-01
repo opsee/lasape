@@ -102,6 +102,12 @@ function moment($window){
 }
 angular.module('opsee.global.services').service('moment',moment);
 
+//opsee slate assertion processor
+function slate($window){
+  return $window.slate;
+}
+angular.module('opsee.global.services').service('slate',slate);
+
 function regex(){
   return{
     float:/^[-+]?[0-9]*\.?[0-9]+$/,

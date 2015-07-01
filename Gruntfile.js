@@ -34,7 +34,10 @@ module.exports = function(grunt) {
       bower:{
         command:'bower cache clean && bower install'
       },
-      seedling:{
+      slate:{
+        command:'npm install slate'
+      },
+      opseeBower:{
         command:'bower update seedling'
       },
       docker:{
@@ -84,7 +87,6 @@ module.exports = function(grunt) {
             'angular-resource/angular-resource.min',
             'angular-bootstrap/ui-bootstrap-tpls',
             'angular-route/angular-route.min',
-            'lodash/lodash.min',
             'ngstorage/ngStorage.min',
             'angular-http-auth/src/http-auth-interceptor',
             'angulartics/dist/angulartics.min',
@@ -122,9 +124,26 @@ module.exports = function(grunt) {
           'public/js/dist/opsee.min.js':['public/js/dist/deps.min.js','public/js/src/app.app.js','public/**/*.annotated.js']
         }
       },
+      npm: {
+        options:{
+          mangle:true,
+          compress:{}
+        },
+        files:{
+          'public/js/dist/npm-deps.min.js':['public/js/dist/npm-deps.js']
+        }
+      }
     },
     clean:{
       annotated:['**/*.annotated.js','**/*.app.js'],
+    },
+    browserify:{
+      slate:{
+        src:['node_modules/slate/src/exports.js'],
+        dest:'public/js/dist/npm-deps.js',
+        options:{
+        }
+      }
     },
     autoprefixer:{
       single_file:{
@@ -166,7 +185,7 @@ module.exports = function(grunt) {
     watch:{
       grunt:{
         files:['Gruntfile.js'],
-        tasks:['uglify:deps','swagger']
+        tasks:['uglify:deps','swagger','browserify']
       },
       j:{
         options:{
@@ -251,7 +270,7 @@ module.exports = function(grunt) {
     },
     concurrent:{
       npmBower:['shell:npm','shell:bower'],
-      build:['shell:seedling','swagger','compass:dist']
+      build:['shell:opseeBower','browserify','swagger','compass:dist']
     }
   });
 
@@ -317,7 +336,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
-  grunt.registerTask('init', ['packageCache','concurrent:build']);
+  grunt.registerTask('init', ['packageCache','shell:slate','concurrent:build','uglify:npm']);
   grunt.registerTask('serve', ['connect', 'open','watch']);
   grunt.registerTask('prod', ['init','annotate']);
   grunt.registerTask('docker', ['init','shell:docker']);

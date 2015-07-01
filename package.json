@@ -16,11 +16,13 @@
     "angular-animate": "^1.3.15",
     "angular-aria": "^1.3.15",
     "bower": "~1.2.7",
+    "browserify": "^10.2.4",
     "colors": "^1.1.0",
     "connect-modrewrite": "^0.7.11",
     "diff": "^1.4.0",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "^3.0.0",
+    "grunt-browserify": "^3.8.0",
     "grunt-cli": "^0.1.13",
     "grunt-concurrent": "^1.0.1",
     "grunt-contrib-clean": "^0.6.0",
@@ -38,6 +40,7 @@
     "load-grunt-tasks": "^3.1.0",
     "ng-annotate": "^0.15.3",
     "request": "^2.57.0",
-    "swagger-js-codegen": "^1.1.3"
+    "swagger-js-codegen": "^1.1.3",
+    "slate":"git+ssh://git@github.com/opsee/slate.git"
   }
 }

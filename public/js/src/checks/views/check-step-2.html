@@ -14,9 +14,9 @@
     </div></div>
     <div class="col-xs-10 col-sm-4">
       <div class="form-group" dropdown is-open="status['assertionType'+$index]">
-        <select class="sr-only" ng-required="true" ng-model="check.assertions[$index].type" ng-options="r for r in assertionTypes"></select>
+        <select class="sr-only" ng-required="true" ng-model="check.assertions[$index].key" ng-options="r for r in assertionTypes"></select>
         <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{assertion.type.title || 'Pick your assertion type.'}}">
-          {{assertion.type.name || 'Type'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
+          {{assertionById(assertion.key).name || 'Type'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="type in assertionTypes">
@@ -29,13 +29,13 @@
     </div>
     <div class="col-xs-10 col-xs-offset-2 col-sm-6 col-sm-offset-0">
       <div class="form-group" dropdown is-open="status['assertionRelationship'+$index]">
-        <select class="sr-only" ng-required="true" ng-model="assertion.relationship" ng-options="r for r in relationships"></select>
-        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{assertion.relationship.title || 'Pick your relationship'}}">
-          {{assertion.relationship.name || 'Relationship'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
+        <select class="sr-only" ng-required="true" ng-model="assertion.relationship" ng-options="r as r.name for r in relationships track by r.id"></select>
+        <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled" title="{{assertion.relationship || 'Pick your relationship'}}">
+          {{relationshipById(assertion.relationship).name || 'Relationship'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="relationship in relationships">
-            <button  class="btn" ng-click="changeAssertionRelationship(relationship,assertion)" title="{{relationship.title}}" dropdown-toggle>
+            <button type="button" class="btn" ng-click="changeAssertionRelationship(relationship,assertion)" title="{{relationship.title}}" dropdown-toggle>
               {{relationship.name}}
             </button>
           </li>
@@ -45,32 +45,32 @@
   </div>
 
   <div class="row">
-    <div ng-if="assertion.relationship.name && assertion.type.name == 'Response Body'">
+    <div ng-if="assertion.relationship && assertion.key == 'body'">
       <div class="col-xs-10 col-xs-offset-2">
         <div class="form-group display-flex flex-wrap">
-          <input id="responseBodyValue" name="responseBodyValue" type="text" ng-model="assertion.value" placeholder="Value" class="form-control flex-order-1" ng-required="true" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')"/>
+          <input id="responseBodyValue" name="responseBodyValue" type="text" ng-model="assertion.operand" placeholder="Value" class="form-control flex-order-1" ng-required="true" ng-hide="relationshipIsEmpty(assertion.relationship)"/>
           <label for="responseBodyValue">Value</label>
         </div>
       </div>
     </div>
-    <div ng-if="assertion.relationship.name && assertion.type.name == 'Header'">
+    <div ng-if="assertion.relationship && assertion.key == 'header'">
       <div class="col-xs-4 col-xs-offset-2">
         <div class="form-group display-flex flex-wrap">
-          <input  id="responseBodyHeaderKey" name="responseBodyHeaderKey" type="text" ng-model="assertion.value.name" typeahead="h as h[0] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control flex-order-1" placeholder="Key">
+          <input id="responseBodyHeaderKey" name="responseBodyHeaderKey" type="text" ng-model="assertion.value" typeahead="h for h in headerKeys | filter:$viewValue" class="form-control flex-order-1" placeholder="Key">
           <label for="responseBodyHeaderKey">Key</label>
         </div>
       </div>
       <div class="col-xs-6">
-        <div class="form-group display-flex flex-wrap" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')">
-          <input id="responseBodyHeaderVal" name="responseBodyHeaderVal" type="text" ng-model="assertion.value.value" typeahead="h as h[1] for h in checkResponse.responseHeaders | filter:$viewValue" class="form-control flex-order-1" placeholder="Value">
+        <div class="form-group display-flex flex-wrap" ng-hide="relationshipIsEmpty(assertion.relationship)">
+          <input id="responseBodyHeaderVal" name="responseBodyHeaderVal" type="text" ng-model="assertion.operand" typeahead="h for h in headerValues | filter:$viewValue" class="form-control flex-order-1" placeholder="Value">
           <label for="responseBodyHeaderVal">Value</label>
         </div>
       </div>
     </div>
-    <div ng-if="assertion.relationship.name && assertion.type.name == 'Status Code'">
+    <div ng-if="assertion.relationship && assertion.key == 'statusCode'" ng-hide="relationshipIsEmpty(assertion.relationship)">
       <div class="col-xs-10 col-xs-offset-2">
         <div class="form-group display-flex flex-wrap">
-          <input id="responseBodyCode" name="responseBodyCode" type="text" ng-model="assertion.value" typeahead="c.code as c.code for c in codes | filter:$viewValue" class="form-control flex-order-1" placeholder="e.g. 200" ng-required="true" ng-if="!assertion.relationship.name.match('Is Empty|Is Not Empty')">
+          <input id="responseBodyCode" name="responseBodyCode" type="text" ng-model="assertion.operand" typeahead="c.code as c.code for c in codes | filter:$viewValue" class="form-control flex-order-1" placeholder="e.g. 200" ng-required="true">
           <label for="responseBodyCode">Code</label>
         </div>
       </div>
@@ -99,13 +99,9 @@
         <tab heading="Headers">
           <br>
           <table class="table">
-            <tr>
-              <td><strong><code>Status Code</code></strong></td>
-              <td><code>{{checkResponse.status}} - {{checkResponse.statusText}}</code></td>
-            </tr>
-            <tr ng-repeat="h in checkResponse.responseHeaders">
-              <td><strong><code>{{h[0]}}</code></strong></h4></td>
-              <td><code>{{h[1]}}</code></td>
+            <tr ng-repeat="(key, val) in checkResponse.headers">
+              <td><strong><code>{{key}}</code></strong></h4></td>
+              <td><code>{{val}}</code></td>
             </tr>
           </table>
         </tab>
@@ -126,7 +122,8 @@
               <td><code>{{checkResponse.config.method}}</code></td>
             </tr>
             <tr>
-              <td colspan="2"><strong><code>Headers</code></strong></td>
+              <td><strong><code>Status Code</code></strong></td>
+              <td><code>{{checkResponse.status}} - {{checkResponse.statusText}}</code></td>
             </tr>
             <tr ng-repeat="(key,val) in checkResponse.config.headers">
               <td><strong><code>{{key}}</code></strong></td>

@@ -142,7 +142,7 @@ SingleCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleCheckCtrl);
 
-function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check){
+function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check, slate){
   $scope.check = new Check(singleCheck).setDefaults();
   $scope.close = function(){
     $location.url('/check/'+$stateParams.id);
@@ -188,25 +188,15 @@ EditCheckCtrl.resolve = {
   ],
   "assertions": [
     {
-      "code": null,
-      "relationship": {
-        "name": "Not Equal To"
-      },
-      "value": "500",
-      "type": {
-        "name": "Status Code"
-      }
+      key:'statusCode',
+      relationship:'notEqual',
+      operand:500
     },
     {
-      "code": null,
-      "relationship": {
-        "name": "Contains"
-      },
-      "value": "meow",
-      "type": {
-        "name": "Response Body"
-      }
-    }
+      key:'body',
+      relationship:'contain',
+      operand:'meow'
+    },
     ],
     "group": {
       "name": "cluster1",
@@ -266,7 +256,7 @@ CheckStep1Ctrl.resolve = {
   }
 }
 
-function CheckStep2Ctrl($scope, $state, $http, $filter, Check, Relationships, AssertionTypes, AssertionTest){
+function CheckStep2Ctrl($scope, $state, $http, $filter, Check, Relationships, AssertionTypes, slate){
   if($scope.info){
     $scope.info.checkStep = 2;
     $scope.check.addItem('assertions');
@@ -275,10 +265,13 @@ function CheckStep2Ctrl($scope, $state, $http, $filter, Check, Relationships, As
   $scope.assertionTypes = AssertionTypes;
   function genCheckResponse(res){
     $scope.checkResponse = res;
-    $scope.checkResponse.responseHeaders = _.pairs(res.headers());
+    //for some reason angular is choking on this unless we JSONify it
+    $scope.checkResponse.headers = JSON.parse(JSON.stringify(res.headers()));
     $scope.checkResponse.dataString = typeof $scope.checkResponse.data == 'object' ? $filter('json')($scope.checkResponse.data) : $scope.checkResponse.data;
     $scope.checkResponse.language = null;
-    var type = res.headers()['content-type'];
+    $scope.headerKeys = _.keys($scope.checkResponse.headers);
+    $scope.headerValues = _.values($scope.checkResponse.headers);
+    var type = $scope.checkResponse.headers['content-type'];
     if(type && typeof type == 'string'){
       if(type.match('css')){
         $scope.checkResponse.language = 'css';
@@ -296,17 +289,30 @@ function CheckStep2Ctrl($scope, $state, $http, $filter, Check, Relationships, As
   })
 
   $scope.changeAssertionType = function(type,$index){
-    $scope.check.assertions[$index].type = type;
+    $scope.check.assertions[$index].key = type.id;
     $scope.check.assertions[$index].value = null;
   }
   $scope.changeAssertionRelationship = function(relationship,assertion){
-    assertion.relationship = relationship;
-    if(relationship.name.match('Is Empty|Is Not Empty') && assertion.type && assertion.type.name != 'Header'){
+    assertion.relationship = relationship.id;
+    if(relationship.id.match('empty|notEmpty') && assertion.key && assertion.key != 'header'){
      assertion.value = '';
     }
   }
   $scope.assertionPassing = function($index){
-    return AssertionTest($scope.check.assertions[$index],$scope.checkResponse);
+    var test = slate.testAssertion({
+      assertion:$scope.check.assertions[$index],
+      response:$scope.checkResponse
+    });
+    return test.success;
+  }
+  $scope.relationshipById = function(id){
+    return _.find(Relationships,{id:id}) || {name:null,title:null,id:null};
+  }
+  $scope.assertionById = function(id){
+    return _.find(AssertionTypes,{id:id}) || {name:null,title:null,id:null};
+  }
+  $scope.relationshipIsEmpty = function(r){
+    return r == 'empty' || r == 'notEmpty';
   }
 }
 angular.module('opsee.checks.controllers').controller('CheckStep2Ctrl', CheckStep2Ctrl);

@@ -191,92 +191,6 @@ var checkSchemas = {
 }
 angular.module('opsee.checks.services').constant('CHECK_SCHEMAS', checkSchemas);
 
-function AssertionTest(){
-  var internals = {
-    'Equal To':function(response,test){
-      return angular.equals(response,test);
-    },
-    'Not Equal To':function(response,test){
-      return !angular.equals(response,test);
-    },
-    'Is Empty':function(response){
-      return _.isEmpty(response);
-    },
-    'Is Not Empty':function(response){
-      return !_.isEmpty(response);
-    },
-    'Contains':function(response,test){
-      if(typeof response === 'string' && typeof test === 'string'){
-        response = response.toLowerCase();
-        test = test.toLowerCase();
-        return !!response.match(test);
-      }
-      return false;
-    },
-    'RegExp':function(response,test){
-      if(typeof response === 'string' && typeof test === 'string'){
-        return !!response.match(test);
-      }
-      return false;
-    }
-  }
-  return function(assertion,res){
-    if(!assertion || !res || assertion.value===null || !assertion.relationship.name){return false;}
-    var name = assertion.type.name;
-    var relationship = assertion.relationship.name;
-    switch(name){
-      case 'Status Code':
-        try{
-          var code = assertion.value;
-          var status = res.status.toString();
-          return internals[relationship].call(this,status,code);
-        }catch(err){
-          return false;
-        }
-      break;
-      case 'Header':
-        try{
-          var name = typeof assertion.value.name == 'object' ? assertion.value.name[0] : assertion.value.name;
-          var value = typeof assertion.value.value == 'object' ? assertion.value.value[1] : assertion.value.value;
-          var header = _.chain(res.responseHeaders).filter(function(h){
-            return h[0] == name;
-          }).first().value();
-          if(relationship == 'Is Empty'){
-            if(!header){
-              return true;
-            }
-            return !header[1];
-          }else if(relationship == 'Is Not Empty'){
-            return !!header[1];
-          }
-          if(!header){
-            return false;
-          }
-          return internals[relationship].call(this,header[1],value);
-        }catch(err){
-          return false;
-        }
-      break;
-      case 'Response Body':
-      try{
-        var text = assertion.value;
-        var body = JSON.stringify(res.data);
-        if(relationship == 'Is Empty'){
-          return !body;
-        }else if(relationship == 'Is Not Empty'){
-          return !!body;
-        }
-        return internals[relationship].call(this,body,text);
-      }catch(err){
-        return false;
-      }
-      break;
-    }
-  }
-}
-angular.module('opsee.checks.services').service('AssertionTest',AssertionTest);
-
-
 function Methods(){
   return[
     {
@@ -336,33 +250,38 @@ function Relationships(){
   return[
     {
       name:'Equal To',
-      title:'Exactly equal to.'
+      title:'Exactly equal to.',
+      id:'equal'
     },
     {
       name:'Not Equal To',
-      title:'Not equal to.'
+      title:'Not equal to.',
+      id:'notEqual'
     },
     {
       name:'Is Empty',
-      title:'Is empty.'
+      title:'Is empty.',
+      id:'empty'
     },
     {
       name:'Is Not Empty',
-      title:'Is not empty.'
+      title:'Is not empty.',
+      id:'notEmpty'
     },
-    // {
-    //   name:'Greater Than'
-    // },
-    // {
-    //   name:'Less Than'
-    // },
     {
       name:'Contains',
-      title:'Contains all text.'
+      title:'Contains the text.',
+      id:'contain'
+    },
+    {
+      name:'Does Not Contain',
+      title:'Does not contain the text.',
+      id:'notContain'
     },
     {
       name:'RegExp',
-      title:'^2 etc.'
+      title:'^2 etc.',
+      id:'regExp'
     }
   ]
 }
@@ -372,15 +291,18 @@ function AssertionTypes(){
   return[
     {
       name:'Status Code',
-      title:'2XX-5XX'
+      title:'2XX-5XX',
+      id:'statusCode'
     },
     {
       name:'Header',
-      title:'Response Header, auth, etc.'
+      title:'Response Header, auth, etc.',
+      id:'header'
     },
     {
       name:'Response Body',
-      title:'Data from the response'
+      title:'Data from the response',
+      id:'body'
     },
   ]
 }
