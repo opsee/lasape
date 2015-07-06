@@ -299,11 +299,10 @@ function CheckStep2Ctrl($scope, $state, $http, $filter, Check, Relationships, As
     }
   }
   $scope.assertionPassing = function($index){
-    var test = slate.testAssertion({
+    return slate.testAssertion({
       assertion:$scope.check.assertions[$index],
       response:$scope.checkResponse
     });
-    return test.success;
   }
   $scope.relationshipById = function(id){
     return _.find(Relationships,{id:id}) || {name:null,title:null,id:null};

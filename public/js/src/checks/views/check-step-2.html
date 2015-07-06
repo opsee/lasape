@@ -5,11 +5,11 @@
 
 <div ng-repeat="assertion in check.assertions">
   <div class="row">
-    <div class="col-xs-2"><div class="assertion-counter" ng-class="{success: assertionPassing($index) == true, danger: assertionPassing($index) == false && assertion.relationship}">
+    <div class="col-xs-2"><div class="assertion-counter" ng-class="{success: assertionPassing($index).success, danger: !assertionPassing($index).success && assertion.relationship}">
       {{$index+1}}
       <div class="assertion-validation" ng-class="{active: assertion.relationship}">
-        <svg class="assertion-icon success" ng-show="assertionPassing($index) == true" class="" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg>
-        <svg class="assertion-icon danger" ng-show="assertionPassing($index) == false" class="" viewBox="0 0 24 24"><use xlink:href="#ico_close" /></svg>
+        <svg class="assertion-icon success" ng-show="assertionPassing($index).success" class="" viewBox="0 0 24 24"><use xlink:href="#ico_checkmark" /></svg>
+        <svg class="assertion-icon danger" ng-show="!assertionPassing($index).success" class="" viewBox="0 0 24 24"><use xlink:href="#ico_close" /></svg>
       </div>
     </div></div>
     <div class="col-xs-10 col-sm-4">
