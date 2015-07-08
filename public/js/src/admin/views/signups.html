@@ -3,7 +3,7 @@
   <div class="container">
 
     <div class="row" ng-repeat="category in ['unapproved','approved','users']">
-      <h2>{{category | capitalize}}</h2>
+      <h2 ng-class="{'text-danger':category == 'unapproved', 'text-warning':category == 'approved', 'text-success':category == 'users'}">{{category | capitalize}}</h2>
       <div ng-repeat="signup in groups[category]" class="col-xs-12 col-sm-6 padding-tb">
         <div class="bg-gray-900 md-shadow-bottom-z-1">
           <div class="padding">
