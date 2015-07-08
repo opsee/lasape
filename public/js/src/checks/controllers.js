@@ -214,7 +214,7 @@ EditCheckCtrl.resolve = {
 }
 angular.module('opsee.checks.controllers').controller('EditCheckCtrl', EditCheckCtrl);
 
-function CreateCheckCtrl($scope, $state, Check, $http, $filter, _, $analytics, $notification, NotificationSettings, Methods, Protocols, StatusCodes, Relationships, AssertionTypes, AssertionTest){
+function CreateCheckCtrl($scope, $state, Check, $http, $filter, _, $analytics, $notification, NotificationSettings, Methods, Protocols, StatusCodes, Relationships, AssertionTypes){
   $scope.check = new Check().setDefaults();
   $scope.submit = function(){
     $analytics.eventTrack('create', {category:'Checks'});
