@@ -154,6 +154,29 @@ module.exports = function(grunt) {
         dest:'css/dist/style.min.css'
       }
     },
+    babel:{
+      options:{
+        sourceMap:false
+      },
+      dist:{
+        files:[{
+          expand:true,
+          cwd:'public/js/es6',
+          src:['**/*.js'],
+          dest:'public/js/src',
+          ext:'.js'
+        }]
+      }
+    },
+    preprocess:{
+      html:{
+        expand:true,
+        cwd:'public/js/es6',
+        src:['**/*.html'],
+        dest:'public/js/src',
+        ext:'.html'
+      }
+    },
     ngAnnotate:{
       options:{
         add:true,
@@ -194,6 +217,10 @@ module.exports = function(grunt) {
         files:['_site/**/*.**'],
         tasks:['shell:jekyll','copy','emailBuilder:inline']
       },
+      babel:{
+        files:['public/js/es6/**/*.js'],
+        tasks:['processbabel']
+      },
       srcScripts:{
         options:{
            livereload:true
@@ -214,11 +241,15 @@ module.exports = function(grunt) {
         },
         files:['public/css/**/*.css']
       },
+      preprocess:{
+        files:['public/js/es6/**/*.html'],
+        tasks:['processhtml']
+      },
       pages:{
         options:{
           livereload:true
         },
-        files:['public/js/**/*.html']
+        files:['public/js/src/**/*.html']
       }
     },
     compass:{
@@ -270,9 +301,12 @@ module.exports = function(grunt) {
     },
     concurrent:{
       npmBower:['shell:npm','shell:bower'],
-      build:['shell:opseeBower','browserify','swagger','compass:dist']
+      build:['shell:opseeBower','browserify','swagger','compass:dist','babel','preprocess']
     }
   });
+
+  grunt.registerTask('processhtml', ['newer:preprocess']);
+  grunt.registerTask('processbabel', ['newer:babel']);
 
   grunt.registerTask('swagger', 'Generate Angular Swagger Code, Notify of Changes', function(){
     var done = this.async();
@@ -283,7 +317,11 @@ module.exports = function(grunt) {
       }else{
         var newCode = CodeGen.getAngularCode({moduleName:'opsee.api', className:'opseeAPI', swagger:JSON.parse(body)});
         var output = 'public/js/src/api.js';
-        var oldCode = grunt.file.read(output);
+        try{
+          var oldCode = grunt.file.read(output);
+        }catch(err){
+          var oldCode = '';
+        }
         var lines = jsDiff.diffLines(oldCode,newCode);
         var changed = false;
         lines.forEach(function(line, i){
