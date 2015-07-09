@@ -15,6 +15,7 @@ modules/views/
 bower_components/
 public/css/src/style.css.map
 public/css/src/style.css
+public/js/src
 *.min.js
 
 packageCache.json
