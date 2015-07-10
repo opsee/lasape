@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
 angular.module('opsee.user.controllers', ['opsee.user.services']);
 

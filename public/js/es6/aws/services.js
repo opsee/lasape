@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
 angular.module('opsee.aws.services', []);
 
@@ -231,7 +231,7 @@ function Instance($resource, $q, $timeout, _, INSTANCE_DEFAULTS, ENDPOINTS, Chec
     d.resolve();
     this.status.state = 'restarting';
     var self = this;
-    $timeout(()=>{
+    $timeout(() => {
       self.status.state = 'running'
     },5000);
     return d.promise;

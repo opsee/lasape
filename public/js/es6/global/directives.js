@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
 angular.module('opsee.global.directives', []);
 
@@ -106,7 +106,6 @@ function opseeFooter(){
     restrict:'EA',
     templateUrl:'/public/js/src/global/partials/footer.html',
     controller:function($scope, $location, $state, $rootScope, Global) {
-      // $scope.user = $rootScope.user;
       $scope.entries = [
         {
           title:'Checks',
@@ -264,21 +263,16 @@ angular.module('ui.bootstrap.dropdown').controller('DropdownController', functio
       toggleInvoker = $attrs.onToggle ? $parse($attrs.onToggle) : angular.noop,
       toggleElements = [],
       appendToBody = false;
-
   this.init = function( element ) {
     self.$element = element;
-
     if ( $attrs.isOpen ) {
       getIsOpen = $parse($attrs.isOpen);
       setIsOpen = getIsOpen.assign;
-
       $scope.$watch(getIsOpen, function(value) {
         scope.isOpen = !!value;
       });
     }
-
     appendToBody = angular.isDefined($attrs.dropdownAppendToBody);
-
     if ( appendToBody && self.dropdownMenu ) {
       $document.find('body').append( self.dropdownMenu );
       element.on('$destroy', function handleDestroyEvent() {
@@ -286,38 +280,30 @@ angular.module('ui.bootstrap.dropdown').controller('DropdownController', functio
       });
     }
   };
-
   this.toggle = function( open ) {
     return scope.isOpen = arguments.length ? !!open : !scope.isOpen;
   };
-
   // Allow other directives to watch status
   this.isOpen = function() {
     return scope.isOpen;
   };
-
  this.addToggleElement = function(element) {
    toggleElements.push(element);
  };
-
  scope.getToggleElements = function() {
    return toggleElements;
   }
-
   scope.getAutoClose = function() {
     return $attrs.autoClose || 'always'; //or 'outsideClick' or 'disabled'
   };
-
   scope.getElement = function() {
     return self.$element;
   };
-
   scope.focusToggleElement = function() {
     if (toggleElements && toggleElements.length > 0) {
       toggleElements[0][0].focus();
     }
   };
-
   scope.$watch('isOpen', function( isOpen, wasOpen ) {
     if ( appendToBody && self.dropdownMenu ) {
       var pos = $position.positionElements(self.$element, self.dropdownMenu, 'bottom-left', true);
@@ -327,26 +313,21 @@ angular.module('ui.bootstrap.dropdown').controller('DropdownController', functio
         display: isOpen ? 'block' : 'none'
       });
     }
-
     $animate[isOpen ? 'addClass' : 'removeClass'](self.$element, openClass);
-
     if ( isOpen ) {
       scope.focusToggleElement();
       dropdownService.open( scope );
     } else {
       dropdownService.close( scope );
     }
-
     setIsOpen($scope, isOpen);
     if (angular.isDefined(isOpen) && isOpen !== wasOpen) {
       toggleInvoker($scope, { open: !!isOpen });
     }
   });
-
   $scope.$on('$locationChangeSuccess', function() {
     scope.isOpen = false;
   });
-
   $scope.$on('$destroy', function() {
     scope.$destroy();
   });
@@ -424,8 +405,8 @@ function radialGraph(){
          switch($scope.status.state){
           case 'running':
           return $scope.status.silence.remaining ? 
-          'This check is running, but was silenced for '+$scope.item.getInfo()+'.':
-          'This check is running and has a health of '+$scope.status.health+'%';
+          `This check is running, but is ${$scope.item.getInfo()}` :
+          `This check is running and has a health of ${$scope.status.health}%`;
           break;
           case 'unmonitored':
           return 'This check is currently unmonitored.';
@@ -472,26 +453,25 @@ function radialGraph(){
         } else {
           percentage = parseInt(health,10);
         }
-        var w = $scope.width;
+        var w = $scope.width/2;
         var α = (percentage/100)*360;
-        var π = Math.PI;
-        var r = ( α * π / 180 );
-        var x = Math.sin( r ) * (w/2);
-        var y = Math.cos( r ) * - (w/2);
+        var r = ( α * Math.PI / 180 );
+        var x = Math.sin( r ) * w;
+        var y = Math.cos( r ) * - w;
         var mid = ( α > 180 ) ? 1 : 0;
-        var path = 'M 0 0 v -' + (w/2) + ' A ' + (w/2) + ' ' + (w/2) + ' 1 ' + mid + ' 1 ' +  x  + ' ' +  y  + ' z';
-        return path;
+        return `M 0 0 v -${w} A ${w} ${w} 1 ${mid} 1 ${x} ${y} z`;
       }
 
-      $scope.$watch(()=>{return $scope.path}, function(newVal,oldVal){
+      $scope.$watch(() =>$scope.path, function(newVal,oldVal){
         if(newVal){
           var loader = $element[0].querySelector('.loader');
-          angular.element(loader).attr('transform','translate('+$scope.width/2+','+$scope.width/2+')').attr('d',newVal);
+          var w = $scope.width/2;
+          angular.element(loader).attr('transform',`translate(${w},${w})`).attr('d',newVal);
         }
       });
 
       if($scope.status && $scope.status.silence){
-        $scope.$watch(()=>{return $scope.status.silence.startDate}, function(newVal,oldVal){
+        $scope.$watch(() =>$scope.status.silence.startDate, function(newVal,oldVal){
           //we don't need to regen of we are adding time to instantiated silence
           if(!$scope.status.silence.remaining){
             regenGraphSilence(true);
@@ -507,7 +487,7 @@ function radialGraph(){
       function regenGraphSilence(immediate){
         $scope.status.silence.remaining = getSilenceRemaining($scope.status.silence);
         if($scope.status.silence.remaining > 0){
-          $timeout(()=>{
+          $timeout(() => {
             $scope.path = getPath(($scope.status.silence.remaining/$scope.status.silence.duration)*100);
             $scope.status.silence.remaining = $scope.status.silence.remaining - 1000;
             $scope.text = genText($scope.status.silence.remaining);
@@ -535,14 +515,12 @@ function keypressEvents($document, $rootScope, $timeout){
     restrict: 'A',
     link: function() {
       $document.bind('keydown', function(e) {
-        $timeout(()=>{
+        $timeout(() => {
           $rootScope.$broadcast('keydown', e);
-          $rootScope.$broadcast('keydown:' + e.which, e);
+          $rootScope.$broadcast(`keydown:${e.which}`, e);
         },1);
         if(e.which == 191 && e.srcElement && (e.srcElement.nodeName == 'BODY' || e.srcElement.id == 'searchBoxInput')){
-          $timeout(()=>{
-            $rootScope.$broadcast('searchBox');
-          },1);
+          $timeout(() =>$rootScope.$broadcast('searchBox'),1);
           e.preventDefault();
           return false;
         }
@@ -558,9 +536,9 @@ function searchBox(){
     templateUrl:'/public/js/src/global/partials/search-box.html',
     controller:function($scope, $rootScope, $timeout, $window, $state){
       $scope.visible = false;
-      $scope.states = _.chain($state.get()).filter(function(s){
-        return s.url && s.url != '/' && !s.hideInSearch;
-      }).map(function(s){
+      $scope.states = _.chain($state.get()).filter((s) =>
+        s.url && s.url != '/' && !s.hideInSearch
+        ).map((s) => {
         s.url = s.url.replace('^','');
         return s;
       }).value();
@@ -568,9 +546,7 @@ function searchBox(){
         $scope.visible = !$scope.visible;
         var el = $window.document.getElementById('searchBoxInput');
         if($scope.visible && el){
-          setTimeout(()=>{
-            el.focus();
-          },0);
+          setTimeout(() =>el.focus(),0);
         }else if(el){
           $scope.search = null;
           el.blur();
@@ -581,9 +557,7 @@ function searchBox(){
         $scope.search = null;
       }
       //esc key
-      $scope.$on('keydown:27', function(onEvent, e){
-        clear();
-      });
+      $scope.$on('keydown:27', clear);
       $scope.submit = function(){
         console.log('submit');
       }

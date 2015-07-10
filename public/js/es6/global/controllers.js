@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
 angular.module('opsee.global.controllers', ['opsee.global.services']);
 

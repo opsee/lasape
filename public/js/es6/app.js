@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
   angular.module('opsee', ['ngCookies', 'ngResource', 'ngStorage', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ngStorage', 'http-auth-interceptor', 'angulartics', 'angulartics.google.analytics', 'ngActivityIndicator', 'ngSanitize', 'validation.match', 'ui.router', 'ngMessages', 'ngWebSocket', 'angularMoment', 'ngAnimate','hljs', 'visibilityChange', 'notification', 'ui.gravatar', 'opsee.global', 'opsee.api', 'opsee.user', 'opsee.onboard', 'opsee.checks', 'opsee.admin', 'opsee.integrations', 'opsee.aws', 'opsee.docs'])
 
@@ -12,14 +12,14 @@
       }
       $rootScope.hideHeader = !!(toState.hideHeader);
       $activityIndicator.timer = true;
-      $timeout(()=>{
+      $timeout(() => {
         if($activityIndicator.timer){
           $activityIndicator.startAnimating();
         }
       },400);
     });
 
-    VisibilityChange.onChange(function(visible){
+    VisibilityChange.onChange((visible) => {
       $analytics.eventTrack('visibility-change', {category:'Global',label:visible ? 'visible' : 'hidden'});
     });
 
@@ -52,7 +52,8 @@
         }else{
           string = $state.current.title + ' - Opsee';
         }
-        return $rootScope.opseeNotifs.length ? '['+$rootScope.opseeNotifs.length+'] '+string : string;
+        // return $rootScope.opseeNotifs.length ? '['+$rootScope.opseeNotifs.length+'] '+string : string;
+        return $rootScope.opseeNotifs.length ? `[${$rootScope.opseeNotifs.length}] ${string}` : string;
       }
     }
 
@@ -75,7 +76,7 @@
 
     $rootScope.$on('startSocket', function(event,token){
       $rootScope.stream = $websocket('ws://api-beta.opsee.co/stream/');
-      $rootScope.stream.onOpen(()=>{
+      $rootScope.stream.onOpen(() => {
         var auth = JSON.stringify({
           command:'authenticate',
           attributes:{
@@ -150,12 +151,12 @@
       $rootScope.$broadcast('setAuth',user.token);
     })
 
-    $rootScope.$on('event:auth-loginRequired', function(){
+    $rootScope.$on('event:auth-loginRequired', () => {
       $rootScope.user.awaitingLogin = true;
       $location.path('/login');
     })
 
-    $rootScope.$on('event:auth-forbidden', function(){
+    $rootScope.$on('event:auth-forbidden', () => {
       alert('You do not have permission for that action. Contact the administrator for access.');
     });
 

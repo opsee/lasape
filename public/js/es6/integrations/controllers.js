@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
 angular.module('opsee.integrations.controllers', []);
 

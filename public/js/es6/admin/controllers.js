@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
 angular.module('opsee.admin.controllers', []);
 
@@ -9,7 +9,7 @@ function SignupsCtrl($scope,$rootScope,signups,AdminService, Global){
     users: _.filter(signups,function(s){return !!s.activation_id && s.activation_used;})
   }
   $scope.activateSignup = function(email){
-    AdminService.activateSignup(email).then(()=>{
+    AdminService.activateSignup(email).then(() => {
       $rootScope.$emit('notify','User activated.');
     }, function(res){
       var msg = res.data && res.data.error ? res.data.error : 'Something went wrong.';

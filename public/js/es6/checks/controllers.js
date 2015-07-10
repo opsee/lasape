@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
 angular.module('opsee.checks.controllers', ['opsee.checks.services']);
 
@@ -34,8 +34,7 @@ function AllChecksCtrl($scope, $state, $stateParams, $timeout, $analytics, Check
   $scope.checks.forEach(function(c,i){
     $scope.checks[i] = new Check(c);
   });
-  $scope.$watch(()=>
-()=>{return $scope.checkSearch},function(newVal,oldVal){
+  $scope.$watch(() =>$scope.checkSearch,function(newVal,oldVal){
     if(newVal && newVal != oldVal){
       $analytics.eventTrack('search', {category:'Checks',label:newVal});
       var query = Check.query({q:newVal});
@@ -43,7 +42,7 @@ function AllChecksCtrl($scope, $state, $stateParams, $timeout, $analytics, Check
         $scope.checks = res.data;
         $scope.searching = false;
       });
-      $timeout(()=>{
+      $timeout(() => {
         if(!query.$resolved){
           $scope.searching = true;
         }
@@ -347,9 +346,7 @@ function config ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('check', {
       template:'<div ui-view class="transition-sibling"></div>',
       resolve:{
-        auth:function($rootScope){
-          return $rootScope.user.hasUser(true);
-        }
+        auth:($rootScope) => $rootScope.user.hasUser(true)
       }
     })
     .state('check.all', {

@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
 angular.module('opsee.onboard.controllers', ['opsee.onboard.services','opsee.global.services']);
 
@@ -8,21 +8,20 @@ function OnboardCtrl($rootScope, $scope, $state, AWSRegions, TEST_KEYS){
   $scope.user.info = {
     baseRegions:angular.copy(AWSRegions)
   };
-  console.log($scope.user);
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
 function OnboardStartCtrl($scope, $rootScope, $state, $analytics, UserService, Global){
-  $scope.submit = function(){
+  $scope.submit = () => {
     $scope.state = $scope.options.inProgress;
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Start Form'});
     UserService.create({
       name:$scope.user.bio.name,
       email:$scope.user.account.email
-    }).then(function(res){
+    }).then((res) => {
       $scope.state = res.statusText || $scope.options.success;
       $state.go('onboard.thanks',{email:$scope.user.account.email});
-    }, function(res){
+    }, (res) => {
       if(res.data && res.data.error){
         $scope.error = res.data.error;
       }else{
@@ -161,20 +160,10 @@ function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, On
 angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', OnboardTeamCtrl);
 
 function OnboardRegionSelectCtrl($scope, $state, $analytics, _, AWSRegions){
-  $scope.requiredSelection = function(){
-    return !_.findWhere($scope.user.info.baseRegions, {'selected':true});
-  }
-  $scope.selectAll = function(){
-    $scope.user.info.baseRegions.forEach(function(r){
-      r.selected = true;
-    });
-  }
-  $scope.deselectAll = function(){
-    $scope.user.info.baseRegions.forEach(function(r){
-      r.selected = false;
-    });
-  }
-  $scope.submit = function(){
+  $scope.requiredSelection = () => !_.findWhere($scope.user.info.baseRegions, {'selected':true});
+  $scope.selectAll = () => $scope.user.info.baseRegions.forEach((r) => r.selected = true);
+  $scope.deselectAll = () => $scope.user.info.baseRegions.forEach((r) => r.selected = false);
+  $scope.submit = () => {
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'RegionSelect'});
     $state.go('onboard.credentials');
   }
@@ -182,7 +171,7 @@ function OnboardRegionSelectCtrl($scope, $state, $analytics, _, AWSRegions){
 angular.module('opsee.onboard.controllers').controller('OnboardRegionSelectCtrl', OnboardRegionSelectCtrl);
 
 function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSService, AWSRegions){
-  $scope.submit = function(){
+  $scope.submit = () => {
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Credientials'});
     $state.go('onboard.vpcSelect');
   }
@@ -192,8 +181,8 @@ angular.module('opsee.onboard.controllers').controller('OnboardCredentialsCtrl',
 function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, AWSRegions, regionsWithVpcs){
   $scope.msg = 'loading';
   $scope.user.info.regionsWithVpcs = regionsWithVpcs;
-  $scope.selectAll = function(){
-    _.chain($scope.user.info.regionsWithVpcs).pluck('vpcs').flatten().map(function(vpc){
+  $scope.selectAll = () => {
+    _.chain($scope.user.info.regionsWithVpcs).pluck('vpcs').flatten().map((vpc) => {
       vpc.selected = true;
       return vpc;
     }).value();
@@ -244,8 +233,8 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     $scope.launched = true;
     try{
       $rootScope.user.info.regionsWithVpcs.map(function(a){
-        a.vpcs.map(function(v){
-          v.id = v['vpc-id'];return v;
+        a.vpcs.map((v) => {
+          v.id = v['vpc-id'];
         });
         return a;
       });
@@ -253,11 +242,10 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
       console.log(err);
     }
     var data = angular.copy($scope.user.info);
-    AWSService.bastionInstall(data).then(function(res){
-      setLaunchedBastions(res.data);
-    }, function(err){
-      $scope.$emit('notify',err);
-    });
+    AWSService.bastionInstall(data).then(
+      (res) => setLaunchedBastions(res.data), 
+      (err) => $scope.$emit('notify', err)
+    );
   }
 
   if($window.location.href.match(':8000') && !$location.search().noTesting){
@@ -270,9 +258,9 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
       $rootScope.user.info.launchedRegions = bastions;
       $scope.launched = true;
       $rootScope.user.info.launchedRegions.forEach(function(r){
-        r.vpcs.forEach(function(v){
-          $scope.bastions.push(new BastionInstaller(v));
-        })
+        r.vpcs.forEach(
+          (v) => $scope.bastions.push(new BastionInstaller(v))
+        )
       })
     }
 
@@ -283,8 +271,7 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
       return false;
     }
 
-    $scope.$watch(()=>
-()=>{return $scope.messages}, function(newVal,oldVal){
+    $scope.$watch(() => $scope.messages, function(newVal,oldVal){
       if(newVal && newVal != oldVal){
         var msg = _.last(newVal);
         var bastion = getBastion(msg);
@@ -311,9 +298,9 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
         if(d.command != 'launch-bastion'){
           return false;
         }
-        $timeout(()=>{
+        $timeout(() => {
           $scope.messages.push(d);
-        },i*500);
+        }, i*500);
       })
     })
   }
@@ -407,9 +394,7 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'Create Your Team',
       hideHeader:true,
       resolve:{
-        auth:function($rootScope){
-          return $rootScope.user.hasUser(true);
-        }
+        auth:($rootScope) => $rootScope.user.hasUser(true)
       }
     })
     .state('onboard.credentials', {
@@ -419,9 +404,7 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'Enter your AWS Credentials',
       hideHeader:true,
       resolve:{
-        auth:function($rootScope){
-          return $rootScope.user.hasUser(true);
-        }
+        auth:($rootScope) => $rootScope.user.hasUser(true)
       }
     })
     .state('onboard.regionSelect', {
@@ -431,9 +414,7 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'Select AWS Regions',
       hideHeader:true,
       resolve:{
-        auth:function($rootScope){
-          return $rootScope.user.hasUser(true);
-        }
+        auth:($rootScope) => $rootScope.user.hasUser(true)
       }
     })
     .state('onboard.vpcSelect', {
@@ -451,9 +432,7 @@ function config ($stateProvider, $urlRouterProvider) {
       title:'Bastion Installation',
       hideHeader:true,
       resolve:{
-        auth:function($rootScope){
-          return $rootScope.user.hasUser(true);
-        }
+        auth:($rootScope) => $rootScope.user.hasUser(true)
       }
     })
     .state('onboard.profile', {
@@ -464,9 +443,7 @@ function config ($stateProvider, $urlRouterProvider) {
       resolve:OnboardProfileCtrl.resolve,
       hideHeader:true,
       resolve:{
-        auth:function($rootScope){
-          return $rootScope.user.hasUser(true);
-        }
+        auth:($rootScope) => $rootScope.user.hasUser(true)
       }
     })
   }

@@ -1,4 +1,4 @@
-(()=>{
+(() => {
 
 angular.module('opsee.checks.services', []);
 
@@ -52,7 +52,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
         ],
         run:function(){
           // var deferred = $q.defer();
-          // Global.confirm('Delete this check?').then(()=>{
+          // Global.confirm('Delete this check?').then(() => {
           //   $rootScope.$emit('notify','Deleted check.');
           // });
           // deferred.resolve();
@@ -111,16 +111,22 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
     });
     Global.contextMenu(this,'/public/js/src/checks/partials/single-context-menu.html');
   }
-  check.prototype.addItem = function(selection){
+  check.prototype.getTarget = function(selection){
     if(!selection){return false;}
     var target;
     try{
       //eval here allows us to write simple strings in html
-      eval('var target=this.'+selection);
+      eval('target=this.'+selection);
     }catch(err){
       console.log(err);
     }
-    if(!target){return false;}
+    return target;
+  }
+  check.prototype.addItem = function(selection){
+    var target = this.getTarget(selection);
+    if(!target){
+      return false;
+    }
     var length = target.length;
     var schema;
     try{
@@ -135,16 +141,13 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
   }
   check.prototype.removeItem = function(selection, $index, msg){
     if(!selection || $index == undefined){return false;}
-    var target;
-    try{
-      //eval here allows us to write simple strings in html
-      eval('var target=this.'+selection);
-    }catch(err){
-      console.log(err);
+    var target = this.getTarget(selection);
+    if(!target){
+      return false;
     }
-    if(!target){return false;}
+    var length = target.length;
     var msg = msg || 'Remove this item?';
-    $rootScope.global.confirm(msg, true).then(()=>{
+    $rootScope.global.confirm(msg, true).then(() => {
       target.splice($index,1);
     });
   }
@@ -229,7 +232,7 @@ function Protocols(){
 angular.module('opsee.global.services').service('Protocols', Protocols);
 
 function StatusCodes($q, $http, _){
-  return function(){
+  return () => {
     var deferred = $q.defer();
     $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
       var array = _.chain(res.data).reject(function(n){
