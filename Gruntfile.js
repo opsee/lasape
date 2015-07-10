@@ -99,7 +99,7 @@ module.exports = function(grunt) {
             'angular-aria/angular-aria.min',
             'moment/moment',
             'angular-moment/angular-moment.min',
-            '../js/src/vendor/scripts/highlight.pack',
+            '../js/es6/vendor/scripts/highlight.pack',
             'angular-highlightjs/angular-highlightjs',
             'ngstorage/ngStorage.min',
             'angular-gravatar/build/angular-gravatar.min',
@@ -225,7 +225,7 @@ module.exports = function(grunt) {
         options:{
            livereload:true
          },
-        files:['js/public/**/*.js'],
+        files:['js/public/src/**/*.js'],
       },
       sass:{
         files:['scss/**/*.scss'],
