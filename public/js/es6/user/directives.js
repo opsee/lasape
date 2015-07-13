@@ -16,9 +16,7 @@ function userInputs(){
       $scope.user = $scope.user || $rootScope.user;
       $scope.regex = $rootScope.regex;
       $scope.include = $scope.include ? $scope.include.split(',') : null;
-      $scope.display = function(string){
-        return $scope.include ? $scope.include.indexOf(string) > -1 : true;
-      }
+      $scope.display = (string) => $scope.include ? $scope.include.indexOf(string) > -1 : true;
     },
     link:function($scope, $element, $attrs, $formCtrl){
       $scope.form = $formCtrl;
@@ -39,7 +37,7 @@ function userLogin(){
       }
       $scope.state = $scope.options.original;
       $scope.submitting = false;
-      $scope.submit = function(){
+      $scope.submit = () => {
         if($scope.user && $scope.user.account.password){
           $activityIndicator.startAnimating();
           $scope.submitting = true;
@@ -47,7 +45,7 @@ function userLogin(){
             $rootScope.$emit('setUser',res);
             $activityIndicator.stopAnimating();
             $scope.submitting = false;
-          }, function(res){
+          }, res => {
             console.log(res);
             $activityIndicator.stopAnimating();
             $scope.submitting = false;

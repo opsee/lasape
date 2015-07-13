@@ -37,8 +37,8 @@ function AllChecksCtrl($scope, $state, $stateParams, $timeout, $analytics, Check
   $scope.$watch(() =>$scope.checkSearch,function(newVal,oldVal){
     if(newVal && newVal != oldVal){
       $analytics.eventTrack('search', {category:'Checks',label:newVal});
-      var query = Check.query({q:newVal});
-      query.$promise.then(function(res){
+      const query = Check.query({q:newVal});
+      query.$promise.then(res => {
         $scope.checks = res.data;
         $scope.searching = false;
       });
@@ -65,13 +65,13 @@ angular.module('opsee.checks.controllers').controller('CheckCtrl', CheckCtrl);
 function SingleCheckCtrl($scope, $state, $stateParams, $location, $timeout, Check, singleCheck){
   $scope.check = new Check(singleCheck).setDefaults();
   $state.current.title = $scope.check.name;
-  $scope.edit = function(){
+  $scope.edit = () => {
     $location.url('/check/'+$stateParams.id+'/edit');
   }
 }
 SingleCheckCtrl.resolve = {
   singleCheck:function($stateParams, Check){
-  var check = {
+  const check = {
       name:'My great check2',
       info:'Fun info here2.',
       id:$stateParams.id || 'TESTID',
@@ -144,9 +144,7 @@ angular.module('opsee.checks.controllers').controller('SingleCheckCtrl', SingleC
 
 function EditCheckCtrl($scope, $state, $stateParams, $timeout, $location, _, singleCheck, Check, slate){
   $scope.check = new Check(singleCheck).setDefaults();
-  $scope.close = function(){
-    $location.url('/check/'+$stateParams.id);
-  }
+  $scope.close = () => $location.url('/check/'+$stateParams.id);
 }
 EditCheckCtrl.resolve = {
   singleCheck:function($stateParams){
@@ -216,7 +214,7 @@ angular.module('opsee.checks.controllers').controller('EditCheckCtrl', EditCheck
 
 function CreateCheckCtrl($scope, $state, Check, $http, $filter, _, $analytics, $notification, NotificationSettings, Methods, Protocols, StatusCodes, Relationships, AssertionTypes){
   $scope.check = new Check().setDefaults();
-  $scope.submit = function(){
+  $scope.submit = () => {
     $analytics.eventTrack('create', {category:'Checks'});
     console.log($scope.check);
   }
@@ -224,9 +222,7 @@ function CreateCheckCtrl($scope, $state, Check, $http, $filter, _, $analytics, $
     checkStep:1
   }
   $scope.dropdownStatus = {};
-  $scope.close = function() {
-    $state.go('check.all');
-  }
+  $scope.close = () => $state.go('check.all');
 }
 angular.module('opsee.checks.controllers').controller('CreateCheckCtrl', CreateCheckCtrl);
 
@@ -234,9 +230,7 @@ function CheckStep1Ctrl($scope, $state, Check, StatusCodes, Protocols, Methods, 
   if($scope.info){
     $scope.info.checkStep = 1;
   }
-  StatusCodes().then(function(res){
-    $scope.codes = res;
-  });
+  StatusCodes().then(res => $scope.codes = res);
   $scope.groups = groups;
   $scope.protocols = Protocols;
   $scope.methods = Methods;
@@ -244,14 +238,14 @@ function CheckStep1Ctrl($scope, $state, Check, StatusCodes, Protocols, Methods, 
 angular.module('opsee.checks.controllers').controller('CheckStep1Ctrl', CheckStep1Ctrl);
 CheckStep1Ctrl.resolve = {
   groups:function($resource, $q, ENDPOINTS){
-    var deferred = $q.defer();
-    var path = $resource(ENDPOINTS.api+'/groups');
-    path.get().$promise.then(function(res){
+    const deferred = $q.defer();
+    const path = $resource(ENDPOINTS.api+'/groups');
+    path.get().$promise.then(res => {
       if(res && res.groups){
         return deferred.resolve(res.groups);
       }
       return deferred.reject();
-    });
+    }, err => deferred.reject(err));
     return deferred.promise;
   }
 }
@@ -271,7 +265,7 @@ function CheckStep2Ctrl($scope, $state, $http, $filter, Check, Relationships, As
     $scope.checkResponse.language = null;
     $scope.headerKeys = _.keys($scope.checkResponse.headers);
     $scope.headerValues = _.values($scope.checkResponse.headers);
-    var type = $scope.checkResponse.headers['content-type'];
+    const type = $scope.checkResponse.headers['content-type'];
     if(type && typeof type == 'string'){
       if(type.match('css')){
         $scope.checkResponse.language = 'css';
@@ -280,39 +274,30 @@ function CheckStep2Ctrl($scope, $state, $http, $filter, Check, Relationships, As
       }
     }
   }
-  $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
-  // $http.get('/public/js/src/user/partials/inputs.html').then(function(res){
-  // $http.get('/public/css/src/style.css').then(function(res){
-    genCheckResponse(res);
-  }, function(res){
-    genCheckResponse(res);
-  })
+  $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(
+    res => genCheckResponse(res),
+    err => genCheckResponse(err)
+  );
 
-  $scope.changeAssertionType = function(type,$index){
+  $scope.changeAssertionType = (type, $index) => {
     $scope.check.assertions[$index].key = type.id;
     $scope.check.assertions[$index].value = null;
   }
-  $scope.changeAssertionRelationship = function(relationship,assertion){
+  $scope.changeAssertionRelationship = (relationship, assertion) => {
     assertion.relationship = relationship.id;
     if(relationship.id.match('empty|notEmpty') && assertion.key && assertion.key != 'header'){
      assertion.value = '';
     }
   }
-  $scope.assertionPassing = function($index){
+  $scope.assertionPassing = ($index) => {
     return slate.testAssertion({
       assertion:$scope.check.assertions[$index],
       response:$scope.checkResponse
     });
   }
-  $scope.relationshipById = function(id){
-    return _.find(Relationships,{id:id}) || {name:null,title:null,id:null};
-  }
-  $scope.assertionById = function(id){
-    return _.find(AssertionTypes,{id:id}) || {name:null,title:null,id:null};
-  }
-  $scope.relationshipIsEmpty = function(r){
-    return r == 'empty' || r == 'notEmpty';
-  }
+  $scope.relationshipById = (id) => _.find(Relationships, {id}) || {name:null,title:null,id:null};
+  $scope.assertionById = (id) => _.find(AssertionTypes, {id}) || {name:null,title:null,id:null};
+  $scope.relationshipConcernsEmpty = (r) => r == 'empty' || r == 'notEmpty';
 }
 angular.module('opsee.checks.controllers').controller('CheckStep2Ctrl', CheckStep2Ctrl);
 
@@ -322,19 +307,19 @@ function CheckStep3Ctrl($scope, $state, $analytics, $notification, Check, Interv
     $scope.check.addItem('notifications');
   }
   $scope.intervals = Intervals;
-  $scope.save = function(){
+  $scope.save = () => {
     $analytics.eventTrack('create', {category:'Checks'});
     console.log('create',$scope.check);
   }
-  $scope.testNotif = function(){
-    var notif = $notification('New Message', {
+  $scope.testNotif = () => {
+    const notif = $notification('New Message', {
       body:'hello'
     });
-    notif.$on('click', function(e){
+    notif.$on('click', e => {
       console.log('click');
     });
   }
-  $scope.sendTestNotification = function(){
+  $scope.sendTestNotification = () => {
     $analytics.eventTrack('notification-test', {category:'Checks'});
     console.log($scope.check);
   }

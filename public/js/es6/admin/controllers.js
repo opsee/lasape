@@ -2,17 +2,17 @@
 
 angular.module('opsee.admin.controllers', []);
 
-function SignupsCtrl($scope,$rootScope,signups,AdminService, Global){
+function SignupsCtrl($scope, $rootScope, signups, AdminService, Global){
   $scope.groups = {
-    unapproved: _.filter(signups,function(s){return !s.activation_id;}),
-    approved: _.filter(signups,function(s){return !!s.activation_id && !s.activation_used;}),
-    users: _.filter(signups,function(s){return !!s.activation_id && s.activation_used;})
+    unapproved: _.filter(signups, s => !s.activation_id),
+    approved: _.filter(signups, s => !!s.activation_id && !s.activation_used),
+    users: _.filter(signups, s => !!s.activation_id && s.activation_used)
   }
-  $scope.activateSignup = function(email){
+  $scope.activateSignup = (email) => {
     AdminService.activateSignup(email).then(() => {
       $rootScope.$emit('notify','User activated.');
-    }, function(res){
-      var msg = res.data && res.data.error ? res.data.error : 'Something went wrong.';
+    }, res => {
+      const msg = res.data && res.data.error ? res.data.error : 'Something went wrong.';
       $rootScope.$emit('notify',msg);
     })
   }

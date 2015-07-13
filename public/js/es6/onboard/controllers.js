@@ -18,10 +18,10 @@ function OnboardStartCtrl($scope, $rootScope, $state, $analytics, UserService, G
     UserService.create({
       name:$scope.user.bio.name,
       email:$scope.user.account.email
-    }).then((res) => {
+    }).then(res => {
       $scope.state = res.statusText || $scope.options.success;
       $state.go('onboard.thanks',{email:$scope.user.account.email});
-    }, (res) => {
+    }, res => {
       if(res.data && res.data.error){
         $scope.error = res.data.error;
       }else{
@@ -65,9 +65,7 @@ function OnboardTutorial1Ctrl($scope, preImg){
   $scope.step.img = preImg;
 }
 OnboardTutorial1Ctrl.resolve = {
-  preImg:function(PreloadImg,$q){
-    return PreloadImg('/public/img/tut-01.svg');
-  }
+  preImg:PreloadImg => PreloadImg('/public/img/tut-01.svg')
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorial1Ctrl', OnboardTutorial1Ctrl);
 
@@ -77,9 +75,7 @@ function OnboardTutorial2Ctrl($scope, preImg){
   $scope.step.img = preImg;
 }
 OnboardTutorial2Ctrl.resolve = {
-  preImg:function(PreloadImg){
-    return PreloadImg('/public/img/tut-02.svg');
-  }
+  preImg:PreloadImg => PreloadImg('/public/img/tut-02.svg')
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorial2Ctrl', OnboardTutorial2Ctrl);
 
@@ -89,9 +85,7 @@ function OnboardTutorial3Ctrl($scope, preImg){
   $scope.step.img = preImg;
 }
 OnboardTutorial3Ctrl.resolve = {
-  preImg:function(PreloadImg){
-    return PreloadImg('/public/img/tut-03.svg');
-  }
+  preImg:PreloadImg => PreloadImg('/public/img/tut-03.svg')
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorial3Ctrl', OnboardTutorial3Ctrl);
 
@@ -143,7 +137,7 @@ angular.module('opsee.onboard.controllers').controller('OnboardProfileCtrl', Onb
 function OnboardTeamCtrl($scope, $rootScope, $state, $analytics, UserService, OnboardService){
   $scope.submit = function(){
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'Team Form'});
-    var data = {
+    const data = {
       name:$scope.user.account.name,
       subdomain:$scope.user.account.subdomain,
     }
@@ -161,8 +155,8 @@ angular.module('opsee.onboard.controllers').controller('OnboardTeamCtrl', Onboar
 
 function OnboardRegionSelectCtrl($scope, $state, $analytics, _, AWSRegions){
   $scope.requiredSelection = () => !_.findWhere($scope.user.info.baseRegions, {'selected':true});
-  $scope.selectAll = () => $scope.user.info.baseRegions.forEach((r) => r.selected = true);
-  $scope.deselectAll = () => $scope.user.info.baseRegions.forEach((r) => r.selected = false);
+  $scope.selectAll = () => $scope.user.info.baseRegions.forEach(r => r.selected = true);
+  $scope.deselectAll = () => $scope.user.info.baseRegions.forEach(r => r.selected = false);
   $scope.submit = () => {
     $analytics.eventTrack('submit-form', {category:'Onboard',label:'RegionSelect'});
     $state.go('onboard.credentials');
@@ -182,7 +176,7 @@ function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, 
   $scope.msg = 'loading';
   $scope.user.info.regionsWithVpcs = regionsWithVpcs;
   $scope.selectAll = () => {
-    _.chain($scope.user.info.regionsWithVpcs).pluck('vpcs').flatten().map((vpc) => {
+    _.chain($scope.user.info.regionsWithVpcs).pluck('vpcs').flatten().map(vpc => {
       vpc.selected = true;
       return vpc;
     }).value();
@@ -199,17 +193,17 @@ angular.module('opsee.onboard.controllers').controller('OnboardVpcsCtrl', Onboar
 
 OnboardVpcsCtrl.resolve = {
   regionsWithVpcs:function(AWSService, AWSRegions, $q, $rootScope, _){
-    var deferred = $q.defer();
-    var data = angular.copy($rootScope.user.info);
-    var regions = _.chain(data.baseRegions).where({selected:true}).pluck('id').value();
+    const deferred = $q.defer();
+    const data = angular.copy($rootScope.user.info);
+    let regions = _.chain(data.baseRegions).where({selected:true}).pluck('id').value();
     if(!regions.length){
       regions = ['us-east-1','us-west-1'];
     }
     data.regions = regions;
     AWSService.vpcScan(data).then(function(res){
-      var regions = res.data;
-      regions.forEach(function(r){
-        AWSRegions.forEach(function(ar){
+      const regions = res.data;
+      regions.forEach(r => {
+        AWSRegions.forEach(ar => {
           if(r.region == ar.id){
             r.regionName = ar.name;
           }
@@ -232,8 +226,8 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
   $scope.launch = function(){
     $scope.launched = true;
     try{
-      $rootScope.user.info.regionsWithVpcs.map(function(a){
-        a.vpcs.map((v) => {
+      $rootScope.user.info.regionsWithVpcs.map(a => {
+        a.vpcs.map(v => {
           v.id = v['vpc-id'];
         });
         return a;
@@ -241,10 +235,10 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     }catch(err){
       console.log(err);
     }
-    var data = angular.copy($scope.user.info);
+    const data = angular.copy($scope.user.info);
     AWSService.bastionInstall(data).then(
-      (res) => setLaunchedBastions(res.data), 
-      (err) => $scope.$emit('notify', err)
+      res => setLaunchedBastions(res.data), 
+      err => $scope.$emit('notify', err)
     );
   }
 
@@ -257,9 +251,9 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     function setLaunchedBastions(bastions){
       $rootScope.user.info.launchedRegions = bastions;
       $scope.launched = true;
-      $rootScope.user.info.launchedRegions.forEach(function(r){
+      $rootScope.user.info.launchedRegions.forEach(r => {
         r.vpcs.forEach(
-          (v) => $scope.bastions.push(new BastionInstaller(v))
+          v => $scope.bastions.push(new BastionInstaller(v))
         )
       })
     }
@@ -273,8 +267,8 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
 
     $scope.$watch(() => $scope.messages, function(newVal,oldVal){
       if(newVal && newVal != oldVal){
-        var msg = _.last(newVal);
-        var bastion = getBastion(msg);
+        const msg = _.last(newVal);
+        const bastion = getBastion(msg);
         bastion ? bastion.parseMsg(msg) : null;
       }
     },true);
@@ -282,7 +276,7 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     if($rootScope.stream){
       $rootScope.stream.onMessage(function(event){
         try{
-          var data = JSON.parse(event.data)
+          const data = JSON.parse(event.data)
         }catch(err){
           console.log(err);
           return false;
@@ -305,9 +299,7 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     })
   }
   $scope.bastionsComplete = function(){
-    var allComplete = !_.reject($scope.bastions,function(b){
-      return b.status == 'complete' || b.status == 'rollback';
-    }).length;
+    const allComplete = !_.reject($scope.bastions, b => b.status == 'complete' || b.status == 'rollback').length;
     return allComplete && $scope.bastions.length;
   }
   $scope.submit = function(){
