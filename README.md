@@ -37,6 +37,10 @@ Grunt will watch for file changes and update on the fly.
 
 Then point your browser to port 80 on your Docker host.
 
+## Style
+
+Follow the [AirBnB JS styleguide](https://github.com/airbnb/javascript). Refactor items that do not follow it.
+
 ## Tools
 
 Lasape utilizes a combination of technologies for eventual output.

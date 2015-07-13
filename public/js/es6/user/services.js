@@ -3,7 +3,7 @@
 angular.module('opsee.user.services', []);
 
 function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, USER_DEFAULTS, ENDPOINTS, SlackService, gravatarService){
-  var User = $resource(ENDPOINTS.user,
+  const User = $resource(ENDPOINTS.user,
     {
       id:'@_id'
     },
@@ -18,8 +18,8 @@ function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, U
     return this;
   }
   User.prototype.populateSlack = function(){
-    var self = this;
-    var deferred = $q.defer();
+    const self = this;
+    const deferred = $q.defer();
     SlackService.getProfile().then(function(data){
       self.integrations.slack.user = data;
       self.setImage();
@@ -31,7 +31,7 @@ function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, U
     return deferred.promise;
   }
   User.prototype.setImage = function(){
-    var self = this;
+    const self = this;
     function slackSet(data){
       self.bio.img = data.user.profile.image_192;
       self.bio.imgService = 'Slack';
@@ -53,9 +53,9 @@ function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, U
   //   return this.permissions.indexOf(string) > -1;
   // }
   User.prototype.hasUser = function(promise){
-    var test = !!this.id;
+    const test = !!this.id;
     if(promise){
-      var d = $q.defer();
+      const d = $q.defer();
       test ? d.resolve() : d.reject({status:401});
       return d.promise;
     }
@@ -72,7 +72,7 @@ function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, U
 }
 angular.module('opsee.user.services').factory('User', User);
 
-var userDefaults = {
+const userDefaults = {
   account:{
     email:null,
     password:null
@@ -98,62 +98,55 @@ angular.module('opsee.user.services').constant('USER_DEFAULTS', userDefaults);
 
 function UserService($q, $resource, $rootScope, $analytics, User, ENDPOINTS){
   return{
-    set:function(USER){
-      $rootScope.user = new User(USER).setDefaults().setPrefs();
-    },
-    edit:function(user,options) {
-      var deferred = $q.defer();
+    set:USER => $rootScope.user = new User(USER).setDefaults().setPrefs(),
+    edit:(user,options) => {
+      const deferred = $q.defer();
       //used for editing users and creating new ones
       saved = options && options.isEditing ? User.update(user) : User.save(user);
-      saved.$promise.then(function(res){
-        deferred.resolve(res);
-      }, function(err){
-        deferred.reject(err);
-      })
+      saved.$promise.then(
+        res => deferred.resolve(res), 
+        err => deferred.reject(err)
+      );
       return deferred.promise;
     },
-    create:function(user){
-      var path = $resource(ENDPOINTS.api+'/signups');
-      // saved = path.save(user);
+    create:user => {
+      const path = $resource(ENDPOINTS.api+'/signups');
       return path.save(user).$promise;
-      return saved.$promise;
     },
-    claim:function(user){
+    claim:user => {
       if(user && user.password && user.activationId){
-        var path = $resource(ENDPOINTS.api+'/activations/'+user.activationId+'/activate');
+        const path = $resource(ENDPOINTS.api+'/activations/'+user.activationId+'/activate');
         return path.save(user).$promise;
       }else{
-        var d = $q.defer();
+        const d = $q.defer();
         d.reject({data:{error:'Bad credentials.'}});
         return d.promise;
       }
     },
-    createOrg:function(user){
+    createOrg:user => {
       if(user && user.name && user.subdomain){
-        var path = $resource(ENDPOINTS.api+'/orgs');
+        const path = $resource(ENDPOINTS.api+'/orgs');
         return path.save(user).$promise;
       }else{
         return $q.reject({data:{error:'Bad credentials.'}});
       }
     },
-    login:function(user){
+    login:user => {
       $analytics.eventTrack('login', {category:'User'});
       if(user && user.account.email){
-        var data = {
+        const data = {
           password:user.account.password,
           email:user.account.email
         }
-        var path = $resource(ENDPOINTS.api+'/authenticate/password');
-        saved = path.save(data);
-        return saved.$promise;
+        const path = $resource(ENDPOINTS.api+'/authenticate/password');
+        return path.save(data).$promise;
       }else{
         return $q.reject();
       }
     },
-    passwordForgot:function(user){
-      var path = $resource(ENDPOINTS.api+'/password-forgot');
-      saved = path.save(user.account.email);
-      return saved.$promise;
+    passwordForgot:user => {
+      const path = $resource(ENDPOINTS.api+'/password-forgot');
+      return path.save(user.account.email).$promise;
     }
   }
 }

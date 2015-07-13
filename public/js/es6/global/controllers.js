@@ -7,42 +7,34 @@ function HomeCtrl($scope, $rootScope, _, $state, Check){
 angular.module('opsee.global.controllers').controller('HomeCtrl',HomeCtrl);
 
 function HomeInstancesCtrl($scope, Instance, instances){
-  $scope.instances = _.map(instances.instances, function(i){
-    return new Instance(i).setDefaults();
-  });
-  $scope.runningInstances = _.filter($scope.instances, function(c){return c.status.state == 'running'});
-  $scope.unmonitoredInstances = _.filter($scope.instances, function(c){return c.status.state == 'unmonitored'});
-  $scope.stoppedInstances = _.filter($scope.instances, function(c){return c.status.state == 'stopped'});
+  $scope.instances = _.map(instances.instances, i => new Instance(i).setDefaults());
+  $scope.runningInstances = _.filter($scope.instances, c => c.status.state == 'running');
+  $scope.unmonitoredInstances = _.filter($scope.instances, c => c.status.state == 'unmonitored');
+  $scope.stoppedInstances = _.filter($scope.instances, c => c.status.state == 'stopped');
 }
 angular.module('opsee.global.controllers').controller('HomeInstancesCtrl',HomeInstancesCtrl);
 
 HomeInstancesCtrl.resolve = {
-  instances:function($resource, ENDPOINTS){
-    var path = $resource(ENDPOINTS.api+'/instances');
-    path = path.get();
-    return path.$promise;
+  instances:($resource, ENDPOINTS) => {
+    const path = $resource(ENDPOINTS.api+'/instances');
+    const instances = path.get();
+    return instances.$promise;
   },
-  auth:function($rootScope){
-    return $rootScope.user.hasUser(true);
-  }
+  auth:$rootScope => $rootScope.user.hasUser(true)
 }
 
 function HomeGroupsCtrl($scope, Group, groups){
-  $scope.groups = _.map(groups.groups, function(i){
-    return new Group(i).setDefaults();
-  });
+  $scope.groups = _.map(groups.groups, i => new Group(i).setDefaults());
 }
 angular.module('opsee.global.controllers').controller('HomeGroupsCtrl',HomeGroupsCtrl);
 
 HomeGroupsCtrl.resolve = {
-  groups:function($resource, ENDPOINTS){
-    var path = $resource(ENDPOINTS.api+'/groups');
-    path = path.get();
-    return path.$promise;
+  groups:($resource, ENDPOINTS) => {
+    const path = $resource(ENDPOINTS.api+'/groups');
+    const groups = path.get();
+    return groups.$promise;
   },
-  auth:function($rootScope){
-    return $rootScope.user.hasUser(true);
-  }
+  auth:$rootScope => $rootScope.user.hasUser(true)
 }
 
 
@@ -102,15 +94,9 @@ function StyleGuideCtrl($scope, Check){
     },
   },
   ];
-  $scope.checks.forEach(function(c,i){
-    $scope.checks[i] = new Check(c);
-  });
-  $scope.selectDropdown = function(num){
-    $scope.dropdownSelected = 'Option '+num;
-  }
-  $scope.notify = function(){
-    $scope.$emit('notify', 'A global notification.');
-  }
+  $scope.checks = $scope.checks.map(c => new Check(c));
+  $scope.selectDropdown = num => $scope.dropdownSelected = 'Option '+num;
+  $scope.notify = () => $scope.$emit('notify', 'A global notification.');
 }
 angular.module('opsee.global.controllers').controller('StyleGuideCtrl',StyleGuideCtrl);
 

@@ -6,7 +6,7 @@ function Global($rootScope, $log, $q, $modal, $document, $compile, _) {
   return {
     confirm:function(msg,noConfirm){
       if(noConfirm){
-        var deferred = $q.defer();
+        const deferred = $q.defer();
         deferred.resolve()
         return deferred.promise;
       }
@@ -14,7 +14,7 @@ function Global($rootScope, $log, $q, $modal, $document, $compile, _) {
         $log.warn('No msg');
         return $q.reject('No msg');
       }
-      var modalInstance = $modal.open({
+      const modalInstance = $modal.open({
         templateUrl:'/public/js/src/global/partials/confirm.html',
         size:'sm',
         resolve:{
@@ -37,7 +37,7 @@ function Global($rootScope, $log, $q, $modal, $document, $compile, _) {
         $log.warn('No msg');
         return $q.reject('No msg');
       }
-      var modalInstance = $modal.open({
+      const modalInstance = $modal.open({
         templateUrl:'/public/js/src/global/partials/notify.html',
         size:'notify',
         // backdrop:false,
@@ -60,7 +60,7 @@ function Global($rootScope, $log, $q, $modal, $document, $compile, _) {
         $log.warn('No parent item');
         return $q.reject('No parent item');
       }
-      var modalInstance = $modal.open({
+      const modalInstance = $modal.open({
         templateUrl:templateUrl,
         size:'context',
         backdropClass:'notify',
@@ -76,7 +76,7 @@ function Global($rootScope, $log, $q, $modal, $document, $compile, _) {
             return _.findWhere($scope.item.actions,{childrenActive:true});
           }
           $scope.run = function(action,identity){
-            var promise = action.run.call(identity || action);
+            const promise = action.run.call(identity || action);
             if(typeof promise == 'object'){
               promise.then($scope.close,$scope.close);
             }
@@ -120,12 +120,12 @@ function regex(){
 }
 angular.module('opsee.global.services').service('Regex', regex);
 
-var KEYS = {
+const KEYS = {
 }
 angular.module('opsee.global.services').constant('KEYS', KEYS);
 
 function ENDPOINTS(){
-  var api = window.api_host || 'http://api-beta.opsee.co';
+  const api = window.api_host || 'http://api-beta.opsee.co';
   return {
     api:api,
     user:api+'/logins/:id',
@@ -202,8 +202,8 @@ angular.module('opsee.global.services').factory('NotificationSettings', Notifica
 
 function PreloadImg($q){
   return function(path){
-    var deferred = $q.defer();
-    var newImg = new Image();
+    const deferred = $q.defer();
+    const newImg = new Image();
     newImg.onload = () => deferred.resolve(path);
     newImg.onerror = () => deferred.reject(path);
     newImg.src = path;

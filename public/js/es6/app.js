@@ -19,7 +19,7 @@
       },400);
     });
 
-    VisibilityChange.onChange((visible) => {
+    VisibilityChange.onChange(visible => {
       $analytics.eventTrack('visibility-change', {category:'Global',label:visible ? 'visible' : 'hidden'});
     });
 
@@ -46,7 +46,7 @@
     $rootScope.opseeNotifs = [1,2,3];
     $rootScope.pageInfo = {
       title: function(){
-        var string = null;
+        let string = null;
         if(!$state.current.title){
           string = 'Opsee';
         }else{
@@ -77,7 +77,7 @@
     $rootScope.$on('startSocket', function(event,token){
       $rootScope.stream = $websocket('ws://api-beta.opsee.co/stream/');
       $rootScope.stream.onOpen(() => {
-        var auth = JSON.stringify({
+        const auth = JSON.stringify({
           command:'authenticate',
           attributes:{
             hmac:$rootScope.user.token.replace('HMAC ','')
@@ -85,17 +85,21 @@
         });
         $rootScope.stream.send(auth);
       });
-      $rootScope.stream.onMessage(function(event){
+      $rootScope.stream.onMessage(event => {
+        let data;
         try{
-          var data = JSON.parse(event.data)
+          data = JSON.parse(event.data)
         }catch(err){
           console.log(err);
+          return false;
+        }
+        if(!data){
           return false;
         }
         switch(data.command){
           case 'authenticate':
           if(data.state == 'ok'){
-            var subscribe = JSON.stringify({
+            const subscribe = JSON.stringify({
               "command":"subscribe",
               "attributes":{"subscribe_to": (data.attributes.customer_id || $rootScope.user.customer_id) + ".launch-bastion"}
             });
@@ -112,14 +116,14 @@
           break;
         }
       });
-      $rootScope.stream.onClose(function(evt){
+      $rootScope.stream.onClose(evt => {
         console.log('socket close',evt);
         //reopen stream
         if(!$rootScope.stream.error){
           $rootScope.$broadcast('startSocket');
         }
       });
-      $rootScope.stream.onError(function(evt){
+      $rootScope.stream.onError(evt => {
         $rootScope.stream.error = true;
         console.log('socket error',evt);
       })
@@ -129,7 +133,7 @@
       $rootScope.$broadcast('startSocket');
     }
 
-    $rootScope.$on('setAuth', function(event,token){
+    $rootScope.$on('setAuth', (event,token) =>{
       if(token){
         if(!token.match('HMAC ')){
           token = 'HMAC '+token;
@@ -145,7 +149,7 @@
       $rootScope.$broadcast('startSocket');
     });
 
-    $rootScope.$on('setUser', function(event,user){
+    $rootScope.$on('setUser', (event,user) => {
       $localStorage.user = angular.toJson(user);
       $rootScope.user = new User(user).setDefaults();
       $rootScope.$broadcast('setAuth',user.token);
@@ -178,7 +182,7 @@
   function opseeInterceptor($routeProvider, $locationProvider, $httpProvider, $provide, $stateProvider) {
     $provide.factory('opseeInterceptor', function($q, $localStorage, $injector) {
       return {
-        request:function(config){
+        request:config => {
           config.headers = config.headers || {};
           //slack rejects us if we have extraneous headers, sigh.
           if ($localStorage.authToken && !config.url.match('slack.com')) {
@@ -186,13 +190,13 @@
           }
           return config;
         },
-        response: function(res) {
+        response: res => {
           if([400,401,403].indexOf(res.status) >-1){
             return $q.reject(res);
           }
           return res || $q.when(res);
         },
-         responseError: function(res) {
+         responseError: res => {
           if([0].indexOf(res.status) > -1){
             $injector.get('$state').go('500',{res:JSON.stringify(res)});
           }else if([404].indexOf(res.status) > -1){

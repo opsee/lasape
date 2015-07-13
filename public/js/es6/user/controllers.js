@@ -2,14 +2,6 @@
 
 angular.module('opsee.user.controllers', ['opsee.user.services']);
 
-function LogoutCtrl($state, principal) {
-  principal.authenticate(null);
-  //delete $localStorage.authToken;
-  localStorage.removeItem("opsee.identity");
-  $state.go('login');
-}
-angular.module('opsee.user.controllers').controller('LogoutCtrl', LogoutCtrl);
-
 function LoginCtrl($scope, $rootScope, $state, User) {
   $scope.user = $rootScope.user;
 }
@@ -51,11 +43,7 @@ function UserProfileCtrl($scope, $rootScope, $state, profile) {
 }
 UserProfileCtrl.resolve = {
   profile:function($rootScope, $q, User){
-    if($rootScope.user.hasUser()){
-      return $rootScope.user;
-    }else{
-      return $q.reject();
-    }
+    return $rootScope.user.hasUser() ? $rootScope.user : $q.reject();
   }
 }
 angular.module('opsee.user.controllers').controller('UserProfileCtrl', UserProfileCtrl);

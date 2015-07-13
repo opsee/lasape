@@ -3,7 +3,7 @@
 angular.module('opsee.checks.services', []);
 
 function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, CHECK_SCHEMAS, moment, NotificationSettings){
-  var check = $resource(ENDPOINTS.api+'/check',
+  const check = $resource(ENDPOINTS.api+'/check',
     {
       checkId:'@_id'
     },
@@ -51,7 +51,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
           }
         ],
         run:function(){
-          // var deferred = $q.defer();
+          // const deferred = $q.defer();
           // Global.confirm('Delete this check?').then(() => {
           //   $rootScope.$emit('notify','Deleted check.');
           // });
@@ -61,8 +61,8 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
       }
     ]
     check.prototype.setSilence = function(length,unit){
-      var deferred = $q.defer();
-      var c = this;
+      const deferred = $q.defer();
+      const c = this;
       c.name = 'foo';
       c.status.silence.startDate = new Date();
       c.status.silence.duration = moment.duration(length,unit).asMilliseconds();
@@ -78,7 +78,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
       return this;
     }
   check.prototype.getInfo = function(){
-    var self = this;
+    const self = this;
     switch(self.status.state){
       case 'running':
       if(self.status.silence.remaining > 0){
@@ -103,7 +103,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
     return self.info;
   }
   check.prototype.menu = function(section){
-    this.actions.forEach(function(a){
+    this.actions.forEach(a => {
       a.childrenActive = false;
       if(section && a.id != section){
         a.hidden = true;
@@ -113,7 +113,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
   }
   check.prototype.getTarget = function(selection){
     if(!selection){return false;}
-    var target;
+    let target;
     try{
       //eval here allows us to write simple strings in html
       eval('target=this.'+selection);
@@ -123,30 +123,29 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
     return target;
   }
   check.prototype.addItem = function(selection){
-    var target = this.getTarget(selection);
+    let target = this.getTarget(selection);
     if(!target){
       return false;
     }
-    var length = target.length;
-    var schema;
+    const length = target.length;
+    let schema;
     try{
       //eval here allows us to write simple strings in html
       eval('schema=CHECK_SCHEMAS.'+selection);
     }catch(err){
       console.log(err);
     }
-    var cond1 = length && !angular.equals(target[length-1],schema);
-    var cond2 = !length;
+    const cond1 = length && !angular.equals(target[length-1],schema);
+    const cond2 = !length;
     target.push(angular.copy(schema));
   }
-  check.prototype.removeItem = function(selection, $index, msg){
+  check.prototype.removeItem = function(selection, $index, msg = 'Remove this item?'){
     if(!selection || $index == undefined){return false;}
-    var target = this.getTarget(selection);
+    const target = this.getTarget(selection);
     if(!target){
       return false;
     }
-    var length = target.length;
-    var msg = msg || 'Remove this item?';
+    const length = target.length;
     $rootScope.global.confirm(msg, true).then(() => {
       target.splice($index,1);
     });
@@ -155,7 +154,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
 }
 angular.module('opsee.checks.services').factory('Check', Check);
 
-var checkDefaults = {
+const checkDefaults = {
   name:null,
   message:null,
   type:null,
@@ -170,7 +169,7 @@ var checkDefaults = {
 }
 angular.module('opsee.checks.services').constant('CHECK_DEFAULTS', checkDefaults);
 
-var checkSchemas = {
+const checkSchemas = {
   http:{
     authentications:{
       username:null,
@@ -195,53 +194,25 @@ var checkSchemas = {
 angular.module('opsee.checks.services').constant('CHECK_SCHEMAS', checkSchemas);
 
 function Methods(){
-  return[
-    {
-      name:'GET'
-    },
-    {
-      name:'POST'
-    },
-    {
-      name:'PUT'
-    },
-    {
-      name:'DELETE'
-    },
-    {
-      name:'PATCH'
-    }
-  ]
+  return ['GET','POST','PUT','DELETE','PATCH'].map(name => {name:name});
 }
 angular.module('opsee.global.services').service('Methods', Methods);
 
-
 function Protocols(){
-  return[
-    {
-      name:'HTTP'
-    },
-    {
-      name:'MySQL'
-    },
-    {
-      name:'Other'
-    }
-  ]
+  return ['HTTP', 'MySQL', 'Other'].map(name => {name:name});
 }
 angular.module('opsee.global.services').service('Protocols', Protocols);
 
 function StatusCodes($q, $http, _){
   return () => {
-    var deferred = $q.defer();
-    $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(function(res){
-      var array = _.chain(res.data).reject(function(n){
-        return n.phrase.match(/\*\*/);
-      }).sortBy(function(n){
-        return n.code;
-      }).value();
+    const deferred = $q.defer();
+    $http.get('/public/lib/know-your-http-well/json/status-codes.json').then(res => {
+      const array = _.chain(res.data).
+        reject(n => n.phrase.match(/\*\*/)).
+        sortBy(n => n.code).
+        value();
       deferred.resolve(array);
-    }, function(res){
+    }, res => {
       deferred.reject(res);
     });
     return deferred.promise;

@@ -2,7 +2,7 @@
 
 angular.module('opsee.aws.services', []);
 
-var TEST_KEYS = {
+const TEST_KEYS = {
   'access-key':'AKIAITLC4AUQZLJXBZGQ',
   'secret-key':'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'
 }
@@ -10,23 +10,21 @@ angular.module('opsee.aws.services').constant('TEST_KEYS',TEST_KEYS);
 
 function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, ENDPOINTS, TEST_KEYS){
   return {
-    vpcScan:function(data){
-      data = data || {};
+    vpcScan:function(data = {}){
       _.defaults(data,TEST_KEYS);
       if(data['access-key'].length == 5){
         _.extend(data,TEST_KEYS);
       }
       return $http.post(ENDPOINTS.vpcScan, data);
     },
-    bastionInstall:function(data){
-      data = data || {};
+    bastionInstall:function(data = {}){
       if(data.regionsWithVpcs && data.regionsWithVpcs.length){
         data.regions = data.regionsWithVpcs;
       }
       if(data['access-key'].length == 5){
         _.extend(data,TEST_KEYS);
       }
-      var testRegions = {
+      const testRegions = {
         regions:[
             {
               region: "us-east-1",
@@ -60,11 +58,11 @@ function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, 
 angular.module('opsee.aws.services').service('AWSService', AWSService);
 
 function BastionInstaller(){
-  return function(obj){
-    var defaults = {
+  return obj => {
+    const defaults = {
       instance_id:null,
       status:'progress',
-      items:['AWS::CloudFormation::Stack','AWS::EC2::SecurityGroup','AWS::IAM::Role','AWS::IAM::InstanceProfile','AWS::EC2::Instance'].map(function(i){
+      items:['AWS::CloudFormation::Stack','AWS::EC2::SecurityGroup','AWS::IAM::Role','AWS::IAM::InstanceProfile','AWS::EC2::Instance'].map(i => {
         return {id:i,msgs:[]}
       })
     }
@@ -73,8 +71,8 @@ function BastionInstaller(){
       _.defaults(this,defaults);
     }
     bastionInstaller.prototype.parseMsg = function(msg){
-      var self = this;
-      var item = _.findWhere(self.items,{id:msg.attributes.ResourceType});
+      const self = this;
+      let item = _.findWhere(self.items,{id:msg.attributes.ResourceType});
       if(!item){
         self.items.push({
           id:msg.attributes.ResourceType,
@@ -88,24 +86,18 @@ function BastionInstaller(){
       });
     }
     bastionInstaller.prototype.getItemStatuses = function(){
-      var statuses = this.items.map(function(i){
-        var last = _.last(i.msgs);
-        if(last){
-          return last;
-        }else{
-          return {ResourceStatus:'CREATE_IN_PROGRESS', ResourceType:i.id};
-        }
-      });
-      return _.compact(statuses);
+      return _.chain(this.items).map(i => {
+        return _.last(i.msgs) || {ResourceStatus:'CREATE_IN_PROGRESS', ResourceType:i.id};
+      }).compact().value();
     }
     bastionInstaller.prototype.getStatus = function(){
-      var statuses = this.getItemStatuses();
-      var progressItems = _.reject(statuses, {ResourceStatus:'CREATE_COMPLETE'});
+      const statuses = this.getItemStatuses();
+      const progressItems = _.reject(statuses, {ResourceStatus:'CREATE_COMPLETE'});
       if(!progressItems.length && statuses.length){
         this.status = 'complete';
       }else if(statuses.length){
-        var rollback = _.findWhere(statuses,{ResourceStatus:'ROLLBACK_COMPLETE'});
-        var deleting = _.findWhere(statuses,{ResourceStatus:'DELETE_COMPLETE'});
+        const rollback = _.findWhere(statuses,{ResourceStatus:'ROLLBACK_COMPLETE'});
+        const deleting = _.findWhere(statuses,{ResourceStatus:'DELETE_COMPLETE'});
         if(rollback){
           this.status = 'rollback';
         }else if(deleting){
@@ -119,14 +111,14 @@ function BastionInstaller(){
       return this.status;
     }
     bastionInstaller.prototype.getInProgressItem = function(){
-      var statuses = this.getItemStatuses();
-      var index = _.findLastIndex(statuses,{ResourceStatus:'CREATE_COMPLETE'}) + 1;
+      const statuses = this.getItemStatuses();
+      const index = _.findLastIndex(statuses,{ResourceStatus:'CREATE_COMPLETE'}) + 1;
       return (index > 0 && index < statuses.length) ? statuses[index] : {ResourceType:'AWS::EC2::SecurityGroup'};
     }
     bastionInstaller.prototype.getPercentComplete = function(){
-      var statuses = this.getItemStatuses();
-      var complete = _.where(statuses,{ResourceStatus:'CREATE_COMPLETE'}).length;
-      var num = (complete/this.items.length)*100;
+      const statuses = this.getItemStatuses();
+      const complete = _.where(statuses,{ResourceStatus:'CREATE_COMPLETE'}).length;
+      const num = (complete/this.items.length)*100;
       if(this.id == "vpc-22e51a47"){
         // console.log(num,statuses);
       }
@@ -137,7 +129,7 @@ function BastionInstaller(){
 }
 angular.module('opsee.aws.services').factory('BastionInstaller', BastionInstaller);
 
-var AWSRegions = [
+const AWSRegions = [
   {
     id:'ap-southeast-1',
     name:'Singapore'
@@ -174,7 +166,7 @@ var AWSRegions = [
 angular.module('opsee.aws.services').constant('AWSRegions', AWSRegions);
 
 function Group($resource, _, GROUP_DEFAULTS, ENDPOINTS, Global, Instance){
-  var Group = $resource(ENDPOINTS.api+'/group/:id',
+  const Group = $resource(ENDPOINTS.api+'/group/:id',
     {
       id:'@_id'
     },
@@ -192,7 +184,7 @@ function Group($resource, _, GROUP_DEFAULTS, ENDPOINTS, Global, Instance){
 }
 angular.module('opsee.aws.services').factory('Group', Group);
 
-var GROUP_DEFAULTS = {
+const GROUP_DEFAULTS = {
   itemName:'group',
   status:{
     state:'running',
@@ -206,7 +198,7 @@ var GROUP_DEFAULTS = {
 angular.module('opsee.aws.services').constant('GROUP_DEFAULTS', GROUP_DEFAULTS);
 
 function Instance($resource, $q, $timeout, _, INSTANCE_DEFAULTS, ENDPOINTS, Check){
-  var Instance = $resource(ENDPOINTS.api+'/instance/:id',
+  const Instance = $resource(ENDPOINTS.api+'/instance/:id',
     {
       id:'@_id'
     },
@@ -216,28 +208,26 @@ function Instance($resource, $q, $timeout, _, INSTANCE_DEFAULTS, ENDPOINTS, Chec
       }
     });
   Instance.prototype = Object.create(angular.copy(Check.prototype));
-  var self = this;
-  _.remove(Instance.prototype.actions, function(a){
-    return a.id == 'delete'
-  });
+  const self = this;
+  _.remove(Instance.prototype.actions, a => a.id == 'delete');
   Instance.prototype.start = function(){
-    var d = $q.defer();
+    const d = $q.defer();
     d.resolve();
     this.status.state = 'running';
     return d.promise;
   }
   Instance.prototype.restart = function(){
-    var d = $q.defer();
+    const d = $q.defer();
     d.resolve();
     this.status.state = 'restarting';
-    var self = this;
+    const self = this;
     $timeout(() => {
       self.status.state = 'running'
     },5000);
     return d.promise;
   }
   Instance.prototype.stop = function(){
-    var d = $q.defer();
+    const d = $q.defer();
     d.resolve();
     this.status.state = 'stopped';
     return d.promise;
@@ -279,7 +269,7 @@ function Instance($resource, $q, $timeout, _, INSTANCE_DEFAULTS, ENDPOINTS, Chec
 }
 angular.module('opsee.aws.services').factory('Instance', Instance);
 
-var INSTANCE_DEFAULTS = {
+const INSTANCE_DEFAULTS = {
   itemName:'instance',
   status:{
     state:'running',

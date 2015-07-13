@@ -48,7 +48,7 @@
     <div ng-if="assertion.relationship && assertion.key == 'body'">
       <div class="col-xs-10 col-xs-offset-2">
         <div class="form-group display-flex flex-wrap">
-          <input id="responseBodyValue" name="responseBodyValue" type="text" ng-model="assertion.operand" placeholder="Value" class="form-control flex-order-1" ng-required="true" ng-hide="relationshipIsEmpty(assertion.relationship)"/>
+          <input id="responseBodyValue" name="responseBodyValue" type="text" ng-model="assertion.operand" placeholder="Value" class="form-control flex-order-1" ng-required="true" ng-hide="relationshipConcernsEmpty(assertion.relationship)"/>
           <label for="responseBodyValue">Value</label>
         </div>
       </div>
@@ -61,13 +61,13 @@
         </div>
       </div>
       <div class="col-xs-6">
-        <div class="form-group display-flex flex-wrap" ng-hide="relationshipIsEmpty(assertion.relationship)">
+        <div class="form-group display-flex flex-wrap" ng-hide="relationshipConcernsEmpty(assertion.relationship)">
           <input id="responseBodyHeaderVal" name="responseBodyHeaderVal" type="text" ng-model="assertion.operand" typeahead="h for h in headerValues | filter:$viewValue" class="form-control flex-order-1" placeholder="Value">
           <label for="responseBodyHeaderVal">Value</label>
         </div>
       </div>
     </div>
-    <div ng-if="assertion.relationship && assertion.key == 'statusCode'" ng-hide="relationshipIsEmpty(assertion.relationship)">
+    <div ng-if="assertion.relationship && assertion.key == 'statusCode'" ng-hide="relationshipConcernsEmpty(assertion.relationship)">
       <div class="col-xs-10 col-xs-offset-2">
         <div class="form-group display-flex flex-wrap">
           <input id="responseBodyCode" name="responseBodyCode" type="text" ng-model="assertion.operand" typeahead="c.code as c.code for c in codes | filter:$viewValue" class="form-control flex-order-1" placeholder="e.g. 200" ng-required="true">

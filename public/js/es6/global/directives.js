@@ -43,9 +43,7 @@ function preventDefaultA(){
     restrict: 'E',
     link: function(scope, elem, attrs) {
       if(attrs.ngClick || attrs.href === '' || attrs.href === '#'){
-        elem.on('click', function(e){
-            e.preventDefault();
-        });
+        elem.on('click', e => e.preventDefault());
       }
     }
  };
@@ -190,7 +188,7 @@ angular.module('ui.bootstrap.dropdown').constant('dropdownConfig', {
   openClass: 'open'
 });
 angular.module('ui.bootstrap.dropdown').service('dropdownService', ['$document', '$rootScope', function($document, $rootScope) {
-  var openScope = null;
+  let openScope = null;
 
   this.open = function( dropdownScope ) {
     if ( !openScope ) {
@@ -213,15 +211,15 @@ angular.module('ui.bootstrap.dropdown').service('dropdownService', ['$document',
     }
   };
 
-  var closeDropdown = function( evt ) {
+  const closeDropdown = function( evt ) {
     // This method may still be called during the same mouse event that
     // unbound this event handler. So check openScope before proceeding.
     if (!openScope) { return; }
 
     if( evt && openScope.getAutoClose() === 'disabled' )  { return ; }
 
-    var toggleElements = openScope.getToggleElements();
-    var skip = false;
+    const toggleElements = openScope.getToggleElements();
+    let skip = false;
     if(evt && toggleElements) {
       angular.forEach(toggleElements, function(toggleElement) {
         if (toggleElement[0].contains(evt.target) ) {
@@ -234,7 +232,7 @@ angular.module('ui.bootstrap.dropdown').service('dropdownService', ['$document',
       return;
      }
 
-    var $element = openScope.getElement();
+    const $element = openScope.getElement();
     if( evt && openScope.getAutoClose() === 'outsideClick' && $element && $element[0].contains(evt.target) ) {
       return;
     }
@@ -246,7 +244,7 @@ angular.module('ui.bootstrap.dropdown').service('dropdownService', ['$document',
     }
   };
 
-  var escapeKeyBind = function( evt ) {
+  const escapeKeyBind = function( evt ) {
     if ( evt.which === 27 ) {
       openScope.focusToggleElement();
       closeDropdown();
@@ -306,7 +304,7 @@ angular.module('ui.bootstrap.dropdown').controller('DropdownController', functio
   };
   scope.$watch('isOpen', function( isOpen, wasOpen ) {
     if ( appendToBody && self.dropdownMenu ) {
-      var pos = $position.positionElements(self.$element, self.dropdownMenu, 'bottom-left', true);
+      const pos = $position.positionElements(self.$element, self.dropdownMenu, 'bottom-left', true);
       self.dropdownMenu.css({
         top: pos.top + 'px',
         left: pos.left + 'px',
@@ -366,7 +364,7 @@ angular.module('ui.bootstrap.dropdown').directive('dropdownToggle', function() {
 
       dropdownCtrl.addToggleElement(element);
 
-      var toggleDropdown = function(event) {
+      const toggleDropdown = function(event) {
         event.preventDefault();
 
         if ( !element.hasClass('disabled') && !attrs.disabled ) {
@@ -422,16 +420,16 @@ function radialGraph(){
       function getSilenceRemaining(obj){
         if(obj && obj.startDate){
           if(obj.startDate instanceof Date){
-            var finalVal = obj.startDate.valueOf()+obj.duration;
+            const finalVal = obj.startDate.valueOf()+obj.duration;
             return finalVal-Date.now();
           }
         }
         return false;
       }
       function genText(millis){
-        var d = moment.duration(millis);
-        var u = 'h';
-        var t = d.as(u);
+        const d = moment.duration(millis);
+        let u = 'h';
+        let t = d.as(u);
         if(t < 1){
           u = 'm';
           t = d.as(u);
@@ -445,7 +443,7 @@ function radialGraph(){
       }
       function getPath(health){
         if(!health){return false;}
-        var percentage;
+        let percentage;
         if (health >= 100) {
           percentage = 99.9;
         } else if (health < 0) {
@@ -453,19 +451,19 @@ function radialGraph(){
         } else {
           percentage = parseInt(health,10);
         }
-        var w = $scope.width/2;
-        var α = (percentage/100)*360;
-        var r = ( α * Math.PI / 180 );
-        var x = Math.sin( r ) * w;
-        var y = Math.cos( r ) * - w;
-        var mid = ( α > 180 ) ? 1 : 0;
+        const w = $scope.width/2;
+        const α = (percentage/100)*360;
+        const r = ( α * Math.PI / 180 );
+        const x = Math.sin( r ) * w;
+        const y = Math.cos( r ) * - w;
+        const mid = ( α > 180 ) ? 1 : 0;
         return `M 0 0 v -${w} A ${w} ${w} 1 ${mid} 1 ${x} ${y} z`;
       }
 
       $scope.$watch(() =>$scope.path, function(newVal,oldVal){
         if(newVal){
-          var loader = $element[0].querySelector('.loader');
-          var w = $scope.width/2;
+          const loader = $element[0].querySelector('.loader');
+          const w = $scope.width/2;
           angular.element(loader).attr('transform',`translate(${w},${w})`).attr('d',newVal);
         }
       });
@@ -514,7 +512,7 @@ function keypressEvents($document, $rootScope, $timeout){
   return {
     restrict: 'A',
     link: function() {
-      $document.bind('keydown', function(e) {
+      $document.bind('keydown', e => {
         $timeout(() => {
           $rootScope.$broadcast('keydown', e);
           $rootScope.$broadcast(`keydown:${e.which}`, e);
@@ -536,15 +534,15 @@ function searchBox(){
     templateUrl:'/public/js/src/global/partials/search-box.html',
     controller:function($scope, $rootScope, $timeout, $window, $state){
       $scope.visible = false;
-      $scope.states = _.chain($state.get()).filter((s) =>
+      $scope.states = _.chain($state.get()).filter(s =>
         s.url && s.url != '/' && !s.hideInSearch
-        ).map((s) => {
+        ).map(s => {
         s.url = s.url.replace('^','');
         return s;
       }).value();
       $scope.$on('searchBox', function(onEvent, e){
         $scope.visible = !$scope.visible;
-        var el = $window.document.getElementById('searchBoxInput');
+        const el = $window.document.getElementById('searchBoxInput');
         if($scope.visible && el){
           setTimeout(() =>el.focus(),0);
         }else if(el){
