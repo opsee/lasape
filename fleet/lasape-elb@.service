@@ -1,8 +1,10 @@
 [Unit]
 Description=Lasape ELB Registration
-BindsTo=lasape-http@%i.service
+After=docker.service
+PartOf=lasape@%i.service
 
 [Service]
+Restart=always
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill %p-%i
 ExecStartPre=-/usr/bin/docker rm %p-%i
@@ -11,4 +13,4 @@ ExecStart=/usr/bin/docker run --rm --name %p-%i -e AWS_ACCESS_KEY=AKIAIWSLK3OVJG
 ExecStop=/usr/bin/docker stop %p-%i
 
 [X-Fleet]
-MachineOf=lasape-http@%i.service
+MachineOf=lasape@%i.service

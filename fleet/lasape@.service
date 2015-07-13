@@ -2,8 +2,10 @@
 Description=Lasape
 After=docker.service
 Requires=docker.service
+Wants=%p-elb@%i.service
 
 [Service]
+Restart=always
 User=core
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill %p-%i
@@ -13,4 +15,4 @@ ExecStart=/usr/bin/docker run --name %p-%i -p 80:80 opsee/lasape
 ExecStop=/usr/bin/docker stop %p-%i
 
 [X-Fleet]
-Conflicts=lasape-http@*.service
+Conflicts=lasape@*.service
