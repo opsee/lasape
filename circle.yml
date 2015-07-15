@@ -12,12 +12,12 @@ notify:
     - url: https://hooks.slack.com/services/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
 test:
   override:
-    - docker run -d -p 9000:80 opsee/lasape; sleep 10
+    - docker run -d -p 9000:80 quay.io/opsee/lasape; sleep 10
     - curl http://localhost:9000/
 deployment:
   hub:
     branch: master
     owner: opsee
     commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push opsee/lasape
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
+      - docker push quay.io/opsee/lasape

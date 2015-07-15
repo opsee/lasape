@@ -10,8 +10,8 @@ User=core
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill %p-%i
 ExecStartPre=-/usr/bin/docker rm %p-%i
-ExecStartPre=/usr/bin/docker pull opsee/lasape:latest
-ExecStart=/usr/bin/docker run --name %p-%i -p 80:80 opsee/lasape 
+ExecStartPre=/usr/bin/docker pull quay.io/opsee/lasape:latest
+ExecStart=/usr/bin/docker run --name %p-%i -p 80:80 quay.io/opsee/lasape:latest
 ExecStop=/usr/bin/docker stop %p-%i
 
 [X-Fleet]
