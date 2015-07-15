@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         command:'bower update seedling'
       },
       docker:{
-        command:'docker build -t opsee/lasape .'
+        command:'docker build -t quay.io/opsee/lasape .'
       }
     },
     connect: {
