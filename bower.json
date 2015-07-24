@@ -33,8 +33,7 @@
     "angular-websocket": "~1.0.9",
     "angular-notification": "~1.0.1",
     "swagger-angular-client": "~0.1.12",
-    "seedling": "git@github.com:opsee/seedling.git",
-    "react": "~0.13.3"
+    "seedling": "git@github.com:opsee/seedling.git"
   },
   "devDependencies": {
     "angular-mocks": "1.2.0-rc.1",
