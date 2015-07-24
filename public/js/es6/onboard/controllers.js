@@ -122,6 +122,7 @@ function OnboardProfileCtrl($scope, $state, $rootScope, $stateParams, $analytics
   }
 }
 OnboardProfileCtrl.resolve = {
+  auth:($rootScope) => $rootScope.user.hasUser(true),
   slackProfile:function($localStorage,$rootScope){
     if($rootScope.user.integrations.slack.user){
       return true;
@@ -433,10 +434,7 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'OnboardProfileCtrl',
       title:'Fill Out Your Profile',
       resolve:OnboardProfileCtrl.resolve,
-      hideHeader:true,
-      resolve:{
-        auth:($rootScope) => $rootScope.user.hasUser(true)
-      }
+      hideHeader:true
     })
   }
 angular.module('opsee').config(config);

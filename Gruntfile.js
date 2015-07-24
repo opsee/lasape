@@ -109,7 +109,8 @@ module.exports = function(grunt) {
             'fastclick/lib/fastclick',
             'angular-toggle-switch/angular-toggle-switch.min',
             'angular-websocket/angular-websocket.min',
-            'angular-notification/angular-notification.min'
+            'angular-notification/angular-notification.min',
+            'react/react.min'
           ].map(function(f){
             return 'public/lib/'+f+'.js';
           })
