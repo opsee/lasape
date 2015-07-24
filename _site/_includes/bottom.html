@@ -20,7 +20,9 @@
     <script type="text/javascript" src="/public/js/src/api.js"></script>
     <script type="text/javascript" src="/public/js/src/app.js"></script>
 
-    <script type="text/javascript">var api_host="http://{{ site.bartnet_api_host }}:{{ site.bartnet_api_port }}";</script>
+    <script type="text/javascript">
+    window.api_host="http://{{ site.bartnet_api_host }}:{{ site.bartnet_api_port }}";
+    </script>
 
     {% assign folders = 'global|user|onboard|checks|admin|integrations|aws|docs' | split: '|' %}
     {% for folder in folders %}

@@ -17,6 +17,7 @@ public/css/src/style.css.map
 public/css/src/style.css
 public/js/src
 *.min.js
+_vars.yml
 
 packageCache.json
 

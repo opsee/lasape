@@ -8,6 +8,9 @@ module.exports = function(grunt) {
   , colors = require('colors')
   ;
 
+  var BARTNET_HOST = grunt.option('BARTNET_HOST') || 'api-beta.opsee.co';
+  var BARTNET_PORT = grunt.option('BARTNET_PORT') || '80';
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -26,7 +29,7 @@ module.exports = function(grunt) {
     },
     shell:{
       jekyll:{
-        command:'jekyll build --source _site --destination dist --config _config.yml'
+        command:'jekyll build --source _site --destination dist --config _config.yml,_vars.yml'
       },
       npm:{
         command:'npm install'
@@ -42,7 +45,7 @@ module.exports = function(grunt) {
       },
       docker:{
         command:'docker build -t quay.io/opsee/lasape .'
-      }
+      },
     },
     connect: {
       server: {
@@ -345,6 +348,11 @@ module.exports = function(grunt) {
     });
   });
 
+  grunt.registerTask('envVars', 'Write env vars for compiling with jekyll', function(){
+    var data = 'bartnet_api_host: '+BARTNET_HOST+'\n'+'bartnet_api_port: '+BARTNET_PORT;
+    grunt.file.write('_vars.yml',data);
+  })
+
   grunt.registerTask('packageCache', 'Generate packageCache file to avoid unnecessary npm install and bower install', function(){
     var done = this.async();
     var bower = grunt.file.readJSON('bower.json');
@@ -374,7 +382,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
-  grunt.registerTask('init', ['packageCache','shell:slate','concurrent:build','uglify:npm']);
+  grunt.registerTask('init', ['envVars','packageCache','shell:slate','concurrent:build','uglify:npm']);
   grunt.registerTask('serve', ['connect', 'open','watch']);
   grunt.registerTask('prod', ['init','annotate']);
   grunt.registerTask('docker', ['init','shell:docker']);
