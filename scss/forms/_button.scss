@@ -80,11 +80,6 @@ $button-fab-padding: 1.60rem !default;
 
 .btn-flat {
   background-color: transparent;
-  &[disabled]{
-    .icon {
-      fill: $text-color-secondary;
-    }
-  }
   &.btn-primary {
     background-color: transparent;
     color: $brand-primary;
@@ -118,6 +113,11 @@ $button-fab-padding: 1.60rem !default;
     color: $brand-info;
     .icon {
       fill: $brand-info;
+    }
+  }
+  &[disabled]{
+    .icon {
+      fill: $text-color-secondary;
     }
   }
   &:hover {
