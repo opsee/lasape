@@ -14,19 +14,6 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    jekyll: {                             // Task
-      options: {                          // Universal options
-        bundleExec: false,
-        src : '_site',
-        serve:false
-      },
-      dist: {                             // Target
-        options: {                        // Target options
-          dest: 'dist',
-          config: '_config.yml'
-        }
-      },
-    },
     shell:{
       jekyll:{
         command:'jekyll build --source _site --destination dist --config _config.yml,_vars.yml'
@@ -383,7 +370,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
-  grunt.registerTask('init', ['envVars','packageCache','shell:slate','concurrent:build','uglify:npm']);
+  grunt.registerTask('init', ['envVars','packageCache','shell:slate','concurrent:build','uglify:npm','buildJekyll']);
   grunt.registerTask('serve', ['connect', 'open','watch']);
   grunt.registerTask('prod', ['init','annotate']);
   grunt.registerTask('docker', ['init','shell:docker']);

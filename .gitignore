@@ -19,6 +19,8 @@ public/js/src
 *.min.js
 _vars.yml
 
+dist/
+
 packageCache.json
 
 public/lib/
