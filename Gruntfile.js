@@ -329,11 +329,11 @@ module.exports = function(grunt) {
         var changed = false;
         lines.forEach(function(line, i){
           if(line.removed){
-            grunt.log.write(colors.gray('removed: ')+line.value);
+            // grunt.log.write(colors.gray('removed: ')+line.value);
             changed = true;
           }
           if(line.added){
-            grunt.log.write(colors.cyan('added: ')+line.value);
+            // grunt.log.write(colors.cyan('added: ')+line.value);
             changed = true;
           }
         });
@@ -341,7 +341,8 @@ module.exports = function(grunt) {
          grunt.log.ok('No changes.'); 
         }else{
           grunt.file.write(output,newCode);
-          grunt.log.ok(output+' created.');
+          grunt.log.ok('New swagger code generated.');
+          // grunt.log.ok(output+' created.');
         }
         done();
       }
