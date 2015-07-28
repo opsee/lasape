@@ -3,11 +3,10 @@
 angular.module('opsee.onboard.controllers', ['opsee.onboard.services','opsee.global.services']);
 
 function OnboardCtrl($rootScope, $scope, $state, AWSRegions, TEST_KEYS){
-  $scope.user = $rootScope.user;
-  //test regions
-  $scope.user.info = {
+  $rootScope.user.info = {
     baseRegions:angular.copy(AWSRegions)
-  };
+  }
+  $scope.user = $rootScope.user;
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCtrl', OnboardCtrl);
 
@@ -173,27 +172,8 @@ function OnboardCredentialsCtrl($scope, $rootScope, $state, $analytics, AWSServi
 }
 angular.module('opsee.onboard.controllers').controller('OnboardCredentialsCtrl', OnboardCredentialsCtrl);
 
-function OnboardVpcsCtrl($scope, $rootScope, $state, $analytics, _, AWSService, AWSRegions, regionsWithVpcs){
-  $scope.msg = 'loading';
-  $scope.user.info.regionsWithVpcs = regionsWithVpcs;
-  $scope.selectAll = () => {
-    _.chain($scope.user.info.regionsWithVpcs).pluck('vpcs').flatten().map(vpc => {
-      vpc.selected = true;
-      return vpc;
-    }).value();
-  }
-  $scope.requiredSelection = function(){
-    return !_.chain($scope.user.info.regionsWithVpcs).pluck('vpcs').flatten().where({'selected':true}).value().length;
-  }
-  $scope.submit = function(){
-    $analytics.eventTrack('submit-form', {category:'Onboard',label:'VPCS Select'});
-    $state.go('onboard.bastion');
-  }
-}
-angular.module('opsee.onboard.controllers').controller('OnboardVpcsCtrl', OnboardVpcsCtrl);
-
-OnboardVpcsCtrl.resolve = {
-  regionsWithVpcs:function(AWSService, AWSRegions, $q, $rootScope, _){
+function OnboardVpcsCtrl($scope, $rootScope, $q, $state, $analytics, _, AWSService, AWSRegions){
+  function getRegionsWithVpcs(){
     const deferred = $q.defer();
     const data = angular.copy($rootScope.user.info);
     let regions = _.chain(data.baseRegions).where({selected:true}).pluck('id').value();
@@ -215,7 +195,58 @@ OnboardVpcsCtrl.resolve = {
       $rootScope.$emit('notify',err);
     });
     return deferred.promise;
-  },
+  }
+
+  getRegionsWithVpcs().then(function(regions){
+    $scope.loadingVpcs = false;
+    $scope.user.info.regionsWithVpcs = regions;
+  }, function(err){
+
+  })
+
+  $scope.loadingVpcs = true;
+
+  $scope.msg = 'loading';
+  $scope.selectAll = () => {
+    _.chain($scope.user.info.regionsWithVpcs).pluck('vpcs').flatten().map(vpc => {
+      vpc.selected = true;
+      return vpc;
+    }).value();
+  }
+  $scope.requiredSelection = function(){
+    return !_.chain($scope.user.info.regionsWithVpcs).pluck('vpcs').flatten().where({'selected':true}).value().length;
+  }
+  $scope.submit = function(){
+    $analytics.eventTrack('submit-form', {category:'Onboard',label:'VPCS Select'});
+    $state.go('onboard.bastion');
+  }
+}
+angular.module('opsee.onboard.controllers').controller('OnboardVpcsCtrl', OnboardVpcsCtrl);
+
+OnboardVpcsCtrl.resolve = {
+  // regionsWithVpcs:function(AWSService, AWSRegions, $q, $rootScope, _){
+  //   const deferred = $q.defer();
+  //   const data = angular.copy($rootScope.user.info);
+  //   let regions = _.chain(data.baseRegions).where({selected:true}).pluck('id').value();
+  //   if(!regions.length){
+  //     regions = ['us-east-1','us-west-1'];
+  //   }
+  //   data.regions = regions;
+  //   AWSService.vpcScan(data).then(function(res){
+  //     const regions = res.data;
+  //     regions.forEach(r => {
+  //       AWSRegions.forEach(ar => {
+  //         if(r.region == ar.id){
+  //           r.regionName = ar.name;
+  //         }
+  //       });
+  //     })
+  //     deferred.resolve(regions);
+  //   },function(err){
+  //     $rootScope.$emit('notify',err);
+  //   });
+  //   return deferred.promise;
+  // },
   auth:function($rootScope){
     return $rootScope.user.hasUser(true);
   }
@@ -288,7 +319,7 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
 
   $scope.exampleLaunch = function(){
     setLaunchedBastions([{"region":"us-east-1","vpcs":[{"instance_id":"5tRx0JWEOQgGVdLoKj1W3Z","id":"vpc-31a0cc54"}]},{"region":"ap-southeast-1","vpcs":[{"instance_id":"1r6k6YRB3Uzh0Bk5vmZsFU","id":"vpc-22e51a47"}]}]);
-    $http.get('/public/js/src/aws/bastion-install-messages-example.json').then(function(res){
+    $http.get('/public/js/es6/aws/bastion-install-messages-example.json').then(function(res){
       res.data.forEach(function(d,i){
         if(d.command != 'launch-bastion'){
           return false;

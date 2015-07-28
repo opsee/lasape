@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-        <form name="regionSelectForm" ng-submit="submit()" ng-if="user.info.regionsWithVpcs.length">
+        <form name="regionSelectForm" ng-submit="submit()" ng-if="user.info.regionsWithVpcs.length && !loadingVpcs">
           <p>Here are the active VPCs Opsee found in the regions you chose. Choose which VPCs you'd like to install bastions in.</p>
           <h2 class="h3">Your active VPCs - <a href="#" ng-click="selectAll()">Select All</a></h2>
           <div ng-repeat="region in user.info.regionsWithVpcs">
@@ -28,7 +28,10 @@
             </div>
           </div>
         </form>
-        <div ng-if="!user.info.regionsWithVpcs.length">
+        <div ng-if="loadingVpcs">
+          Finding VPCs...
+        </div>
+        <div ng-if="!user.info.regionsWithVpcs.length && !loadingVpcs">
           Bad credentials or no VPCs to choose from.
         </div>
       </div>

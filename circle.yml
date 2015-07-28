@@ -2,7 +2,7 @@ dependencies:
   override:
     - npm install
     - bundle install
-    - bundle exec grunt docker --v
+    - bundle exec grunt docker
     - docker info
 machine:
   services:
