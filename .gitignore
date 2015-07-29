@@ -19,6 +19,10 @@ public/js/src
 *.min.js
 _vars.yml
 
+dist/
+_site/_includes/email.css
+index.html
+
 packageCache.json
 
 public/lib/
