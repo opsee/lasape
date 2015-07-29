@@ -200,12 +200,19 @@ module.exports = function(grunt) {
         files:['Gruntfile.js'],
         tasks:['uglify:deps','swagger','browserify']
       },
-      j:{
+      appIndex:{
         options:{
           livereload:true
         },
-        files:['_site/**/*.**'],
-        tasks:['shell:jekyll','copy','emailBuilder:inline']
+        files:['_site/index.html'],
+        tasks:['shell:jekyll','copy']
+      },
+      emailFiles:{
+        options:{
+          livereload:true
+        },
+        files:['_site/email/**/*.**'],
+        tasks:['shell:jekyll','emailBuilder:inline']
       },
       babel:{
         files:['public/js/es6/**/*.js'],
@@ -223,7 +230,7 @@ module.exports = function(grunt) {
       },
       sassEmail:{
         files:['scss-email/**/*.scss'],
-        tasks:['compass:email','emailBuilder:inline']
+        tasks:['compass:email','shell:jekyll','emailBuilder:inline']
       },
       css:{
         options:{
