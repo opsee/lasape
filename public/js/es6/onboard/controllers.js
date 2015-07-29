@@ -65,29 +65,19 @@ function OnboardTutorial1Ctrl($scope, preImg){
   $scope.step.img = preImg;
 }
 OnboardTutorial1Ctrl.resolve = {
-  preImg:PreloadImg => PreloadImg('/public/img/tut-01.svg')
+  preImg:PreloadImg => PreloadImg('/public/img/tut-checks.svg')
 }
 angular.module('opsee.onboard.controllers').controller('OnboardTutorial1Ctrl', OnboardTutorial1Ctrl);
 
 function OnboardTutorial2Ctrl($scope, preImg){
   $scope.step.text = 'Next';
-  $scope.step.link = 'onboard.tutorial.3';
-  $scope.step.img = preImg;
-}
-OnboardTutorial2Ctrl.resolve = {
-  preImg:PreloadImg => PreloadImg('/public/img/tut-02.svg')
-}
-angular.module('opsee.onboard.controllers').controller('OnboardTutorial2Ctrl', OnboardTutorial2Ctrl);
-
-function OnboardTutorial3Ctrl($scope, preImg){
-  $scope.step.text = 'Finish';
   $scope.step.link = 'onboard.team';
   $scope.step.img = preImg;
 }
-OnboardTutorial3Ctrl.resolve = {
-  preImg:PreloadImg => PreloadImg('/public/img/tut-03.svg')
+OnboardTutorial2Ctrl.resolve = {
+  preImg:PreloadImg => PreloadImg('/public/img/tut-bastion.svg')
 }
-angular.module('opsee.onboard.controllers').controller('OnboardTutorial3Ctrl', OnboardTutorial3Ctrl);
+angular.module('opsee.onboard.controllers').controller('OnboardTutorial2Ctrl', OnboardTutorial2Ctrl);
 
 function OnboardPasswordCtrl($scope, $state, $rootScope, $stateParams, $analytics, User, UserService){
   $scope.user.activationId = $stateParams.token;
@@ -238,7 +228,7 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     }
     const data = angular.copy($scope.user.info);
     AWSService.bastionInstall(data).then(
-      res => setLaunchedBastions(res.data), 
+      res => setLaunchedBastions(res.data),
       err => $scope.$emit('notify', err)
     );
   }
@@ -246,7 +236,7 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
   if($window.location.href.match(':8000') && !$location.search().noTesting){
     $scope.testing = true;
   }else{
-    $scope.launch();    
+    $scope.launch();
   }
 
     function setLaunchedBastions(bastions){
@@ -361,15 +351,6 @@ function config ($stateProvider, $urlRouterProvider) {
       controller:'OnboardTutorial2Ctrl',
       title:'Tutorial Step 2',
       resolve:OnboardTutorial2Ctrl.resolve,
-      hideHeader:true,
-      hideInSearch:true
-    })
-    .state('onboard.tutorial.3', {
-      url:'intro/3',
-      templateUrl:'/public/js/src/onboard/views/tutorial-3.html',
-      controller:'OnboardTutorial3Ctrl',
-      title:'Tutorial Step 3',
-      resolve:OnboardTutorial3Ctrl.resolve,
       hideHeader:true,
       hideInSearch:true
     })
