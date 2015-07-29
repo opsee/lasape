@@ -56,6 +56,9 @@ function UserProfileEditCtrl($scope, $rootScope, $state, profile) {
   $scope.close = function(){
     $state.go('profile');
   }
+  $scope.submit = function(){
+    console.log($scope.user);
+  }
 }
 angular.module('opsee.user.controllers').controller('UserProfileEditCtrl', UserProfileEditCtrl);
 

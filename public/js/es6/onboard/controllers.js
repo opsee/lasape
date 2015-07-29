@@ -264,11 +264,11 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     );
   }
 
-  if($window.location.href.match(':8000') && !$location.search().noTesting){
-    $scope.testing = true;
-  }else{
-    $scope.launch();
-  }
+  // if($window.location.href.match(':8000') && !$location.search().noTesting){
+  //   $scope.testing = true;
+  // }else{
+  //   $scope.launch();
+  // }
 
     function setLaunchedBastions(bastions){
       $rootScope.user.info.launchedRegions = bastions;
@@ -308,7 +308,8 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     }
 
   $scope.exampleLaunch = function(){
-    setLaunchedBastions([{"region":"us-east-1","vpcs":[{"instance_id":"5tRx0JWEOQgGVdLoKj1W3Z","id":"vpc-31a0cc54"}]},{"region":"ap-southeast-1","vpcs":[{"instance_id":"1r6k6YRB3Uzh0Bk5vmZsFU","id":"vpc-22e51a47"}]}]);
+    // setLaunchedBastions([{"region":"us-east-1","vpcs":[{"instance_id":"5tRx0JWEOQgGVdLoKj1W3Z","id":"vpc-31a0cc54"}]},{"region":"ap-southeast-1","vpcs":[{"instance_id":"1r6k6YRB3Uzh0Bk5vmZsFU","id":"vpc-22e51a47"}]}]);
+    setLaunchedBastions([{"region":"ap-southeast-1","vpcs":[{"instance_id":"1r6k6YRB3Uzh0Bk5vmZsFU","id":"vpc-22e51a47"}]}]);
     $http.get('/public/js/es6/aws/bastion-install-messages-example.json').then(function(res){
       res.data.forEach(function(d,i){
         if(d.command != 'launch-bastion'){
@@ -327,6 +328,8 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
   $scope.submit = function(){
     $state.go('home');
   }
+  $scope.exampleLaunch();
+
 }
 angular.module('opsee.onboard.controllers').controller('OnboardBastionCtrl', OnboardBastionCtrl);
 

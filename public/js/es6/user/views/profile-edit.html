@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-        <form name="profileForm">
+        <form name="profileForm" ng-submit="submit()">
           <user-inputs user="profile" include="email,name"></user-inputs>
           <div class="padding-tb">
             <a href="/profile/password-change" class="btn btn-flat btn-warning">Change Your Password</a>

@@ -99,7 +99,7 @@ angular.module('opsee.user.services').constant('USER_DEFAULTS', userDefaults);
 function UserService($q, $resource, $rootScope, $analytics, User, ENDPOINTS){
   return{
     set:USER => $rootScope.user = new User(USER).setDefaults().setPrefs(),
-    edit:(user,options) => {
+    edit:(user, options) => {
       const deferred = $q.defer();
       //used for editing users and creating new ones
       saved = options && options.isEditing ? User.update(user) : User.save(user);
