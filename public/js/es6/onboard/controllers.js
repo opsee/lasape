@@ -326,7 +326,7 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     return allComplete && $scope.bastions.length;
   }
   $scope.submit = function(){
-    $state.go('home');
+    $state.go('check.all');
   }
   $scope.exampleLaunch();
 
