@@ -194,12 +194,12 @@ const checkSchemas = {
 angular.module('opsee.checks.services').constant('CHECK_SCHEMAS', checkSchemas);
 
 function Methods(){
-  return ['GET','POST','PUT','DELETE','PATCH'].map(name => {name:name});
+  return ['GET','POST','PUT','DELETE','PATCH'].map(name => {return {name:name}});
 }
 angular.module('opsee.global.services').service('Methods', Methods);
 
 function Protocols(){
-  return ['HTTP', 'MySQL', 'Other'].map(name => {name:name});
+  return ['HTTP', 'MySQL', 'Other'].map(name => {return {name:name}});
 }
 angular.module('opsee.global.services').service('Protocols', Protocols);
 
