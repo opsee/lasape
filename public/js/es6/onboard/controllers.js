@@ -328,7 +328,8 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
   $scope.submit = function(){
     $state.go('check.all');
   }
-  $scope.exampleLaunch();
+  $scope.launch();
+  // $scope.exampleLaunch();
 
 }
 angular.module('opsee.onboard.controllers').controller('OnboardBastionCtrl', OnboardBastionCtrl);

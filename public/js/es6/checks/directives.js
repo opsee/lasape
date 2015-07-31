@@ -16,6 +16,11 @@ function checkItem(){
     templateUrl:'/public/js/src/checks/partials/check-item.html',
     scope:{
       check:'='
+    },
+    controller:function($scope){
+      $scope.newDate = function(){
+        return new Date();
+      }
     }
   }
 }

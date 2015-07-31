@@ -5,30 +5,46 @@ angular.module('opsee.checks.controllers', ['opsee.checks.services']);
 function AllChecksCtrl($scope, $state, $stateParams, $timeout, $analytics, Check){
   $scope.checks = [
   {
-    name:'My great check',
-    info:'Fun info here.',
-    id:'foo',
+    name:'Public HTTP Latency',
+    info:'User feed service',
+    id:'fa3artyg-gsrsgre',
     status:{
-      health:25,
+      health:15,
       state:'running',
       silence:{
         startDate:null,
         duration:null
       }
     },
+    lastChecked:new Date()
   },
   {
-    name:'My great check2',
-    info:'Fun info here2.',
-    id:'feee',
+    name:'Search engine status',
+    info:'Elasticsearch cluster',
+    id:'s5lk5-s5g5s5-sggsss',
     status:{
-      health:50,
+      health:100,
       state:'running',
       silence:{
         startDate:null,
         duration:null
       }
     },
+    lastChecked:new Date()
+  },
+  {
+    name:'Database connection',
+    info:'Database',
+    id:'lafkjl21khf-alkjalefu21',
+    status:{
+      health:100,
+      state:'running',
+      silence:{
+        startDate:null,
+        duration:null
+      }
+    },
+    lastChecked:new Date()
   },
   ]
   $scope.checks.forEach(function(c,i){

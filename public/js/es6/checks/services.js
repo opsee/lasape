@@ -87,6 +87,7 @@ function Check($resource, $rootScope, $q, _, Global, CHECK_DEFAULTS, ENDPOINTS, 
         self.status.silence.user = self.status.silence.user || '[username]';
         return 'Silenced for '+ self.status.silence.humanDuration + ' by '+self.status.silence.user+'.';
       }else{
+        return null;
         return 'Running for X minutes';
       }
       break;
@@ -165,7 +166,8 @@ const checkDefaults = {
     headers:[]
   },
   notifications:[],
-  assertions:[]
+  assertions:[],
+  lastChecked:new Date()
 }
 angular.module('opsee.checks.services').constant('CHECK_DEFAULTS', checkDefaults);
 

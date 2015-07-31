@@ -4,7 +4,10 @@
       <div radial-graph item="check"></div>
       <div class="padding-tb line-height-1">
         <div>{{check.name}}</div>
-        <div class="text-secondary">{{check.getInfo()}}</div>
+        <div class="text-secondary" ng-if="check.getInfo()">{{check.getInfo()}}</div>
+        <div class="text-secondary" ng-if="!check.getInfo()">
+          Last checked <span am-time-ago="check.lastChecked"></span>.
+        </div>
       </div>
     </a>
     <button type="button" class="btn btn-icon btn-flat" ng-click="check.menu('silence')" title="Silence check">
