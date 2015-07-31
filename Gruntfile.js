@@ -333,6 +333,7 @@ module.exports = function(grunt) {
         });
         if(!changed){
          grunt.log.ok('No changes.'); 
+         grunt.file.write(output,newCode);
         }else{
           grunt.file.write(output,newCode);
           grunt.log.ok('New swagger code generated.');
