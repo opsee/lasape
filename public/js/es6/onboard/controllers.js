@@ -255,6 +255,9 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
         a.vpcs = _.where(a.vpcs,{selected:true});
         return a;
       });
+      $rootScope.user.info.regionsWithVpcs = _.filter($rootScope.user.info.regionsWithVpcs, function(region){
+        return region.vpcs.length;
+      });
     }catch(err){
       console.log(err);
     }
