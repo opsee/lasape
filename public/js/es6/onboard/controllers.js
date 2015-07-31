@@ -252,6 +252,7 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
         a.vpcs.map(v => {
           v.id = v['vpc-id'];
         });
+        a.vpcs = _.where(a.vpcs,{selected:true});
         return a;
       });
     }catch(err){
