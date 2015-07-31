@@ -189,7 +189,7 @@ function OnboardVpcsCtrl($scope, $rootScope, $q, $state, $analytics, _, AWSServi
 
   getRegionsWithVpcs().then(function(regions){
     $scope.loadingVpcs = false;
-    $scope.user.info.regionsWithVpcs = regions;
+    $rootScope.user.info.regionsWithVpcs = regions;
   }, function(err){
 
   })
@@ -281,7 +281,7 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
     }
 
     function getBastion(data){
-      if(data.command == 'launch-bastion'){
+      if(data.command.match('launch-bastion')){
         return _.findWhere($scope.bastions,{instance_id:data.instance_id});
       }
       return false;
@@ -297,13 +297,16 @@ function OnboardBastionCtrl($scope, $rootScope, $window, $state, $timeout, $anal
 
     if($rootScope.stream){
       $rootScope.stream.onMessage(function(event){
+        let streamData;
         try{
-          const data = JSON.parse(event.data)
+          streamData = JSON.parse(event.data)
         }catch(err){
           console.log(err);
           return false;
         }
-        $scope.messages.push(data);
+        if(streamData){
+          $scope.messages.push(streamData);
+        }
       });
     }
 

@@ -47,9 +47,9 @@ function AWSService($http, $localStorage, $rootScope, $websocket, $resource, _, 
       _.defaults(data, {
         'instance-size': "t2.micro"
       }, TEST_KEYS, testRegions);
-      if($rootScope.user.email == 'cliff@leaninto.it'){
-        _.extend(data,TEST_KEYS);
-      }
+      // if($rootScope.user.email == 'cliff@leaninto.it'){
+      //   _.extend(data,TEST_KEYS);
+      // }
       return $http.post(ENDPOINTS.api+'/bastions/launch', data);
     }
   }
