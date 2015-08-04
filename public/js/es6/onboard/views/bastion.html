@@ -8,6 +8,7 @@
           <button type="button" ng-click="exampleLaunch()" class="btn btn-primary btn-flat btn-block">Example Install</button>
         </div>
         <h2 ng-if="launched && !bastions.length">Setting Up...</h2>
+        <p>We are now installing the bastion in your selected VPCs. This could take a few minutes.</p>
 
         <div ng-repeat="bastion in bastions" class="padding-bx2">
           <!-- <div ng-repeat="item in bastion.items">

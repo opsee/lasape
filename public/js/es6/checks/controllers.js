@@ -269,7 +269,9 @@ CheckStep1Ctrl.resolve = {
 function CheckStep2Ctrl($scope, $state, $http, $filter, Check, Relationships, AssertionTypes, slate){
   if($scope.info){
     $scope.info.checkStep = 2;
-    $scope.check.addItem('assertions');
+    if(!$scope.check.assertions.length){
+      $scope.check.addItem('assertions');
+    }
   }
   $scope.relationships = Relationships;
   $scope.assertionTypes = AssertionTypes;
@@ -320,7 +322,9 @@ angular.module('opsee.checks.controllers').controller('CheckStep2Ctrl', CheckSte
 function CheckStep3Ctrl($scope, $state, $analytics, $notification, Check, Intervals){
   if($scope.info){
     $scope.info.checkStep = 3;
-    $scope.check.addItem('notifications');
+    if(!$scope.check.notifications.length){
+      $scope.check.addItem('notifications');
+    }
   }
   $scope.intervals = Intervals;
   $scope.save = () => {

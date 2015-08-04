@@ -2,7 +2,13 @@
 
 angular.module('opsee.admin.controllers', []);
 
-function SignupsCtrl($scope, $rootScope, signups, AdminService, Global){
+function SignupsCtrl($scope, $rootScope, _, signups, AdminService, Global){
+  signups = _.chain(signups).map(s => {
+    s.created_at = Date.parse(s.created_at);
+    return s;
+  }).sortBy(s => {
+    return -1*s.created_at;
+  }).value();
   $scope.groups = {
     unapproved: _.filter(signups, s => !s.activation_id),
     approved: _.filter(signups, s => !!s.activation_id && !s.activation_used),

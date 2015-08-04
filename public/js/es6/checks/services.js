@@ -201,7 +201,7 @@ function Methods(){
 angular.module('opsee.global.services').service('Methods', Methods);
 
 function Protocols(){
-  return ['HTTP', 'HTTPS', 'MySQL', 'Other'].map(name => {return {name:name}});
+  return ['HTTP'].map(name => {return {name:name}});
 }
 angular.module('opsee.global.services').service('Protocols', Protocols);
 

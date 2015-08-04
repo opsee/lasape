@@ -27,6 +27,7 @@
       $analytics.pageTrack(toState.url);
       $activityIndicator.timer = false;
       $activityIndicator.stopAnimating();
+      // $timeout(() => {$window.document.querySelector('body').scrollTop = 0},410);
     });
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams , error) {
@@ -43,7 +44,7 @@
     $rootScope.localStorage = $localStorage;
     $rootScope.global = Global;
     $rootScope.regex = Regex;
-    $rootScope.opseeNotifs = [1,2,3];
+    $rootScope.opseeNotifs = [];
     $rootScope.pageInfo = {
       title: function(){
         let string = null;
@@ -52,8 +53,8 @@
         }else{
           string = $state.current.title + ' - Opsee';
         }
-        // return $rootScope.opseeNotifs.length ? '['+$rootScope.opseeNotifs.length+'] '+string : string;
-        return $rootScope.opseeNotifs.length ? `[${$rootScope.opseeNotifs.length}] ${string}` : string;
+        let notifsString = $rootScope.opseeNotifs.length ? `[${$rootScope.opseeNotifs.length}] ` : ' ';
+        return $rootScope.opseeNotifs.length ? `${notifsString}${string}` : string;
       }
     }
 
@@ -119,7 +120,7 @@
       $rootScope.stream.onClose(evt => {
         console.log('socket close',evt);
         //reopen stream
-        if(!$rootScope.stream.error){
+        if(!$rootScope.stream.error && !evt.reason){
           $rootScope.$broadcast('startSocket');
         }
       });
