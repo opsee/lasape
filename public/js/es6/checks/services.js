@@ -158,13 +158,12 @@ angular.module('opsee.checks.services').factory('Check', Check);
 const checkDefaults = {
   name:null,
   message:null,
-  type:null,
   interval:null,
-  http:{
-    protocol:null,
-    authentications:[],
-    headers:[]
-  },
+  group:null,
+  protocol:'HTTP',
+  method:'GET',
+  port:80,
+  headers:[],
   notifications:[],
   assertions:[],
   lastChecked:new Date()
@@ -196,12 +195,12 @@ const checkSchemas = {
 angular.module('opsee.checks.services').constant('CHECK_SCHEMAS', checkSchemas);
 
 function Methods(){
-  return ['GET','POST','PUT','DELETE','PATCH'].map(name => {return {name:name}});
+  return ['GET','POST','PUT','DELETE','PATCH'];
 }
 angular.module('opsee.global.services').service('Methods', Methods);
 
 function Protocols(){
-  return ['HTTP'].map(name => {return {name:name}});
+  return ['HTTP'];
 }
 angular.module('opsee.global.services').service('Protocols', Protocols);
 

@@ -171,12 +171,12 @@ EditCheckCtrl.resolve = {
   "interval": {
     "name": "15min"
   },
-  "http": {
-    "protocol": null,
-    "authentications": [],
-    "headers": [],
-    "port": "80"
-  },
+  "authentications": [],
+  "headers": [],
+  "protocol":"HTTP",
+  "method":"POST",
+  "port": 80,
+  path:'/healthcheck',
   "notifications": [
     {
       channel:{
@@ -215,12 +215,6 @@ EditCheckCtrl.resolve = {
     "group": {
       "name": "cluster1",
       "id": "sg-4821a42d"
-    },
-    "protocol": {
-      "name": "HTTP"
-    },
-    "method": {
-      "name": "POST"
     },
     // "url": "http://foobar.com/fo/clowns"
   }

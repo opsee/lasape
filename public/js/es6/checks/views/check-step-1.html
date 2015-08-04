@@ -24,12 +24,12 @@
     <div class="form-group display-flex flex-wrap" dropdown>
       <select id="check-protocol" class="sr-only" ng-required="true" ng-model="check.protocol" ng-options="p for p in protocols"></select>
       <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        {{check.protocol.name || '- Protocol -'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
+        {{check.protocol || '- Protocol -'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="p in protocols">
           <button ng-click="check.protocol = p"  class="btn" dropdown-toggle>
-            {{p.name}}
+            {{p}}
           </button>
         </li>
       </ul>
@@ -39,7 +39,7 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="form-group display-flex flex-wrap" ng-class="{'has-error':checkStep1Form.checkPort.$invalid && checkStep1Form.checkPort.$touched}">
-          <input id="checkPort" name="checkPort" type="text" ng-model="check.http.port" class="form-control flex-order-1" placeholder="e.g. 80" ng-required="true"/>
+          <input id="checkPort" name="checkPort" type="text" ng-model="check.port" class="form-control flex-order-1" placeholder="e.g. 80" ng-required="true"/>
           <label for="checkPort">
             <span class="form-label">Port</span>
             <default-messages ng-model="checkStep1Form.checkPort"></default-messages>
@@ -55,12 +55,12 @@
     <div class="form-group display-flex flex-wrap" dropdown>
       <select id="check-method" class="sr-only" ng-required="true" ng-model="check.method" ng-options="v for v in methods"></select>
       <button type="button" class="btn btn-block dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        {{check.method.name || '- Method -'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
+        {{check.method || '- Method -'}} <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_caret_down" /></svg>
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="m in methods">
           <button ng-click="check.method = m" class="btn" dropdown-toggle>
-            {{m.name}}
+            {{m}}
           </button>
         </li>
       </ul>
@@ -79,7 +79,7 @@
 
 <h2>Add Headers</h2>
 <div class="row">
-  <div ng-repeat="auth in check.http.headers">
+  <div ng-repeat="auth in check.headers">
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-12">
@@ -92,28 +92,28 @@
         <div class="row">
           <div class="col-xs-12 col-sm-6">
             <div class="form-group display-flex flex-wrap">
-              <input id="check-header-key-{{$index}}" type="text" ng-model="check.http.headers[$index].key" class="form-control has-icon flex-order-1" placeholder="Key" ng-required="true"/>
+              <input id="check-header-key-{{$index}}" type="text" ng-model="check.headers[$index].key" class="form-control has-icon flex-order-1" placeholder="Key" ng-required="true"/>
               <label for="check-header-key-{{$index}}">Key</label>
               <svg class="input-icon" viewBox="0 0 24 24"><use xlink:href="#ico_key" /></svg>
             </div>
           </div>
           <div class="col-xs-12 col-sm-6">
             <div class="form-group display-flex flex-wrap">
-              <input id="check-header-value-{{$index}}" class="form-control flex-order-1" type="text" ng-model="check.http.headers[$index].value" placeholder="Value" ng-required="true"/>
+              <input id="check-header-value-{{$index}}" class="form-control flex-order-1" type="text" ng-model="check.headers[$index].value" placeholder="Value" ng-required="true"/>
               <label for="check-header-value-{{$index}}">Value</label>
             </div>
           </div>
         </div>
       </div>
       <div class="padding-lr">
-        <button type="button" class="btn btn-icon btn-flat" ng-click="check.removeItem('http.headers', $index)" title="Remove this Header">
+        <button type="button" class="btn btn-icon btn-flat" ng-click="check.removeItem('headers', $index)" title="Remove this Header">
           <svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_close" /></svg>
         </button>
       </div>
     </div>
   </div>
   <div class="col-xs-12">
-    <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('http.headers')"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add a Header</button>
+    <button type="button" class="btn btn-flat btn-nopad btn-primary" ng-click="check.addItem('headers')"><svg class="icon" viewBox="0 0 24 24"><use xlink:href="#ico_add" /></svg> Add a Header</button>
   </div>
 </div>
 
