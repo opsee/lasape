@@ -2,7 +2,7 @@
 
 angular.module('opsee.user.services', []);
 
-function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, USER_DEFAULTS, ENDPOINTS, SlackService, gravatarService){
+function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, USER_DEFAULTS, ENDPOINTS, SlackService, AWSRegions, gravatarService){
   const User = $resource(ENDPOINTS.user,
     {
       id:'@_id'
@@ -14,6 +14,9 @@ function User($resource, $rootScope, _, $localStorage, $state, $q, $analytics, U
     });
   User.prototype.setDefaults = function(){
     _.defaults(this, USER_DEFAULTS);
+    _.defaults(this,{info:{
+      baseRegions:angular.copy(AWSRegions)
+    }})
     this.populateSlack();
     return this;
   }
