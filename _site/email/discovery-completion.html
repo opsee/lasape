@@ -1,0 +1,65 @@
+---
+title: Your Opsee Environment is Ready!
+layout: email
+---
+
+<table width="100%">
+  <tr>
+    <td height="20"></td>
+  </tr>
+  <tr>
+    <td class="padding">
+      <p>Hi {{name}},</p>
+      <p>The Bastion Instance was added, and it completed its scan of your environment.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="padding">
+      <h2>Here’s Your New Bastion Instance</h2>
+    </td>
+  </tr>
+  <tr>
+    <td class="padding">
+      <p>Opsee added a Bastion instance to your AWS environment. Here are more details:</p>
+      <p>[BASTION TABLE]</p>
+      <p>If you’d like, you can check this out in <a href="https://console.aws.amazon.com/s3/home"></a>.</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <h2>Here’s What Opsee Found</h2>
+    </td>
+  </tr>
+  <tr>
+    <td class="padding">
+      <p>Here’s what Opsee found in your AWS environment:</p>
+      <p>[DISCOVERY TABLE]</p>
+      <p>If you’d like, you can check this out in <a href="https://console.aws.amazon.com/s3/home"></a>.</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <h2>We Created Some Checks for You</h2>
+    </td>
+  </tr>
+  <tr>
+    <td class="padding">
+      <p>We looked at your Infrastructure and tried to create some good health checks:</p>
+      <p>[CHECKS TABLE]</p>
+      <p>You can <a href="{{checks_page}}">review the health checks</a> as soon as you start using Opsee.</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
+  </tr>
+  <tr>
+    <td class="content-block text-center">
+      {%raw%}
+      <a href="{{accept_approval_link}}" class="btn btn-success">START USING OPSEE</a>
+      {%endraw%}
+    </td>
+  </tr>
+</table>

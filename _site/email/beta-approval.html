@@ -1,5 +1,5 @@
 ---
-title: Reset Your Opsee Password
+title: Welcome to Opsee
 layout: email
 ---
 
@@ -8,8 +8,9 @@ layout: email
     <td height="20"></td>
   </tr>
   <tr>
-    <td class="padding" >
-      Sorry about your password, {{name}}. Use the link below to reset it, and you'll be ready to go:
+    <td class="padding">
+      <p>Hi {{name}},</p>
+      <p>You're in! Click the link below to set up your new Opsee account:</p>
     </td>
   </tr>
   <tr>
@@ -18,7 +19,7 @@ layout: email
   <tr>
     <td class="content-block text-center">
       {%raw%}
-      <a href="{{password_reset_link}}" class="btn btn-success">RESET MY PASSWORD</a>
+      <a href="{{accept_approval_link}}" class="btn btn-success">START USING OPSEE</a>
       {%endraw%}
     </td>
   </tr>
