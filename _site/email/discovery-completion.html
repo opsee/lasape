@@ -14,6 +14,19 @@ layout: email
     </td>
   </tr>
   <tr>
+    <td height="20"></td>
+  </tr>
+  <tr>
+    <td class="content-block text-center">
+      {%raw%}
+      <a href="{{accept_approval_link}}" class="btn btn-success"><strong>START USING OPSEE</strong></a>
+      {%endraw%}
+    </td>
+  </tr>
+  <tr>
+    <td height="20"></td>
+  </tr>
+  <tr>
     <td class="padding">
       <h2>Here’s Your New Bastion Instance</h2>
     </td>
@@ -21,8 +34,20 @@ layout: email
   <tr>
     <td class="padding">
       <p>Opsee added a Bastion instance to your AWS environment. Here are more details:</p>
-      <p>[BASTION TABLE]</p>
-      <p>If you’d like, you can check this out in <a href="https://console.aws.amazon.com/s3/home"></a>.</p>
+
+      <table>
+        <tr>
+          <td class="circle-container padding">
+            <a href="{{instances_link}}"><div class="circle"></div></a>
+          </td>
+          <td class="padding">
+            <p><a href="{{instances_link}}"><strong>BastionInstance</strong></a></p>
+            <p><strong>Group: <a href="{{groups_link}}">BastionSecurityGroup</a></strong></p>
+          </td>
+        </tr>
+      </table>
+
+      <p>You can also see your new Bastion Instance in <a href="{{console_lnk}}">your AWS console</a>.</p>
     </td>
   </tr>
 
@@ -34,8 +59,22 @@ layout: email
   <tr>
     <td class="padding">
       <p>Here’s what Opsee found in your AWS environment:</p>
-      <p>[DISCOVERY TABLE]</p>
-      <p>If you’d like, you can check this out in <a href="https://console.aws.amazon.com/s3/home"></a>.</p>
+      <table width="100%">
+        <tr>
+          <td class="text-center padding">
+            <a href="{{instances_link}}">
+              <h1>{{instances_count}}</h1>
+              <p><strong>EC2<br>Instances</strong></p>
+            </a>
+          </td>
+          <td class="text-center padding">
+            <a href="{{groups_link}}">
+              <h1>{{groups_count}}</h1>
+              <p><strong>Security<br>Groups</strong></p>
+            </a>
+          </td>
+        </tr>
+      </table>
     </td>
   </tr>
 
@@ -46,19 +85,27 @@ layout: email
   </tr>
   <tr>
     <td class="padding">
-      <p>We looked at your Infrastructure and tried to create some good health checks:</p>
-      <p>[CHECKS TABLE]</p>
-      <p>You can <a href="{{checks_page}}">review the health checks</a> as soon as you start using Opsee.</p>
+      <p>We looked at your Infrastructure and tried to create some health checks:</p>
+      <table width="100%">
+        <tr>
+          <td class="text-center padding">
+            <a href="{{instances_link}}">
+              <h1>{{checks_count}}</h1>
+              <p><strong>Health<br>Checks</strong></p>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <p>You can <a href="{{checks_link}}">review the health checks</a> as soon as you start using Opsee.</p>
     </td>
   </tr>
-
   <tr>
     <td height="20"></td>
   </tr>
   <tr>
     <td class="content-block text-center">
       {%raw%}
-      <a href="{{accept_approval_link}}" class="btn btn-success">START USING OPSEE</a>
+      <a href="{{accept_approval_link}}" class="btn btn-success"><strong>START USING OPSEE</strong></a>
       {%endraw%}
     </td>
   </tr>
