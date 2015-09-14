@@ -35,6 +35,19 @@ table td {
   vertical-align: top;
 }
 
+
+.circle-container {
+  height: 60px;
+  width: 60px;
+}
+.circle {
+  @include border-radius(30px);
+  background-color: $brand-success;
+  height: 60px;
+  width: 60px;
+}
+
+
 .body-wrap {
   width: 100%;
 }
