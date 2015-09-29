@@ -2,7 +2,7 @@
 title: Your Opsee Environment is Ready!
 layout: email
 ---
-
+{%raw%}
 <table width="100%">
   <tr>
     <td height="20"></td>
@@ -18,9 +18,7 @@ layout: email
   </tr>
   <tr>
     <td class="content-block text-center">
-      {%raw%}
-      <a href="{{accept_approval_link}}" class="btn btn-success"><strong>START USING OPSEE</strong></a>
-      {%endraw%}
+      <a href="{{opsee_host}}/check-create" class="btn btn-success"><strong>START USING OPSEE</strong></a>
     </td>
   </tr>
   <tr>
@@ -38,16 +36,16 @@ layout: email
       <table>
         <tr>
           <td class="circle-container padding">
-            <a href="{{instances_link}}"><div class="circle"></div></a>
+            <a href="{{opsee_host}}/env/instances"><div class="circle"></div></a>
           </td>
           <td class="padding">
-            <p><a href="{{instances_link}}"><strong>BastionInstance</strong></a></p>
-            <p><strong>Group: <a href="{{groups_link}}">BastionSecurityGroup</a></strong></p>
+            <p><a href="{{opsee_host}}/env/instances"><strong>BastionInstance</strong></a></p>
+            <p><strong>Group: <a href="{{opsee_host}}/env/groups">BastionSecurityGroup</a></strong></p>
           </td>
         </tr>
       </table>
 
-      <p>You can also see your new Bastion Instance in <a href="{{console_lnk}}">your AWS console</a>.</p>
+      <p>You can also see your new Bastion Instance in <a href="https://{{aws_region}}.console.aws.amazon.com/ec2/v2/home">your AWS console</a>.</p>
     </td>
   </tr>
 
@@ -62,13 +60,13 @@ layout: email
       <table width="100%">
         <tr>
           <td class="text-center padding">
-            <a href="{{instances_link}}">
+            <a href="{{opsee_host}}/env/instances">
               <h1>{{instances_count}}</h1>
               <p><strong>EC2<br>Instances</strong></p>
             </a>
           </td>
           <td class="text-center padding">
-            <a href="{{groups_link}}">
+            <a href="{{opsee_host}}/env/groups">
               <h1>{{groups_count}}</h1>
               <p><strong>Security<br>Groups</strong></p>
             </a>
@@ -78,6 +76,7 @@ layout: email
     </td>
   </tr>
 
+{{#if checks_count}}
   <tr>
     <td class="padding">
       <h2>We Created Some Checks for You</h2>
@@ -89,24 +88,25 @@ layout: email
       <table width="100%">
         <tr>
           <td class="text-center padding">
-            <a href="{{instances_link}}">
+            <a href="{{opsee_host}}/checks">
               <h1>{{checks_count}}</h1>
               <p><strong>Health<br>Checks</strong></p>
             </a>
           </td>
         </tr>
       </table>
-      <p>You can <a href="{{checks_link}}">review the health checks</a> as soon as you start using Opsee.</p>
+      <p>You can <a href="{{opsee_host}}/checks">review the health checks</a> as soon as you start using Opsee.</p>
     </td>
   </tr>
+ {{/if}}
+ 
   <tr>
     <td height="20"></td>
   </tr>
   <tr>
     <td class="content-block text-center">
-      {%raw%}
-      <a href="{{accept_approval_link}}" class="btn btn-success"><strong>START USING OPSEE</strong></a>
-      {%endraw%}
+      <a href="{{opsee_host}}/check-create" class="btn btn-success"><strong>START USING OPSEE</strong></a>
     </td>
   </tr>
 </table>
+{%endraw%}
