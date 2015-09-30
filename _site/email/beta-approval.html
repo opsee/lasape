@@ -2,7 +2,7 @@
 title: Welcome to Opsee
 layout: email
 ---
-
+{%raw%}
 <table width="100%">
   <tr>
     <td height="20"></td>
@@ -18,9 +18,8 @@ layout: email
   </tr>
   <tr>
     <td class="content-block text-center">
-      {%raw%}
       <a href="{{opsee_host}}/start/password?id={{signup_id}}&token={{url signup_token}}" class="btn btn-success">START USING OPSEE</a>
-      {%endraw%}
     </td>
   </tr>
 </table>
+{%endraw%}
