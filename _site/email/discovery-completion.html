@@ -31,7 +31,7 @@ layout: email
   </tr>
   <tr>
     <td class="padding">
-      <p>Opsee added your Bastion instance to {{aws_region}}. Here are more details:</p>
+      <p>Opsee added your Bastion instance to {{region}}. Here are more details:</p>
 
       <table>
         <tr>
@@ -45,7 +45,7 @@ layout: email
         </tr>
       </table>
 
-      <p>You can also see your new Bastion Instance in <a href="https://{{aws_region}}.console.aws.amazon.com/ec2/v2/home">your AWS console</a>.</p>
+      <p>You can also see your new Bastion Instance in <a href="https://{{region}}.console.aws.amazon.com/ec2/v2/home">your AWS console</a>.</p>
     </td>
   </tr>
 
@@ -56,18 +56,18 @@ layout: email
   </tr>
   <tr>
     <td class="padding">
-      <p>Here’s what Opsee found in {{aws_region}}:</p>
+      <p>Here’s what Opsee found in {{region}}:</p>
       <table width="100%">
         <tr>
           <td class="text-center padding">
             <a href="{{opsee_host}}/env/instances">
-              <h1>{{instances_count}}</h1>
+              <h1>{{instance_count}}</h1>
               <p><strong>EC2<br>Instances</strong></p>
             </a>
           </td>
           <td class="text-center padding">
             <a href="{{opsee_host}}/env/groups">
-              <h1>{{groups_count}}</h1>
+              <h1>{{group_count}}</h1>
               <p><strong>Security<br>Groups</strong></p>
             </a>
           </td>
@@ -76,7 +76,7 @@ layout: email
     </td>
   </tr>
 
-{{#if checks_count}}
+{{#if check_count}}
   <tr>
     <td class="padding">
       <h2>We Created Some Checks for You</h2>
@@ -89,7 +89,7 @@ layout: email
         <tr>
           <td class="text-center padding">
             <a href="{{opsee_host}}/checks">
-              <h1>{{checks_count}}</h1>
+              <h1>{{check_count}}</h1>
               <p><strong>Health<br>Checks</strong></p>
             </a>
           </td>
