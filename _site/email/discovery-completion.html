@@ -1,12 +1,14 @@
 ---
-title: Your Opsee Environment is Ready!
 layout: email
 ---
 {%raw%}
 <table width="100%">
   <tr>
-    <td height="20"></td>
+    <td class="padding">
+      <h1>Your Opsee Environment is Ready!</h1>
+    </td>
   </tr>
+
   <tr>
     <td class="padding">
       <p>Hi {{name}},</p>
@@ -36,7 +38,7 @@ layout: email
       <table>
         <tr>
           <td class="circle-container padding">
-            <a href="{{opsee_host}}/env/instances"><div class="circle"></div></a>
+            <a href="{{opsee_host}}/env/instances"><div class="circle circle-success"></div></a>
           </td>
           <td class="padding">
             <p><a href="{{opsee_host}}/env/instances"><strong>BastionInstance</strong></a></p>

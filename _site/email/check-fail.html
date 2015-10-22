@@ -1,0 +1,65 @@
+---
+layout: email
+---
+{%raw%}
+<table width="100%">
+  <tr>
+    <td class="padding">
+      <h1>{{check_name}} failure in {{group_name}}</h1>
+      <h2 class="padding">{{fail_count}} of {{instance_count}} Instances Failing</h2>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <p>The following instances in the <strong>{{group_name}}</strong> group have failed the <strong>{{check_name}}</strong> check:</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <table>
+        <tr>
+          <td class="circle-containers-small padding-r padding-b">
+            <a href="/instance/{{instance_path}}"><div class="circle-small circle-danger"></div></a>
+          </td>
+          <td>
+            <p><a href="/instance/{{instance_path}}"><strong>{{instance_name}}</strong></a></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="circle-containers-small padding-r padding-b">
+            <a href="/instance/{{instance_path}}"><div class="circle-small circle-danger"></div></a>
+          </td>
+          <td>
+            <p><a href="/instance/{{instance_path}}"><strong>{{instance_name}}</strong></a></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="circle-containers-small padding-r padding-b">
+            <a href="/instance/{{instance_path}}"><div class="circle-small circle-danger"></div></a>
+          </td>
+          <td>
+            <p><a href="/instance/{{instance_path}}"><strong>{{instance_name}}</strong></a></p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="40"></td>
+  </tr>
+
+  <tr>
+    <td class="content-block text-center">
+      <a href="/group/{{group_path}}" class="btn btn-success"><strong>VIEW THE GROUP</strong></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="40"></td>
+  </tr>
+
+</table>
+{%endraw%}
