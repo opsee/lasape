@@ -19,30 +19,16 @@ layout: email
   <tr>
     <td class="padding">
       <table>
+        {{#each instances}}
         <tr>
           <td class="circle-containers-small padding-r padding-b">
-            <a href="/instance/{{instance_path}}"><div class="circle-small circle-danger"></div></a>
+            <a href="{{instance_path}}/{{id}}"><div class="circle-small circle-danger"></div></a>
           </td>
           <td>
-            <p><a href="/instance/{{instance_path}}"><strong>{{instance_name}}</strong></a></p>
+            <p><a href="{{instance_path}}/{{id}}"><strong>{{#if name}}{{name}}{{else}}{{id}}{{/if}}</strong></a></p>
           </td>
         </tr>
-        <tr>
-          <td class="circle-containers-small padding-r padding-b">
-            <a href="/instance/{{instance_path}}"><div class="circle-small circle-danger"></div></a>
-          </td>
-          <td>
-            <p><a href="/instance/{{instance_path}}"><strong>{{instance_name}}</strong></a></p>
-          </td>
-        </tr>
-        <tr>
-          <td class="circle-containers-small padding-r padding-b">
-            <a href="/instance/{{instance_path}}"><div class="circle-small circle-danger"></div></a>
-          </td>
-          <td>
-            <p><a href="/instance/{{instance_path}}"><strong>{{instance_name}}</strong></a></p>
-          </td>
-        </tr>
+        {{/each}}
       </table>
     </td>
   </tr>
@@ -53,7 +39,7 @@ layout: email
 
   <tr>
     <td class="content-block text-center">
-      <a href="/group/{{group_path}}" class="btn btn-success"><strong>VIEW THE GROUP</strong></a>
+      <a href="{{group_path}}/{{group_id}}" class="btn btn-success"><strong>VIEW THE GROUP</strong></a>
     </td>
   </tr>
 
