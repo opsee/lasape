@@ -38,11 +38,11 @@ layout: email
       <table>
         <tr>
           <td class="circle-container padding">
-            <a href="{{opsee_host}}/env/instances"><div class="circle circle-success"></div></a>
+            <a href="{{opsee_host}}/env-instances-ec2"><div class="circle circle-success"></div></a>
           </td>
           <td class="padding">
-            <p><a href="{{opsee_host}}/env/instances"><strong>BastionInstance</strong></a></p>
-            <p><strong>Group: <a href="{{opsee_host}}/env/groups">BastionSecurityGroup</a></strong></p>
+            <p><a href="{{opsee_host}}/env-instances-ec2"><strong>BastionInstance</strong></a></p>
+            <p><strong>Group: <a href="{{opsee_host}}/env-groups-security">BastionSecurityGroup</a></strong></p>
           </td>
         </tr>
       </table>
@@ -62,17 +62,25 @@ layout: email
       <table width="100%">
         <tr>
           <td class="text-center padding">
-            <a href="{{opsee_host}}/env/instances">
+            <a href="{{opsee_host}}/env-instances-ec2">
               <h1>{{instance_count}}</h1>
               <p><strong>EC2<br>Instances</strong></p>
             </a>
           </td>
           <td class="text-center padding">
-            <a href="{{opsee_host}}/env/groups">
+            <a href="{{opsee_host}}/env-groups-security">
               <h1>{{security_group_count}}</h1>
               <p><strong>Security<br>Groups</strong></p>
             </a>
           </td>
+          {{#if load_balancer_count}}
+          <td class="text-center padding">
+            <a href="{{opsee_host}}/env-groups-elb">
+              <h1>{{load_balancer_count}}</h1>
+              <p><strong>Load<br>Balancers</strong></p>
+            </a>
+          </td>
+          {{/if}}
         </tr>
       </table>
     </td>
