@@ -22,10 +22,10 @@ layout: email
         {{#each instances}}
         <tr>
           <td class="circle-containers-small padding-r padding-b">
-            <a href="https://{{opsee_host}}/instance/{{type}}/{{id}}"><div class="circle-small circle-danger"></div></a>
+            <a href="{{opsee_host}}/instance/{{type}}/{{id}}"><div class="circle-small circle-danger"></div></a>
           </td>
           <td>
-            <p><a href="https://{{opsee_host}}/instance/{{type}}/{{id}}"><strong>{{#if name}}{{name}}{{else}}{{id}}{{/if}}</strong></a></p>
+            <p><a href="{{opsee_host}}/instance/{{type}}/{{id}}"><strong>{{#if name}}{{name}}{{else}}{{id}}{{/if}}</strong></a></p>
           </td>
         </tr>
         {{/each}}
@@ -53,7 +53,7 @@ layout: email
   
   <tr>
     <td class="content-block text-center">
-      <a href="https://{{opsee_host}}/check/{{check_id}}" class="btn btn-success"><strong>SHOW CHECK</strong></a>
+      <a href="{{opsee_host}}/check/{{check_id}}" class="btn btn-success"><strong>SHOW CHECK</strong></a>
     </td>
   </tr>
 
