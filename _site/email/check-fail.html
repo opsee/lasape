@@ -22,10 +22,10 @@ layout: email
         {{#each instances}}
         <tr>
           <td class="circle-containers-small padding-r padding-b">
-            <a href="{{opsee_host}}/instance/{{type}}/{{id}}"><div class="circle-small circle-danger"></div></a>
+            <a href="{{opsee_host}}/instance/ec2/{{type}}/{{id}}"><div class="circle-small circle-danger"></div></a>
           </td>
           <td>
-            <p><a href="{{opsee_host}}/instance/{{type}}/{{id}}"><strong>{{#if name}}{{name}}{{else}}{{id}}{{/if}}</strong></a></p>
+            <p><a href="{{opsee_host}}/instance/ec2/{{type}}/{{id}}"><strong>{{#if name}}{{name}}{{else}}{{id}}{{/if}}</strong></a></p>
           </td>
         </tr>
         {{/each}}
