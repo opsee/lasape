@@ -40,11 +40,25 @@ table td {
   height: 60px;
   width: 60px;
 }
+.circle-container-small {
+  height: 30px;
+  width: 30px;
+}
 .circle {
   @include border-radius(30px);
-  background-color: $brand-success;
   height: 60px;
   width: 60px;
+}
+.circle-small {
+  @include border-radius(15px);
+  height: 30px;
+  width: 30px;
+}
+.circle-success {
+  background-color: $brand-success;
+}
+.circle-danger {
+  background-color: $brand-danger;
 }
 
 
@@ -64,12 +78,24 @@ table td {
   text-align: center;
 }
 
+.padding-b {
+  padding-bottom: 1em;
+}
+.padding-r {
+  padding-right: 1em;
+}
+
 #{headings(all)}{
 
 }
 h1{
   color: #01579B;
+  font-size: 32px;
   font-weight:900;
+  text-align: center;
+}
+h2 {
+  font-size: 24px;
   text-align: center;
 }
 .text-sm{

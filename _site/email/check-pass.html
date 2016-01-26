@@ -3,25 +3,16 @@ layout: email
 ---
 {%raw%}
 <table width="100%">
-
   <tr>
     <td class="padding">
-      <h1>Welcome to the Opsee Beta</h1>
+      <h1>{{check_name}} passing in {{group_name}}</h1>
+      <h2 class="padding">All Instances Passing</h2>
     </td>
   </tr>
 
   <tr>
     <td class="padding">
-      <p>Hi {{name}},</p>
-      <p>You're in! Click the link below to set up your new Opsee account:</p>
-    </td>
-  </tr>
-  <tr>
-    <td height="20"></td>
-  </tr>
-  <tr>
-    <td class="content-block text-center">
-      <a href="{{opsee_host}}/start/password?id={{signup_id}}&token={{url signup_token}}" class="btn btn-success">START USING OPSEE</a>
+      <p>All instances in the <strong>{{group_name}}</strong> group are passing the <strong>{{check_name}}</strong> check.</p>
     </td>
   </tr>
 
@@ -38,5 +29,6 @@ layout: email
   <tr>
     <td height="40"></td>
   </tr>
+
 </table>
 {%endraw%}

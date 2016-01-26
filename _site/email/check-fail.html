@@ -1,0 +1,71 @@
+---
+layout: email
+---
+{%raw%}
+<table width="100%">
+  <tr>
+    <td class="padding">
+      <h1>{{check_name}} failure in {{group_name}}</h1>
+      <h2 class="padding">{{fail_count}} of {{instance_count}} Instances Failing</h2>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <p>The following instances in the <strong>{{group_name}}</strong> group have failed the <strong>{{check_name}}</strong> check:</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <table>
+        {{#each instances}}
+        <tr>
+          <td class="circle-containers-small padding-r padding-b">
+            <a href="{{opsee_host}}/instance/ec2/{{type}}/{{id}}"><div class="circle-small circle-danger"></div></a>
+          </td>
+          <td>
+            <p><a href="{{opsee_host}}/instance/ec2/{{type}}/{{id}}"><strong>{{#if name}}{{name}}{{else}}{{id}}{{/if}}</strong></a></p>
+          </td>
+        </tr>
+        {{/each}}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">Response:</td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      {{first_response}}
+    </td>
+  </tr>
+
+  <tr>
+    <td height="40"></td>
+  </tr>
+
+  <tr>
+    <td class="content-block text-center">
+      <a href="{{opsee_host}}/check/{{check_id}}" class="btn btn-success"><strong>SHOW CHECK</strong></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="40"></td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <p>Reply to this message if you think there's been an error, or if you have any other feedback for us. We love replies.</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="40"></td>
+  </tr>
+
+</table>
+{%endraw%}
