@@ -24,9 +24,6 @@ module.exports = function(grunt) {
       bower:{
         command:'bower cache clean && bower install'
       },
-      slate:{
-        command:'npm install slate'
-      },
       opseeBower:{
         command:'bower update seedling'
       },
@@ -378,7 +375,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
   grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
-  grunt.registerTask('init', ['envVars','packageCache','shell:slate','concurrent:build','uglify:npm','buildJekyll']);
+  grunt.registerTask('init', ['envVars','packageCache','concurrent:build','uglify:npm','buildJekyll']);
   grunt.registerTask('serve', ['connect', 'open','watch']);
   grunt.registerTask('prod', ['init','annotate']);
   grunt.registerTask('docker', ['init','shell:docker']);
