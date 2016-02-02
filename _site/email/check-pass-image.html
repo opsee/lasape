@@ -1,0 +1,64 @@
+---
+layout: email
+---
+{%raw%}
+<table width="100%">
+  <tr>
+    <td class="padding">
+      <h1>{{check_name}} passing in {{group_name}}</h1>
+      <h2 class="padding">All Instances Passing</h2>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="40"></td>
+  </tr>
+
+  <tr>
+    <td class="sm-only">
+      <a href="{{opsee_host}}/check/{{check_id}}">
+        <img class="sm-only" src="{{img_400}}"/>
+      </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="lg-only">
+      <a href="{{opsee_host}}/check/{{check_id}}">
+        <img class="lg-only" src="{{img_800}}"/>
+      </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
+  </tr>
+
+  <tr>
+    <td class="content-block text-center">
+      <a href="{{opsee_host}}/check/{{check_id}}" class="btn btn-success"><strong>GO TO CHECK IN OPSEE</strong></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="40"></td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      Complete details of this event can be found in JSON form at <a href="{{json_url}}">{{json_url}}</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <p>Reply to this message if you think there's been an error, or if you have any other feedback for us. We love replies.</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="40"></td>
+  </tr>
+
+</table>
+{%endraw%}

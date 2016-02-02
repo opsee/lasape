@@ -24,6 +24,7 @@ body {
   width: 100% !important;
   height: 100%;
   line-height: 1.6;
+  min-height:0 !important;
 }
 
 /* Let's make sure all tables have defaults */
@@ -101,6 +102,17 @@ h2 {
 .text-sm{
   font-size:13px;
 }
+
+.sm-only{
+  display: block;
+  height:0;
+  width:0;
+  clip: rect(0, 0);
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  overflow: hidden;
+}
+
 #footer-inner {
   background-color: black;
 }

@@ -3,15 +3,10 @@ module.exports = function(grunt) {
   var load = require('load-grunt-tasks')(grunt)
   , rewrite = require( "connect-modrewrite" )
   , request = require('request')
-  , CodeGen = require('swagger-js-codegen').CodeGen
   , jsDiff = require('diff')
   , colors = require('colors')
   ;
 
-  var BARTNET_HOST = grunt.option('BARTNET_HOST') || 'api-beta.opsee.co';
-  var BARTNET_PORT = grunt.option('BARTNET_PORT') || '80';
-
-  // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     shell:{
@@ -61,69 +56,6 @@ module.exports = function(grunt) {
         ]
       }
     },
-    uglify:{
-      deps:{
-        options:{
-          mangle:false,
-          compress:false
-        },
-        files:{
-          'public/js/dist/deps.min.js':[
-            'angular/angular.min',
-            'angular-cookies/angular-cookies.min',
-            'angular-resource/angular-resource.min',
-            'angular-bootstrap/ui-bootstrap-tpls',
-            'angular-route/angular-route.min',
-            'ngstorage/ngStorage.min',
-            'angular-http-auth/src/http-auth-interceptor',
-            'angulartics/dist/angulartics.min',
-            'angulartics/dist/angulartics-ga.min',
-            'ngActivityIndicator/ngActivityIndicator.min',
-            'angular-sanitize/angular-sanitize.min',
-            'angular-validation-match/dist/angular-input-match.min',
-            'angular-animate/angular-animate.min',
-            'angular-ui-router/release/angular-ui-router',
-            'angular-aria/angular-aria.min',
-            'moment/moment',
-            'angular-moment/angular-moment.min',
-            '../js/es6/vendor/scripts/highlight.pack',
-            'angular-highlightjs/angular-highlightjs',
-            'ngstorage/ngStorage.min',
-            'angular-gravatar/build/angular-gravatar.min',
-            'angular-messages/angular-messages.min',
-            'angular-visibility-change/dist/angular-visibility-change.min',
-            'angular-touch/angular-touch.min',
-            'fastclick/lib/fastclick',
-            'angular-toggle-switch/angular-toggle-switch.min',
-            'angular-websocket/angular-websocket.min',
-            'angular-notification/angular-notification.min'
-          ].map(function(f){
-            return 'public/lib/'+f+'.js';
-          })
-        }
-      },
-      annotated: {
-        options:{
-          mangle:false,
-          compress:false
-        },
-        files:{
-          'public/js/dist/opsee.min.js':['public/js/dist/deps.min.js','public/js/src/app.app.js','public/**/*.annotated.js']
-        }
-      },
-      npm: {
-        options:{
-          mangle:true,
-          compress:{}
-        },
-        files:{
-          'public/js/dist/npm-deps.min.js':['public/js/dist/npm-deps.js']
-        }
-      }
-    },
-    clean:{
-      annotated:['**/*.annotated.js','**/*.app.js'],
-    },
     browserify:{
       slate:{
         src:['node_modules/slate/src/exports.js'],
@@ -164,38 +96,10 @@ module.exports = function(grunt) {
         ext:'.html'
       }
     },
-    ngAnnotate:{
-      options:{
-        add:true,
-        remove:true
-      },
-      all:{
-        files:[
-        {
-          expand:true,
-          src:['public/js/src/**/*.js'],
-          ext:'.annotated.js',
-          extDot:'last'
-        }
-        ]
-      },
-      //we have two annotate tasks because the app.js needs 
-      //to load in before all the other modules
-      app:{
-        files:[
-        {
-          expand:true,
-          src:['public/js/src/app.js'],
-          ext:'.app.js',
-          extDot:'last'
-        }
-        ]
-      },
-    },
     watch:{
       grunt:{
         files:['Gruntfile.js'],
-        tasks:['uglify:deps','swagger','browserify']
+        tasks:['browserify']
       },
       appIndex:{
         options:{
@@ -208,7 +112,7 @@ module.exports = function(grunt) {
         options:{
           livereload:true
         },
-        files:['_site/email/**/*.**'],
+        files:['_site/email/**/*.**', '_site/_layouts/**/*.**'],
         tasks:['shell:jekyll','emailBuilder:inline']
       },
       babel:{
@@ -295,56 +199,12 @@ module.exports = function(grunt) {
     },
     concurrent:{
       npmBower:['shell:npm','shell:bower'],
-      build:['shell:opseeBower','browserify','swagger','compass:dist','babel','preprocess']
+      build:['shell:opseeBower','browserify','compass:dist','babel','preprocess']
     }
   });
 
   grunt.registerTask('processhtml', ['newer:preprocess']);
   grunt.registerTask('processbabel', ['newer:babel']);
-
-  grunt.registerTask('swagger', 'Generate Angular Swagger Code, Notify of Changes', function(){
-    var done = this.async();
-    var json = request('http://api-beta.opsee.co/api/swagger.json', function(error,response,body){
-      if(error){
-        grunt.log.error(error);
-        done();
-      }else{
-        var newCode = CodeGen.getAngularCode({moduleName:'opsee.api', className:'opseeAPI', swagger:JSON.parse(body)});
-        var output = 'public/js/src/api.js';
-        try{
-          var oldCode = grunt.file.read(output);
-        }catch(err){
-          var oldCode = '';
-        }
-        var lines = jsDiff.diffLines(oldCode,newCode);
-        var changed = false;
-        lines.forEach(function(line, i){
-          if(line.removed){
-            // grunt.log.write(colors.gray('removed: ')+line.value);
-            changed = true;
-          }
-          if(line.added){
-            // grunt.log.write(colors.cyan('added: ')+line.value);
-            changed = true;
-          }
-        });
-        if(!changed){
-         grunt.log.ok('No changes.'); 
-         grunt.file.write(output,newCode);
-        }else{
-          grunt.file.write(output,newCode);
-          grunt.log.ok('New swagger code generated.');
-          // grunt.log.ok(output+' created.');
-        }
-        done();
-      }
-    });
-  });
-
-  grunt.registerTask('envVars', 'Write env vars for compiling with jekyll', function(){
-    var data = 'bartnet_api_host: '+BARTNET_HOST+'\n'+'bartnet_api_port: '+BARTNET_PORT;
-    grunt.file.write('_vars.yml',data);
-  })
 
   grunt.registerTask('packageCache', 'Generate packageCache file to avoid unnecessary npm install and bower install', function(){
     var done = this.async();
@@ -353,7 +213,7 @@ module.exports = function(grunt) {
     var combined = JSON.stringify({npm:npm,bower:bower});
     function runThem(){
       grunt.file.write('packageCache.json',combined);
-      grunt.task.run(['concurrent:npmBower','uglify:deps']);
+      grunt.task.run(['concurrent:npmBower']);
       return done();
     }
     try{
@@ -374,10 +234,9 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
-  grunt.registerTask('annotate', ['ngAnnotate','uglify:annotated','clean:annotated']);
-  grunt.registerTask('init', ['envVars','packageCache','concurrent:build','uglify:npm','buildJekyll']);
+  grunt.registerTask('init', ['packageCache','concurrent:build','buildJekyll']);
   grunt.registerTask('serve', ['connect', 'open','watch']);
-  grunt.registerTask('prod', ['init','annotate']);
+  grunt.registerTask('prod', ['init']);
   grunt.registerTask('docker', ['init','shell:docker']);
   grunt.registerTask('default', ['init','serve']);
 

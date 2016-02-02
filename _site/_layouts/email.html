@@ -7,6 +7,36 @@
 <style type="text/css">
   {% include email.css %}
 </style>
+<style data-embed>
+  @media screen and (max-width:600px){
+    .sm-only{
+      display: block !important;
+      height:auto !important;
+      width:auto !important;
+      clip: auto !important;
+      border: 0 !important;
+      overflow: visible !important;
+    }
+    .lg-only{
+      display: block !important;
+      height:0 !important;
+      width:0 !important;
+      clip: rect(0, 0, 0, 0) !important;
+      border: 0 !important;
+      overflow: hidden !important;
+    }
+  }
+  @media screen and (min-width:601px){
+    .lg-only{
+      display: block !important;
+      height:auto !important;
+      width:auto !important;
+      clip: auto !important;
+      border: 0 !important;
+      overflow: visible !important;
+    }
+  }
+</style>
 </head>
 <body itemscope itemtype="http://schema.org/EmailMessage">
 <table class="body-wrap">
@@ -33,13 +63,13 @@
           {{ content }}
         </td>
       </tr>
-      <tr>
-        <td height="40"></td>
-      </tr>
 
     </table>
     <!--end container-->
 
+    <tr>
+      <td height="40"></td>
+    </tr>
 
   </td>
 </tr>
