@@ -52,7 +52,7 @@ module.exports = function(grunt) {
         tasks:['shell:jekyll','emailBuilder:inline']
       },
       sassEmail:{
-        files:['scss-email/**/*.scss'],
+        files:['src/scss/**/*.scss'],
         tasks:['compass:email','shell:jekyll','emailBuilder:inline']
       },
       css:{
@@ -63,23 +63,10 @@ module.exports = function(grunt) {
       }
     },
     compass:{
-      dist:{
-        options:{
-          cssDir:'public/css/src',
-          sassDir:'scss',
-          imagesDir:'public/img',
-          fontsPath:'fonts',
-          require:['breakpoint','sass-css-importer', 'compass-flexbox'],
-          httpPath:'',
-          relativeAssets:true,
-          noLineComments:true,
-          outputStyle:'compact'
-        }
-      },
       email:{
         options:{
           cssDir:'src/_includes',
-          sassDir:'scss-email',
+          sassDir:'src/scss',
           require:['breakpoint','sass-css-importer', 'compass-flexbox'],
           relativeAssets:true,
           noLineComments:true,

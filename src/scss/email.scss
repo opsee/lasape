@@ -1,7 +1,7 @@
 @import "breakpoint";
 @import "compass";
 @import "compass/css3/deprecated-support";
-@import '../public/lib/seedling/scss/module.scss';
+@import '../../public/lib/seedling/scss/module.scss';
 @import "bootstrap-email";
 @import './_includes/helpers';
 @import "./_includes/mixins";
@@ -35,7 +35,6 @@ table td {
   padding: 0 0;
   vertical-align: top;
 }
-
 
 .circle-container {
   height: 60px;
