@@ -1,7 +1,0 @@
-<div class="radial-graph {{status.state}}" ng-class="{silenced:status.silence.remaining}" title="{{getCheckTitle()}}">
-    <svg>
-      <path class="loader"/>
-    </svg>
-    <div class="radial-graph-inner {{bool}}" ng-if="status.state == 'running'">{{text}}</div>
-  <div class="pie-slice"></div>
-</div>
