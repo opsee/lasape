@@ -51,10 +51,6 @@ module.exports = function(grunt) {
         files:['src/email/**/*.**', 'src/_layouts/**/*.**'],
         tasks:['shell:jekyll','emailBuilder:inline']
       },
-      sass:{
-        files:['scss/**/*.scss'],
-        tasks:['compass:dist']
-      },
       sassEmail:{
         files:['scss-email/**/*.scss'],
         tasks:['compass:email','shell:jekyll','emailBuilder:inline']
