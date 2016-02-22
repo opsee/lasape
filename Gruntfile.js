@@ -23,17 +23,6 @@ module.exports = function(grunt) {
         command:'bower update seedling'
       }
     },
-    copy:{
-      html:{
-        files:[
-        {
-          src:'dist/index.html',
-          dest:'index.html',
-          filter:'isFile'
-        }
-        ]
-      }
-    },
     autoprefixer:{
       single_file:{
         options:{
@@ -54,12 +43,6 @@ module.exports = function(grunt) {
       sassEmail:{
         files:['src/scss/**/*.scss'],
         tasks:['compass:email','shell:jekyll','emailBuilder:inline']
-      },
-      css:{
-        options:{
-          livereload:true
-        },
-        files:['public/css/**/*.css']
       }
     },
     compass:{
@@ -82,18 +65,6 @@ module.exports = function(grunt) {
           dest:'',
           ext:'.html'
         }]
-      },
-      litmus: {
-        files: { 'dest/output.html' : 'src/input.html' },
-        options: {
-          encodeSpecialChars: true,
-          litmus: {
-            username: 'username',
-            password: 'password',
-            url: 'https://yoursite.litmus.com',
-            applications: ['gmailnew', 'ffgmail', 'chromegmail']
-          }
-        }
       }
     },
     concurrent:{
@@ -101,9 +72,6 @@ module.exports = function(grunt) {
       build:['shell:opseeBower','browserify','compass:dist','babel','preprocess']
     }
   });
-
-  grunt.registerTask('processhtml', ['newer:preprocess']);
-  grunt.registerTask('processbabel', ['newer:babel']);
 
   grunt.registerTask('packageCache', 'Generate packageCache file to avoid unnecessary npm install and bower install', function(){
     var done = this.async();
