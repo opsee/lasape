@@ -20,7 +20,7 @@ public/js/src
 _vars.yml
 
 dist/
-_site/_includes/email.css
+src/_includes/email.css
 index.html
 
 packageCache.json
