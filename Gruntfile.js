@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     shell:{
       jekyll:{
-        command:'jekyll build --source _site --destination dist --config _config.yml'
+        command:'jekyll build --source src --destination dist --config _config.yml'
       },
       npm:{
         command:'npm install'
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
         options:{
           livereload:true
         },
-        files:['_site/email/**/*.**', '_site/_layouts/**/*.**'],
+        files:['src/email/**/*.**', 'src/_layouts/**/*.**'],
         tasks:['shell:jekyll','emailBuilder:inline']
       },
       sass:{
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
       },
       email:{
         options:{
-          cssDir:'_site/_includes',
+          cssDir:'src/_includes',
           sassDir:'scss-email',
           require:['breakpoint','sass-css-importer', 'compass-flexbox'],
           relativeAssets:true,
