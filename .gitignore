@@ -25,7 +25,7 @@ index.html
 
 packageCache.json
 
-public/lib/
+src/lib/
 rawdata/
 .sass-cache/
 
