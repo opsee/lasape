@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     shell:{
       jekyll:{
-        command:'jekyll build --source _site --destination dist --config _config.yml,_vars.yml'
+        command:'jekyll build --source _site --destination dist --config _config.yml'
       },
       npm:{
         command:'npm install'
