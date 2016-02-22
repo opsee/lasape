@@ -3,9 +3,9 @@
 @import "compass/css3/deprecated-support";
 @import '../public/lib/seedling/scss/module.scss';
 @import "bootstrap-email";
-@import '../scss/includes/helpers';
-@import "../scss/includes/mixins";
-@import "../scss/includes/layout";
+@import './_includes/helpers';
+@import "./_includes/mixins";
+@import "./_includes/layout";
 
 * {
   margin: 0 !important;
