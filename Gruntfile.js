@@ -69,7 +69,7 @@ module.exports = function(grunt) {
     },
     concurrent:{
       npmBower:['shell:npm','shell:bower'],
-      build:['shell:opseeBower','browserify','compass:dist','babel','preprocess']
+      build:['shell:opseeBower']
     }
   });
 
@@ -100,11 +100,8 @@ module.exports = function(grunt) {
 
 
 
-  grunt.registerTask('buildJekyll', ['compass:email','shell:jekyll','copy','emailBuilder:inline']);
-  grunt.registerTask('init', ['packageCache','concurrent:build','buildJekyll']);
-  grunt.registerTask('serve', ['connect', 'open','watch']);
-  grunt.registerTask('prod', ['init']);
-  grunt.registerTask('docker', ['init','shell:docker']);
-  grunt.registerTask('default', ['init','serve']);
+  grunt.registerTask('build', ['compass:email','shell:jekyll', 'emailBuilder:inline']);
+  grunt.registerTask('init', ['packageCache','concurrent:build','build']);
+  grunt.registerTask('default', ['init','build']);
 
 };
