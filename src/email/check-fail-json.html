@@ -4,10 +4,9 @@ layout: email
 {%raw%}
 <table width="100%">
   <tr>
-    <td class="padding-header">
-      <!-- <h1>{{check_name}} failure in {{group_name}}</h1> -->
-      <h3>One of your checks failed</h3>
-      <h1>http potato (auto) failing in potato</h1>
+    <td class="padding text-center">
+      <p class="text-muted">One of your checks failed</p>
+      <h1>{{check_name}} failure in {{group_name}}</h1>
     </td>
   </tr>
 
@@ -26,7 +25,7 @@ layout: email
   </tr>
 
   <tr>
-    <td class="padding prompt">
+    <td class="padding text-muted text-sm">
       A copy of the response is included below:
     </td>
   </tr>
@@ -37,8 +36,7 @@ layout: email
 
   <tr>
     <td class="padding text-mono">
-      <!-- {{! first_response }} -->
-      { "target": { "type": "instance", "id": "i-a52a7817", "address": "172.31.14.44" }, "error": "Get http://172.31.14.44:8000/: net/http: timeout awaiting response headers" }
+      {{first_response}}
     </td>
   </tr>
 
