@@ -1,9 +1,0 @@
-opsee-footer{
-  display: none !important;
-  @include breakpoint($screen-sm){
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-  }
-}

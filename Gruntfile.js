@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     shell:{
       jekyll:{
-        command:'jekyll build --source _site --destination dist --config _config.yml,_vars.yml'
+        command:'jekyll build --source src --destination dist --config _config.yml'
       },
       npm:{
         command:'npm install'
@@ -21,17 +21,6 @@ module.exports = function(grunt) {
       },
       opseeBower:{
         command:'bower update seedling'
-      }
-    },
-    copy:{
-      html:{
-        files:[
-        {
-          src:'dist/index.html',
-          dest:'index.html',
-          filter:'isFile'
-        }
-        ]
       }
     },
     autoprefixer:{
@@ -48,42 +37,19 @@ module.exports = function(grunt) {
         options:{
           livereload:true
         },
-        files:['_site/email/**/*.**', '_site/_layouts/**/*.**'],
+        files:['src/email/**/*.**', 'src/_layouts/**/*.**'],
         tasks:['shell:jekyll','emailBuilder:inline']
       },
-      sass:{
-        files:['scss/**/*.scss'],
-        tasks:['compass:dist']
-      },
       sassEmail:{
-        files:['scss-email/**/*.scss'],
+        files:['src/scss/**/*.scss'],
         tasks:['compass:email','shell:jekyll','emailBuilder:inline']
-      },
-      css:{
-        options:{
-          livereload:true
-        },
-        files:['public/css/**/*.css']
       }
     },
     compass:{
-      dist:{
-        options:{
-          cssDir:'public/css/src',
-          sassDir:'scss',
-          imagesDir:'public/img',
-          fontsPath:'fonts',
-          require:['breakpoint','sass-css-importer', 'compass-flexbox'],
-          httpPath:'',
-          relativeAssets:true,
-          noLineComments:true,
-          outputStyle:'compact'
-        }
-      },
       email:{
         options:{
-          cssDir:'_site/_includes',
-          sassDir:'scss-email',
+          cssDir:'src/_includes',
+          sassDir:'src/scss',
           require:['breakpoint','sass-css-importer', 'compass-flexbox'],
           relativeAssets:true,
           noLineComments:true,
@@ -99,18 +65,6 @@ module.exports = function(grunt) {
           dest:'',
           ext:'.html'
         }]
-      },
-      litmus: {
-        files: { 'dest/output.html' : 'src/input.html' },
-        options: {
-          encodeSpecialChars: true,
-          litmus: {
-            username: 'username',
-            password: 'password',
-            url: 'https://yoursite.litmus.com',
-            applications: ['gmailnew', 'ffgmail', 'chromegmail']
-          }
-        }
       }
     },
     concurrent:{
@@ -118,9 +72,6 @@ module.exports = function(grunt) {
       build:['shell:opseeBower','browserify','compass:dist','babel','preprocess']
     }
   });
-
-  grunt.registerTask('processhtml', ['newer:preprocess']);
-  grunt.registerTask('processbabel', ['newer:babel']);
 
   grunt.registerTask('packageCache', 'Generate packageCache file to avoid unnecessary npm install and bower install', function(){
     var done = this.async();
