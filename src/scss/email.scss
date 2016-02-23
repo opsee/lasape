@@ -64,6 +64,10 @@ table td {
   padding-right: 1em;
 }
 
+.force-wrap {
+  max-width: 600px;
+}
+
 .btn-cta {
   padding: 12px 48px !important;
   background-color: $brand-primary !important;
@@ -93,7 +97,7 @@ h2 {
 
 .text-mono {
   font-family: $font-family-monospace;
-  font-size: 13px;
+  word-wrap: break-word;
 }
 
 .sm-only{

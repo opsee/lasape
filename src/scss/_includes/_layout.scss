@@ -62,10 +62,6 @@ hr {
   border-color: $gray-800;
 }
 
-body {
-  min-height:100vh;
-}
-
 #main{
   padding-bottom:5em;
   @extend .flex-1;
