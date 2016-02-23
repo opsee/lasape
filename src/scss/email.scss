@@ -56,8 +56,16 @@ table td {
   padding:1em;
 }
 
+.prompt {
+  color: $gray-600;
+  font-size: 13px;
+}
 .padding {
   padding: 10px 10% 15px 10% !important;
+}
+
+.padding-pre {
+  padding: 10px 10% 15px 15% !important;
 }
 
 .padding-header {
@@ -72,13 +80,17 @@ table td {
   padding-right: 1em;
 }
 
+.btn-new {
+  padding: 12px 48px !important;
+}
+
 #{headings(all)}{
 
 }
 h1{
   color: $brand-danger;
   font-size: 24px;
-  font-weight:900;
+  font-weight: 900;
   text-align: center;
   line-height: 32px;
 }
@@ -87,14 +99,28 @@ h2 {
   text-align: center;
 }
 h3 {
-  color: $brand-danger;
-  font-size: 18px;
+  color: $gray-600;
+  font-size: 16px;
   font-weight: 400;
   line-height: 24px;
 }
 
 .text-sm{
   font-size:13px;
+}
+
+.text-muted {
+  color: $gray-600;
+}
+
+.text-mono {
+  font-family: $font-family-monospace;
+  font-size: 13px;
+}
+
+.btn-new {
+  background-color: $brand-primary !important;
+  border: none;
 }
 
 .sm-only{
