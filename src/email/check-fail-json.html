@@ -3,59 +3,25 @@ layout: email
 ---
 {%raw%}
 <table width="100%">
-  <tbody><tr><td>
-    <!--[if (gte mso 9)|(IE)]>
-    <table align="center" border="0" cellspacing="0" cellpadding="0" width="500">
-    <tr>
-    <td align="center" valign="top" width="500">
-    <![endif]-->
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="wrapper">
-      <tbody>
-        <tr>
-          <td class="padding text-center">
-            <p class="text-muted">One of your checks failed.</p>
-            <h1>{{check_name}} failure in {{group_name}}</h1>
-          </td>
-        </tr>
-
-        <tr>
-          <td height="20"></td>
-        </tr>
-
-        <tr>
-          <td class="content-block text-center text-button">
-            <a href="{{opsee_host}}/check/{{check_id}}/event?json={{json_url}}" class="btn btn-cta"><strong>VIEW FAILURE →</strong></a>
-          </td>
-        </tr>
-
-        <tr>
-          <td height="20"></td>
-        </tr>
-
-        <tr>
-          <td class="padding text-muted text-sm">
-            A copy of the response is included below:
-          </td>
-        </tr>
-
-        <tr>
-          <td height="10"></td>
-        </tr>
-
-        <tr>
-          <td class="padding">
-            <div class="force-wrap text-mono text-sm">
-              {{first_response}}
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!--[if (gte mso 9)|(IE)]>
+  <tr>
+    <td class="padding text-center">
+      <p class="text-muted">One of your checks failed.</p>
+      <h1>{{check_name}} failure in {{group_name}}</h1>
     </td>
-    </tr>
-    </table>
-    <![endif]-->
-  </td></tr></tbody>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
+  </tr>
+
+  <tr>
+    <td class="content-block text-center text-button">
+      <a href="{{opsee_host}}/check/{{check_id}}/event?json={{json_url}}" class="btn btn-cta"><strong>VIEW FAILURE →</strong></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
+  </tr>
 </table>
 {%endraw%}
