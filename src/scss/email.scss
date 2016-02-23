@@ -52,10 +52,6 @@ table td {
   text-align: center;
 }
 
-.padding-wrap {
-  padding:1em;
-}
-
 .padding {
   padding: 10px 10% 15px 10% !important;
 }
@@ -68,13 +64,12 @@ table td {
   padding-right: 1em;
 }
 
-.btn-new {
+.btn-cta {
   padding: 12px 48px !important;
+  background-color: $brand-primary !important;
+  border: none;
 }
 
-#{headings(all)}{
-
-}
 h1{
   color: $gray-800;
   font-size: 24px;
@@ -104,11 +99,6 @@ h3 {
 .text-mono {
   font-family: $font-family-monospace;
   font-size: 13px;
-}
-
-.btn-new {
-  background-color: $brand-primary !important;
-  border: none;
 }
 
 .sm-only{
