@@ -58,39 +58,14 @@
   margin:0 !important;
 }
 
-// .padding{
-//   padding:1em;
-// }
-// .padding-sm{
-//   padding:.5em;
-// }
-// .padding-lr {
-//   padding-left:1em;
-//   padding-right:1em;
-// }
-// .padding-tb{
-//   padding-top:1em;
-//   padding-bottom:1em;
-// }
-// .padding-tb-sm{
-//   padding-top:.5em;
-//   padding-bottom:.5em;
-// }
-// .padding-b {
-//   padding-bottom: 1em;
-// }
-// .padding-bx2 {
-//   padding-bottom: 2em;
-// }
-
 hr {
   border-color: $gray-800;
 }
 
 body {
   min-height:100vh;
-  @include display-flex();
-  @include flex-direction(column);
+  // @include display-flex();
+  // @include flex-direction(column);
 }
 
 #main{
@@ -98,92 +73,3 @@ body {
   @extend .flex-1;
 }
 
-/* Have to set height explicity on ui-view
-to prevent collapsing during animation*/
-.ui-view-container {
-  position: relative;
-}
-
-[ui-view]{
-  @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
-  &.transition-parent-child {
-    @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
-  }
-  &.no-transition{
-    @include transition(none !important);
-  }
-  &.ng-enter {
-    &.transition-sibling{
-      @include transform(translateY(15px));
-    }
-    &.transition-parent-child{
-      @include transform(translateY(-100%));
-    }
-    &.transition-push{
-      @include transform(translateX(-50%));
-    }
-  }
-  &.ng-enter,&.ng-leave-active {
-    position:absolute;
-    left:0;
-    right:0;
-    &.transition-sibling{
-      opacity:0;
-    }
-    &.transition-push{
-      opacity:0;
-    }
-  }
-  &.ng-enter-active,&.ng-leave {
-    position:absolute;
-    left:0;
-    right:0;
-    &.transition-sibling {
-      opacity:1;
-      @include transform(none);
-    }
-    &.transition-parent-child {
-      opacity:1;
-      @include transform(translateY(0));
-    }
-    &.transition-push{
-      opacity:1;
-      @include transform(none);
-    }
-  }
-  &.ng-leave-active {
-    &.transition-sibling {
-      @include transform(translateY(-15px));
-      opacity:0;
-    }
-    &.transition-parent-child {
-      // opacity:0;
-      @include transform(none);
-      &.transition-reverse{
-        opacity:0;
-        @include transform(translateY(100%));
-      }
-    }
-    &.transition-push{
-      opacity:0;
-    }
-  }
-}
-
-.transition-msg{
-  @include transition(all $swift-ease-out-duration $swift-ease-out-timing-function);
-  &.ng-enter {
-    @include transform(translateY(15px));
-  }
-  &.ng-enter,&.ng-leave-active {
-    opacity:0;
-  }
-  &.ng-enter-active,&.ng-leave {
-    opacity:1;
-    @include transform(none);
-  }
-  &.ng-leave-active {
-    @include transform(translateY(-15px));
-    opacity:0;
-  }
-}
