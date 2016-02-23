@@ -4,18 +4,10 @@ layout: email
 {%raw%}
 <table width="100%">
   <tr>
-    <td class="padding">
-      <h1>{{check_name}} failure in {{group_name}}</h1>
-    </td>
-  </tr>
-
-  <tr>
-    <td height="40"></td>
-  </tr>
-
-  <tr>
-    <td class="padding">
-      {{first_response}}
+    <td class="padding-header">
+      <!-- <h1>{{check_name}} failure in {{group_name}}</h1> -->
+      <h3>One of your checks failed:</h3>
+      <h1>http potato (auto) failing in potato</h1>
     </td>
   </tr>
 
@@ -30,13 +22,28 @@ layout: email
   </tr>
 
   <tr>
-    <td height="40"></td>
+    <td height="60"></td>
   </tr>
 
   <tr>
     <td class="padding">
-      Complete details of this event can be found in JSON form at <a href="{{json_url}}">{{json_url}}</a>
+      Complete details of this event can be found in JSON form at <a href="{{json_url}}">{{json_url}}</a>. A copy of the response is included below:
     </td>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <!-- {{! first_response }} -->
+      { "target": { "type": "instance", "id": "i-a52a7817", "address": "172.31.14.44" }, "error": "Get http://172.31.14.44:8000/: net/http: timeout awaiting response headers" }
+    </td>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
   </tr>
 
   <tr>
