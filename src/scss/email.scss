@@ -17,7 +17,7 @@ img {
 }
 
 body {
-  background-color: $gray-200;
+  background-color: $gray-100;
   color: $gray-800;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: none;
@@ -34,6 +34,84 @@ table {
 table td {
   padding: 0 0;
   vertical-align: top;
+}
+
+.body-wrap {
+  width: 100%;
+}
+
+#container {
+  background-color: white;
+  max-width: 600px !important;
+  margin: 0 auto !important;
+  clear: both !important;
+  width: 100% !important;
+}
+.logo {
+  background-color: #FFF;
+  text-align: center;
+}
+
+.padding {
+  padding: 10px 10% 15px 10% !important;
+}
+
+.padding-b {
+  padding-bottom: 1em;
+}
+
+.padding-r {
+  padding-right: 1em;
+}
+
+.force-wrap {
+  max-width: 600px;
+}
+
+.btn-cta {
+  padding: 12px 48px !important;
+  background-color: $brand-primary !important;
+  border: none;
+  color: #FFF;
+}
+
+h1{
+  color: $gray-800;
+  font-size: 24px;
+  font-weight: 900;
+  text-align: center;
+  line-height: 32px;
+}
+h2 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.text-sm{
+  font-size:13px;
+}
+
+.text-muted {
+  color: $gray-600;
+}
+
+.text-mono {
+  font-family: $font-family-monospace;
+  word-wrap: break-word;
+}
+
+.sm-only{
+  display: block;
+  height:0;
+  width:0;
+  clip: rect(0, 0);
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  overflow: hidden;
+}
+
+#footer-inner {
+  background-color: black;
 }
 
 .circle-container {
@@ -59,59 +137,4 @@ table td {
 }
 .circle-danger {
   background-color: $brand-danger;
-}
-
-
-.body-wrap {
-  width: 100%;
-}
-
-#container {
-  background-color: white;
-  max-width: 600px !important;
-  margin: 0 auto !important;
-  clear: both !important;
-  width: 100% !important;
-}
-.logo {
-  background-color: #eeeeee;
-  text-align: center;
-}
-
-.padding-b {
-  padding-bottom: 1em;
-}
-.padding-r {
-  padding-right: 1em;
-}
-
-#{headings(all)}{
-
-}
-h1{
-  color: #01579B;
-  font-size: 32px;
-  font-weight:900;
-  text-align: center;
-}
-h2 {
-  font-size: 24px;
-  text-align: center;
-}
-.text-sm{
-  font-size:13px;
-}
-
-.sm-only{
-  display: block;
-  height:0;
-  width:0;
-  clip: rect(0, 0);
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-  overflow: hidden;
-}
-
-#footer-inner {
-  background-color: black;
 }

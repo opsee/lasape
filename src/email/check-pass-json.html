@@ -16,29 +16,12 @@ layout: email
 
   <tr>
     <td class="content-block text-center">
-      <a href="{{opsee_host}}/check/{{check_id}}?eventData={{json_url}}" class="btn btn-success"><strong>GO TO CHECK IN OPSEE</strong></a>
+      <a href="{{opsee_host}}/check/{{check_id}}/event?json={{json_url}}" class="btn btn-cta"><strong>View Check →</strong></a>
     </td>
   </tr>
 
   <tr>
-    <td height="40"></td>
+    <td height="20"></td>
   </tr>
-
-  <tr>
-    <td class="padding">
-      Complete details of this event can be found in JSON form at <a href="{{json_url}}">{{json_url}}</a>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="padding">
-      <p>Reply to this message if you think there's been an error, or if you have any other feedback for us. We love replies.</p>
-    </td>
-  </tr>
-
-  <tr>
-    <td height="40"></td>
-  </tr>
-
 </table>
 {%endraw%}
