@@ -5,8 +5,14 @@ layout: email
 <table width="100%">
   <tr>
     <td class="padding text-center">
-      <p class="text-muted">One of your checks failed.</p>
       <h1>{{check_name}} failure in {{group_name}}</h1>
+
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding text-center">
+      <h2 class="text-muted">{{fail_count}} of {{instance_count}} instances failing.</h2>
     </td>
   </tr>
 
