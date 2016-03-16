@@ -1,0 +1,27 @@
+---
+layout: email
+---
+{%raw%}
+<table width="100%">
+
+  <tr>
+    <td class="padding">
+      <h1>Welcome to the Opsee Beta</h1>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <p>Thanks for signing up! Click the link below to get started:</p>
+    </td>
+  </tr>
+  <tr>
+    <td height="20"></td>
+  </tr>
+  <tr>
+    <td class="content-block text-center">
+      <a href="{{opsee_host}}/start/password?id={{signup_id}}&token={{url signup_token}}" class="btn btn-cta">Start Using Opsee</a>
+    </td>
+  </tr>
+</table>
+{%endraw%}
