@@ -13,13 +13,16 @@ sudo gem install bundler
 ```
 
 ### Compiling
-```
-// Installs the dependencies (if needed) and builds the email templates once.
-// The resulting HTML files will be in dist/email, ready to paste into Mandrill
-grunt
+```bash
+# Installs the dependencies (if needed) and builds the email templates once.
+# The resulting HTML files will be in dist/email, ready to paste into Mandrill
+npm run build
 
-// Watches for changes. This stuff will also output to dist/email.
-grunt watch
+# Watches for changes. This stuff will also output to dist/email.
+npm run watch
+
+# Publish the template with the given name to Mandrill
+npm run publish <template name>
 ```
 
 ## Tools
