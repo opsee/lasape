@@ -5,6 +5,18 @@ const mandrill = require('mandrill-api/mandrill');
 const parseArgs = require('minimist');
 const path = require('path');
 
+function printUsage() {
+  console.log(`
+    Add and update Lasape templates in Mandrill.
+
+    Usage:
+    \tnode publish.js <template name> [opts]
+
+    Options:
+    \t--draft\tPublish the template as a draft
+  `);
+}
+
 function addOrUpdate(params) {
   const mandrillClient = new mandrill.Mandrill(config.mandrill.api_key);
   return new Promise((resolve, reject) => {
@@ -19,10 +31,11 @@ function addOrUpdate(params) {
 }
 
 const argv = parseArgs(process.argv.slice(2));
-const templateName = _.get(argv, 'template');
+const templateName = _.first(_.get(argv, '_'));
 
 if (typeof templateName !== 'string') {
-  throw new Error('Must specify template: --template some-template-name');
+  printUsage();
+  process.exit(1);
 }
 
 const templatePath = path.resolve(path.join(__dirname, '..', 'dist', 'email', `${templateName}.html`));
@@ -34,7 +47,8 @@ addOrUpdate({
   code: templateHTML,
   from_email: config.mandrill.from_email,
   from_name: config.mandrill.from_name,
-  subject: templateSubject
+  subject: templateSubject,
+  publish: !_.get(argv, 'draft', false)
 }).then(response => {
   console.log(`Template "${templateName}" was updated 😎`)
   console.log(`Check it out: https://mandrillapp.com/templates/code?id=${response.slug}`)

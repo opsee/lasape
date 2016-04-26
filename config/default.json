@@ -15,7 +15,6 @@
     "discovery-failure": "We're Investigating an Issue with Your Environment",
     "instant-approval": "Welcome to Opsee! Let’s get started.",
     "password-reset": "Reset Your Opsee Password",
-    "signup-confirmation": "Thanks for Signing Up!",
-    "test": "i dunno whatever"
+    "signup-confirmation": "Thanks for Signing Up!"
   }
 }
