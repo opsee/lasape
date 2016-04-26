@@ -1,0 +1,21 @@
+{
+  "mandrill": {
+    "api_key": null, // Add this to your config/local.json
+    "from_email": "welovereplies@opsee.co",
+    "from_name": "Opsee"
+  },
+
+  "subjects": {
+    "beta-approval": "Welcome to Opsee! Let’s get started.",
+    "check-fail": "{{check_name}} failure",
+    "check-fail-json": "{{check_name}} failure",
+    "check-pass": "{{check_name}} passing",
+    "check-pass-json": "{{check_name}} passing",
+    "discovery-completion": "Your Opsee Environment is Ready! You Won’t Believe What We Found",
+    "discovery-failure": "We're Investigating an Issue with Your Environment",
+    "instant-approval": "Welcome to Opsee! Let’s get started.",
+    "password-reset": "Reset Your Opsee Password",
+    "signup-confirmation": "Thanks for Signing Up!",
+    "test": "i dunno whatever"
+  }
+}
