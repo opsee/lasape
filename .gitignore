@@ -33,4 +33,4 @@ rawdata/
 *.sublime-workspace
 *.sublime-project
 
-*.log.*
+*.log*
