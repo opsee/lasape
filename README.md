@@ -1,5 +1,6 @@
 # lasape
-front-end
+[![Circle CI](https://circleci.com/gh/opsee/lasape.svg?style=shield&circle-token=efe5bacba586a859d12fed4aad1b895bfe9af57f)](https://circleci.com/gh/opsee/lasape)
+<ferengi voice> emails
 
 ## Building
 
