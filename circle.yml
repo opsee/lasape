@@ -13,6 +13,6 @@ test:
 
 deployment:
   mandrill:
-    branch: doeg-deploy
+    branch: master
     commands:
       - npm run publish
