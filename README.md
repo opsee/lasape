@@ -14,7 +14,9 @@ brew install node
 sudo gem install bundler
 ```
 
-### Compiling
+### Making changes
+Here's how you can run lasape locally:
+
 ```bash
 # Installs the dependencies (if needed) and builds the email templates once.
 # The resulting HTML files will be in dist/email, ready to paste into Mandrill
@@ -22,9 +24,32 @@ npm run build
 
 # Watches for changes. This stuff will also output to dist/email.
 npm run watch
+```
 
-# Publish the template with the given name to Mandrill
-npm run publish <template name>
+### Publishing email templates
+All email templates are automatically published to Mandrill when the Lasape `master` branch is updated. You can view the current templates at https://mandrillapp.com/templates.
+
+Since the templates in Mandrill are overwritten on every `master` deploy, avoid making any changes in the Mandrill UI that you want should be copied into Lasape.
+
+#### Publishing from your local machine
+If you need to, you can publish templates from your local machine to Mandrill. First, get a copy of the Mandrill API key and either save it as an environment variable named `MANDRILL_API_KEY`, or create a `config/local.json` file that looks like this:
+
+```json
+{
+  "mandrill": {
+    "api_key": "MANDRILL-KEY-GOES-HERE"
+  }
+}
+```
+
+Next, build the emails with `npm run build`. Finally, publish templates with any of the following commands:
+```bash
+# Publish all templates to Mandrill
+npm run publish
+
+# Publish the template with the given name to Mandrill, 
+# where "some-template-name" is the name of the HTML file under dist/
+npm run publish -t some-template-name
 ```
 
 ## Tools
