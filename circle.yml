@@ -2,6 +2,11 @@ test:
   pre:
     - npm run build
 
+dependencies:
+  override:
+    - npm install
+    - bundle install
+
 deployment:
   mandrill:
     branch: doeg-deploy
