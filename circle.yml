@@ -6,6 +6,7 @@ dependencies:
   override:
     - bundle install
     - npm install
+    - npm install bower # Why? >:(
 
 test:
   pre:
