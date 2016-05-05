@@ -1,11 +1,15 @@
-test:
-  pre:
-    - npm run build
+machine:
+  node:
+    version: 5.5.0
 
 dependencies:
   override:
-    - npm install
     - bundle install
+    - npm install --verbose
+
+test:
+  pre:
+    - npm run build
 
 deployment:
   mandrill:
