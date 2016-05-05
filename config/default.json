@@ -13,10 +13,10 @@
     "check-pass": "{{check_name}} passing",
     "check-pass-json": "{{check_name}} passing",
     "check-pass-rds": "{{check_name}} passing",
-    "discovery-completion": "Your Opsee Environment is Ready! You Won’t Believe What We Found",
+    "discovery-completion": "Your Opsee environment is ready! You won’t believe what we found...",
     "discovery-failure": "We're Investigating an Issue with Your Environment",
     "instant-approval": "Welcome to Opsee! Let’s get started.",
-    "password-reset": "Reset Your Opsee Password",
-    "signup-confirmation": "Thanks for Signing Up!"
+    "password-reset": "Reset Your Opsee password",
+    "signup-confirmation": "Thanks for signing up!"
   }
 }
