@@ -7,12 +7,12 @@
 
   "subjects": {
     "beta-approval": "Welcome to Opsee! Let’s get started.",
-    "check-fail": "{{check_name}} failure",
-    "check-fail-json": "{{check_name}} failure",
-    "check-fail-rds": "{{check_name}} failure",
-    "check-pass": "{{check_name}} passing",
-    "check-pass-json": "{{check_name}} passing",
-    "check-pass-rds": "{{check_name}} passing",
+    "check-fail": "Failure: {{check_name}}",
+    "check-fail-json": "Failure: {{check_name}}",
+    "check-fail-rds": "Failure: {{check_name}}",
+    "check-pass": "Passing: {{check_name}}",
+    "check-pass-json": "Passing: {{check_name}}",
+    "check-pass-rds": "Passing: {{check_name}}",
     "discovery-completion": "Your Opsee environment is ready! You won’t believe what we found...",
     "discovery-failure": "We're Investigating an Issue with Your Environment",
     "instant-approval": "Welcome to Opsee! Let’s get started.",
