@@ -5,7 +5,7 @@ machine:
 dependencies:
   override:
     - bundle install
-    - npm install --verbose
+    - npm install
 
 test:
   pre:
