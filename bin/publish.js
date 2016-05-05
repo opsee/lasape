@@ -27,10 +27,10 @@ function addOrUpdate(params) {
   const mandrillClient = new mandrill.Mandrill(config.mandrill.api_key);
   return new Promise((resolve, reject) => {
     mandrillClient.templates.update(params, resolve, error => {
-      console.log('error', error);
       if (error.name === 'Unknown_Template') {
         mandrillClient.templates.add(params, resolve, reject);
       } else {
+        console.log('error', error);
         reject(error);
       }
     });
@@ -44,7 +44,7 @@ function uploadTemplate(templateName) {
   const templateSubject = config.get(`subjects.${templateName}`);
 
   return addOrUpdate({
-    name: `TEST-${templateName}`,
+    name: `${templateName}`,
     code: templateHTML,
     from_email: config.mandrill.from_email,
     from_name: config.mandrill.from_name,
