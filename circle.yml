@@ -1,0 +1,9 @@
+test:
+  pre:
+    - npm run build
+
+deployment:
+  mandrill:
+    branch: doeg-deploy
+    commands:
+      - npm run publish
