@@ -26,6 +26,9 @@ npm run build
 npm run watch
 ```
 
+### Adding email templates
+Create a new template under [`src/email`](https://github.com/opsee/lasape/tree/master/src/email), and add an email subject in [`config/default.json`](https://github.com/opsee/lasape/blob/master/config/default.json).
+
 ### Publishing email templates
 All email templates are automatically published to Mandrill when the Lasape `master` branch is updated. You can view the current templates at https://mandrillapp.com/templates.
 
