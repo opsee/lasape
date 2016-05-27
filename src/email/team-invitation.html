@@ -1,0 +1,28 @@
+---
+layout: email
+---
+{%raw%}
+<table width="100%">
+
+  <tr>
+    <td class="padding">
+      <h1>You're invited to join {{team_name}} on Opsee</h1>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <p>Hi {{name}},</p>
+      <p>You're invited to join the {{team}} team in Opsee! You were invited by {{sender_email}} Click the link below to set up your new Opsee account:</p>
+    </td>
+  </tr>
+  <tr>
+    <td height="20"></td>
+  </tr>
+  <tr>
+    <td class="content-block text-center">
+      <a href="{{opsee_host}}/start/password?id={{signup_id}}&token={{url signup_token}}" class="btn btn-cta">Start Using Opsee</a>
+    </td>
+  </tr>
+</table>
+{%endraw%}
