@@ -18,6 +18,7 @@
     "instant-approval": "Welcome to Opsee! Let’s get started.",
     "password-reset": "Reset Your Opsee password",
     "signup-confirmation": "Thanks for signing up!",
-    "team-invitation": "You're invited to join {{team_name}} on Opsee!"
+    "team-invitation": "You're invited to join {{team_name}} on Opsee!",
+    "new-user": "Welcome to Opsee!"
   }
 }
