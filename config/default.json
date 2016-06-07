@@ -19,6 +19,7 @@
     "password-reset": "Reset Your Opsee password",
     "signup-confirmation": "Thanks for signing up!",
     "team-invitation": "You're invited to join {{team_name}} on Opsee!",
-    "new-user": "Welcome to Opsee!"
+    "new-user": "Welcome to Opsee!",
+    "resend-verification": "Verify your email address with Opsee"
   }
 }
