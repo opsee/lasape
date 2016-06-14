@@ -8,6 +8,7 @@
     "build": "./node_modules/grunt-cli/bin/grunt",
     "test": "echo \"Error: no test specified\" && exit 0",
     "publish": "node ./bin/publish.js",
+    "render": "node ./bin/render.js",
     "watch": "./node_modules/grunt-cli/bin/grunt watch"
   },
   "repository": "",

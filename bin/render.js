@@ -13,10 +13,20 @@
  * Render a template, loading JSON data from the file at the given path:
  *    $ node render.js some-template --jsonFile ./test-data.json
  *
+ *
+ * Using with npm
+ * ---------------
+ * If you're running this with `npm run render`, you can pass in the template
+ * name and any other arguments prepended with `--`. For example:
+ *    $ npm run render -- beta-approval --json '{"firstName": "Bart", "lastName": "Simpson"}'
+ *
+ * A note about Mandrill
+ * ---------------------
  * The Mandrill API offers an API endpoint for rendering templates
  * (see https://mandrillapp.com/api/docs/templates.nodejs.html#method=render),
  * however the API only supports the MailChimp merge language, whereas
  * Lasape uses Handlebars. See https://github.com/rschreijer/lutung/issues/65.
+ *
  */
 const _ = require('lodash');
 const config = require('config');
