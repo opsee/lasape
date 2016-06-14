@@ -29,7 +29,6 @@
  *
  */
 const _ = require('lodash');
-const config = require('config');
 const fs = require('fs');
 const handlebars = require('handlebars');
 const parseArgs = require('minimist');
