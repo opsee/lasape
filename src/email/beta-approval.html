@@ -12,7 +12,11 @@ layout: email
 
   <tr>
     <td class="padding">
-      <p>Hi {{name}},</p>
+      {{#if name}}
+        <p>Hi {{name}},</p>
+      {{else}}
+        <p>Hey there,</p>
+      {{/if}}
       <p>You're in! Click the link below to set up your new Opsee account:</p>
     </td>
   </tr>
