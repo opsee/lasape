@@ -11,7 +11,11 @@ layout: email
 
   <tr>
     <td class="padding">
-      <p>Hi {{name}},</p>
+      {{#if name}}
+        <p>Hi {{name}},</p>
+      {{else}}
+        <p>Hey there,</p>
+      {{/if}}
       <p>Our Bastion Instance was added to your environment, and it's communicating with Opsee.</p>
     </td>
   </tr>
