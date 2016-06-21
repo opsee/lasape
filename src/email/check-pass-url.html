@@ -1,0 +1,27 @@
+---
+layout: email
+---
+{%raw%}
+<table width="100%">
+  <tr>
+    <td class="padding">
+      <h1>{{check_name}} passing in {{group_name}}</h1>
+      <h2 class="padding">All DNS entries Passing</h2>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
+  </tr>
+
+  <tr>
+    <td class="content-block text-center">
+      <a href="{{opsee_host}}/check/{{check_id}}/event?json={{json_url}}" class="btn btn-cta"><strong>View Check →</strong></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
+  </tr>
+</table>
+{%endraw%}
