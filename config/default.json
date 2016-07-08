@@ -15,6 +15,7 @@
     "check-pass-json": "Passing: {{check_name}}",
     "check-pass-rds": "Passing: {{check_name}}",
     "check-pass-url": "Passing: {{check_name}}",
+    "check-test": "Test Notification from Opsee",
     "discovery-completion": "Your Opsee environment is ready! You won’t believe what we found...",
     "discovery-failure": "We're Investigating an Issue with Your Environment",
     "instant-approval": "Welcome to Opsee! Let’s get started.",
