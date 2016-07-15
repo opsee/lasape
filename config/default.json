@@ -23,6 +23,11 @@
     "signup-confirmation": "Thanks for signing up!",
     "team-invitation": "You're invited to join {{team_name}} on Opsee!",
     "new-user": "Welcome to Opsee!",
-    "resend-verification": "Verify your email address with Opsee"
+    "resend-verification": "Verify your email address with Opsee",
+    "warning-five": "Access to your checks will end in 2 days",
+    "warning-minus-three": "You have 3 days left in your Opsee trial",
+    "warning-seven": "Access to your checks ends today",
+    "warning-three": "Access to your checks will end in 4 days",
+    "warning-zero": "Your Opsee trial ends today!"
   }
 }
