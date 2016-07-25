@@ -1,0 +1,24 @@
+---
+layout: email
+---
+{%raw%}
+<table width="100%">
+  <tr>
+    <td class="padding text-center">
+      <h1>Your Opsee billing plan has changed</h1>
+      <h2 class="padding">Plan changed to {{plan_new}}</h2>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="padding">
+      <p>Your billing plan was changed from {{plan_old}} to {{plan_new}}. If this change is unexpected, or if you have any questions, just reply to this email.</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td height="20"></td>
+  </tr>
+
+</table>
+{%endraw%}

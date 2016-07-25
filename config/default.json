@@ -23,6 +23,7 @@
     "signup-confirmation": "Thanks for signing up!",
     "team-invitation": "You're invited to join {{team_name}} on Opsee!",
     "new-user": "Welcome to Opsee!",
+    "plan-change": "Your Opsee billing plan has changed",
     "resend-verification": "Verify your email address with Opsee",
     "warning-five": "Access to your checks will end in 2 days",
     "warning-minus-three": "You have 3 days left in your Opsee trial",
