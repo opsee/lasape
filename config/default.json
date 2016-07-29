@@ -19,6 +19,7 @@
     "discovery-completion": "Your Opsee environment is ready! You won’t believe what we found...",
     "discovery-failure": "We're Investigating an Issue with Your Environment",
     "instant-approval": "Welcome to Opsee! Let’s get started.",
+    "payment-failed": "Your Opsee Payment Failed",
     "password-reset": "Reset Your Opsee password",
     "signup-confirmation": "Thanks for signing up!",
     "team-invitation": "You're invited to join {{team_name}} on Opsee!",
